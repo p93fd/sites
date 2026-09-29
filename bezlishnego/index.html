@@ -462,7 +462,7 @@ body{margin:0}
 .nx .e1{font:800 clamp(19px,min(2vw,3.4vh),28px)/1.2 var(--sans);text-transform:uppercase;letter-spacing:-.01em}
 .nx .e2{font:600 clamp(16px,min(1.45vw,2.5vh),20px)/1.45 var(--sans)}
 .nx .epane .q{max-width:none;font-size:clamp(21px,min(2.3vw,3.8vh),32px)}
-@media (min-width:820px){.nx .en{grid-template-columns:1fr 1fr;gap:5vw;align-items:center}.nx .epane{--ry:-9deg}}
+@media (min-width:820px){.nx .en{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5vw;align-items:center}.nx .epane{--ry:-9deg}}
 /* cost */
 .nx .nb{display:flex;flex-direction:column;gap:10px}
 .nx .nt{font:800 clamp(16px,min(1.6vw,2.7vh),22px)/1.2 var(--sans);text-transform:uppercase;letter-spacing:-.01em}
@@ -488,7 +488,7 @@ body{margin:0}
 .nx .frame::before{content:"";position:absolute;inset:0;border:1px solid rgba(217,185,124,.8);transform:translate3d(18px,18px,-60px);pointer-events:none}
 .nx .frame img{position:relative;display:block;width:100%;height:auto;outline:1px solid rgba(217,185,124,.6);box-shadow:0 40px 80px -24px rgba(0,0,0,.75)}
 .nx .who1{display:grid;gap:18px}
-@media (min-width:820px){.nx .who1{grid-template-columns:auto 1fr;gap:5.5vw;align-items:center}.nx .who1 .frame{width:min(34vw,calc(min(72vh,640px)*.75));--ry:12deg}.nx .who1 .head{margin-bottom:0}}
+@media (min-width:820px){.nx .who1{grid-template-columns:auto minmax(0,1fr);gap:5.5vw;align-items:center}.nx .who1 .frame{width:min(34vw,calc(min(72vh,640px)*.75));--ry:12deg}.nx .who1 .head{margin-bottom:0}}
 @media (max-width:819px){.nx .who1 .frame{height:31svh}.nx .who1 .frame img{height:100%;object-fit:cover;object-position:50% 20%}.nx .frame::before{transform:translate3d(9px,9px,-40px)}.nx .who1 .stats{margin-top:14px}}
 /* document decks */
 .nx .deck{position:relative;perspective:1500px;height:clamp(220px,min(46vh,31vw),440px);touch-action:pan-y;user-select:none;-webkit-user-select:none}
@@ -502,21 +502,21 @@ body{margin:0}
 .nx .dnav{flex:none;display:flex;align-items:center;gap:8px;font:600 11px/1 var(--sans);letter-spacing:.2em;color:var(--g)}
 .nx .dnav button{width:38px;height:38px;border:1px solid var(--line);background:rgba(3,22,16,.5);color:var(--iv);font:400 18px/1 var(--sans);cursor:pointer}
 .nx .docs{display:grid;gap:10px}
-@media (min-width:820px){.nx .who2{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center}.nx .who2 .rows .row{grid-template-columns:1fr;gap:6px}}
+@media (min-width:820px){.nx .who2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5vw;align-items:center}.nx .who2 .rows .row{grid-template-columns:1fr;gap:6px}}
 @media (max-width:819px){.nx .deck{height:min(34svh,250px)}}
 /* psychology page */
 .nx .psy{display:grid;gap:18px}
 .nx .psl{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
 .nx .psl li{display:flex;gap:12px;align-items:baseline;font:700 clamp(15px,1.25vw,18px)/1.35 var(--sans)}
 .nx .psl li::before,.nx .wins li::before{content:"";flex:none;width:17px;height:17px;translate:0 3px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'><circle cx='9' cy='9' r='9' fill='%23D9B97C'/><path d='M5 9.4l2.6 2.6L13 6.4' fill='none' stroke='%2306241A' stroke-width='2'/></svg>") center/contain no-repeat}
-@media (min-width:820px){.nx .psy{grid-template-columns:1fr 1.05fr;gap:5vw;align-items:center}.nx .psy .head{margin-bottom:0}}
+@media (min-width:820px){.nx .psy{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:5vw;align-items:center}.nx .psy .head{margin-bottom:0}}
 /* my before/after + philosophy */
 .nx .mineg{display:grid;gap:16px}
 .nx .phil{display:flex;flex-direction:column;gap:12px}
 .nx .fz1{font:italic 500 clamp(26px,min(3vw,5vh),44px)/1.1 var(--serif);color:#F3DDA8}
 .nx .fz2{font:600 clamp(15px,min(1.35vw,2.4vh),19px)/1.5 var(--sans)}
 .nx .fz3{font:800 clamp(15px,min(1.4vw,2.4vh),19px)/1.3 var(--sans);text-transform:uppercase;letter-spacing:.02em;color:#F3DDA8}
-@media (min-width:820px){.nx .mineg{grid-template-columns:1fr 1fr;gap:5vw;align-items:center}.nx .mineg .mine{width:auto}.nx .phil{--ry:-9deg}}
+@media (min-width:820px){.nx .mineg{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5vw;align-items:center}.nx .mineg .mine{width:auto}.nx .phil{--ry:-9deg}}
 @media (max-width:819px){.nx .mineg .pair{margin-top:8px}.nx .phil{padding:16px}.nx .fz1{font-size:24px}.nx .fz2{font-size:14.5px;line-height:1.45}.nx .fz3{font-size:14px}}
 /* cases: wins in a gold frame */
 .nx .ab.a p:not(.lab){font-size:clamp(14px,1.15vw,16px);color:rgba(242,239,234,.72)}
@@ -550,24 +550,67 @@ body{margin:0}
 @media (max-width:819px){.nx .chips{gap:6px}.nx .chips span{padding:6px 9px;font-size:12.5px}.nx .startg .pane{padding:16px;gap:10px}}
 @media (max-width:819px) and (max-height:780px){.nx .chips span{padding:5px 8px;font-size:12px}.nx .startg .lnote{font-size:11.5px}}
 .nx .startg .btn{letter-spacing:.16em;padding-inline:22px}
+/* ===== v8: brand mark, watermark, formats ===== */
+.nx .brand{display:flex;align-items:center;gap:10px}
+.nx .bm{width:26px;height:26px;flex:none;color:var(--g)}
+.nx .bt b{font-weight:800;color:var(--g)}
+@media (max-width:819px){.nx .bt{font-size:11px;letter-spacing:.16em}.nx .bm{width:24px;height:24px}}
+@media (max-width:389px){.nx .bt{letter-spacing:.1em}}
+.nx .gm{display:block;width:clamp(64px,9vw,92px);height:auto;aspect-ratio:1;margin:0 auto 18px;color:var(--g);filter:drop-shadow(0 2px 0 rgba(0,0,0,.35)) drop-shadow(0 10px 24px rgba(0,0,0,.4))}
+.nx .wm{position:absolute;z-index:-1;right:-7vw;top:50%;height:min(94vh,940px);width:auto;aspect-ratio:1;color:#E6CD98;opacity:.085;pointer-events:none;
+  transform:translate3d(0,calc(-50% + var(--py,0px)),0) rotate(var(--wr,-8deg));transition:transform .8s cubic-bezier(.16,.84,.2,1);filter:drop-shadow(0 3px 0 rgba(0,0,0,.45)) drop-shadow(0 -1px 0 rgba(255,244,216,.35))}
+@media (max-width:819px){.nx .wm{right:-38vw;height:78svh;opacity:.075}.nx .wm.d{display:none}}
+@media (min-width:820px){.nx .wm.m{display:none}}
+.nx .slide,.nx .dslide,.nx .mpart{position:relative}
+@media (max-width:819px){.nx .mslide{position:relative}}
+.nx .bgp{object-position:var(--op,50% 30%)}
+@media (max-width:819px){.nx .bgp{opacity:.32;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 86%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 86%,transparent 100%)}}
+/* value: why it pays off */
+.nx .why-l{margin-top:6px}
+.nx .why li{font-size:clamp(14px,min(1.2vw,2.1vh),17px)}
+@media (max-width:819px){.nx .cmp .ln{padding-bottom:7px}.nx .cmp{gap:8px}.nx .why{gap:6px}.nx .why li{font-size:13.5px}}
+/* formats */
+.nx .fmts{grid-template-columns:1fr}
+.nx .fm{display:flex;flex-direction:column;gap:8px}
+.nx .fm .ct{font-size:clamp(17px,min(1.8vw,3vh),25px)}
+.nx .fr{margin-top:auto;padding-top:10px;border-top:1px solid rgba(217,185,124,.3);font:700 clamp(14px,min(1.2vw,2.1vh),17px)/1.35 var(--sans);color:#F3DDA8}
+.nx .fr span{display:block;margin-bottom:4px;font:600 10.5px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--g)}
+.nx .fm.hl{background:linear-gradient(160deg,rgba(31,163,127,.3),rgba(3,22,16,.45));border-color:var(--g)}
+.nx .pill2{position:absolute;top:14px;right:14px;padding:7px 10px;background:var(--g);color:#050B09;font:800 10px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase}
+.nx .fnote{margin-top:16px}
+@media (min-width:820px){.nx .fmtg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:18px;align-items:stretch}.nx .fmtg .mpart{display:contents}.nx .fmtg .head{grid-column:1/-1}.nx .fmtg .fmts{display:contents}.nx .fmtg .fnote{grid-column:1/-1}
+  .nx .fmtg .f1{--ry:9deg}.nx .fmtg .fm.hl{--ry:-9deg}}
+@media (max-width:819px){.nx .fmts{gap:10px}.nx .fm{padding:14px 16px;gap:6px}.nx .fm .ct{font-size:16px}.nx .fr{font-size:13.5px;padding-top:8px}}
+/* one-off psychology */
+.nx .psd,.nx .psr{display:flex;flex-direction:column;gap:12px}
+.nx .psr .btns{margin-top:4px}.nx .psr .btn,.nx .dgn .btn{letter-spacing:.16em;padding-inline:22px}
+@media (min-width:820px){.nx .psyc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:4vw;align-items:center}.nx .psyc .mpart:first-child{display:flex;flex-direction:column;gap:18px}.nx .psr{--ry:-8deg}.nx .psd{--ry:6deg}}
+/* diagnostic */
+.nx .dgn{display:flex;flex-direction:column;gap:12px;max-width:760px}
+.nx .dgn .q{font-size:clamp(19px,min(2vw,3.4vh),28px);max-width:none}
+@media (min-width:820px){.nx .dgng{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:5vw;align-items:center}.nx .dgng .head{margin-bottom:0}.nx .dgn{--ry:-8deg}}
+@media (max-width:819px) and (max-height:780px){.nx .fm .cd{font-size:13px}.nx .dgn .e2{font-size:13.5px;line-height:1.4}.nx .dgn{gap:8px;padding:14px}.nx .dgn .e1{font-size:16px}.nx .dgn .q{font-size:16px}.nx .psd,.nx .psr{gap:9px}}
+.nx main .row .t.strike{text-shadow:0 2px 12px rgba(0,0,0,.5)}
 </style>
 </head><body>
 
 
 <div class="nx">
   <script>document.currentScript.parentNode.classList.add("js")</script>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="psy" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="60" cy="60" r="50.5" fill="none" stroke="currentColor" stroke-width=".8" opacity=".55"/><circle cx="60" cy="30.5" r="6.6" fill="currentColor"/><path d="M33.5 25c0 26 9.5 38 26.5 38s26.5-12 26.5-38" fill="none" stroke="currentColor" stroke-width="5.4" stroke-linecap="round"/><path d="M60 41.5V95" stroke="currentColor" stroke-width="5.4" stroke-linecap="round"/></symbol></defs></svg>
   <div class="silk" aria-hidden="true"></div>
   <video class="satin" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <div class="veil" aria-hidden="true"></div>
   <div class="prog" aria-hidden="true"></div>
   <nav class="rail" aria-label="Главы"></nav>
   <div class="grain" aria-hidden="true"></div>
-  <div class="top"><span class="brand">Без лишнего</span><span class="chap" aria-hidden="true"><span>Вход</span></span><button class="snd" type="button" aria-label="Звук"><span class="bars"><i></i><i></i><i></i></span><span class="st">Звук</span></button></div>
+  <div class="top"><span class="brand"><svg class="bm" viewBox="0 0 120 120" aria-hidden="true"><use href="#psy"/></svg><span class="bt">Alexandra <b>Psyfit</b></span></span><span class="chap" aria-hidden="true"><span>Вход</span></span><button class="snd" type="button" aria-label="Звук"><span class="bars"><i></i><i></i><i></i></span><span class="st">Звук</span></button></div>
   <audio class="trk" loop preload="auto"></audio>
 
   <div class="gate">
     <div>
-      <p class="k" style="justify-content:center">Персональное ведение · онлайн</p>
+      <svg class="gm" viewBox="0 0 120 120" aria-hidden="true"><use href="#psy"/></svg>
+      <p class="k gk" style="justify-content:center">Alexandra Psyfit · персональное ведение</p>
       <p class="gt">Без<br>лишнего<span style="color:var(--g)">.</span></p>
       <button class="enter" type="button">Войти</button>
       <p class="hint">Лучше со звуком</p>
@@ -609,12 +652,12 @@ body{margin:0}
       </div></div>
     </section>
 
-    <section data-veil=".12"><div class="slide hasbg"><img class="bgp" width="820" height="1189" src="bg-1.webp" alt="" aria-hidden="true" loading="lazy"><div class="wrap en">
+    <section data-veil=".12"><div class="slide hasbg"><img class="bgp" width="820" height="1189" style="--op:50% 81%" src="bg-1.webp" alt="" aria-hidden="true" loading="lazy"><div class="wrap en">
       <div class="head" style="margin-bottom:0"><p class="k">02 — Для тех, кто строит бизнес или карьеру</p><h2 class="h" data-split>Ваша энергия — <span class="gd">главный актив</span></h2></div>
       <div class="pane t3 epane rv">
-        <p class="lab">Простая бухгалтерия</p>
-        <p class="e1">Деньги вы считаете до рубля. Время — до минуты. Людей — по KPI.</p>
-        <p class="e2">А энергию, на которой держатся ваши решения, переговоры и близкие, <b class="gl">не считает никто</b>. Хотя деньги всегда приходят под что-то — и это «что-то» всегда вы.</p>
+        <p class="lab">Простая математика</p>
+        <p class="e1">Деньги вы считаете до рубля. А энергию?</p>
+        <p class="e2">А ведь на ней держатся ваши решения, переговоры и близкие. <b class="gl">Деньги всегда приходят под что-то</b> — и это «что-то» всегда вы.</p>
         <p class="q" data-words>Её замечают, только когда она заканчивается.</p>
       </div>
     </div></div></section>
@@ -661,7 +704,7 @@ body{margin:0}
       </div>
     </div></div></section>
 
-    <section data-veil=".3"><div class="slide hasbg"><img class="bgp" width="820" height="1114" src="bg-2.webp" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+    <section data-veil=".3"><div class="slide hasbg"><img class="bgp" width="820" height="1114" style="--op:50% 70%" src="bg-2.webp" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
       <div class="head"><p class="k">07 — Вы уже знаете, как это работает</p><h2 class="h" data-split>В работе вы не держитесь <span class="gd">на силе воли</span></h2><p class="lead rv">Там у вас план, отчёты и люди, которым вы делегируете. <b class="gl">Здесь — так же.</b> Делаем то, что работает, и не делаем того, что не работает.</p></div>
       <div class="tiles rv">
         <div class="tile t3" style="--ry:8deg"><p class="tn">01</p><p class="tt">План</p><p class="td">График тренировок и консультаций на месяц вперёд.</p></div>
@@ -675,7 +718,7 @@ body{margin:0}
       <div class="mslide">
         <div class="head"><p class="k">08 — Как проходит работа</p><h2 class="h" data-split>От первого созвона <span class="gd">до результата</span></h2><p class="q rv">Вам не нужно ничего придумывать. Нужно приходить.</p></div>
         <div class="path">
-          <div class="st rv"><span class="n">01</span><p class="ct">Диагностика</p><p class="cd">Диагностическая консультация: ваш запрос, цели, исходные замеры и фото. <b class="gl">Безопасный первый шаг.</b></p></div>
+          <div class="st rv"><span class="n">01</span><p class="ct">Диагностика</p><p class="cd">Диагностическая консультация: ваш запрос, цели, исходные замеры и фото. <b class="gl">С неё всё начинается.</b></p></div>
           <div class="st rv"><span class="n">02</span><p class="ct">План</p><p class="cd">Даты тренировок, консультаций и замеров. Регламент и правила переносов.</p></div>
         </div>
       </div>
@@ -722,7 +765,7 @@ body{margin:0}
       <ol class="clips"><li><b>01</b>Техника — в каждом повторении</li><li><b>02</b>Нагрузка под ваш уровень</li><li><b>03</b>Кор и контроль движения</li><li><b>04</b>Сила без изнурения</li></ol>
     </div></div></section>
 
-    <section data-veil=".12"><div class="slide hasbg"><img class="bgp" width="540" height="960" src="bg-3.webp" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+    <section data-veil=".12"><div class="slide hasbg"><img class="bgp" width="540" height="960" style="--op:50% 78%" src="bg-3.webp" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
       <div class="head"><p class="k">12 — Без лишних усилий</p><h2 class="h" data-split>Чего вам <span class="gd">не придётся делать</span></h2></div>
       <div class="rows">
         <div class="row"><p class="t strike">Считать калории</p><p class="d">Учитесь распознавать физический и эмоциональный голод. Знаете, как питаться, <b class="gl">ориентируясь на сигналы тела</b>.</p></div>
@@ -790,7 +833,7 @@ body{margin:0}
       </div></div>
       <article class="case dslide"><div class="wrap caseg">
         <div class="mpart cA">
-          <div class="shots wipe" data-shots><img width="1000" height="1000" class="on" src="nat-1.webp" alt="Наталья до и после, спина" loading="lazy"><img width="1000" height="1000" src="nat-2.webp" alt="Наталья до и после, профиль" loading="lazy"><span class="tag">До</span><span class="tag r g">После</span><div class="sw"><button type="button" class="on">Спина</button><button type="button">Профиль</button></div></div>
+          <div class="shots wipe"><img width="1000" height="1000" class="on" src="nat-1.webp" alt="Наталья до и после" loading="lazy"><span class="tag">До</span><span class="tag r g">После</span></div>
           <div class="cmeta"><p class="lab">Кейс 01</p><h3 class="cn">Наталья, 39</h3><p class="cr">Топ-менеджер</p></div>
         </div>
         <div class="mpart cB">
@@ -813,7 +856,7 @@ body{margin:0}
       </div></article>
       <article class="case dslide"><div class="wrap caseg">
         <div class="mpart cA">
-          <div class="shots wipe" data-shots><img width="1000" height="1000" class="on" src="ali-1.webp" alt="Алиса до и после, спина" loading="lazy"><img width="1000" height="1000" src="ali-2.webp" alt="Алиса до и после, профиль" loading="lazy"><span class="tag">До</span><span class="tag r g">После</span><div class="sw"><button type="button" class="on">Спина</button><button type="button">Профиль</button></div></div>
+          <div class="shots wipe"><img width="1000" height="1000" class="on" src="ali-1.webp" alt="Алиса до и после" loading="lazy"><span class="tag">До</span><span class="tag r g">После</span></div>
           <div class="cmeta"><p class="lab">Кейс 03</p><h3 class="cn">Алиса, 33</h3><p class="cr">Домохозяйка</p><span class="kg">−7 кг</span></div>
         </div>
         <div class="mpart cB">
@@ -825,7 +868,7 @@ body{margin:0}
       </div></article>
     </section>
 
-    <section class="fit dslide hasbg" data-veil=".36"><img class="bgp" width="540" height="960" src="bg-4.webp" alt="" aria-hidden="true" loading="lazy"><div class="wrap fitg">
+    <section class="fit dslide hasbg" data-veil=".36"><img class="bgp" width="540" height="960" style="--op:50% 88%" src="bg-4.webp" alt="" aria-hidden="true" loading="lazy"><div class="wrap fitg">
       <div class="mslide">
       <div class="head"><p class="k">15 — Честно</p><h2 class="h" data-split>Кому подойдёт, <span class="gd">а кому нет</span></h2></div>
       <div class="cols">
@@ -860,33 +903,54 @@ body{margin:0}
           <div class="ln"><span>Нутрициолог</span><span>60 000 ₽</span></div>
           <div class="tot"><span>Итого</span><span><span data-count="192" data-suf=" 000 ₽">192 000 ₽</span></span></div>
           <p class="cd" style="font-style:italic">И связывать их между собой пришлось бы вам.</p>
-          <p>Здесь всё держит один человек — и выходит <b class="gl">заметно дешевле</b>. Стоимость и формат подбираем на диагностике, под ваш запрос. Есть рассрочка без банка.</p>
+          <p class="lab why-l">Почему здесь выгоднее</p>
+          <ul class="wins why"><li><span><b class="gl">Дешевле</b>, чем три специалиста по отдельности</span></li><li><span><b class="gl">Один человек</b> видит и тело, и голову — не пересказываете себя трижды</span></li><li><span><b class="gl">Работаем с причиной</b>, а не с симптомом — не платите за второй круг</span></li><li><span><b class="gl">Рассрочка</b> без банка и процентов</span></li></ul>
         </div>
       </div>
     </div></section>
 
-    <section class="dslide" data-veil=".36"><div class="wrap startg">
-      <div class="mslide">
-        <div class="head"><p class="k">17 — С чего начать</p><h2 class="h" data-split>Начните <span class="gd">с диагностики</span></h2></div>
-        <div class="pane t3 dgn rv">
-          <p class="lab">Диагностическая консультация · первый шаг</p>
-          <p class="e1">Безопасный старт. Ни к чему не обязывает</p>
-          <p class="e2">Правильно начинать не с оплаты, а с диагностики. Одна встреча — и ваша точка А как на ладони: <b class="gl">что работает, что не работает и что с этим делать</b>. После неё вместе решаем, нужен ли вам формат на 3 месяца.</p>
-          <div class="btns"><a class="btn fill" data-link="telegram">Записаться на диагностику</a></div>
-          <p class="lnote">Нажимая кнопку, вы соглашаетесь с <a data-doc="policy">политикой</a> и даёте <a data-doc="consent">согласие на обработку данных</a>. Условия — в <a data-doc="offer">оферте</a>.</p>
+    <section data-veil=".3">
+      <div class="dslide"><div class="wrap fmtg">
+        <div class="mpart">
+          <div class="head"><p class="k">17 — Форматы работы</p><h2 class="h" data-split>Три формата. <span class="gd">Один подход</span></h2></div>
+          <div class="g3 fmts">
+            <div class="pane t3 fm f1"><p class="lab">Формат 01</p><p class="ct">Разовая психологическая консультация</p><p class="cd">Одна встреча. Разбираем один запрос до дна: что стоит за симптомом, срывом или «не могу себя принять».</p><p class="fr"><span>На выходе</span>Понимаете причину и знаете первый шаг.</p></div>
+          </div>
         </div>
-      </div>
-      <div class="mslide">
-        <p class="k monly">17 — С чего начать</p>
-        <div class="pane t3 one rv">
-          <p class="lab">Разовая консультация психолога</p>
-          <p class="e1">Тело всегда говорит первым</p>
-          <p class="e2">Зажимы, бессонница, срывы — это не «характер», а сигнал. Разбираем, что за ним стоит, <b class="gl">на простом русском</b>. Одна встреча — без курса и обязательств.</p>
-          <div class="chips"><span>Телесные симптомы</span><span>Зажимы</span><span>Аллергия</span><span>Головные боли</span><span>Бессонница</span><span>Эмоциональное состояние</span><span>Уверенность в себе</span><span>Срывы</span><span>Переедание</span><span>Непринятие себя</span><span>Отношения с собой</span></div>
-          <p class="lnote">Психолог не ставит диагнозы и не лечит — это работа врача. Я работаю с тем, что стоит за симптомом. За плечами две профпереподготовки по психологии: 256 и 281 час.</p>
+        <div class="mpart">
+          <p class="k monly">17 — Форматы работы</p>
+          <div class="g3 fmts">
+            <div class="pane t3 fm"><p class="lab">Формат 02</p><p class="ct">Месяц — запуск</p><p class="cd">8 тренировок, 4 консультации, замеры. Тело, голова и режим начинают работать вместе.</p><p class="fr"><span>На выходе</span>Первые изменения в сантиметрах и понятный план.</p></div>
+            <div class="pane t3 fm hl"><span class="pill2">Рекомендую</span><p class="lab">Формат 03</p><p class="ct">Три месяца — закрепить</p><p class="cd">24 тренировки, 12 консультаций, замеры каждый месяц и связь каждый день.</p><p class="fr"><span>На выходе</span>Вес, режим и привычки, которые держатся уже без меня.</p></div>
+          </div>
+          <p class="note fnote rv"><span>Какой формат ваш — решаем вместе на диагностике. Стоимость называю там же, честно и сразу. <b class="gl">Есть рассрочка без банка.</b></span></p>
         </div>
+      </div></div>
+      <div class="dslide"><div class="wrap psyc">
+        <div class="mpart">
+          <div class="head"><p class="k">17 — Разовая психологическая консультация</p><h2 class="h" data-split>Тело всегда <span class="gd">говорит первым</span></h2><p class="lead rv">Зажимы, бессонница, срывы — это не «характер» и не «надо просто взять себя в руки». Это сигнал. <b class="gl">Смотрим, что за ним стоит, и переводим на простой русский.</b></p></div>
+          <div class="pane t3 rv psd"><p class="lab">Что делаем на встрече</p><ul class="wins"><li><span>Разбираем ваш запрос — <b class="gl">без диагнозов и ярлыков</b></span></li><li><span>Находим причину: <b class="gl">что тело пытается сказать</b></span></li><li><span>Уходите с <b class="gl">одним конкретным шагом</b> на эту неделю</span></li></ul></div>
+        </div>
+        <div class="mpart">
+          <p class="k monly">17 — Разовая психологическая консультация</p>
+          <div class="pane t3 rv psr"><p class="lab">С чем приходят</p><div class="chips"><span>Телесные симптомы</span><span>Зажимы</span><span>Аллергия</span><span>Головные боли</span><span>Бессонница</span><span>Эмоциональное состояние</span><span>Уверенность в себе</span><span>Срывы</span><span>Переедание</span><span>Непринятие себя</span><span>Отношения с собой</span></div>
+            <p class="lnote">Психолог не ставит диагнозы и не лечит — это работа врача. Я работаю с тем, что стоит за симптомом. За плечами две профпереподготовки по психологии: 256 и 281 час.</p>
+            <div class="btns"><a class="btn fill" data-link="telegram">Записаться на консультацию</a></div></div>
+        </div>
+      </div></div>
+    </section>
+
+    <section data-veil=".36"><div class="slide"><div class="wrap dgng">
+      <div class="head"><p class="k">18 — С чего начать</p><h2 class="h" data-split>Всё начинается <span class="gd">с диагностики</span></h2></div>
+      <div class="pane t3 dgn rv">
+        <p class="lab">Диагностическая консультация · первое касание</p>
+        <p class="e1">Смотрим на вашу точку А честно</p>
+        <p class="e2">Одна встреча — и мы на простом русском раскладываем, где вы сейчас: сон, еда, нагрузка, стресс. <b class="gl">Находим узкое горлышко</b> — то, что тормозит всё остальное. Вы уходите с пониманием, что делать дальше, — со мной или без меня.</p>
+        <p class="q">Ничего не навязываю. Решение за вами.</p>
+        <div class="btns"><a class="btn fill" data-link="telegram">Записаться на диагностику</a></div>
+        <p class="lnote">Нажимая кнопку, вы соглашаетесь с <a data-doc="policy">политикой</a> и даёте <a data-doc="consent">согласие на обработку данных</a>. Условия — в <a data-doc="offer">оферте</a>.</p>
       </div>
-    </div></section>
+    </div></div></section>
 
     <section data-veil=".12" hidden><div class="slide"><div class="wrap">
       <div class="head"><p class="k">17 — Сверх программы</p><h2 class="h" data-split>И ещё <span class="gd">два бонуса</span></h2></div>
@@ -899,7 +963,7 @@ body{margin:0}
 
     <section class="dslide" data-veil=".3"><div class="wrap faqg">
       <div class="mslide">
-      <div class="head"><p class="k">18 — Прежде чем решить</p><h2 class="h" data-split>Что обычно <span class="gd">спрашивают</span></h2></div>
+      <div class="head"><p class="k">18 — Прежде чем решить</p><h2 class="h" data-split>Что останавливает <span class="gd">людей</span></h2></div>
       <div class="faq">
         <details><summary>«Нет времени»</summary><p>Нужно 3 часа в неделю. Давайте честно: сколько уходит на ленту и «отдохну вечером»? Мы не добавляем вам дел — <b class="gl">мы убираем лишнее</b>. Тренируетесь где удобно: дома, в отеле, в своём зале.</p></details>
         <details><summary>«Уже пробовала — не держится»</summary><p>Потому что тянули один рычаг. Зал без головы — это холодильник в 23:10. Голова без тела — вес стоит. Здесь всё просто: <b class="gl">делаем то, что работает, и не делаем того, что не работает</b>. Три рычага сразу.</p></details>
@@ -912,9 +976,9 @@ body{margin:0}
       <p class="k monly">18 — Прежде чем решить</p>
       <div class="faq">
         <details><summary>«Вы гарантируете результат?»</summary><p>Цифр до старта не обещаю — это было бы нечестно. Обещаю систему и замеры каждый месяц. Без цифр мы как слепые котята, <b class="gl">с цифрами видно, что работает</b>.</p></details>
-        <details><summary>«Вдруг формат не мой»</summary><p>Начните с диагностической консультации — это безопасно. Дальше можно взять месяц: зайдёт — <b class="gl">оплата засчитается в пакет на 3 месяца</b>.</p></details>
+        <details><summary>«Вдруг формат не мой»</summary><p>Начните с диагностики — первая встреча ни к чему не обязывает. Дальше можно взять месяц: зайдёт — <b class="gl">оплата засчитается в пакет на 3 месяца</b>.</p></details>
         <details><summary>«Сумма ощутимая»</summary><p>Посчитаем как в бизнесе. Тренер, психолог и нутрициолог по отдельности — 192 000 ₽ за три месяца. Здесь выходит заметно дешевле — и можно <b class="gl">тремя платежами без банка</b>. А теперь посчитайте ещё один год «с понедельника»: во что он обходится вашей энергии, решениям и деньгам?</p></details>
-        <details><summary>«Мне надо подумать»</summary><p>Конечно. Только ответьте себе честно: о чём? Деньги — есть рассрочка. Время — 3 часа в неделю. Страшно, что не получится, — <b class="gl">начните с диагностики</b>. Это безопасно и ни к чему не обязывает.</p></details>
+        <details><summary>«Мне надо подумать»</summary><p>Конечно. Только ответьте себе честно: о чём? Деньги — есть рассрочка. Время — 3 часа в неделю. Страшно, что не получится, — <b class="gl">начните с диагностики</b>. Она ни к чему не обязывает.</p></details>
       </div>
       </div>
     </div></section>
@@ -1015,9 +1079,12 @@ body{margin:0}
     new IntersectionObserver(function(es){clearInterval(tm);if(es[0].isIntersecting)kick()},{threshold:.4}).observe(dk);
     lay()});
   // 3D: panels tilt with the scroll, photo backdrops drift, desktop follows the mouse
-  var t3s=$$('.t3,.bgp');
+  // brand watermark on pages that have no photo
+  function wm(el,c){if(el.querySelector('img,video')||el.closest('.hasbg'))return;var x=document.createElementNS('http://www.w3.org/2000/svg','svg');x.setAttribute('class','wm'+(c?' '+c:''));x.setAttribute('viewBox','0 0 120 120');x.setAttribute('aria-hidden','true');x.innerHTML='<use href="#psy"/>';el.insertBefore(x,el.firstChild)}
+  $$('main .slide').forEach(function(e){wm(e,'')});$$('main .dslide').forEach(function(e){wm(e,'d')});$$('main .mslide,main .mpart').forEach(function(e){wm(e,'m')});var dp=$('.day .pin');if(dp)wm(dp,'');
+  var t3s=$$('.t3,.bgp,.wm');
   function tilt(h){for(var i=0;i<t3s.length;i++){var e=t3s[i],r=e.getBoundingClientRect();if(!r.height||r.bottom<-h*.5||r.top>h*1.5)continue;var d=Math.max(-1,Math.min(1,(r.top+r.height/2-h/2)/h));
-    if(e.classList.contains('bgp'))e.style.setProperty('--py',(d*-70).toFixed(1)+'px');else e.style.setProperty('--sx',(d*16).toFixed(2)+'deg')}}
+    if(e.classList.contains('bgp'))e.style.setProperty('--py',(d*-70).toFixed(1)+'px');else if(e.classList.contains('wm')){e.style.setProperty('--py',(d*-90).toFixed(1)+'px');e.style.setProperty('--wr',(-8+d*10).toFixed(2)+'deg')}else e.style.setProperty('--sx',(d*16).toFixed(2)+'deg')}}
   if(matchMedia('(hover:hover) and (pointer:fine)').matches){var mq=false,mx=0,my=0;addEventListener('mousemove',function(e){mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1;if(!mq){mq=true;requestAnimationFrame(function(){mq=false;root.style.setProperty('--mx',mx.toFixed(3));root.style.setProperty('--my',my.toFixed(3))})}},{passive:true})}
 
   var wio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;wio.unobserve(e.target);[].forEach.call(e.target.querySelectorAll('.ww'),function(w){w.classList.add('on')})})},{threshold:.5});
