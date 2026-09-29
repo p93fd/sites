@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#000000">
+<title>Система продаж</title>
+<meta name="description" content="Александр Комлев — собираю систему продаж для экспертов, которые уже продают. Бесплатная диагностика 30–40 минут.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+<style>
+#allrecords{overflow:visible!important}
+:root{color-scheme:dark;--bg:#000;--card:#080808;--blue:#4155E8;--sky:#76B7FF;--lav:#E0E2F2;--wh:#fff;--gray:#6E738A;
+  --bd:rgba(65,85,232,.44);--bd2:rgba(224,226,242,.12);--ease:cubic-bezier(.16,.84,.2,1);--font:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:auto;overflow-x:clip}
+body{margin:0;background:#000;color:var(--lav);font:400 17px/1.55 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,h4,p,ul{margin:0;padding:0}li{list-style:none}a{color:inherit}
+body.locked{overflow:hidden}
+
+/* ============ LIVE BACKGROUND ============ */
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;background:radial-gradient(60% 50% at 70% 60%,rgba(65,85,232,.35),transparent 70%),#000}
+.glow{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(55% 45% at var(--gx,80%) var(--gy,70%),rgba(65,85,232,.3),transparent 70%)}
+.flash{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(80% 60% at 50% 50%,rgba(118,183,255,.55),rgba(65,85,232,.15) 50%,transparent 80%);opacity:0;mix-blend-mode:screen}
+.flash.go{animation:flash .9s ease-out}
+@keyframes flash{0%{opacity:0}6%{opacity:1}14%{opacity:.2}22%{opacity:.85}100%{opacity:0}}
+.grain{position:fixed;inset:-50%;z-index:3;pointer-events:none;opacity:.08;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
+.scan{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.05;background:repeating-linear-gradient(0deg,rgba(255,255,255,.6) 0 1px,transparent 1px 3px)}
+.vign{position:fixed;inset:0;z-index:3;pointer-events:none;background:radial-gradient(120% 90% at 50% 50%,transparent 50%,rgba(0,0,0,.85) 100%)}
+.bars{position:fixed;left:0;right:0;z-index:45;background:#000;height:12vh;pointer-events:none;transition:height 1.6s var(--ease)}
+.bars.t{top:0}.bars.b{bottom:0}
+body.in .bars{height:0}
+
+/* ============ TITLE SEQUENCE ============ */
+.intro{position:fixed;inset:0;z-index:40;display:grid;place-items:center;text-align:center;padding:24px;transition:opacity 1.2s,visibility 1.2s}
+body.in .intro{opacity:0;visibility:hidden}
+.intro .l{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);opacity:0;padding:0 20px}
+.intro .l1{font:500 12px/1 var(--font);letter-spacing:.5em;text-transform:uppercase;color:var(--sky);animation:seq 2.2s .4s var(--ease) forwards}
+.intro .l2{font:300 clamp(16px,2vw,22px)/1 var(--font);letter-spacing:.3em;text-transform:uppercase;color:var(--lav);animation:seq 2s 2.2s var(--ease) forwards}
+.intro .l3{animation:hold 1.4s 3.9s var(--ease) forwards}
+.intro .l3 h1{font:800 clamp(52px,11vw,190px)/.9 var(--font);letter-spacing:-.04em;color:#fff;text-shadow:0 0 60px rgba(65,85,232,.8);filter:blur(12px);transform:scale(1.2);animation:focus 1.8s 3.9s var(--ease) forwards}
+.intro .l3 p{margin-top:22px;font:400 clamp(15px,1.4vw,19px)/1.5 var(--font);color:var(--lav);opacity:0;animation:fade 1s 5s forwards}
+.intro .l3 .btn{margin-top:34px;opacity:0;animation:fade 1s 5.5s forwards}
+.intro .skip{position:absolute;right:20px;bottom:calc(12vh + 16px);font:500 11px/1 var(--font);letter-spacing:.2em;text-transform:uppercase;color:var(--gray);background:none;border:0;cursor:pointer;z-index:2}
+@keyframes seq{0%{opacity:0;letter-spacing:.9em}30%{opacity:1}75%{opacity:1}100%{opacity:0;letter-spacing:.3em}}
+@keyframes hold{to{opacity:1}}
+@keyframes focus{to{filter:blur(0);transform:none}}
+@keyframes fade{to{opacity:1}}
+
+/* ============ UI ============ */
+.btn{appearance:none;border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:space-between;gap:18px;height:60px;padding:0 10px 0 30px;border-radius:999px;background:#fff;color:#000;
+  font:600 16px/1 var(--font);text-decoration:none;white-space:nowrap;box-shadow:0 0 0 1px rgba(255,255,255,.2),0 14px 50px -10px rgba(65,85,232,.9);transition:transform .5s var(--ease),box-shadow .5s;position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(118,183,255,.45) 50%,transparent 70%);transform:translateX(-120%);animation:shine 3.2s 1s infinite}
+@keyframes shine{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.3),0 20px 60px -10px rgba(65,85,232,1)}
+.btn i{width:42px;height:42px;border-radius:50%;background:var(--blue);display:grid;place-items:center;flex:none}
+.btn i::after{content:"";width:9px;height:9px;border:solid #fff;border-width:2px 2px 0 0;transform:translateX(-2px) rotate(45deg)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(65,85,232,.18);border:1px solid var(--bd);font:500 12px/1 var(--font);color:var(--sky)}
+.pill::before{content:"✦";font-size:12px}
+.ghost{display:inline-flex;align-items:center;justify-content:space-between;gap:20px;height:56px;padding:0 22px;border-radius:14px;background:var(--card);border:1px solid var(--bd2);border-right:3px solid var(--blue);text-decoration:none;color:#fff;font:500 15px/1 var(--font);transition:background .4s,transform .4s var(--ease)}
+.ghost:hover{background:#0d0f24;transform:translateX(3px)}
+.ghost::after{content:"→";font-size:20px}
+
+.prog{position:fixed;left:0;top:0;height:2px;width:100%;z-index:31;background:linear-gradient(90deg,var(--blue),var(--sky));transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 12px var(--blue)}
+.head{position:fixed;left:0;right:0;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px max(16px,3vw);opacity:0;transition:opacity 1s .6s}
+body.in .head{opacity:1}
+.head::before{content:"";position:absolute;inset:0 0 -24px;background:linear-gradient(#000,transparent);z-index:-1;pointer-events:none}
+.logo{font:700 15px/1 var(--font);letter-spacing:.02em;text-decoration:none;color:#fff;white-space:nowrap}
+.logo span{color:var(--blue)}
+.chap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:10px;font:500 11px/14px var(--font);letter-spacing:.24em;text-transform:uppercase;color:var(--sky);white-space:nowrap}
+.chap b{color:var(--gray);font-weight:500}
+.chap .w{height:14px;overflow:hidden;display:block}.chap .w span{display:block;transition:transform .6s var(--ease),opacity .6s}.chap .w span.out{transform:translateY(-110%);opacity:0}
+.hbtn{display:inline-flex;align-items:center;height:40px;padding:0 18px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none;font:600 13px/1 var(--font);white-space:nowrap;box-shadow:0 0 30px -6px var(--blue)}
+@media (max-width:860px){.chap{display:none}}
+.rail{position:fixed;right:max(12px,1.4vw);top:50%;transform:translateY(-50%);z-index:29;display:flex;flex-direction:column;gap:10px;opacity:0;transition:opacity 1s}
+body.in .rail{opacity:1}
+.rail a{position:relative;display:block;width:12px;height:2px;margin-left:auto;background:rgba(224,226,242,.25);transition:width .6s var(--ease),background .6s}
+.rail a::before{content:"";position:absolute;inset:-6px -4px}
+.rail a.on{width:34px;background:var(--blue);box-shadow:0 0 10px var(--blue)}
+@media (max-width:860px){.rail{display:none}}
+.dock{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:30;display:none;transform:translateY(150%);transition:transform .8s var(--ease)}
+.dock .btn{width:100%;height:56px}
+@media (max-width:860px){.dock{display:block}body.dockon .dock{transform:none}}
+
+/* ============ LAYOUT ============ */
+main{position:relative;z-index:10;opacity:0;transition:opacity 1.2s .3s}
+body.in main{opacity:1}
+.sec{position:relative;min-height:100vh;min-height:100svh;padding:clamp(110px,14vh,150px) max(16px,6vw) clamp(80px,11vh,130px);display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1200px;width:100%;margin:0 auto;position:relative}
+.h2{font:700 clamp(36px,5.4vw,80px)/1.02 var(--font);letter-spacing:-.035em;color:#fff}
+.h2 em{font-style:normal;color:var(--blue);text-shadow:0 0 40px rgba(65,85,232,.6)}
+.sub{margin-top:22px;font-size:clamp(17px,1.4vw,20px);color:var(--lav);opacity:.85;max-width:60ch}
+.sub b{color:#fff;font-weight:600}
+
+/* reveal primitives */
+.wm .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.wm .w>span{display:inline-block;transform:translateY(110%) rotate(4deg);transform-origin:0 100%;transition:transform 1.1s var(--ease)}
+.wm.on .w>span{transform:none}
+.fade{opacity:0;transform:translateY(24px);filter:blur(8px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease),filter 1.1s}
+.fade.on{opacity:1;transform:none;filter:none}
+.d1{transition-delay:.15s!important}.d2{transition-delay:.3s!important}.d3{transition-delay:.45s!important}
+
+/* ============ 01 HERO ============ */
+.hero{justify-content:flex-end;padding-bottom:clamp(50px,9vh,100px);overflow:hidden}
+.deck,.ba,.more,.cut{display:block}
+.prob{overflow-x:clip}
+.wm em{text-shadow:none!important}
+.hero h1,.wm{filter:drop-shadow(0 0 28px rgba(65,85,232,.35))}
+.hero .tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.hero .tags span{padding:8px 14px;border:1px solid var(--bd);border-radius:999px;font:500 12px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--sky);background:rgba(0,0,0,.4);backdrop-filter:blur(6px)}
+.hero h1{font:800 clamp(42px,7.2vw,122px)/.95 var(--font);letter-spacing:-.045em;color:#fff;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--blue);text-shadow:0 0 60px rgba(65,85,232,.8)}
+.hero .row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:30px 60px;align-items:end;margin-top:clamp(28px,5vh,52px)}
+.hero .row p{font-size:clamp(17px,1.5vw,21px);color:var(--lav);max-width:44ch}
+.hero .row p b{color:#fff;font-weight:600}
+.hero small{display:block;margin-top:14px;font:400 13px/1.5 var(--font);color:var(--gray)}
+.hero .q{position:absolute;right:0;top:-8px;max-width:280px;padding-left:18px;border-left:2px solid var(--blue);font:400 15px/1.5 var(--font);color:#fff}
+.hero .q span{display:block;margin-top:6px;color:var(--gray);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.hero .bolt{position:absolute;left:-10%;right:-10%;top:26%;height:300px;background:url(bolt.webp) center/100% 100% no-repeat;opacity:0;pointer-events:none}
+body.in .hero .bolt{animation:strike 1.4s 1.2s ease-out forwards}
+@keyframes strike{0%{opacity:0;transform:scaleX(.2)}10%{opacity:1}20%{opacity:.3}30%{opacity:1;transform:scaleX(1)}100%{opacity:.35;transform:scaleX(1)}}
+@media (max-width:900px){.hero .row{grid-template-columns:1fr}.hero .q{position:static;margin-bottom:26px;max-width:none}}
+@media (max-width:420px){.btn{font-size:15px;padding-left:22px;gap:12px;height:56px}.btn i{width:38px;height:38px}}
+
+/* ============ CUT (montage title card) ============ */
+.cut{height:200vh;padding:0}
+.cut .st{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center;overflow:hidden;text-align:center;padding:0 16px}
+.cut .t{font:800 clamp(56px,13vw,230px)/.9 var(--font);letter-spacing:-.05em;color:#fff;text-shadow:0 0 80px rgba(65,85,232,.7)}
+.cut .t em{font-style:normal;color:var(--blue)}
+.cut .s{margin-top:22px;font:500 clamp(13px,1.2vw,16px)/1.4 var(--font);letter-spacing:.3em;text-transform:uppercase;color:var(--sky)}
+.cut .mv{will-change:transform,opacity,filter}
+.cut .line{position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,var(--sky),transparent);transform:scaleX(var(--lx,0));box-shadow:0 0 20px var(--blue)}
+
+/* ============ 02 FOR WHOM ============ */
+.cloud{position:relative;margin-top:50px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;perspective:1200px}
+.chip{position:relative;padding:22px 24px 26px;border-radius:22px;background:linear-gradient(135deg,rgba(65,85,232,.28),rgba(8,8,8,.9) 60%);border:1px solid var(--bd);backdrop-filter:blur(8px);
+  opacity:0;transform:translateZ(-400px) rotateX(18deg);filter:blur(10px);transition:opacity 1.1s var(--ease),transform 1.3s var(--ease),filter 1.1s}
+.cloud.on .chip{opacity:1;transform:none;filter:none}
+.cloud.on .chip:nth-child(2){transition-delay:.12s}.cloud.on .chip:nth-child(3){transition-delay:.24s}.cloud.on .chip:nth-child(4){transition-delay:.36s}.cloud.on .chip:nth-child(5){transition-delay:.48s}.cloud.on .chip:nth-child(6){transition-delay:.6s}
+.chip h3{font:500 12px/1.3 var(--font);letter-spacing:.16em;text-transform:uppercase;color:var(--sky)}
+.chip p{margin-top:10px;font:500 clamp(19px,1.7vw,24px)/1.25 var(--font);color:#fff;padding-right:30px}
+.chip svg{position:absolute;right:18px;bottom:18px;width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.8;opacity:.9}
+.chip.no{background:rgba(8,8,8,.85);border-color:var(--bd2)}
+.chip.no h3{color:var(--gray)}.chip.no p{color:var(--lav);opacity:.8;font-size:clamp(16px,1.3vw,18px)}
+@media (max-width:900px){.cloud{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cloud{grid-template-columns:1fr}}
+
+/* ============ 03 PROBLEM ============ */
+.prob .bolt2{position:relative;height:160px;margin:40px -6vw 0;background:url(bolt.webp) center/100% 180% no-repeat;clip-path:inset(0 calc(100% - var(--bw,0%)) 0 0)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;margin-top:-10px}
+.three div{font:500 clamp(15px,1.4vw,19px)/1.3 var(--font);color:#fff;opacity:0;transform:translateY(14px);transition:.9s var(--ease)}
+.three.on div{opacity:1;transform:none}.three.on div:nth-child(2){transition-delay:.15s}.three.on div:nth-child(3){transition-delay:.3s}
+.pline{width:1px;height:70px;margin:26px auto;background:linear-gradient(var(--lav),transparent)}
+.map{position:relative;height:clamp(380px,42vw,480px);margin-top:10px}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map path{fill:none;stroke:var(--blue);stroke-width:1.4;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px rgba(65,85,232,.9))}
+.map .n{position:absolute;transform:translate(-50%,-50%);text-align:center;opacity:0;transition:opacity .7s}
+.map .n.on{opacity:1}
+.map .n b{display:block;font:600 clamp(14px,1.3vw,17px)/1.2 var(--font);color:#fff}
+.map .n span{display:block;margin-top:3px;font:400 13px/1.2 var(--font);color:var(--lav);opacity:.75}
+.map .core{padding:20px 34px;border-radius:18px;border:1px solid var(--blue);background:linear-gradient(180deg,#0b0f33,#05060f);box-shadow:0 0 0 6px rgba(65,85,232,.08),0 0 80px -8px rgba(65,85,232,.9)}
+.map .core .pill{margin-bottom:10px}
+.map .core b{font:700 clamp(22px,2.6vw,36px)/1.1 var(--font);letter-spacing:.02em;text-transform:uppercase}
+.map .core.on{animation:pulse 2.6s 1s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 10px rgba(65,85,232,.12),0 0 120px 0 rgba(65,85,232,1)}}
+.verdict{margin:40px auto 0;display:table;padding:18px 34px;border-radius:14px;border:1px solid var(--bd);background:#050505;font:600 clamp(16px,1.6vw,20px)/1.35 var(--font);letter-spacing:.06em;text-transform:uppercase;color:#fff;text-align:center}
+@media (max-width:640px){.map .n b{font-size:13px}.map .n span{font-size:11px}.map .core{padding:14px 18px}.map .l1{left:20%!important}.map .r1{left:80%!important}}
+
+/* ============ 04 ABOUT ============ */
+.about .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(30px,5vw,80px);align-items:center}
+.ph{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/4.4;border:1px solid var(--bd);clip-path:inset(50% 0 50% 0 round 28px);transition:clip-path 1.6s var(--ease);box-shadow:0 0 90px -20px rgba(65,85,232,.8)}
+.ph.on{clip-path:inset(0 0 0 0 round 28px)}
+.ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.25);transition:transform 2.6s var(--ease)}
+.ph.on img{transform:scale(1)}
+.ph::after{content:"";position:absolute;left:0;right:0;height:2px;top:0;background:var(--sky);box-shadow:0 0 24px 6px var(--blue);opacity:0}
+.ph.on::after{animation:scanl 1.8s .2s var(--ease)}
+@keyframes scanl{0%{top:50%;opacity:1}100%{top:100%;opacity:0}}
+.about .nm{font:700 clamp(34px,4.2vw,60px)/1 var(--font);letter-spacing:-.03em;color:var(--blue);text-shadow:0 0 40px rgba(65,85,232,.6);margin-top:16px}
+.badges{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.badges div{padding:14px 20px;border-radius:14px;border:1px solid var(--blue);background:linear-gradient(180deg,#141a4a,#05060f);text-align:center;min-width:150px}
+.badges b{display:block;font:800 26px/1 var(--font);color:#fff;letter-spacing:-.02em}
+.badges span{display:block;margin-top:6px;font:500 11px/1.2 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--lav)}
+.big24{margin-top:26px;font:800 clamp(40px,5vw,72px)/1 var(--font);color:var(--blue);letter-spacing:-.03em;text-shadow:0 0 40px rgba(65,85,232,.7)}
+.big24 small{display:block;font:600 clamp(16px,1.6vw,22px)/1.2 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-top:6px}
+.about .sub{margin-top:18px}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.links .ghost{min-width:220px}
+.ig{margin-top:10px;font-size:10.5px;color:var(--gray)}
+@media (max-width:900px){.about .wrap{grid-template-columns:1fr}.ph{max-width:420px}}
+
+/* ============ 05 STAGES — deck ============ */
+.deck{height:340vh;padding:0}
+.deck .st{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center;padding:90px max(16px,6vw) 40px;max-width:1340px;margin:0 auto}
+.deck .h2{font-size:clamp(34px,4.4vw,64px)}
+.deck .h2 small{display:block;margin-top:10px;font-size:.55em;color:var(--lav);letter-spacing:-.02em;font-weight:600}
+.stack{position:relative;height:min(460px,56vh);perspective:1400px}
+.card{position:absolute;inset:0;margin:auto;width:min(360px,100%);height:100%;border-radius:30px;padding:30px;background:linear-gradient(160deg,#0e1030,#050505 55%);border:1px solid var(--bd);box-shadow:0 30px 80px -20px rgba(0,0,0,.9),0 0 60px -20px rgba(65,85,232,.6);
+  transform-origin:50% 120%;will-change:transform,opacity}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start}
+.card .top span{font:500 13px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--sky)}
+.card .top b{font:300 clamp(56px,6vw,80px)/.9 var(--font);color:#5c7fc4}
+.card h3{margin-top:clamp(20px,4vh,40px);font:600 clamp(24px,2.4vw,30px)/1.1 var(--font);color:#fff}
+.card p{margin-top:16px;font-size:clamp(15.5px,1.3vw,18px);line-height:1.5;color:var(--lav);opacity:.85}
+@media (max-width:900px){.deck .st{grid-template-columns:1fr;align-content:center;gap:26px;padding-top:80px}.deck .sub{display:none}.stack{height:min(400px,52vh)}}
+
+/* ============ 06 BEFORE/AFTER ============ */
+.ba{height:240vh;padding:0}
+.ba .st{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;padding:90px max(16px,6vw) 40px}
+.ba .panes{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;max-width:1200px;width:100%;margin-left:auto;margin-right:auto}
+.bx{border-radius:28px;padding:26px;border:1px solid var(--bd2);background:rgba(8,8,8,.85);backdrop-filter:blur(8px)}
+.bx h3{font:500 13px/1 var(--font);letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-bottom:18px}
+.bx li{padding:13px 16px;border-radius:12px;background:#000;border:1px solid var(--bd2);margin-bottom:10px;font-size:15.5px;color:var(--lav)}
+.bx.was{opacity:calc(1 - var(--k,0)*.55)}
+.bx.was li{text-decoration:line-through;text-decoration-color:rgba(65,85,232,var(--k,0));text-decoration-thickness:2px}
+.bx.now{border-color:var(--blue);background:linear-gradient(160deg,#141a4a,#05060f 70%);clip-path:inset(0 calc(100% - var(--w,0%)) 0 0 round 28px);box-shadow:0 0 90px -20px rgba(65,85,232,.9)}
+.bx.now h3{color:var(--sky)}
+.bx.now ul{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bx.now li{margin:0;border-color:var(--bd);background:rgba(65,85,232,.08);color:#fff}
+.ba .head2{max-width:1200px;width:100%;margin:0 auto}
+@media (max-width:760px){.ba .panes{grid-template-columns:1fr;gap:12px;margin-top:22px}.bx{padding:16px}.bx h3{margin-bottom:10px}.bx li{padding:8px 12px;font-size:13.5px;margin-bottom:6px}.bx.now ul{grid-template-columns:1fr 1fr;gap:6px}.ba .sub{display:none}.ba .h2{font-size:32px}}
+
+/* ============ 07 TRANSFORMATIONS ============ */
+.tr .h2,.tr .sub{text-align:center;margin-left:auto;margin-right:auto}
+.pile{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,44px) clamp(14px,2.4vw,36px);margin-top:60px;perspective:1600px}
+.tc{border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#0f1440,#0a0d2a);border:1px solid rgba(118,183,255,.35);box-shadow:0 30px 70px -20px rgba(0,0,0,.95),0 0 50px -20px rgba(65,85,232,.7);
+  transform:rotate(var(--r,0deg)) translateY(160px) rotateX(40deg) scale(.85);opacity:0;transition:transform 1.4s var(--ease),opacity 1s}
+.tc.on{transform:rotate(var(--r,0deg));opacity:1}
+.tc img{display:block;width:100%;aspect-ratio:1/.95;object-fit:cover}
+.tc div{padding:16px 18px 18px}
+.tc .nm{font:800 16px/1.1 var(--font);text-transform:uppercase;color:var(--sky);letter-spacing:.02em}
+.tc .rl{font-size:12.5px;color:var(--lav);margin-top:2px}
+.tc .a{margin-top:12px;font:700 14px/1.3 var(--font);color:#fff;text-transform:uppercase}
+.tc .a span,.tc .b span{display:block;font:400 12.5px/1.35 var(--font);text-transform:none;color:var(--lav);margin-top:3px}
+.tc .b{margin-top:12px;font:800 clamp(22px,2.2vw,30px)/1 var(--font);color:#fff;text-transform:uppercase}
+@media (max-width:900px){.pile{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pile{grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto}}
+
+/* ============ 08 FORMATS ============ */
+.fm{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,5vw,80px);align-items:start}
+.acc{border-top:1px solid var(--bd)}
+.it{border-bottom:1px solid var(--bd)}
+.it button{appearance:none;width:100%;background:none;border:0;color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;text-align:left;font:500 clamp(18px,1.7vw,22px)/1.2 var(--font)}
+.it button::after{content:"";width:18px;height:18px;flex:none;background:linear-gradient(var(--blue),var(--blue)) center/100% 2px no-repeat,linear-gradient(var(--blue),var(--blue)) center/2px 100% no-repeat;transition:transform .5s var(--ease)}
+.it.open button::after{transform:rotate(135deg)}
+.it .bd{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--ease)}
+.it.open .bd{grid-template-rows:1fr}
+.it .bd>div{overflow:hidden}
+.it .in{padding:0 0 26px;display:grid;gap:16px}
+.it h4{font:500 12px/1 var(--font);letter-spacing:.2em;text-transform:uppercase;color:var(--sky);margin-bottom:8px}
+.it p,.it li{font-size:15.5px;color:var(--lav)}
+.it li{position:relative;padding-left:18px;margin-bottom:4px}
+.it li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:2px;background:var(--blue)}
+@media (max-width:900px){.fm{grid-template-columns:1fr}}
+
+/* ============ 09 MORE ============ */
+.more{height:320vh;padding:0}
+.more .st{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:80px 0 30px}
+.more .hd{padding:0 max(16px,6vw);display:flex;justify-content:space-between;align-items:end;gap:10px 30px;flex-wrap:wrap}
+.track{display:flex;gap:22px;margin-top:40px;padding-left:max(16px,6vw);will-change:transform}
+.track img{flex:none;width:clamp(300px,36vw,520px);height:auto;aspect-ratio:1474/728;border-radius:26px;box-shadow:0 30px 70px -20px rgba(0,0,0,.95),0 0 40px -18px rgba(65,85,232,.8)}
+
+/* ============ 10 CTA ============ */
+.cta{text-align:center;align-items:center}
+.cbox{position:relative;max-width:980px;width:100%;margin:0 auto;border-radius:36px;padding:clamp(34px,6vw,70px) clamp(20px,5vw,60px);border:1px solid var(--bd);
+  background:radial-gradient(80% 120% at 0% 50%,rgba(65,85,232,.55),transparent 60%),radial-gradient(80% 120% at 100% 50%,rgba(65,85,232,.4),transparent 60%),#07081a;box-shadow:0 0 140px -30px rgba(65,85,232,1);
+  transform:scale(var(--cs,.9));opacity:var(--co,0)}
+.cbox h2{font:800 clamp(38px,6.4vw,96px)/.98 var(--font);letter-spacing:-.045em;color:#fff}
+.cbox .sub{margin:22px auto 0}
+.cbox .btn{margin-top:36px}
+.tiny{margin-top:14px;font-size:13px;color:var(--lav);opacity:.7}
+.tpl{margin:34px auto 0;max-width:520px;text-align:left;border-radius:18px;border:1px solid var(--bd2);background:rgba(0,0,0,.55);padding:18px 20px}
+.tpl .k{display:flex;justify-content:space-between;align-items:center;gap:12px;font:500 11px/1.3 var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--sky)}
+.tpl button{appearance:none;border:1px solid var(--bd);background:none;color:#fff;border-radius:999px;padding:8px 14px;font:500 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.tpl pre{margin:12px 0 0;white-space:pre-wrap;font:400 14px/1.7 var(--font);color:var(--lav)}
+@media (max-width:420px){.cta .btn{width:100%}}
+
+.foot{position:relative;z-index:10;padding:60px max(16px,6vw) 110px;background:#000;font-size:14px;color:var(--lav)}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:24px 70px;justify-content:space-between}
+.foot p{margin-bottom:4px}
+.foot a{color:var(--lav)}
+.foot .by{text-align:center;margin-top:30px;color:var(--blue);font-size:14px}
+.foot .by a{color:var(--blue);text-decoration:none}
+@media (prefers-reduced-motion:reduce){.grain{animation:none}}
+</style></head>
+<body class="locked">
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="glow" id="glow"></div><div class="flash" id="flash"></div><div class="scan"></div><div class="vign"></div><div class="grain"></div>
+<div class="bars t"></div><div class="bars b"></div>
+
+<!-- ТИТРЫ -->
+<div class="intro" id="intro">
+  <div class="l l1">Александр Комлев</div>
+  <div class="l l2">представляет</div>
+  <div class="l l3">
+    <h1>Система продаж</h1>
+    <p>Для экспертов, которые уже продают.</p>
+    <button class="btn" id="enter" type="button">Смотреть <i></i></button>
+  </div>
+  <button class="skip" id="skip" type="button">Пропустить →</button>
+</div>
+
+<div class="prog" id="prog"></div>
+<header class="head">
+  <a class="logo" href="#s1">Александр Комлев<span> ·</span></a>
+  <div class="chap"><b id="chn">01</b><span class="w"><span id="cht">Система</span></span></div>
+  <a class="hbtn" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Диагностика</a>
+</header>
+<nav class="rail" id="rail" aria-label="Разделы"></nav>
+<div class="dock"><a class="btn" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Записаться на диагностику <i></i></a></div>
+
+<main>
+
+<!-- 01 ГЛАВНЫЙ ЭКРАН -->
+<section class="sec hero" id="s1" data-ch="Система" data-e="1">
+  <div class="bolt"></div>
+  <div class="wrap">
+    <div class="tags fade"><span>мышление · стратегия</span><span>механика · состояние</span></div>
+    <p class="q fade d2">«Я не чиню отдельные точки.<br>Я собираю систему»<span>Александр Комлев</span></p>
+    <h1 class="wm">Собираю систему продаж для&nbsp;экспертов, <em>которые уже продают</em></h1>
+    <div class="row">
+      <p class="fade d1">Продавать вы умеете — это уже доказано. Но доход скачет: сильный месяц, провальный месяц. <b>Моя задача — чтобы доход стал управляемым, а&nbsp;не&nbsp;случайным.</b></p>
+      <div class="fade d2">
+        <a class="btn" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Разобрать мою систему продаж <i></i></a>
+        <small>Бесплатная диагностика · 30–40 минут · без презентаций и прогревов</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- МОНТАЖНАЯ СКЛЕЙКА -->
+<section class="cut" data-ch="Система" data-e="1.6"><div class="st"><div class="line"></div><div class="mv"><div class="t">Вы уже <em>продаёте.</em></div><div class="s">Вопрос — насколько это управляемо</div></div></div></section>
+
+<!-- 02 ВАМ СЮДА -->
+<section class="sec" id="s2" data-ch="Вам сюда" data-e=".9">
+  <div class="wrap">
+    <span class="pill fade">для кого это</span>
+    <h2 class="h2 wm" style="margin-top:18px">Вам сюда, если продажи уже есть, <em>а&nbsp;управляемости нет</em></h2>
+    <div class="cloud" id="cloud">
+      <div class="chip"><h3>Продажи нестабильны</h3><p>Есть результат, но нет управляемости</p><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 4 5-7 4 5"/></svg></div>
+      <div class="chip"><h3>Поток не под контролем</h3><p>Клиенты приходят, системы — нет</p><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></div>
+      <div class="chip"><h3>Созвоны не конвертируются</h3><p>Интерес есть, сделки — нет</p><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></div>
+      <div class="chip"><h3>Чек не растёт</h3><p>Страшно пересобрать цену</p><svg viewBox="0 0 24 24"><ellipse cx="12" cy="7" rx="6" ry="2.5"/><path d="M6 7v5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V7M6 12v5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5"/></svg></div>
+      <div class="chip"><h3>Есть амбиции</h3><p>Пора переводить их в результат</p><svg viewBox="0 0 24 24"><path d="M4 20V14M9 20V10M14 20V12M19 20V5"/></svg></div>
+      <div class="chip no"><h3>Не для вас, если</h3><p>Вы ещё ни разу не продавали и ищете смелость начать. Здесь работают с теми, кто уже в игре.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 В ЧЁМ ПРОБЛЕМА -->
+<section class="sec prob" id="s3" data-ch="В чём проблема" data-e="1.3">
+  <div class="wrap">
+    <span class="pill fade">в чём проблема</span>
+    <h2 class="h2 wm" style="margin-top:18px">Продажи редко ломаются в&nbsp;одном месте</h2>
+    <p class="sub fade">Вы меняете скрипт, воронку, подрядчика — а качели остаются. <b>Потому что сломан не инструмент, а конструкция под ним.</b></p>
+    <div class="bolt2" id="bolt2"></div>
+    <div class="three" id="three"><div>хаос в стратегии</div><div>ошибки в действиях</div><div>страх и обесценивание</div></div>
+    <div class="pline"></div>
+    <p class="sub fade" style="text-align:center;margin:0 auto;font-size:clamp(18px,1.8vw,24px);color:#fff">Поэтому новые инструменты не помогают</p>
+    <div class="map" id="map">
+      <svg viewBox="0 0 1000 480" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M200 80 H300 L370 170"/><path d="M800 80 H700 L630 170"/><path d="M200 400 H300 L370 300"/><path d="M800 400 H700 L630 300"/><path d="M500 300 V470"/>
+      </svg>
+      <div class="n l1" style="left:14%;top:14%" data-at=".15"><b>хаос в стратегии</b><span>нет фокуса</span></div>
+      <div class="n r1" style="left:86%;top:14%" data-at=".22"><b>страх</b><span>нет роста</span></div>
+      <div class="n l1" style="left:14%;top:86%" data-at=".29"><b>ошибки в действиях</b><span>нет результата</span></div>
+      <div class="n r1" style="left:86%;top:86%" data-at=".36"><b>обесценивание</b><span>нет энергии</span></div>
+      <div class="n core" style="left:50%;top:50%" data-at=".45"><span class="pill">ядро проблемы</span><b>Система<br>не собрана</b></div>
+    </div>
+    <div class="verdict fade">Инструменты меняются.<br>Система — нет.</div>
+  </div>
+</section>
+
+<!-- МОНТАЖНАЯ СКЛЕЙКА -->
+<section class="cut" data-ch="Кто я" data-e="1.8"><div class="st"><div class="line"></div><div class="mv"><div class="t"><span data-count="12">0</span> лет</div><div class="s">в продажах</div></div></div></section>
+
+<!-- 04 КТО Я -->
+<section class="sec about" id="s4" data-ch="Кто я" data-e=".8">
+  <div class="wrap">
+    <div class="ph" id="ph"><img src="me.webp" alt="Александр Комлев" loading="lazy"></div>
+    <div>
+      <h2 class="h2 wm">Кто я?</h2>
+      <div class="nm fade">Александр Комлев</div>
+      <div class="badges fade d1"><div><b>12 лет</b><span>в продажах</span></div><div><b>100 млн+</b><span>заработали клиенты</span></div></div>
+      <p class="sub fade d1">Мой путь — от нестабильных продаж к системе, которая даёт результат. Эти качели я прошёл сам.</p>
+      <div class="big24 fade d2">2 → 4 млн<small>без рекламы</small></div>
+      <p class="sub fade d2">Обучался у сильных экспертов в маркетинге, продажах и мышлении. Разные подходы — свёл в систему, которая работает на практике.</p>
+      <div class="links fade d3">
+        <a class="ghost" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY2NjkzMTI5OTY4MjU4?story_media_id=2413957420203862326&amp;igsh=dWV1MjlwdnFvcHYx" target="_blank" rel="noopener">Чеки клиентов</a>
+        <a class="ghost" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTgyNjY4OTcyMTE0MzI5?story_media_id=3156090925834601469&amp;igsh=a3JxczlqMG9oOHNl" target="_blank" rel="noopener">Отзывы</a>
+      </div>
+      <p class="ig">*Инстаграм принадлежит Meta, признанной экстремистской организацией в РФ</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 ЭТАПЫ -->
+<section class="sec deck" id="s5" data-ch="Как работаю" data-e="1">
+  <div class="st">
+    <div>
+      <span class="pill">метод</span>
+      <h2 class="h2" style="margin-top:18px">Не чиню один симптом<small>Собираю конструкцию целиком</small></h2>
+      <p class="sub">Здесь нет разрозненных советов. Работа строится так, чтобы продажи перестали быть эмоциональной рулеткой и стали логичным результатом системы.</p>
+    </div>
+    <div class="stack" id="stack">
+      <div class="card"><div class="top"><span>этап</span><b>01</b></div><h3>Диагностика</h3><p>Смотрим не только на воронку, а на всю систему: позиционирование, продукт, продажи, мышление, состояние и логику решений.</p></div>
+      <div class="card"><div class="top"><span>этап</span><b>02</b></div><h3>Пересборка</h3><p>Собираем связку: что вы продаёте, кому, как это звучит, как это продаётся и на чём держится стабильно.</p></div>
+      <div class="card"><div class="top"><span>этап</span><b>03</b></div><h3>Внедрение</h3><p>Не теория ради теории. Всё превращается в конкретные действия, опоры, сценарии, тексты и управляемую систему.</p></div>
+      <div class="card"><div class="top"><span>этап</span><b>04</b></div><h3>Закрепление</h3><p>Чтобы система не распалась через неделю. Нужна не вспышка мотивации, а рабочая конструкция, которая выдержит рост.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ДО / ПОСЛЕ -->
+<section class="sec ba" id="s6" data-ch="До / после" data-e="1.1">
+  <div class="st" id="baS">
+    <div class="head2">
+      <span class="pill">до/после</span>
+      <h2 class="h2" style="margin-top:18px">Что меняется у&nbsp;клиентов</h2>
+      <p class="sub">Не просто настроение. Меняется архитектура решений, ощущение себя в продаже и фактический результат.</p>
+    </div>
+    <div class="panes">
+      <div class="bx was"><h3>Было</h3><ul><li>хаос в голове, в стратегии и действиях</li><li>продажи по настроению</li><li>напряжённые созвоны</li><li>чек, который вызывает слёзы горечи</li><li>«не получится, не купят, не придут»</li></ul></div>
+      <div class="bx now"><h3>Стало</h3><ul><li>понятная стратегия</li><li>стабильные продажи</li><li>уверенная позиция на встречах</li><li>деньги как результат решений, а не удачи</li><li>ясное понимание своей ценности</li><li>понятная система продаж</li><li>рост среднего чека</li><li>закрытые хотелки</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- МОНТАЖНАЯ СКЛЕЙКА -->
+<section class="cut" data-ch="Результаты" data-e="2"><div class="st"><div class="line"></div><div class="mv"><div class="t"><span data-count="100">0</span> млн+</div><div class="s">заработали клиенты</div></div></div></section>
+
+<!-- 07 ТРАНСФОРМАЦИИ -->
+<section class="sec tr" id="s7" data-ch="Результаты" data-e=".9">
+  <div class="wrap">
+    <h2 class="h2 wm">Трансформации, которые <em>уже случились</em></h2>
+    <p class="sub fade">и могут случиться с вами. Разные ниши, разные точки старта — один итог.</p>
+    <div class="pile" id="pile"></div>
+  </div>
+</section>
+
+<!-- 08 ФОРМАТЫ -->
+<section class="sec" id="s8" data-ch="Форматы" data-e=".8">
+  <div class="wrap fm">
+    <div>
+      <h2 class="h2 wm">Форматы работы</h2>
+      <p class="sub fade">Не курсы. Не марафоны. Не на поболтать.<br>Это точечная и глубокая работа по переработке вашей системы продаж. <b>Какой формат нужен именно вам — покажет диагностика.</b></p>
+    </div>
+    <div class="acc fade d1" id="acc">
+      <div class="it open"><button type="button">Индивидуальная работа</button><div class="bd"><div><div class="in">
+        <div><h4>Что это на самом деле</h4><p>Пересборка вашей системы продаж под ваш контекст: позиционирование, продукт, логика продаж, состояние.</p></div>
+        <div><h4>Что происходит</h4><ul><li>разбираем, где система ломается</li><li>убираем лишние действия</li><li>собираем понятную стратегию</li><li>усиливаем точку, где вы теряете деньги</li></ul></div>
+        <div><h4>Результат</h4><ul><li>ясность вместо хаоса</li><li>управляемость вместо случайности</li><li>рост чека и уверенности</li></ul></div></div></div></div></div>
+      <div class="it"><button type="button">Пересборка продаж и продуктов</button><div class="bd"><div><div class="in">
+        <div><h4>Что это</h4><p>Работа не с «продажами отдельно», а с тем, как продукт, ценность и подача связаны между собой.</p></div>
+        <div><h4>Что делаем</h4><ul><li>пересобираем продукт под реальную ценность</li><li>убираем расхождение между ценой и уверенностью</li><li>выстраиваем логику, в которой продавать не нужно «дожимать»</li></ul></div>
+        <div><h4>Результат</h4><ul><li>продукт продаёт себя сильнее</li><li>меньше сопротивления от клиентов</li><li>чек начинает расти без давления</li></ul></div></div></div></div></div>
+      <div class="it"><button type="button">Сопровождение системы</button><div class="bd"><div><div class="in">
+        <div><h4>Что это</h4><p>Поддержка после пересборки, чтобы система не развалилась и закрепилась в действиях.</p></div>
+        <div><h4>Что происходит</h4><ul><li>корректировка стратегии по ходу</li><li>разбор конкретных ситуаций</li><li>точечные решения вместо откатов</li><li>удержание фокуса</li></ul></div>
+        <div><h4>Результат</h4><ul><li>стабильность, а не «рывок и откат»</li><li>закрепление нового уровня</li><li>рост без возврата в старые паттерны</li></ul></div></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 БОЛЬШЕ КЕЙСОВ -->
+<section class="sec more" id="s9" data-ch="Больше кейсов" data-e="1.2">
+  <div class="st">
+    <div class="hd">
+      <h2 class="h2">Больше кейсов</h2>
+      <p class="sub" style="margin:0">Разные ниши. Разные точки старта.<br>Один итог — управляемые продажи.</p>
+    </div>
+    <div class="track" id="track"></div>
+  </div>
+</section>
+
+<!-- 10 ЗАПИСЬ -->
+<section class="sec cta" id="s10" data-ch="Диагностика" data-e="2.2">
+  <div class="cbox" id="cbox">
+    <span class="pill">бесплатная диагностика</span>
+    <h2 style="margin-top:20px">Получить понятную стратегию</h2>
+    <p class="sub">Встреча 30–40 минут. Без презентаций и прогревов. Разберём, <b>где ломается ваша система</b> и в какой точке вы теряете деньги. Увижу, что могу помочь, — скажу как. Не увижу — скажу прямо.</p>
+    <a class="btn" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Записаться на диагностику <i></i></a>
+    <p class="tiny">Только для экспертов, у которых продажи уже есть</p>
+    <div class="tpl">
+      <div class="k">Напишите одним сообщением <button type="button" id="copy">Скопировать</button></div>
+      <pre id="tplT">Александр, здравствуйте! Хочу на диагностику.
+Ниша:
+Средний чек:
+Продажи за последние 3 месяца:</pre>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div><p><a href="mailto:komlevalexander@yahoo.com">komlevalexander@yahoo.com</a></p><p><a href="tel:+79019783894">+79019783894</a></p><p style="margin-top:14px">ИП Комлев Александр Евгеньевич<br>ИНН 782003396570<br>196620, г. Санкт-Петербург, п. Шушары (тер. Славянка), Полоцкая 15 к2</p></div>
+    <div><p><a href="https://drive.google.com/file/d/1R3z2dI6N-Fia2upxG0cJvpNCDnpxnh4x/view?usp=sharing" target="_blank" rel="noopener">Политика конфиденциальности</a></p><p><a href="https://drive.google.com/file/d/1ibKBrkpKRE5iYUrD1UFqyxS4IfhT4hZ8/view?usp=sharing" target="_blank" rel="noopener">Публичная оферта</a></p></div>
+  </div>
+  <p class="by">Дизайн и верстка сайта <a href="https://t.me/imjuulii" target="_blank" rel="noopener">@imjuulii</a></p>
+</footer>
+
+<script>
+(()=>{
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),vh=()=>innerHeight;
+
+/* ---------- кейсы (с сайта) ---------- */
+const TOP=[
+ {f:'milky',n:'Настя Milky',r:'наставник бьюти-экспертов',a:'500 000₽',ad:'нестабильный доход, оборот на оффлайн-обучениях',b:'3,3 млн₽',bd:'за 8 недель наставничества',rot:-5},
+ {f:'bundina',n:'Ольга Бундина',r:'методолог',a:'350 000₽',ad:'разрозненные продажи, отсутствие роста в цене',b:'1,3 млн₽',bd:'средний чек вырос в 2 раза',rot:4},
+ {f:'sova',n:'Наталья Сова',r:'астролог',a:'100 000₽',ad:'нестабильный доход, хаос в продажах, выгорание',b:'1,7 млн₽',bd:'выстроенная система продаж',rot:-2},
+ {f:'kuznetsova-s',n:'Серафима Кузнецова',r:'бизнес-наставник, коуч',a:'100 000₽',ad:'страх поднимать стоимость, разрозненные продажи',b:'11 млн₽',bd:'средний чек вырос в 10 раз',rot:6},
+ {f:'emelyanova',n:'Ира Емельянова',r:'бизнес-коуч',a:'низкий чек',ad:'',b:'4,2 млн₽',bd:'за 10 недель',rot:-4},
+ {f:'zelinskaya',n:'Ирина Зелинская',r:'наставник, коуч',a:'250 000₽',ad:'',b:'4,9 млн₽',bd:'',rot:3}];
+$('#pile').innerHTML=TOP.map(c=>`<article class="tc" style="--r:${c.rot}deg"><img src="c/${c.f}.webp" alt="${c.n}" loading="lazy"><div><div class="nm">${c.n}</div><div class="rl">${c.r}</div><div class="a">Точка А — ${c.a}${c.ad?`<span>${c.ad}</span>`:''}</div><div class="b">Точка Б — ${c.b}${c.bd?`<span>${c.bd}</span>`:''}</div></div></article>`).join('');
+const MORE=['bekker','vasilyeva','slinkina','bodanova','nechitailenko','ermolaeva','kalashnikova','klimova','maksakova','zaveryuho','yagudina','linur','liliya','gorbunova','kuznetsova-yu','golubkova','vainshtein','cherenkov','voropaeva'];
+$('#track').innerHTML=MORE.map(n=>`<img src="k/${n}.webp" alt="Кейс клиента" loading="lazy">`).join('');
+
+/* ---------- разбивка на слова ---------- */
+$$('.wm').forEach(el=>{const walk=n=>[...n.childNodes].forEach(c=>{
+  if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t)){f.append(' ');return}const w=document.createElement('span');w.className='w';const i=document.createElement('span');i.textContent=t;w.append(i);f.append(w)});c.replaceWith(f)}
+  else if(c.nodeType===1&&!c.classList.contains('w'))walk(c)});walk(el);$$('.w>span',el).forEach((s,i)=>s.style.transitionDelay=(i*.05)+'s')});
+
+/* ---------- живой фон: синяя энергия (WebGL) ---------- */
+const cv=$('#bg');let gl=null,U={},energy=1,eT=1,scrollP=0,strikeT=-10;const t0=performance.now();
+try{gl=cv.getContext('webgl',{antialias:false,alpha:false,powerPreference:'low-power'})}catch(e){}
+if(gl){
+ const fs=`precision mediump float;uniform vec2 R;uniform float T,E,S,K;
+ float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+ float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+ float fbm(vec2 p){float s=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<5;i++){s+=a*n(p);p=m*p;a*=.5;}return s;}
+ void main(){vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;float t=T*.06;
+  vec2 p=uv*1.6+vec2(0.,S*2.2);
+  vec2 q=vec2(fbm(p+t),fbm(p+vec2(5.2,1.3)-t));
+  vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)+t*1.4),fbm(p+3.*q+vec2(8.3,2.8)-t));
+  float f=fbm(p+2.5*r);
+  float rid=1.-abs(fbm(p*1.3+r*2.+t*2.)*2.-1.);rid=pow(rid,14.);
+  vec3 c=vec3(0.);
+  c+=vec3(.05,.07,.28)*smoothstep(.2,1.,f)*1.4;
+  c+=vec3(.25,.33,.91)*pow(smoothstep(.35,1.,f*length(r)),2.)*1.3;
+  c+=vec3(.46,.72,1.)*rid*(.55+.45*sin(T*1.7+f*9.))*.9;
+  float y=uv.y-.12+(fbm(vec2(uv.x*6.,T*8.))-.5)*.35;
+  c+=vec3(.55,.75,1.)*(.012/abs(y))*K;
+  c*=E;
+  c*=smoothstep(1.4,.2,length(uv*vec2(.8,1.1)));
+  gl_FragColor=vec4(c,1.);}`;
+ const sh=(ty,src)=>{const s=gl.createShader(ty);gl.shaderSource(s,src);gl.compileShader(s);return s};
+ const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0,1);}'));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);
+ if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){gl=null}else{
+  gl.useProgram(pr);const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+  ['R','T','E','S','K'].forEach(k=>U[k]=gl.getUniformLocation(pr,k));}
+}
+const size=()=>{if(!gl)return;const s=innerWidth<760?.38:.5;cv.width=Math.round(innerWidth*s);cv.height=Math.round(innerHeight*s);gl.viewport(0,0,cv.width,cv.height)};size();addEventListener('resize',size);
+let running=true;document.addEventListener('visibilitychange',()=>{const was=running;running=!document.hidden;if(running&&!was)requestAnimationFrame(frame)});
+function frame(now){if(!running)return;const T=(now-t0)/1000;energy+=(eT-energy)*.04;
+  const dt=T-strikeT,K=dt<.7?(1-dt/.7)*(Math.sin(dt*60)>0?1:.35):0;
+  if(gl){gl.uniform2f(U.R,cv.width,cv.height);gl.uniform1f(U.T,T);gl.uniform1f(U.E,energy);gl.uniform1f(U.S,scrollP);gl.uniform1f(U.K,K);gl.drawArrays(gl.TRIANGLES,0,3)}
+  requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+const flash=$('#flash');
+const strike=()=>{strikeT=(performance.now()-t0)/1000;flash.classList.remove('go');void flash.offsetWidth;flash.classList.add('go')};
+
+/* ---------- титры ---------- */
+let entered=false;
+const enter=()=>{if(entered)return;entered=true;document.body.classList.remove('locked');document.body.classList.add('in');strike();tick()};
+$('#enter').addEventListener('click',enter);$('#skip').addEventListener('click',enter);
+setTimeout(()=>{if(!entered)strike()},3900);
+
+/* ---------- главы ---------- */
+const secs=$$('main>section'),named=secs.filter(s=>s.id),rail=$('#rail');
+named.forEach(s=>{const a=document.createElement('a');a.href='#'+s.id;a.title=s.dataset.ch;rail.append(a)});
+let curName='';const cht=$('#cht'),chn=$('#chn');
+const setCh=s=>{eT=+s.dataset.e||1;const name=s.dataset.ch;if(name===curName)return;curName=name;
+  const idx=Math.max(0,named.findIndex(x=>x.dataset.ch===name));$$('a',rail).forEach((a,j)=>a.classList.toggle('on',j===idx));
+  chn.textContent=String(idx+1).padStart(2,'0');cht.classList.add('out');setTimeout(()=>{cht.textContent=name;cht.classList.remove('out')},300)};
+
+/* ---------- проявления ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);if(e.target.id==='three')strike()}}),{threshold:.2,rootMargin:'0px 0px -5% 0px'});
+$$('.wm,.fade,#cloud,#three,#ph,.tc').forEach(el=>io.observe(el));
+
+/* ---------- аккордеон ---------- */
+$$('#acc .it button').forEach(b=>b.addEventListener('click',()=>{const it=b.parentElement,o=it.classList.contains('open');$$('#acc .it').forEach(x=>x.classList.remove('open'));if(!o)it.classList.add('open')}));
+
+/* ---------- копировать шаблон ---------- */
+$('#copy').addEventListener('click',e=>{navigator.clipboard?.writeText($('#tplT').textContent).then(()=>{e.target.textContent='Скопировано';setTimeout(()=>e.target.textContent='Скопировать',1800)}).catch(()=>{})});
+
+/* ---------- движок прокрутки ---------- */
+const prog=$('#prog'),glow=$('#glow'),cuts=$$('.cut'),map=$('#map'),mpaths=$$('path',map),mnodes=$$('.n',map),bolt2=$('#bolt2'),deck=$('#s5'),cards=$$('#stack .card'),ba=$('#s6'),baS=$('#baS'),more=$('#s9'),track=$('#track'),cbox=$('#cbox'),cta=$('#s10');
+mpaths.forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;p._L=L});
+const stickP=el=>{const r=el.getBoundingClientRect();return clamp(-r.top/(r.height-vh()))};
+const viewP=(el,a=1,b=.3)=>{const r=el.getBoundingClientRect();return clamp((vh()*a-r.top)/(vh()*(a-b)))};
+const struck=new WeakSet();
+let tk=false;
+function tick(){tk=false;const y=scrollY,H=document.documentElement.scrollHeight-vh(),P=clamp(y/H);scrollP=P;
+  prog.style.transform=`scaleX(${P})`;
+  glow.style.setProperty('--gx',(80-P*60)+'%');glow.style.setProperty('--gy',(70-Math.sin(P*6.28)*25)+'%');
+  let cur=secs[0];secs.forEach(s=>{if(s.getBoundingClientRect().top<vh()*.5)cur=s});setCh(cur);
+  document.body.classList.toggle('dockon',y>vh()*.9&&cta.getBoundingClientRect().top>vh()*.5);
+  // склейки: пролёт сквозь титр
+  cuts.forEach(c=>{const p=stickP(c),mv=$('.mv',c),ln=$('.line',c);
+    const inP=clamp(p/.35),outP=clamp((p-.65)/.35);
+    mv.style.transform=`scale(${.55+inP*.45+outP*1.4})`;mv.style.opacity=inP*(1-outP);mv.style.filter=`blur(${(1-inP)*14+outP*18}px)`;
+    ln.style.setProperty('--lx',clamp(inP*1.2)*(1-outP));
+    const cnt=$('[data-count]',c);if(cnt)cnt.textContent=Math.round(+cnt.dataset.count*clamp(p/.5));
+    if(p>.3&&p<.5&&!struck.has(c)){struck.add(c);strike()}});
+  // карта проблемы
+  const mp=viewP(map,1,.2);mpaths.forEach((p,k)=>p.style.strokeDashoffset=p._L*(1-clamp((mp-.1-k*.06)/.35)));mnodes.forEach(n=>n.classList.toggle('on',mp>=+n.dataset.at));
+  bolt2.style.setProperty('--bw',(viewP(bolt2,1,.45)*100)+'%');
+  // колода этапов
+  const dp=stickP(deck),N=cards.length;cards.forEach((c,i)=>{const d=dp*(N-.001)-i;let tr='none',op=1,z=N+1,br=1;
+    if(d<0){const u=clamp(-d);tr=`translateY(${u*40}px) scale(${1-u*.06})`;z=N-i;br=1-u*.45}
+    else if(d>=1&&i<N-1){const u=clamp(d-1);tr=innerWidth<900?`translateX(${-u*130}%) rotate(${-u*10}deg)`:`translateY(${-u*120}%) rotate(${-u*14}deg) scale(${1-u*.1})`;op=1-u;z=N+2+i}
+    c.style.transform=tr;c.style.opacity=op;c.style.zIndex=z;c.style.filter=`brightness(${br})`});
+  // было / стало
+  const k=clamp((stickP(ba)-.12)/.6);baS.style.setProperty('--k',k);baS.style.setProperty('--w',(k*100)+'%');
+  // лента кейсов
+  const tp=stickP(more),max=track.scrollWidth-innerWidth+Math.max(16,innerWidth*.06);track.style.transform=`translate3d(${-tp*Math.max(0,max)}px,0,0)`;
+  // финал
+  const cp=viewP(cta,1,.35);cbox.style.setProperty('--cs',(.86+.14*cp).toFixed(3));cbox.style.setProperty('--co',clamp(cp*1.4).toFixed(3));
+}
+addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(tick)}},{passive:true});
+addEventListener('resize',tick);tick();
+})();
+</script>
+</body></html>
