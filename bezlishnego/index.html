@@ -969,6 +969,26 @@ body{background:#020605}
 }
 @media (max-width:819px) and (max-height:780px){.nx .dc{grid-template-columns:76px minmax(0,1fr);gap:10px;padding:8px 0}.nx .tn,.nx .dc.dth .tn{font-size:29px}.nx .ds{font-size:14.5px;line-height:1.2}.nx .dpunch{font-size:16px;margin-top:10px}.nx .day .head{margin-bottom:8px}}
 @media (max-width:819px) and (max-height:650px){.nx .dc{padding:6px 0}.nx .ds{font-size:13.5px}.nx .tn,.nx .dc.dth .tn{font-size:27px}.nx .dpunch{font-size:15px}}
+
+/* ===== v23: portrait slide with light, framed case photos ===== */
+.nx .stats.s4{grid-template-columns:repeat(4,minmax(0,1fr));max-width:none}
+.nx .stats.s4 div:first-child b{color:var(--g)}
+.nx .frame.fx{isolation:isolate}
+.nx .frame.fx::after{content:"";position:absolute;inset:-14% -18%;z-index:-1;background:radial-gradient(50% 50% at 40% 45%,rgba(25,200,144,.5),transparent 70%),radial-gradient(42% 42% at 72% 76%,rgba(217,185,124,.4),transparent 70%);filter:blur(26px);animation:halo 9s ease-in-out infinite alternate;pointer-events:none}
+@keyframes halo{from{transform:translate3d(-3%,2%,0) scale(.96)}to{transform:translate3d(4%,-3%,0) scale(1.06)}}
+.nx .frame.fx img{outline:0;border-radius:18px;box-shadow:0 0 0 1px rgba(217,185,124,.5),0 0 0 7px rgba(2,6,5,.55),0 0 0 8px rgba(217,185,124,.22),0 44px 90px -26px rgba(0,0,0,.85)}
+.nx .frame.fx::before{display:block!important;content:"";position:absolute;inset:0;z-index:2;border-radius:18px;background:linear-gradient(112deg,transparent 38%,rgba(255,246,222,.26) 49%,transparent 60%);background-size:260% 100%;background-position:120% 0;pointer-events:none;mix-blend-mode:screen;border:0}
+.nx .frame.fx:not(.pre)::before{animation:shine 1.5s cubic-bezier(.23,1,.32,1) .7s both}
+@keyframes shine{from{background-position:120% 0}to{background-position:-60% 0}}
+.nx .cc .shots{border-radius:18px;box-shadow:0 0 0 1px rgba(217,185,124,.55),0 0 0 6px rgba(2,6,5,.6),0 0 0 7px rgba(217,185,124,.2),0 30px 60px -18px rgba(0,0,0,.7),0 0 44px rgba(25,200,144,.10);overflow:hidden;margin:7px}
+.nx .cc .shots::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.14),transparent 22%,transparent 70%,rgba(2,6,5,.5));box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.nx .cc .shots::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;z-index:1;background:linear-gradient(180deg,transparent,rgba(217,185,124,.8) 18%,rgba(217,185,124,.8) 82%,transparent);pointer-events:none}
+@media (max-width:819px){
+  .nx .stats.s4{gap:0 8px}.nx .stats.s4 b{font-size:24px}.nx .stats.s4 span{font-size:10.5px;line-height:1.25;margin-top:4px}.nx .stats.s4 div{padding:10px 0 0}
+  .nx .frame.fx::after{inset:-8% -6%;filter:blur(20px)}
+}
+@media (prefers-reduced-motion:reduce){.nx .frame.fx::after,.nx .frame.fx::before{animation:none}}
+@media (max-width:819px){.nx .cc .shots{height:min(31svh,290px);margin:7px 7px 3px}}
 </style>
 </head><body>
 
@@ -1106,12 +1126,12 @@ body{background:#020605}
       <p class="cd rv" style="margin-top:16px;font-size:14px">Разбор анализов не входит: это работа врача, и я её не подменяю.</p>
     </div></div></section>
 
-    <section data-veil=".3">
+    <section data-veil=".3" data-orb="39,-33,.4,0">
       <div class="slide"><div class="wrap who1">
-        <figure class="frame t3"><img width="840" height="1120" src="sasha.webp" alt="Александра Клищук" loading="lazy"></figure>
+        <figure class="frame t3 fx"><img width="840" height="1120" src="sasha.webp" alt="Александра Клищук" loading="lazy"></figure>
         <div>
           <div class="head"><p class="k">13 — Кто ведёт</p><h2 class="h" data-split>Александра <span class="gd">Клищук</span></h2><p class="lead rv">Персональный тренер с 2015 года и телесно-ориентированный психолог. Поэтому в работе всегда оба рычага: <b class="gl">тело и голова</b>.</p></div>
-          <div class="stats rv"><div><b data-count="3">3</b><span>марафона по 42,2 км</span></div><div><b data-count="50" data-suf="+">50+</b><span>полумарафонов</span></div><div><b>2015</b><span>год, с которого я в профессии</span></div></div>
+          <div class="stats s4 rv"><div><b data-count="200" data-suf="+">200+</b><span>довольных клиентов</span></div><div><b>2015</b><span>год, с которого я в профессии</span></div><div><b data-count="50" data-suf="+">50+</b><span>полу&shy;марафонов</span></div><div><b data-count="3">3</b><span>марафона по 42,2 км</span></div></div>
           <p class="q rv donly" style="margin-top:24px">Бегаю марафоны, участвую в гонках с препятствиями. Нагрузку знаю не по учебникам — на себе.</p>
         </div>
       </div></div>
@@ -1190,9 +1210,9 @@ body{background:#020605}
 
     <section data-veil=".4">
       <div class="dslide"><div class="wrap mgw"><div class="mpart"><div class="mathg">
-        <div class="head"><p class="k">16 — Простая математика</p><h2 class="h" data-split>Простая <span class="gd">математика</span></h2><p class="lead rv">Чтобы результат был устойчивым, нужны трое: тренер, психолог и нутрициолог. <b class="gl">Вот сколько это стоит, если собирать по отдельности.</b></p></div>
+        <div class="head"><p class="k">16 — Простая математика</p><h2 class="h" data-split>Простая <span class="gd">математика</span></h2><p class="lead rv">Чтобы результат был устойчивым, нужны трое: тренер, психолог и нутрициолог. <b class="gl">Вот сколько это стоит, если собирать по отдельности — минимум на 3 месяца.</b></p></div>
         <div class="cmp pane t3 rv" style="--ry:-7deg">
-          <p class="lab">Если собирать по отдельности</p>
+          <p class="lab">По отдельности · минимум 3 месяца</p>
           <div class="ln"><span>Тренер: 24 × 3 000 ₽</span><span>72 000 ₽</span></div>
           <div class="ln"><span>Психолог: 12 × 5 000 ₽</span><span>60 000 ₽</span></div>
           <div class="ln"><span>Нутрициолог</span><span>60 000 ₽</span></div>
@@ -1230,7 +1250,7 @@ body{background:#020605}
           <p class="k monly">17 — Форматы работы</p>
           <div class="g3 fmts">
             <div class="pane t3 fm"><p class="lab">Формат 02</p><p class="ct">Месяц — запуск</p><p class="cd">8 тренировок, 4 консультации, замеры. Тело, голова и режим начинают работать вместе.</p><p class="fr"><span>На выходе</span>Первые изменения в сантиметрах и понятный план.</p></div>
-            <div class="pane t3 fm hl"><span class="pill2">Рекомендую</span><p class="lab">Формат 03</p><p class="ct">Три месяца — закрепить</p><p class="cd">24 тренировки, 12 консультаций, замеры каждый месяц и связь каждый день.</p><p class="fr"><span>На выходе</span>Вес, режим и привычки, которые держатся уже без меня.</p></div>
+            <div class="pane t3 fm hl"><span class="pill2">Рекомендую</span><p class="lab">Формат 03</p><p class="ct">Три месяца — закрепить</p><p class="cd">24 тренировки, 12 консультаций, замеры каждый месяц и связь каждый день.</p><p class="fr"><span>На выходе</span>Вес уходит и не возвращается. Режим и привычки держатся уже без меня.</p></div>
           </div>
           <p class="note fnote rv"><span>Какой формат ваш — решаем вместе на диагностике. Стоимость называю там же, честно и сразу. <b class="gl">Есть рассрочка без банка.</b></span></p>
         </div>
@@ -1429,9 +1449,9 @@ body{background:#020605}
       var knot=new T.Mesh(new T.TorusKnotGeometry(.95,.27,mob.matches?140:240,mob.matches?18:30,2,3),new T.MeshStandardMaterial({color:'#06100c',metalness:1,roughness:.16,envMapIntensity:1.6}));big.add(knot);
       var bs=1.3,ks=.001,gs=1,px=0,py=0;
       // small emeralds drifting along the edges
-      var gg=new T.OctahedronGeometry(1,0),gm=[new T.MeshStandardMaterial({color:'#12c48c',metalness:.45,roughness:.06,envMapIntensity:2.4,flatShading:true}),new T.MeshStandardMaterial({color:'#D9B97C',metalness:.9,roughness:.14,envMapIntensity:1.8,flatShading:true})],gems=[],GN=mob.matches?8:14,sd=7;
+      var gg=new T.SphereGeometry(1,40,28),gm=[new T.MeshStandardMaterial({color:'#07130e',metalness:1,roughness:.14,envMapIntensity:1.7})],gems=[],GN=mob.matches?3:6,sd=11;
       function rnd(){sd=(sd*16807)%2147483647;return sd/2147483647}
-      for(var gi=0;gi<GN;gi++){var m=new T.Mesh(gg,gm[gi%5===3?1:0]);var q={m:m,side:gi%2?1:-1,u:(mob.matches?.47:.455)+.075*rnd(),v:rnd(),z:-1.6+2.4*rnd(),s:(mob.matches?.03:.04)+(mob.matches?.035:.06)*rnd(),d:.18+.5*rnd(),ph:rnd()*6.28,sp:.2+.5*rnd()};m.scale.set(q.s,q.s*1.45,q.s);m.rotation.set(rnd()*3,rnd()*3,rnd()*3);scene.add(m);gems.push(q)}
+      for(var gi=0;gi<GN;gi++){var m=new T.Mesh(gg,gm[0]);var q={m:m,side:gi%2?1:-1,u:(mob.matches?.47:.455)+.075*rnd(),v:rnd(),z:-1.6+2.4*rnd(),s:(mob.matches?.035:.05)+(mob.matches?.04:.075)*rnd(),d:.18+.5*rnd(),ph:rnd()*6.28,sp:.2+.5*rnd()};m.scale.setScalar(q.s);m.rotation.set(rnd()*3,rnd()*3,rnd()*3);scene.add(m);gems.push(q)}
       var t0=performance.now(),sw=0,sh2=0,lt=0;
       function size(){var w=innerWidth,h=innerHeight;if(w!==sw||h!==sh2){sw=w;sh2=h;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();WW=HH*w/h;vm=Math.min(w,h)/h}}
       addEventListener('pointermove',function(e){sx=e.clientX/innerWidth*2-1;sy=e.clientY/innerHeight*2-1},{passive:true});
