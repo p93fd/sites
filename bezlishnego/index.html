@@ -911,6 +911,18 @@ body{background:#020605}
   .nx .mgw .mathg,.nx .mgw .gets2{display:block}
   .nx .orb{width:70vmin;height:70vmin;margin:-35vmin 0 0 -35vmin}
 }
+
+/* ===== v20: one crisp text voice everywhere (as on the maths slide) ===== */
+.nx .lead,.nx .row .d,.nx .sub,.nx .cd,.nx .e2,.nx .gx,.nx .fz2,.nx details p,.nx .wins li,.nx .psl li,.nx .tile .td,.nx .st .cd,.nx .fit li,.nx .note,.nx .ns,.nx .cr,.nx .bl,.nx .ts .bl,.nx .fr,.nx .cmp .ln,.nx .ab p:not(.lab),.nx .stats span,.nx .dcap span{font-weight:500;color:rgba(246,243,236,.95)}
+.nx .cmp .ln,.nx .cmp .tot,.nx .gn,.nx .tn,.nx .big,.nx .stats b,.nx .kg{font-variant-numeric:tabular-nums lining-nums}
+.nx .ds{color:rgba(246,243,236,.96)}
+.nx .lab{color:rgba(217,185,124,.95)}
+.nx .lnote{color:rgba(246,243,236,.74)}
+@media (min-width:820px){
+  .nx .cd,.nx .row .d,.nx .st .cd,.nx .tile .td,.nx .fit li,.nx .cmp .ln{font-size:clamp(15.5px,min(1.22vw,2.25vh),18px);line-height:1.45}
+  .nx .trust .tstats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:819px){.nx .trust .tstats{grid-template-columns:1fr 1fr 1.3fr;gap:6px 12px}.nx .trust .ts{display:block}.nx .trust .ts .bl{font-size:11px}}
 </style>
 </head><body>
 
@@ -1156,7 +1168,7 @@ body{background:#020605}
       <div class="dslide one"><div class="wrap trust">
         <div class="mpart">
           <div class="head"><p class="k">16 — Почему мне можно доверять</p><h2 class="h" data-split>Почему мне <span class="gd">можно доверять</span></h2></div>
-          <div class="g3 tstats"><div class="ts"><p class="gn">2015</p><p class="bl">тренирую с этого года</p></div><div class="ts"><p class="gn">2</p><p class="bl">профпереподготовки по психологии</p></div><div class="ts"><p class="gn">50+</p><p class="bl">полумарафонов за плечами</p></div><div class="ts"><p class="gn">3</p><p class="bl">марафона по 42,2 км</p></div></div>
+          <div class="g3 tstats"><div class="ts"><p class="gn">200+</p><p class="bl">довольных клиентов</p></div><div class="ts"><p class="gn">2015</p><p class="bl">тренирую с этого года</p></div><div class="ts"><p class="gn">2</p><p class="bl">профпереподготовки по психологии</p></div></div>
         </div>
         <div class="mpart tr2">
           <p class="k monly">16 — Почему мне можно доверять</p>
@@ -1384,7 +1396,7 @@ body{background:#020605}
   function frame(){busy=false;var h=innerHeight,y=scrollY,D=Math.max(1,document.documentElement.scrollHeight-h),g=y/D;
     prog.style.transform='scaleX('+g.toFixed(4)+')';
     if(entered){for(var c=N-1;c>=0;c--){if(secs[c].getBoundingClientRect().top<h*.5){setChap(c);break}}}
-    var a=g*Math.PI*2,am=mob.matches?.55:1;v.style.transform='translate3d('+(Math.sin(a)*2.2*am).toFixed(2)+'%,'+((.5-g)*5*am).toFixed(2)+'%,0) rotate('+((Math.sin(a*.5)*2-1)*am).toFixed(2)+'deg) scale('+(1.02+.06*am*Math.sin(a*1.5)*Math.sin(a*1.5)).toFixed(3)+')';
+    var a=g*Math.PI*2,am=mob.matches?.55:1;v.style.transform='translate3d('+(Math.sin(a)*1.2*am).toFixed(2)+'%,'+((.5-g)*3*am).toFixed(2)+'%,0) scale(1.035)';
     certs.forEach(function(ce){var cr=ce.getBoundingClientRect();if(!cr.height)return;var cq=Math.min(1,Math.abs((cr.top+cr.height/2-h/2)/(h*.6)));ce.style.setProperty('--r',(.35+.65*cq).toFixed(3))});
     tilt(h);var hb=hero.getBoundingClientRect();if(cut&&!reduce)cut.style.setProperty('--hy',Math.max(0,-hb.top*.25).toFixed(1)+'px');
     bar.classList.toggle('show',hb.bottom<0&&fin.getBoundingClientRect().top>h*.8)}
