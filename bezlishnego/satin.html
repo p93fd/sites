@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#020605">
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06241A">
 <title>Без лишнего</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;800&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
@@ -12,8 +12,8 @@ body{background:#06241A}
   position:relative;color:var(--iv);font:400 16.5px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
 .nx *{box-sizing:border-box}.nx [hidden]{display:none!important}.nx h1,.nx h2,.nx h3,.nx p{margin:0}
 .nx .satin{position:fixed;left:-10%;top:-10%;width:120%;height:120%;object-fit:cover;z-index:0;pointer-events:none;background:#0A3A2A center/cover no-repeat;will-change:transform;transform:translate3d(0,0,0)}
-.nx .silk{position:fixed;inset:0;z-index:0;pointer-events:none;background:#020605 url(ribbon.jpg) center/cover no-repeat}
-@media (orientation:portrait){.nx .silk{background-image:url(ribbon-m.jpg)}}
+.nx .silk{position:fixed;inset:0;z-index:0;pointer-events:none;background:#020605 url(satin.jpg) center/cover no-repeat}
+@media (orientation:portrait){.nx .silk{background-image:url(satin-m.jpg)}}
 @media (max-width:819px){.nx .satin{left:-6%;top:-6%;width:112%;height:112%}}
 .nx .veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 50%,rgba(3,26,18,.55),rgba(2,16,11,.92));opacity:.2;transition:opacity 1.2s cubic-bezier(.4,0,.2,1)}
 .nx .prog{position:fixed;left:0;top:0;height:2px;width:100%;z-index:22;background:linear-gradient(90deg,#A77E3E,#F6E3B8);transform-origin:0 50%;transform:scaleX(0)}
@@ -793,6 +793,11 @@ body{background:#020605}
 /* documents and case photos keep a slight standing tilt on desktop */
 @media (min-width:820px){.nx .frame{--ry:9deg}.nx .cA .shots{transform:perspective(1200px) rotateY(6deg)}.nx .case:nth-of-type(2) .cA .shots{transform:perspective(1200px) rotateY(-6deg)}.nx .mine .pair{transform:perspective(1200px) rotateY(5deg)}}
 @media (prefers-reduced-motion:reduce){.nx .g3.pre>*,.nx .rv.pre.pre,.nx .rows.pre .row,.nx .cols.pre>*,.nx .frame.pre,.nx .wipe.pre{translate:none;rotate:none;transform:none;filter:none}}
+/* satin edition */
+body{background:#06241A}.nx .satin{background-color:#0A3A2A}
+.nx .veil{background:radial-gradient(130% 100% at 50% 40%,rgba(2,14,10,.72),rgba(1,8,6,.97))}
+.nx .gate{background:radial-gradient(75% 65% at 50% 50%,rgba(3,26,18,.05),rgba(2,16,11,.6))}
+.nx .pane{background:rgba(7,18,14,.5)}.nx .bgp{opacity:.3}
 </style>
 </head><body>
 
@@ -1219,7 +1224,7 @@ body{background:#020605}
   var cn=0;$$('main > section').forEach(function(sc){if(sc.hidden)return;var ks=sc.querySelectorAll('.k'),m=ks.length&&ks[0].textContent.match(/^\s*\d+\s*—\s*(.*)$/);if(m){cn++;[].forEach.call(ks,function(k){var mm=k.textContent.match(/^\s*\d+\s*—\s*(.*)$/);if(mm)k.textContent=String(cn).padStart(2,'0')+' — '+mm[1]})}});
   var reduce=false;
   // satin: portrait loop for phones, landscape for desktop
-  var v=$('.satin'),port=innerHeight>innerWidth;v.poster=res(port?'ribbon-m.jpg':'ribbon.jpg','image/jpeg');v.style.backgroundImage='url('+v.poster+')';v.src=res(port?'ribbon-m.mp4':'ribbon.mp4','video/mp4');$('.trk').src=res('track.mp3','audio/mpeg');
+  var v=$('.satin'),port=innerHeight>innerWidth;v.poster=res(port?'satin-m.jpg':'satin.jpg','image/jpeg');v.style.backgroundImage='url('+v.poster+')';v.src=res(port?'satin-m.mp4':'satin.mp4','video/mp4');$('.trk').src=res('track.mp3','audio/mpeg');
   var pv=v.play();if(pv&&pv.catch)pv.catch(function(){});
   // split headings into masked words
   $$('[data-split]').forEach(function(h){var i=0;function walk(n){[].slice.call(n.childNodes).forEach(function(c){
@@ -1303,7 +1308,7 @@ body{background:#020605}
   secs.forEach(function(sc,i){var a=document.createElement('a');a.setAttribute('aria-label',names[i]);a.title=names[i];a.addEventListener('click',function(){scrollTo({top:sc.offsetTop+(i===1?innerHeight*.2:0),behavior:'smooth'})});rail.appendChild(a)});
   var ticksR=[].slice.call(rail.children),mob=matchMedia('(max-width:819px)');
   function label(i){if(!nums[i])return names[i];return mob.matches?nums[i]+' / '+NN:nums[i]+' — '+names[i]}
-  var flare=$('.flare');function setChap(i){if(i===cur)return;if(cur>=0&&flare){flare.classList.remove('go');void flare.offsetWidth;flare.classList.add('go')}cur=i;veil.style.opacity=Math.min(.7,.12+(+secs[i].dataset.veil||.4)*1.1).toFixed(3);ticksR.forEach(function(a,k){a.classList.toggle('on',k===i)});
+  var flare=$('.flare');function setChap(i){if(i===cur)return;if(cur>=0&&flare){flare.classList.remove('go');void flare.offsetWidth;flare.classList.add('go')}cur=i;veil.style.opacity=Math.min(.86,.4+(+secs[i].dataset.veil||.4)*.85).toFixed(3);ticksR.forEach(function(a,k){a.classList.toggle('on',k===i)});
     var olds=[].slice.call(chap.children),nw=document.createElement('span');nw.textContent=label(i);nw.className='inn';chap.appendChild(nw);
     requestAnimationFrame(function(){requestAnimationFrame(function(){if(nw.parentNode&&chap.lastElementChild===nw)nw.className='';olds.forEach(function(o){o.className='out';setTimeout(function(){o.remove()},750)})})})}
   // scroll-driven bits
