@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06241A">
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#020605">
 <title>Без лишнего</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;800&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
@@ -12,8 +12,8 @@ body{background:#06241A}
   position:relative;color:var(--iv);font:400 16.5px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
 .nx *{box-sizing:border-box}.nx [hidden]{display:none!important}.nx h1,.nx h2,.nx h3,.nx p{margin:0}
 .nx .satin{position:fixed;left:-10%;top:-10%;width:120%;height:120%;object-fit:cover;z-index:0;pointer-events:none;background:#0A3A2A center/cover no-repeat;will-change:transform;transform:translate3d(0,0,0)}
-.nx .silk{position:fixed;inset:0;z-index:0;pointer-events:none;background:#0A3A2A url(satin.jpg) center/cover no-repeat}
-@media (orientation:portrait){.nx .silk{background-image:url(satin-m.jpg)}}
+.nx .silk{position:fixed;inset:0;z-index:0;pointer-events:none;background:#020605 url(ribbon.jpg) center/cover no-repeat}
+@media (orientation:portrait){.nx .silk{background-image:url(ribbon-m.jpg)}}
 @media (max-width:819px){.nx .satin{left:-6%;top:-6%;width:112%;height:112%}}
 .nx .veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 50%,rgba(3,26,18,.55),rgba(2,16,11,.92));opacity:.2;transition:opacity 1.2s cubic-bezier(.4,0,.2,1)}
 .nx .prog{position:fixed;left:0;top:0;height:2px;width:100%;z-index:22;background:linear-gradient(90deg,#A77E3E,#F6E3B8);transform-origin:0 50%;transform:scaleX(0)}
@@ -739,13 +739,31 @@ body{margin:0}
 .nx .pane .btn,.nx .final .btn,.nx .hero .btn,.nx .bar .btn{white-space:nowrap}
 @media (max-width:819px){.nx .pane .btn{font-size:11px;letter-spacing:.1em;padding:17px 20px;width:100%}}
 @media (hover:hover) and (pointer:fine){.nx .btn.fill:hover{background:#EBD3A0;color:#06241A}.nx .btn:not(.fill):hover{background:rgba(244,241,234,.08);color:var(--iv)}}
+/* ===== v16: light ribbon on black, psyfit wordmark ===== */
+body{background:#020605}
+.nx .satin{background-color:#020605}
+.nx .veil{background:radial-gradient(120% 100% at 30% 50%,rgba(2,6,5,.9),rgba(2,6,5,.55))}
+.nx .gate{background:radial-gradient(75% 65% at 50% 50%,rgba(2,6,5,.5),rgba(2,6,5,.85))}
+.nx .top{background:linear-gradient(180deg,rgba(2,6,5,.85),rgba(2,6,5,0))}
+.nx .bar{background:linear-gradient(180deg,rgba(2,6,5,0),rgba(2,6,5,.95) 50%)}
+.nx .hero::before{background:linear-gradient(90deg,rgba(2,6,5,.7) 0%,rgba(2,6,5,.2) 45%,rgba(2,6,5,0) 65%),linear-gradient(0deg,rgba(2,6,5,.6),rgba(2,6,5,0) 30%)}
+.nx .final::before{background:linear-gradient(90deg,rgba(2,6,5,.65),rgba(2,6,5,.15) 50%,rgba(2,6,5,0) 70%)}
+@media (max-width:819px){.nx .hero::before{background:linear-gradient(180deg,rgba(2,6,5,.35),rgba(2,6,5,0) 24%,rgba(2,6,5,0) 50%,rgba(2,6,5,.85) 78%)}.nx .final::before{background:linear-gradient(180deg,rgba(2,6,5,0),rgba(2,6,5,.25) 36%,rgba(2,6,5,.88) 62%)}}
+.nx .pane{background:rgba(6,12,10,.55)}
+.nx .ck,.nx .docm,.nx .docm iframe{background:#050b09}
+.nx .bgp{opacity:.22}
+.nx .wmk{display:inline-flex;flex-direction:column;align-items:stretch;gap:3px;font:600 19px/1 var(--sans);letter-spacing:-.03em;text-transform:none;color:var(--iv)}
+.nx .wmk .bb{display:block;width:100%;height:auto;fill:var(--g)}
+.nx .gw{margin:0 auto 26px;font-size:clamp(26px,3.4vw,40px);gap:5px}
+@media (max-width:819px){.nx .wmk{font-size:17px}.nx .gw{font-size:28px}}
+.nx .wmk{width:max-content;flex:none}.nx .gw{display:flex;margin-inline:auto}
+.nx .wmk .bb{width:0;min-width:100%}
 </style>
 </head><body>
 
 
 <div class="nx">
   <script>document.currentScript.parentNode.classList.add("js")</script>
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="psy" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="60" cy="60" r="50.5" fill="none" stroke="currentColor" stroke-width=".8" opacity=".55"/><circle cx="60" cy="30.5" r="6.6" fill="currentColor"/><path d="M33.5 25c0 26 9.5 38 26.5 38s26.5-12 26.5-38" fill="none" stroke="currentColor" stroke-width="5.4" stroke-linecap="round"/><path d="M60 41.5V95" stroke="currentColor" stroke-width="5.4" stroke-linecap="round"/></symbol></defs></svg>
   <div class="silk" aria-hidden="true"></div>
   <video class="satin" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <div class="veil" aria-hidden="true"></div>
@@ -753,12 +771,12 @@ body{margin:0}
   <nav class="rail" aria-label="Главы"></nav>
   <div class="grain" aria-hidden="true"></div>
   <div class="flare" aria-hidden="true"></div>
-  <div class="top"><span class="brand"><svg class="bm" viewBox="0 0 120 120" aria-hidden="true"><use href="#psy"/></svg><span class="bt">Alexandra <b>Psyfit</b></span></span><span class="chap" aria-hidden="true"><span>Вход</span></span><button class="snd" type="button" aria-label="Звук"><span class="bars"><i></i><i></i><i></i></span><span class="st">Звук</span></button></div>
+  <div class="top"><span class="brand"><span class="wmk">psyfit<svg class="bb" viewBox="0 0 120 20" aria-hidden="true"><rect x="14" y="8.6" width="92" height="2.8" rx="1.4"/><rect x="0" y="6" width="2.4" height="8" rx="1"/><rect x="2.4" y="3" width="4" height="14" rx="1.2"/><rect x="6.4" y="0" width="5" height="20" rx="1.4"/><rect x="11.4" y="5.5" width="2.4" height="9" rx="1"/><rect x="117.6" y="6" width="2.4" height="8" rx="1"/><rect x="113.6" y="3" width="4" height="14" rx="1.2"/><rect x="108.6" y="0" width="5" height="20" rx="1.4"/><rect x="106.2" y="5.5" width="2.4" height="9" rx="1"/></svg></span></span><span class="chap" aria-hidden="true"><span>Вход</span></span><button class="snd" type="button" aria-label="Звук"><span class="bars"><i></i><i></i><i></i></span><span class="st">Звук</span></button></div>
   <audio class="trk" loop preload="auto"></audio>
 
   <div class="gate">
     <div>
-      <svg class="gm" viewBox="0 0 120 120" aria-hidden="true"><use href="#psy"/></svg>
+      <p class="wmk gw">psyfit<svg class="bb" viewBox="0 0 120 20" aria-hidden="true"><rect x="14" y="8.6" width="92" height="2.8" rx="1.4"/><rect x="0" y="6" width="2.4" height="8" rx="1"/><rect x="2.4" y="3" width="4" height="14" rx="1.2"/><rect x="6.4" y="0" width="5" height="20" rx="1.4"/><rect x="11.4" y="5.5" width="2.4" height="9" rx="1"/><rect x="117.6" y="6" width="2.4" height="8" rx="1"/><rect x="113.6" y="3" width="4" height="14" rx="1.2"/><rect x="108.6" y="0" width="5" height="20" rx="1.4"/><rect x="106.2" y="5.5" width="2.4" height="9" rx="1"/></svg></p>
       <p class="k gk" style="justify-content:center">Alexandra Psyfit · персональное ведение</p>
       <p class="gt">Без<br>лишнего<span style="color:var(--g)">.</span></p>
       <button class="enter" type="button">Войти</button>
@@ -1166,7 +1184,7 @@ body{margin:0}
   var cn=0;$$('main > section').forEach(function(sc){if(sc.hidden)return;var ks=sc.querySelectorAll('.k'),m=ks.length&&ks[0].textContent.match(/^\s*\d+\s*—\s*(.*)$/);if(m){cn++;[].forEach.call(ks,function(k){var mm=k.textContent.match(/^\s*\d+\s*—\s*(.*)$/);if(mm)k.textContent=String(cn).padStart(2,'0')+' — '+mm[1]})}});
   var reduce=false;
   // satin: portrait loop for phones, landscape for desktop
-  var v=$('.satin'),port=innerHeight>innerWidth;v.poster=res(port?'satin-m.jpg':'satin.jpg','image/jpeg');v.style.backgroundImage='url('+v.poster+')';v.src=res(port?'satin-m.mp4':'satin.mp4','video/mp4');$('.trk').src=res('track.mp3','audio/mpeg');
+  var v=$('.satin'),port=innerHeight>innerWidth;v.poster=res(port?'ribbon-m.jpg':'ribbon.jpg','image/jpeg');v.style.backgroundImage='url('+v.poster+')';v.src=res(port?'ribbon-m.mp4':'ribbon.mp4','video/mp4');$('.trk').src=res('track.mp3','audio/mpeg');
   var pv=v.play();if(pv&&pv.catch)pv.catch(function(){});
   // split headings into masked words
   $$('[data-split]').forEach(function(h){var i=0;function walk(n){[].slice.call(n.childNodes).forEach(function(c){
@@ -1234,7 +1252,7 @@ body{margin:0}
   // 3D: panels tilt with the scroll, photo backdrops drift, desktop follows the mouse
   // brand watermark on pages that have no photo
   function wm(el,c){if(el.querySelector('img,video')||el.closest('.hasbg'))return;var x=document.createElementNS('http://www.w3.org/2000/svg','svg');x.setAttribute('class','wm'+(c?' '+c:''));x.setAttribute('viewBox','0 0 120 120');x.setAttribute('aria-hidden','true');x.innerHTML='<use href="#psy"/>';el.insertBefore(x,el.firstChild)}
-  $$('main .slide').forEach(function(e){wm(e,'')});$$('main .dslide').forEach(function(e){wm(e,'d')});$$('main .mslide,main .mpart').forEach(function(e){wm(e,'m')});var dp=$('.day .pin');if(dp)wm(dp,'');
+  
   var t3s=$$('.t3,.bgp,.wm');
   function tilt(h){for(var i=0;i<t3s.length;i++){var e=t3s[i],r=e.getBoundingClientRect();if(!r.height||r.bottom<-h*.5||r.top>h*1.5)continue;var d=Math.max(-1,Math.min(1,(r.top+r.height/2-h/2)/h));
     if(e.classList.contains('bgp'))e.style.setProperty('--py',(d*-70).toFixed(1)+'px');else if(e.classList.contains('wm')){e.style.setProperty('--py',(d*-90).toFixed(1)+'px');e.style.setProperty('--wr',(-8+d*10).toFixed(2)+'deg')}else e.style.setProperty('--sx',(d*16).toFixed(2)+'deg')}}
@@ -1249,7 +1267,7 @@ body{margin:0}
   secs.forEach(function(sc,i){var a=document.createElement('a');a.setAttribute('aria-label',names[i]);a.title=names[i];a.addEventListener('click',function(){scrollTo({top:sc.offsetTop+(i===1?innerHeight*.2:0),behavior:'smooth'})});rail.appendChild(a)});
   var ticksR=[].slice.call(rail.children),mob=matchMedia('(max-width:819px)');
   function label(i){if(!nums[i])return names[i];return mob.matches?nums[i]+' / '+NN:nums[i]+' — '+names[i]}
-  var flare=$('.flare');function setChap(i){if(i===cur)return;if(cur>=0&&flare){flare.classList.remove('go');void flare.offsetWidth;flare.classList.add('go')}cur=i;veil.style.opacity=Math.min(.86,.4+(+secs[i].dataset.veil||.4)*.85).toFixed(3);ticksR.forEach(function(a,k){a.classList.toggle('on',k===i)});
+  var flare=$('.flare');function setChap(i){if(i===cur)return;if(cur>=0&&flare){flare.classList.remove('go');void flare.offsetWidth;flare.classList.add('go')}cur=i;veil.style.opacity=Math.min(.7,.12+(+secs[i].dataset.veil||.4)*1.1).toFixed(3);ticksR.forEach(function(a,k){a.classList.toggle('on',k===i)});
     var olds=[].slice.call(chap.children),nw=document.createElement('span');nw.textContent=label(i);nw.className='inn';chap.appendChild(nw);
     requestAnimationFrame(function(){requestAnimationFrame(function(){if(nw.parentNode&&chap.lastElementChild===nw)nw.className='';olds.forEach(function(o){o.className='out';setTimeout(function(){o.remove()},750)})})})}
   // scroll-driven bits
