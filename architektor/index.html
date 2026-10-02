@@ -2,382 +2,451 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Александр Комлев</title>
-<meta name="description" content="Наставник по продажам для экспертов с доходом от 150 000 ₽ в месяц. ×2 за три месяца и меньше работы.">
-<meta name="theme-color" content="#05060c">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Александр Комлев · Продажи через уверенность</title>
+<meta name="description" content="Наставник по продажам для экспертов. За 30–40 минут диагностики вы поймёте, как сделать продажи в ближайшие две недели.">
+<meta name="theme-color" content="#03050b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Geologica:slnt,wght@-12..0,200..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#05060c;--ink2:#0b0d18;--blue:#4155E8;--sky:#76B7FF;--mist:#E0E2F2;
-  --t1:#E0E2F2;--t2:rgba(224,226,242,.66);--t3:rgba(224,226,242,.42);
+  --ink:#ffffff;--sub:#a2a9b8;--nav:#fbfdff;--foot:#f4f8fd;
+  --hair:rgba(196,214,232,.72);--chev:rgba(214,232,250,.90);--feat:#e2ebf5;
+  --veil:6,10,18;
+  --bg:#03050b;--blue:#4155E8;--sky:#76B7FF;--mist:#E0E2F2;
+  --t2:rgba(224,226,242,.66);--t3:rgba(224,226,242,.42);
   --line:rgba(224,226,242,.10);--line2:rgba(224,226,242,.16);
-  --glass:rgba(13,16,30,.58);--glass2:rgba(20,24,44,.62);
+  --glass:rgba(10,14,28,.55);
   --ease:cubic-bezier(.23,1,.32,1);--io:cubic-bezier(.77,0,.175,1);
-  --sans:'Geologica',system-ui,sans-serif;--serif:'Cormorant Garamond',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',system-ui,'Segoe UI',sans-serif;
+  --mono:'SF Mono','JetBrains Mono',ui-monospace,monospace;
   --pad:clamp(16px,4vw,56px);--r:22px;
+  /* единица первого экрана: макет 1536×1024, только масштабируется */
+  --cover:max(calc(100vw / 1536),calc(100vh / 1024));
+  --fit:calc(100vh / 910);
+  --u:min(var(--cover),var(--fit));
+  --blur:calc(var(--u)*26);--glow:calc(var(--u)*34);--hairline:max(1px,calc(var(--u)*1.6));
 }
+@supports (height:100dvh){:root{--cover:max(calc(100vw / 1536),calc(100dvh / 1024));--fit:calc(100dvh / 910)}}
 *{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--ink);-webkit-text-size-adjust:100%}
-body{background:var(--ink);color:var(--t1);font:300 16px/1.55 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:geometricPrecision}
 a{color:inherit;text-decoration:none}
+li{list-style:none}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--sky);outline-offset:3px;border-radius:8px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #9fe0ff;outline-offset:3px;border-radius:6px}
 ::selection{background:var(--blue);color:#fff}
-.i{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.14em;letter-spacing:-.005em;line-height:.9}
-.mono{font:400 12px/1.4 var(--mono);letter-spacing:.02em;color:var(--t3)}
+.g{background:linear-gradient(100deg,#fff 0%,var(--mist) 35%,var(--sky) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mono{font:400 12px/1.45 var(--mono);letter-spacing:.02em;color:var(--t3)}
 .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sky);box-shadow:0 0 0 3px rgba(118,183,255,.16);vertical-align:middle;margin-right:8px}
 .wrap{width:min(1240px,100% - var(--pad)*2);margin-inline:auto;position:relative}
 .glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%)}
-section,header,footer{position:relative;z-index:2}
+main section,footer{position:relative;z-index:2}
 
-/* ---------- фон: своё видео, нити света ---------- */
-.bgv{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--ink)}
-.bgv img,.bgv video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.bgv video{opacity:0;transition:opacity 1.2s var(--ease)}
-.bgv video.on{opacity:1}
-.bgv .open{position:absolute;inset:0;background:var(--ink);opacity:var(--o,1)}
-.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--ink);opacity:var(--veil,0);transition:opacity .5s linear}
-.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* ---------- видео по главам ---------- */
+.reel{position:fixed;inset:0;z-index:0;background:#03060c;overflow:hidden}
+.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:0;transition:opacity 1.1s var(--ease);pointer-events:none;user-select:none}
+.reel video.on{opacity:1}
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:
+  radial-gradient(140% 60% at 50% 40%,rgba(var(--veil),.16) 0%,rgba(var(--veil),.057) 50%,rgba(var(--veil),0) 100%),
+  linear-gradient(180deg,rgba(var(--veil),0) 45%,rgba(var(--veil),.10) 100%)}
+.shade{position:fixed;inset:0;z-index:1;pointer-events:none;background:#03050b;opacity:var(--shade,0);transition:opacity .6s linear}
 
-/* ---------- кнопки ---------- */
-.btn{--h:52px;display:inline-flex;align-items:center;gap:12px;height:var(--h);padding:0 8px 0 22px;border-radius:999px;font:500 15px/1 var(--sans);white-space:nowrap;transition:transform .25s var(--ease),background .3s,box-shadow .4s var(--ease)}
-.btn:active{transform:scale(.97)}
-.btn .ar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;overflow:hidden;position:relative}
-.btn .ar svg{width:16px;height:16px;transition:transform .45s var(--ease)}
-.btn .ar svg+svg{position:absolute;transform:translate(-160%,160%)}
-.btn:hover .ar svg:first-child{transform:translate(160%,-160%)}
-.btn:hover .ar svg+svg{transform:translate(0,0)}
-.btn-p{background:var(--mist);color:var(--ink)}
-.btn-p .ar{background:var(--blue);color:#fff}
-.btn-p:hover{box-shadow:0 10px 40px -10px rgba(118,183,255,.55)}
-.btn-p b{font-weight:600}
-.btn-g{background:rgba(224,226,242,.06);border:1px solid var(--line2);color:var(--t1);padding:0 22px}
-.btn-g:hover{background:rgba(224,226,242,.1)}
-.btn-ink{background:var(--ink);color:var(--mist)}
-.btn-ink .ar{background:var(--mist);color:var(--ink)}
-.lnk{display:inline-flex;align-items:center;gap:10px;font:500 15px/1 var(--sans);color:var(--sky);min-height:44px}
+/* ---------- стекло кнопки (рецепт NEURAL, перекрашен в вашу палитру) ---------- */
+.cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;border-radius:999px;color:var(--ink);
+  background:
+    linear-gradient(180deg,rgba(6,12,22,0) 45%,rgba(6,12,22,.12) 78%,rgba(6,12,22,.28) 100%),
+    linear-gradient(90deg,rgba(232,236,250,.17) 0%,rgba(224,226,242,.07) 22%,rgba(176,206,238,.03) 55%,rgba(118,183,255,.12) 100%),
+    linear-gradient(90deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.17) 12%,rgba(255,255,255,.11) 26%,rgba(255,255,255,.07) 42%,rgba(255,255,255,.05) 60%,rgba(255,255,255,.04) 80%,rgba(255,255,255,.04) 100%);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(.45);backdrop-filter:blur(var(--blur)) saturate(.45);
+  box-shadow:0 calc(var(--u)*-2) calc(var(--u)*20) rgba(214,222,255,.20),0 0 var(--glow) rgba(118,183,255,.22),inset 0 var(--hairline) 0 0 rgba(246,248,255,.45);
+  transition:transform .3s var(--ease),box-shadow .4s var(--ease)}
+.cta::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:var(--hairline);pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(250,252,255,.95) 0%,rgba(250,252,255,.20) 45%,rgba(250,252,255,0) 78%),
+    linear-gradient(90deg,rgba(232,236,252,.95) 0%,rgba(224,230,246,.70) 12%,rgba(226,230,234,.03) 32%,rgba(214,226,240,.02) 62%,rgba(118,183,255,.75) 90%,rgba(118,183,255,.95) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+.cta:hover{box-shadow:0 calc(var(--u)*-2) calc(var(--u)*26) rgba(214,222,255,.3),0 0 calc(var(--glow)*1.6) rgba(118,183,255,.4),inset 0 var(--hairline) 0 0 rgba(246,248,255,.55)}
+.cta:active{transform:scale(.97)}
+.cta .arrow{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:square;stroke-linejoin:miter;transition:transform .35s var(--ease)}
+.cta:hover .arrow{transform:translateX(4px)}
+.cta-b{--blur:24px;--glow:30px;--hairline:1.2px;min-height:56px;padding:0 30px;font-size:17px;font-weight:500;letter-spacing:-.01em}
+.cta-b .arrow{width:16px;height:11px}
+.lnk{display:inline-flex;align-items:center;gap:10px;font-weight:500;font-size:15px;color:var(--sky);min-height:44px}
 .lnk i{font-style:normal;transition:transform .35s var(--ease)}
 .lnk:hover i{transform:translateX(5px)}
 
 /* ---------- шапка ---------- */
-.nav{position:fixed;left:0;right:0;top:0;z-index:50;transition:background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
-.nav.solid{background:rgba(5,6,12,.62);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
-.nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
-.logo{display:flex;align-items:center;gap:10px;font:500 15px/1 var(--sans);letter-spacing:-.01em;white-space:nowrap}
-.logo .mk{width:26px;height:14px;border-radius:99px;position:relative;transform:rotate(-37deg);border:1.5px solid var(--sky);overflow:hidden}
-.logo .mk:after{content:"";position:absolute;inset:0 50% 0 0;background:var(--blue)}
-.nav nav{display:flex;gap:26px;margin-left:12px}
-.nav nav a{font-size:14px;color:var(--t2);transition:color .2s;padding:12px 0}
-.nav nav a:hover{color:var(--t1)}
-.nav .st{margin-left:auto;font:400 12px/1 var(--mono);color:var(--t2);border:1px solid var(--line);border-radius:99px;padding:8px 12px}
-.nav .btn{--h:40px;font-size:14px;padding:0 6px 0 16px}
-.nav .btn .ar{width:30px;height:30px}
+.bar{position:fixed;left:0;right:0;top:0;z-index:40;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+.bar.solid{background:rgba(3,5,11,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
+.bar .in{display:flex;align-items:center;gap:28px;width:min(1240px,100% - var(--pad)*2);margin:0 auto;height:72px;position:relative}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:26px;height:18px;display:block}
+#word{font-weight:531;font-size:17px;letter-spacing:.2em}
+.menu{display:flex;gap:30px;margin-left:auto}
+.menu a{font-weight:506;font-size:14px;color:var(--nav);opacity:.86;transition:opacity .2s;padding:12px 0}
+.menu a:hover{opacity:1}
+.login{display:inline-flex;align-items:center;gap:8px;font-weight:506;font-size:14px;color:var(--nav);opacity:.86;padding:12px 0}
+.navarrow{width:10px;height:9px;fill:none;stroke:var(--nav);stroke-width:1.2;stroke-linecap:square}
+.pill{display:inline-flex;align-items:center;height:42px;padding:0 18px;border:1.2px solid var(--hair);border-radius:999px;font-weight:581;font-size:14px;color:#e8ecf0;transition:background .3s}
+.pill:hover{background:rgba(255,255,255,.06)}
+.navpanel{display:contents}
+.navtoggle,.burger,.scrim{display:none}
 
-/* ---------- 1. герой ---------- */
-.hero{height:100svh;min-height:640px;overflow:hidden}
-.hero .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,6,12,.86) 0%,rgba(5,6,12,.5) 38%,rgba(5,6,12,0) 62%),linear-gradient(0deg,rgba(5,6,12,.7),transparent 30%)}
-.cap{position:absolute;left:0;top:0;width:0;height:0;transform:translate(var(--x),var(--y)) scale(var(--s));z-index:1}
-.cap img{position:absolute;width:819px;height:867px;max-width:none;will-change:transform}
-.cap .a{left:-630px;top:-149px}
-.cap .b{left:-190px;top:-713px}
-.cap .glow{position:absolute;left:-520px;top:-520px;width:1040px;height:1040px;border-radius:50%;background:radial-gradient(closest-side,rgba(224,226,242,.55),rgba(118,183,255,.22) 35%,rgba(65,85,232,.08) 60%,transparent);opacity:0;mix-blend-mode:screen}
-.hero .in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(48px,9vh,96px);z-index:2}
-.hero .badge{display:inline-flex;align-items:center;gap:2px;font:400 12px/1 var(--mono);color:var(--t2);border:1px solid var(--line2);background:rgba(5,6,12,.4);border-radius:99px;padding:9px 14px;margin-bottom:26px;width:max-content;max-width:100%}
-.hero h1{font-weight:300;font-size:clamp(34px,min(5.3vw,8.4vh),80px);line-height:1.02;letter-spacing:-.035em;max-width:13.5ch}
-.hero h1 .i{color:var(--sky)}
-.hero .sub{margin-top:24px;max-width:31ch;font-size:clamp(16px,1.35vw,19px);color:var(--t2)}
-.hero .cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:34px}
-.hero .who{display:flex;align-items:center;gap:12px;margin-top:34px}
-.hero .who img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 25%;border:1px solid var(--line2)}
-.hero .who p{font-size:13px;line-height:1.35;color:var(--t2)}
-.hero .who b{display:block;color:var(--t1);font-weight:500}
-.hero .scroll{position:absolute;right:var(--pad);bottom:clamp(48px,9vh,96px);z-index:2;writing-mode:vertical-rl;font:400 11px/1 var(--mono);color:var(--t3);letter-spacing:.12em}
-.hero .scroll:after{content:"";display:inline-block;width:1px;height:56px;margin-top:12px;background:linear-gradient(var(--sky),transparent);animation:drip 2.4s var(--ease) infinite}
-@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-.hero .fx{opacity:0;transform:translateY(24px);filter:blur(10px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease),filter 1.1s var(--ease)}
-.hero.go .fx{opacity:1;transform:none;filter:none}
+/* ---------- 1. первый экран (композиция NEURAL) ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden}
+.art{position:absolute;left:50%;top:50%;width:calc(var(--u)*1536);height:calc(var(--u)*1024);transform:translate(-50%,-50%)}
+.art::before{content:'';position:absolute;left:18%;right:18%;top:calc(var(--u)*220);height:calc(var(--u)*290);background:radial-gradient(closest-side,rgba(3,5,11,.72),rgba(3,5,11,.38) 60%,rgba(3,5,11,0));pointer-events:none}
+.title{position:absolute;left:0;right:0;top:calc(var(--u)*262);text-align:center;font-weight:424;font-size:calc(var(--u)*50);line-height:1.12;letter-spacing:-.022em}
+.title>span{display:block}
+.sub{position:absolute;left:0;right:0;top:calc(var(--u)*412);text-align:center;font-weight:446;font-size:calc(var(--u)*20);line-height:1.36;color:var(--sub);letter-spacing:-.005em}
+.sub span{display:block}
+.hero .cta{position:absolute;left:50%;top:calc(var(--u)*548);transform:translateX(-50%);height:calc(var(--u)*56);padding:0 calc(var(--u)*34);font-weight:497;font-size:calc(var(--u)*21);letter-spacing:-.012em;white-space:nowrap}
+.hero .cta:active{transform:translateX(-50%) scale(.97)}
+.hero .cta .arrow{width:calc(var(--u)*16);height:calc(var(--u)*11)}
+.feats{position:absolute;left:0;right:0;top:calc(var(--u)*712);display:flex;justify-content:center;gap:calc(var(--u)*52)}
+.feats li{display:flex;align-items:center;gap:calc(var(--u)*12);font-weight:534;font-size:calc(var(--u)*15);color:var(--feat);letter-spacing:-.01em;white-space:nowrap}
+.chev{width:calc(var(--u)*10);height:calc(var(--u)*18);fill:none;stroke:var(--chev);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.rule{position:absolute;left:50%;top:calc(var(--u)*790);width:1px;height:calc(var(--u)*57);background:linear-gradient(180deg,rgba(186,200,214,.70) 0%,rgba(206,220,232,.92) 52%,rgba(182,198,212,.68) 100%);transform-origin:top}
+.foot{position:absolute;left:0;right:0;bottom:calc(var(--u)*70);text-align:center;font-weight:521;font-size:calc(var(--u)*16);line-height:1.55;color:var(--foot);letter-spacing:-.01em}
+.foot span{display:block}
+.foot span+span{color:var(--sub);font-weight:446}
 
-/* ---------- общие главы ---------- */
+/* вход: одна шкала ~2.1с, только независимые свойства */
+@media (prefers-reduced-motion:no-preference){
+  :root{--ent-line:cubic-bezier(.16,1,.3,1);--ent-soft:cubic-bezier(.25,.8,.35,1);--rise:9px}
+  @keyframes en-wipe{from{clip-path:inset(-.78em 0 calc(100% + .78em) 0);translate:0 var(--rise)}to{clip-path:inset(-.78em 0 -.78em 0);translate:0 0}}
+  @keyframes en-lift{from{opacity:0;translate:0 var(--rise)}}
+  @keyframes en-settle{from{opacity:0;translate:0 calc(var(--rise)*.7);scale:.99}}
+  @keyframes en-draw{from{scale:1 0}}
+  html:not(.is-entered) .brand{animation:en-lift .6s var(--ent-soft) .12s backwards}
+  html:not(.is-entered) .menu a:nth-child(1){animation:en-lift .55s var(--ent-soft) .2s backwards}
+  html:not(.is-entered) .menu a:nth-child(2){animation:en-lift .55s var(--ent-soft) .25s backwards}
+  html:not(.is-entered) .menu a:nth-child(3){animation:en-lift .55s var(--ent-soft) .3s backwards}
+  html:not(.is-entered) .login{animation:en-lift .55s var(--ent-soft) .35s backwards}
+  html:not(.is-entered) .pill,html:not(.is-entered) .burger{animation:en-settle .6s var(--ent-soft) .4s backwards}
+  html:not(.is-entered) #h1a{animation:en-wipe .95s var(--ent-line) .34s backwards}
+  html:not(.is-entered) #h1b{animation:en-wipe .95s var(--ent-line) .44s backwards}
+  html:not(.is-entered) #sub1{animation:en-lift .7s var(--ent-soft) .74s backwards}
+  html:not(.is-entered) #sub2{animation:en-lift .7s var(--ent-soft) .8s backwards}
+  html:not(.is-entered) .hero .cta{animation:en-lift .8s var(--ent-line) .94s backwards}
+  html:not(.is-entered) .feats li:nth-child(1){animation:en-lift .6s var(--ent-soft) 1.08s backwards}
+  html:not(.is-entered) .feats li:nth-child(2){animation:en-lift .6s var(--ent-soft) 1.15s backwards}
+  html:not(.is-entered) .feats li:nth-child(3){animation:en-lift .6s var(--ent-soft) 1.22s backwards}
+  html:not(.is-entered) .feats li:nth-child(4){animation:en-lift .6s var(--ent-soft) 1.29s backwards}
+  html:not(.is-entered) .rule{animation:en-draw .55s var(--ent-line) 1.34s backwards}
+  html:not(.is-entered) #foot1{animation:en-lift .6s var(--ent-soft) 1.42s backwards}
+  html:not(.is-entered) #foot2{animation:en-lift .6s var(--ent-soft) 1.48s backwards}
+}
+
+/* ---------- главы ---------- */
 .pin{position:relative}
-.stage{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
-.h2{font-weight:300;font-size:clamp(34px,4.6vw,68px);line-height:1.04;letter-spacing:-.035em}
-.h2 .i{color:var(--sky)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
+.h2{font-weight:430;font-size:clamp(34px,4.6vw,66px);line-height:1.06;letter-spacing:-.035em}
 .lead{font-size:clamp(16px,1.3vw,18px);color:var(--t2);max-width:44ch}
 .sec{padding:clamp(100px,14vh,170px) 0}
 .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.on{opacity:1;transform:none}
 
-/* ---------- 2. неделя (разрозненно) ---------- */
-#week{height:560vh}
-.scene{position:absolute;left:50%;top:50%;width:min(300px,78vw);padding:16px 16px 18px;opacity:0;will-change:transform,opacity,filter}
+/* 2. неделя и всё, что уже пробовали */
+#week{height:600vh}
+.scene{position:absolute;left:50%;top:50%;width:min(300px,80vw);padding:16px 16px 18px;opacity:0;will-change:transform,opacity,filter}
 .scene .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .scene .hd b{font:500 12px/1 var(--mono);color:var(--sky);letter-spacing:.04em}
-.scene p{font-size:14.5px;line-height:1.45;color:var(--t1)}
-.scene .bub{display:block;width:max-content;max-width:100%;padding:8px 12px;border-radius:14px 14px 14px 4px;background:rgba(224,226,242,.08);font-size:13.5px;margin-top:6px}
-.scene .bub.me{margin-left:auto;border-radius:14px 14px 4px 14px;background:var(--blue);color:#fff}
+.scene p{font-size:14.5px;line-height:1.45}
+.scene .bub{display:block;width:max-content;max-width:100%;padding:8px 12px;border-radius:14px 14px 14px 4px;background:rgba(224,226,242,.09);font-size:13.5px;margin-top:6px}
+.scene .bub.me{margin-left:auto;border-radius:14px 14px 4px 14px;background:var(--blue)}
 .scene .nt{font:400 12.5px/1.6 var(--mono);color:var(--t2)}
 .scene .nt s{color:var(--t3)}
 .scene .nt em{font-style:normal;color:var(--sky)}
 .cap-c{position:absolute;text-align:center;width:min(900px,92vw);pointer-events:none}
-.cap-c .h2{font-size:clamp(30px,4.2vw,62px)}
 .cap-c .lead{margin:16px auto 0}
-.kw{position:absolute;font-weight:300;font-size:clamp(46px,8.5vw,140px);letter-spacing:-.045em;line-height:1;white-space:nowrap;opacity:0;will-change:transform,opacity,filter}
-.kq{position:absolute;top:22vh;font:400 13px/1 var(--mono);color:var(--t2);opacity:0}
+.kw{position:absolute;font-weight:300;font-size:clamp(46px,8.5vw,140px);letter-spacing:-.05em;line-height:1;white-space:nowrap;opacity:0;will-change:transform,opacity,filter}
+.kq{position:absolute;top:21vh;font:400 13px/1 var(--mono);color:var(--t2);opacity:0}
 .kfin{position:absolute;text-align:center;width:min(980px,92vw);opacity:0}
-.kfin .h2{font-size:clamp(40px,6vw,96px)}
-.kfin .lead{margin:22px auto 0;max-width:40ch}
+.kfin .h2{font-size:clamp(44px,7vw,110px)}
+.kfin .lead{margin:22px auto 0;max-width:46ch}
+.kfin .lnk{margin-top:16px}
 
-/* ---------- срез ---------- */
-#cut{height:300vh}
-#cut .l{position:absolute;text-align:center;width:min(1100px,92vw);font-weight:300;letter-spacing:-.04em;line-height:1;opacity:0;will-change:transform,opacity,filter}
-#cut .l1{font-size:clamp(46px,8vw,128px)}
-#cut .l2{font-size:clamp(26px,3.6vw,54px);color:var(--t2)}
-#cut .l3{font-size:clamp(80px,15vw,240px);color:var(--sky)}
+/* срез: типографика Immersive Studio */
+#cut{height:320vh}
+#cut .stage{place-items:stretch;display:block}
+.big{position:absolute;font-weight:250;text-transform:uppercase;letter-spacing:-.045em;line-height:.86;font-size:clamp(56px,12.5vw,210px);white-space:nowrap;opacity:0;will-change:transform,opacity,filter}
+.big.l{left:var(--pad);top:24vh}
+.big.r{right:var(--pad);top:calc(24vh + .9em)}
+.cutnote{position:absolute;left:var(--pad);right:var(--pad);bottom:12vh;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;opacity:0}
+.cutnote p{font-size:clamp(18px,1.7vw,24px);color:var(--t2);max-width:24ch}
+.cutnote b{font-weight:300;font-size:clamp(54px,8vw,130px);letter-spacing:-.05em;line-height:1}
 
-/* ---------- 3. сборка ---------- */
-#build{height:620vh}
+/* 3. частицы: −2 → +4 */
+#story{height:520vh}
+#pc{position:absolute;inset:0;width:100%;height:100%}
+.st-top{position:absolute;top:clamp(90px,15vh,150px);left:0;right:0;text-align:center;pointer-events:none}
+.st-top .h2{font-size:clamp(28px,3.4vw,50px);margin-top:12px}
+.st-lab{position:absolute;left:0;right:0;top:calc(50% + clamp(60px,9vw,120px));text-align:center;font:400 14px/1.4 var(--mono);color:var(--t2);letter-spacing:.06em;text-transform:uppercase;opacity:0}
+.st-end{position:absolute;bottom:clamp(40px,10vh,110px);left:0;right:0;text-align:center;opacity:0}
+.st-end .lead{margin:0 auto}
+.st-end .lnk{margin-top:10px}
+.st-static{display:none}
+
+/* 4. сборка */
+#build{height:640vh}
 .b-intro{position:absolute;text-align:center;width:min(1000px,92vw)}
 .b-intro .h2{font-size:clamp(44px,7vw,112px)}
 .b-intro .mono{margin-top:20px;font-size:13px}
-.prompt{position:absolute;width:min(640px,90vw);display:flex;align-items:center;gap:12px;padding:10px 10px 10px 18px;border-radius:999px;border:1px solid rgba(118,183,255,.5);background:rgba(10,13,26,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 0 6px rgba(65,85,232,.08),0 30px 80px -30px rgba(65,85,232,.6);opacity:0}
-.prompt .mk{flex:none;width:30px;height:16px;border-radius:99px;transform:rotate(-37deg);border:1.5px solid var(--sky);position:relative;overflow:hidden}
-.prompt .mk:after{content:"";position:absolute;inset:0 50% 0 0;background:var(--blue)}
-.prompt .tx{flex:1;font-size:clamp(16px,1.6vw,21px);color:var(--t1);white-space:nowrap;overflow:hidden}
+.prompt{position:absolute;width:min(660px,90vw);display:flex;align-items:center;gap:12px;padding:10px 10px 10px 18px;border-radius:999px;border:1px solid rgba(118,183,255,.5);background:rgba(8,12,24,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 0 6px rgba(65,85,232,.08),0 30px 80px -30px rgba(65,85,232,.6);opacity:0}
+.prompt .tx{flex:1;font-size:clamp(15px,1.6vw,21px);white-space:nowrap;overflow:hidden}
 .prompt .tx:after{content:"";display:inline-block;width:2px;height:1.05em;background:var(--sky);vertical-align:-.15em;margin-left:2px;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .prompt .send{flex:none;width:46px;height:46px;border-radius:50%;background:var(--blue);display:grid;place-items:center;transition:transform .3s var(--ease),box-shadow .3s}
 .prompt .send.hit{transform:scale(.88);box-shadow:0 0 0 10px rgba(65,85,232,.25)}
-.prompt .send svg{width:18px;height:18px;color:#fff}
+.prompt svg{width:18px;height:18px;color:#fff}
+.mk{flex:none;width:28px;height:20px}
 .working{position:absolute;display:flex;align-items:center;gap:12px;font-size:15px;color:var(--t2);opacity:0}
 .working i{width:18px;height:18px;border-radius:50%;border:2px solid rgba(118,183,255,.25);border-top-color:var(--sky);animation:spin .9s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .board{position:absolute;width:min(1180px,94vw);height:min(560px,64vh);opacity:0}
 .board .meter{position:absolute;left:0;top:-54px;display:flex;align-items:center;gap:14px;font:400 12.5px/1 var(--mono);color:var(--t2)}
-.board .meter .bar{width:160px;height:3px;border-radius:3px;background:var(--line2);overflow:hidden}
-.board .meter .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--sky));transition:width .5s var(--ease)}
+.board .meter .bar2{width:160px;height:3px;border-radius:3px;background:var(--line2);overflow:hidden}
+.board .meter .bar2 i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--sky));transition:width .5s var(--ease)}
 .board svg.wire{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .board svg.wire path{fill:none;stroke:url(#wg);stroke-width:1.5}
 .bc{position:absolute;width:calc((100% - 64px)/5);padding:16px 16px 18px;opacity:0;transform:translateY(24px) scale(.96);filter:blur(8px);transition:opacity .7s var(--ease),transform .7s var(--ease),filter .7s var(--ease),border-color .6s}
 .bc.on{opacity:1;transform:none;filter:none}
 .bc.done{border-color:rgba(118,183,255,.35)}
 .bc .tp{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.bc .tp .n{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(65,85,232,.18);color:var(--sky);font:500 12px/1 var(--mono)}
+.bc .n{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(65,85,232,.2);color:var(--sky);font:500 12px/1 var(--mono)}
 .bc .chip{font:400 11px/1 var(--mono);padding:6px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--t2);display:flex;align-items:center;gap:6px}
 .bc .chip i{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(118,183,255,.3);border-top-color:var(--sky);animation:spin .9s linear infinite}
 .bc.done .chip{color:var(--sky);border-color:rgba(118,183,255,.4)}
 .bc.done .chip i{animation:none;border:0;width:auto;height:auto}
 .bc.done .chip i:before{content:"✓";font-style:normal}
-.bc h3{font-weight:500;font-size:17px;line-height:1.2;letter-spacing:-.01em}
+.bc h3{font-weight:560;font-size:17px;line-height:1.2;letter-spacing:-.015em}
 .bc p{font-size:13.5px;line-height:1.45;color:var(--t2);margin-top:8px}
 .b-fin{position:absolute;text-align:center;opacity:0;width:min(900px,92vw)}
 .b-fin .h2{font-size:clamp(46px,7.5vw,120px)}
-.b-fin .btn{margin-top:30px}
+.b-fin .cta{margin-top:30px}
 
-/* ---------- 4. через три месяца ---------- */
+/* 5. через три месяца */
 .dream .top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:48px}
 .dream .top .lead{max-width:32ch}
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .bx{padding:24px;min-height:250px;display:flex;flex-direction:column;overflow:hidden;position:relative}
 .bx .mono{margin-bottom:14px}
-.bx h3{font-weight:400;font-size:clamp(19px,1.6vw,23px);line-height:1.22;letter-spacing:-.015em;max-width:24ch}
-.bx h3 .i{color:var(--sky)}
+.bx h3{font-weight:480;font-size:clamp(19px,1.6vw,23px);line-height:1.22;letter-spacing:-.02em;max-width:24ch}
 .bx .viz{margin-top:auto;padding-top:22px}
 .s4{grid-column:span 4}.s2{grid-column:span 2}
-.bars{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-.bars .g p{font:400 11.5px/1 var(--mono);color:var(--t3);margin-bottom:10px}
-.bars .r{display:flex;align-items:center;gap:10px;margin-top:8px;font:400 12px/1 var(--mono);color:var(--t2)}
-.bars .r span{width:60px;flex:none}
-.bars .r .t{flex:1;height:10px;border-radius:5px;background:rgba(224,226,242,.06);overflow:hidden}
-.bars .r .t i{display:block;height:100%;border-radius:5px;width:0;transition:width 1.4s var(--ease) .2s}
-.bars .now i{background:rgba(224,226,242,.28)}
-.bars .then i{background:linear-gradient(90deg,var(--blue),var(--sky))}
-.ring{position:relative;width:150px;height:150px;margin:auto auto 0}
-.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring circle{fill:none;stroke-width:6}
-.ring .bg{stroke:rgba(224,226,242,.08)}
-.ring .fg{stroke:url(#rg);stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 1.8s var(--ease) .2s}
-.bx.on .ring .fg{stroke-dashoffset:40}
-.ring b{position:absolute;inset:0;display:grid;place-items:center;font-weight:300;font-size:46px;letter-spacing:-.04em}
-.left li{list-style:none;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2);padding:9px 0;border-top:1px solid var(--line)}
+.wk{display:flex;align-items:flex-end;gap:8px;height:120px}
+.wk i{flex:1;border-radius:6px 6px 2px 2px;background:rgba(224,226,242,.12);height:0;transition:height 1.2s var(--ease)}
+.wk i.k{background:linear-gradient(180deg,var(--sky),var(--blue))}
+.wkl{display:flex;justify-content:space-between;margin-top:10px}
+.quote{font-weight:350;font-size:clamp(28px,2.6vw,40px);line-height:1.05;letter-spacing:-.035em;margin-top:auto}
+.left li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2);padding:9px 0;border-top:1px solid var(--line)}
 .left li s{text-decoration:none;background:linear-gradient(var(--t3),var(--t3)) 0 55%/0 1px no-repeat;transition:background-size .8s var(--ease) .3s}
 .bx.on .left li s{background-size:100% 1px}
-.left li.k{color:var(--t1)}
+.left li.k{color:#fff}
 .left li.k:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sky)}
 .left li:not(.k):before{content:"";width:6px;height:6px;border-radius:50%;border:1px solid var(--t3)}
-.chat .bub{display:block;width:max-content;max-width:92%;padding:9px 13px;border-radius:15px 15px 15px 4px;background:rgba(224,226,242,.08);font-size:14px;margin-top:8px;opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.chat .bub.me{margin-left:auto;border-radius:15px 15px 4px 15px;background:var(--blue);color:#fff}
+.chat .bub{display:block;width:max-content;max-width:92%;padding:9px 13px;border-radius:15px 15px 15px 4px;background:rgba(224,226,242,.09);font-size:14px;margin-top:8px;opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.chat .bub.me{margin-left:auto;border-radius:15px 15px 4px 15px;background:var(--blue)}
 .bx.on .chat .bub{opacity:1;transform:none}
 .bx.on .chat .bub:nth-child(2){transition-delay:.7s}
 .wave{width:100%;height:70px}
 .wave path{fill:none;stroke:var(--sky);stroke-width:1.5;stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 2.2s var(--ease) .2s}
 .bx.on .wave path{stroke-dashoffset:0}
 
-/* ---------- 5. путь клиента ---------- */
+/* 6. путь клиента */
 .flow .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,5vw,80px);align-items:center}
 .flow .lead{margin-top:22px}
 .flow .lnk{margin-top:26px}
-.canvas{padding:18px;position:relative}
+.canvas{padding:18px}
 .canvas .hd{display:flex;justify-content:space-between;margin-bottom:6px}
-.fbw{position:relative}
 .fb{position:relative;width:540px;height:460px;transform-origin:0 0}
 .fb svg{position:absolute;inset:0;width:540px;height:460px;overflow:visible}
 .fb .p{fill:none;stroke:rgba(118,183,255,.35);stroke-width:1.3}
 .fb .p.dash{stroke-dasharray:4 5}
 .fb .pd{fill:var(--sky)}
-.nd{position:absolute;width:150px;padding:10px 12px;border-radius:12px;background:var(--glass2);border:1px solid var(--line2)}
-.nd b{display:block;font-weight:500;font-size:14px;line-height:1.2}
+.nd{position:absolute;width:150px;padding:10px 12px;border-radius:12px;background:rgba(18,22,40,.7);border:1px solid var(--line2)}
+.nd b{display:block;font-weight:560;font-size:14px;line-height:1.2}
 .nd span{display:block;font:400 11px/1.3 var(--mono);color:var(--t3);margin-top:4px}
 .nd.hot{border-color:rgba(118,183,255,.5);box-shadow:0 0 30px -8px rgba(65,85,232,.8)}
-.tag{position:absolute;font:400 11px/1 var(--mono);padding:5px 8px;border-radius:99px;background:var(--ink2);border:1px solid var(--line2);color:var(--sky);white-space:nowrap}
-.log{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
-.log div{display:grid;grid-template-columns:18px 1fr 110px;gap:10px;align-items:center;font:400 12px/1 var(--mono);color:var(--t2);padding:6px 0}
-.log div em{font-style:normal;color:var(--sky)}
-.log .t{height:4px;border-radius:4px;background:rgba(224,226,242,.07);overflow:hidden}
-.log .t i{display:block;height:100%;width:0;background:var(--sky);transition:width 1.2s var(--ease) .3s}
-.flow.on .log .t i{width:var(--w)}
+.tag{position:absolute;font:400 11px/1 var(--mono);padding:5px 8px;border-radius:99px;background:#0b0d18;border:1px solid var(--line2);color:var(--sky);white-space:nowrap}
 .fm{display:none}
 
-/* ---------- 6. цена качелей ---------- */
-.cost .top{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:56px}
-.q{display:grid;grid-template-columns:90px 1fr 1fr;gap:30px;padding:34px 0;border-top:1px solid var(--line);align-items:baseline}
-.q:last-child{border-bottom:1px solid var(--line)}
-.q .mono{color:var(--sky)}
-.q h3{font-weight:300;font-size:clamp(24px,2.6vw,38px);line-height:1.12;letter-spacing:-.025em}
-.q p{color:var(--t2);font-size:16px;max-width:38ch}
-
-/* ---------- 7. обо мне ---------- */
+/* 7. обо мне */
 .about .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,80px);align-items:center}
 .ph{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/4.4;clip-path:inset(12% 12% 12% 12% round 26px);transition:clip-path 1.4s var(--io)}
 .about.on .ph{clip-path:inset(0 0 0 0 round 26px)}
 .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;transform:scale(1.15);transition:transform 1.8s var(--ease)}
 .about.on .ph img{transform:scale(1)}
 .ph .cap2{position:absolute;left:14px;right:14px;bottom:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-radius:14px}
-.ph .cap2 b{font-weight:500;font-size:15px}
-.about blockquote{font-weight:300;font-size:clamp(26px,2.9vw,42px);line-height:1.12;letter-spacing:-.025em}
-.about blockquote .i{color:var(--sky)}
+.ph .cap2 b{font-weight:560;font-size:15px}
+.about blockquote{font-weight:400;font-size:clamp(26px,2.9vw,42px);line-height:1.12;letter-spacing:-.03em}
 .about .body{margin-top:22px;color:var(--t2);max-width:46ch}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
 .stat{padding:18px}
-.stat b{display:block;font-weight:300;font-size:clamp(26px,2.5vw,36px);letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.stat b{display:block;font-weight:350;font-size:clamp(24px,2.3vw,34px);letter-spacing:-.035em;line-height:1;white-space:nowrap}
 .stat p{font:400 11.5px/1.35 var(--mono);color:var(--t3);margin-top:8px}
 .stat .v{height:34px;margin-top:16px;display:flex;align-items:flex-end;gap:4px}
 .stat .v i{flex:1;border-radius:3px;background:rgba(118,183,255,.18);height:0;transition:height 1s var(--ease)}
 .stat .v i.k{background:var(--sky)}
+.stat .v i.neg{background:rgba(224,226,242,.25)}
 .about .more{display:flex;gap:22px;margin-top:26px;flex-wrap:wrap}
-.renew{margin-top:clamp(70px,10vh,120px);text-align:center}
-.renew .h2{font-size:clamp(34px,5vw,80px)}
 
-/* ---------- 8. кейсы ---------- */
+/* 8. кейсы */
 #cases{height:440vh}
 #cases .stage{display:block}
 .c-head{position:absolute;left:0;right:0;top:clamp(84px,12vh,120px);z-index:2}
 .c-head .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.c-head .h2{font-size:clamp(30px,3.8vw,56px)}
 .c-head .ct{font:400 13px/1 var(--mono);color:var(--t2);white-space:nowrap}
-.track{position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;gap:3vw;padding-left:max(var(--pad),calc((100vw - 1240px)/2));padding-right:max(var(--pad),calc((100vw - 1240px)/2));padding-top:clamp(90px,12vh,130px);will-change:transform}
-.case{flex:none;width:min(1000px,80vw);height:min(560px,62vh);display:grid;grid-template-columns:.8fr 1.2fr;overflow:hidden;padding:0}
+.track{position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;gap:3vw;padding:clamp(110px,14vh,150px) max(var(--pad),calc((100vw - 1240px)/2)) 0;will-change:transform}
+.case{flex:none;width:min(1000px,80vw);height:min(540px,60vh);display:grid;grid-template-columns:.8fr 1.2fr;overflow:hidden;padding:0}
 .case .im{position:relative;overflow:hidden}
 .case .im img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
-.case .im:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(13,16,30,.6))}
+.case .im:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(10,14,28,.6))}
 .case .tx{padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;min-height:0}
-.case .tx h3{font-weight:400;font-size:clamp(24px,2.3vw,34px);letter-spacing:-.025em;line-height:1.1;margin-top:10px}
-.case .tx .role{color:var(--t2);font-size:15px;margin-top:6px}
+.case .tx h3{font-weight:480;font-size:clamp(24px,2.3vw,34px);letter-spacing:-.03em;line-height:1.1;margin-top:10px}
+.case .role{color:var(--t2);font-size:15px;margin-top:6px}
 .case .ba{margin-top:auto;display:grid;grid-template-columns:1fr auto 1.2fr;gap:18px;align-items:end}
 .case .ba .mono{margin-bottom:10px}
-.case .ba .was b{font-weight:300;font-size:clamp(24px,2.4vw,36px);letter-spacing:-.03em;color:var(--t2);display:block;white-space:nowrap}
-.case .ba .now b{font-weight:300;font-size:clamp(44px,5.4vw,84px);letter-spacing:-.045em;line-height:.95;color:var(--sky);display:block;white-space:nowrap}
+.case .was b{font-weight:350;font-size:clamp(24px,2.4vw,36px);letter-spacing:-.035em;color:var(--t2);display:block;white-space:nowrap}
+.case .now b{font-weight:350;font-size:clamp(42px,5.2vw,80px);letter-spacing:-.05em;line-height:.95;display:block;white-space:nowrap}
 .case .ba p{font-size:13.5px;line-height:1.4;color:var(--t2);margin-top:10px}
-.case .ba .ar{font-size:26px;color:var(--t3);padding-bottom:30px}
+.case .ar{font-size:26px;color:var(--t3);padding-bottom:30px}
 .c-prog{position:absolute;left:0;right:0;bottom:clamp(24px,5vh,48px)}
 .c-prog .wrap{display:flex;align-items:center;gap:16px}
-.c-prog .bar{flex:1;height:2px;background:var(--line2);border-radius:2px;overflow:hidden}
-.c-prog .bar i{display:block;height:100%;width:0;background:var(--sky)}
+.c-prog .bar3{flex:1;height:2px;background:var(--line2);border-radius:2px;overflow:hidden}
+.c-prog .bar3 i{display:block;height:100%;width:0;background:var(--sky)}
 
-/* ---------- 9. ещё 19 ---------- */
+/* 9. ещё 19 */
 .names .top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:20px;flex-wrap:wrap}
 .grp{margin-top:34px}
 .grp>.mono{padding-bottom:12px}
 .nr{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 4px;border-top:1px solid var(--line);transition:padding .4s var(--ease),background .3s}
-.nr b{font-weight:300;font-size:clamp(20px,2.1vw,30px);letter-spacing:-.02em}
+.nr b{font-weight:350;font-size:clamp(20px,2.1vw,30px);letter-spacing:-.025em}
 .nr span{font:400 14px/1.3 var(--mono);color:var(--t2);text-align:right}
-.nr:hover{padding-left:16px;background:linear-gradient(90deg,rgba(65,85,232,.12),transparent 70%)}
+.nr:hover{padding-left:16px;background:linear-gradient(90deg,rgba(65,85,232,.14),transparent 70%)}
 .nr:hover span{color:var(--sky)}
 .peek{position:fixed;left:0;top:0;width:220px;height:280px;border-radius:16px;overflow:hidden;pointer-events:none;z-index:60;opacity:0;transform:translate(-50%,-50%) scale(.9) rotate(-3deg);transition:opacity .3s,transform .4s var(--ease)}
 .peek.on{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-3deg)}
 .peek img{width:100%;height:100%;object-fit:cover}
 
-/* ---------- 10. возражения ---------- */
+/* 10. возражения */
 .faq .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,80px)}
 .faq .lead{margin-top:20px}
 details{border-top:1px solid var(--line)}
 details:last-child{border-bottom:1px solid var(--line)}
-summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;font-weight:400;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.01em;min-height:44px}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;font-weight:460;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.015em;min-height:44px}
 summary::-webkit-details-marker{display:none}
 summary i{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--line2);position:relative;transition:transform .4s var(--ease),background .3s}
-summary i:before,summary i:after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--t1);transform:translate(-50%,-50%)}
+summary i:before,summary i:after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:#fff;transform:translate(-50%,-50%)}
 summary i:after{transform:translate(-50%,-50%) rotate(90deg)}
 details[open] summary i{transform:rotate(45deg);background:var(--blue);border-color:var(--blue)}
 details .a{padding:0 50px 26px 0;color:var(--t2);max-width:60ch}
-details .a b{color:var(--t1);font-weight:400}
+details .a b{color:#fff;font-weight:460}
 
-/* ---------- 11. финал ---------- */
-.go .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:14px}
-.gl{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column}
-.gl .h2{font-size:clamp(30px,3.4vw,50px);margin-top:60px}
-.gl .lead{margin-top:14px}
-.steps{margin-top:30px;counter-reset:s}
+/* 11. финал: капсула смыкается */
+.go{padding-top:0}
+.close{position:relative;height:min(78vh,720px);overflow:hidden}
+.close .cap{position:absolute;left:50%;top:50%;width:0;height:0;transform:scale(var(--s,.42))}
+.close .cap img{position:absolute;width:819px;height:867px;max-width:none;will-change:transform}
+.close .cap .a{left:-630px;top:-149px}
+.close .cap .b{left:-190px;top:-713px}
+.close .flash{position:absolute;left:50%;top:50%;width:900px;height:900px;margin:-450px 0 0 -450px;border-radius:50%;background:radial-gradient(closest-side,rgba(240,244,255,.7),rgba(118,183,255,.25) 35%,rgba(65,85,232,.08) 60%,transparent);opacity:0;pointer-events:none;mix-blend-mode:screen}
+.close .word{position:absolute;left:0;right:0;bottom:6%;text-align:center}
+.close .word .h2{font-size:clamp(36px,5.4vw,84px)}
+.panel{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pl{padding:clamp(24px,3vw,40px)}
+.pl .h2{font-size:clamp(28px,3vw,44px)}
+.pl .lead{margin-top:14px}
+.steps{margin-top:26px;counter-reset:s}
 .steps div{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
 .steps div:before{counter-increment:s;content:"0" counter(s);font:500 12px/1.6 var(--mono);color:var(--sky)}
-.steps b{display:block;font-weight:500;font-size:15.5px}
+.steps b{display:block;font-weight:560;font-size:15.5px}
 .steps p{font-size:14px;color:var(--t2);margin-top:3px}
-.gr{background:var(--blue);border-radius:var(--r);padding:clamp(24px,3.4vw,48px);color:#fff;position:relative;overflow:hidden}
-.gr:before{content:"";position:absolute;right:-20%;top:-40%;width:80%;height:120%;background:radial-gradient(closest-side,rgba(118,183,255,.55),transparent);pointer-events:none}
-.gr .mono{color:rgba(255,255,255,.72);position:relative}
-.gr h2{position:relative;font-weight:300;font-size:clamp(34px,4.4vw,66px);line-height:1.02;letter-spacing:-.04em;margin-top:18px}
-.gr h2 .i{color:var(--mist)}
-.gr .sm{position:relative;margin-top:16px;color:rgba(255,255,255,.8);max-width:40ch}
-.tpl{position:relative;margin-top:30px;background:var(--mist);color:var(--ink);border-radius:18px;padding:16px 16px 16px 20px;display:flex;gap:14px;align-items:flex-end}
+.pr{padding:clamp(24px,3.4vw,48px);border-radius:var(--r);background:linear-gradient(160deg,rgba(65,85,232,.55),rgba(65,85,232,.18) 60%,rgba(10,14,28,.5));border:1px solid rgba(118,183,255,.35);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;flex-direction:column}
+.pr h2{font-weight:400;font-size:clamp(28px,3vw,46px);line-height:1.06;letter-spacing:-.035em;margin-top:14px}
+.pr .sm{margin-top:14px;color:rgba(255,255,255,.78);max-width:40ch}
+.tpl{margin-top:24px;background:rgba(224,226,242,.95);color:#03050b;border-radius:18px;padding:16px 16px 16px 20px;display:flex;gap:14px;align-items:flex-end}
 .tpl pre{flex:1;font:400 14px/1.55 var(--sans);white-space:pre-wrap}
-.tpl pre span{color:rgba(5,6,12,.45)}
-.tpl button{flex:none;height:44px;padding:0 16px;border-radius:12px;background:var(--ink);color:var(--mist);font:500 13px/1 var(--sans);transition:transform .2s var(--ease)}
+.tpl pre span{color:rgba(3,5,11,.45)}
+.tpl button{flex:none;height:44px;padding:0 16px;border-radius:12px;background:#03050b;color:var(--mist);font-weight:560;font-size:13px;transition:transform .2s var(--ease)}
 .tpl button:active{transform:scale(.97)}
-.gr .row{position:relative;display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:16px}
-.gr .btn-ink{--h:60px;font-size:17px}
-.gr .meta{position:relative;margin-top:14px;font:400 12px/1.6 var(--mono);color:rgba(255,255,255,.72)}
-.gr .cond{position:relative;margin-top:22px;padding-top:16px;border-top:1px solid rgba(255,255,255,.22);font-size:14.5px;color:rgba(255,255,255,.9)}
+.pr .cta{margin-top:18px;align-self:flex-start}
+.pr .meta{margin-top:16px;font:400 12px/1.6 var(--mono);color:rgba(255,255,255,.7)}
+.pr .cond{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.18);font-size:14.5px;color:rgba(255,255,255,.88)}
 
-/* ---------- подвал ---------- */
-footer{padding:40px 0 50px;border-top:1px solid var(--line);background:rgba(5,6,12,.7)}
+footer{padding:40px 0 50px;border-top:1px solid var(--line);background:rgba(3,5,11,.75)}
 footer .st{display:flex;flex-wrap:wrap;gap:12px 30px;font:400 12px/1.5 var(--mono);color:var(--t3);margin-bottom:26px}
-footer .st span:first-child{color:var(--t2)}
 footer .lg{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 30px;font-size:13px;color:var(--t3)}
 footer .lg a{color:var(--t2);transition:color .2s}
-footer .lg a:hover{color:var(--t1)}
+footer .lg a:hover{color:#fff}
 footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
 
-/* ---------- мобильная ---------- */
-@media (max-width:900px){
-  .nav nav,.nav .st{display:none}
-  .nav .btn{margin-left:auto}
-  .hero .scrim{background:linear-gradient(0deg,rgba(5,6,12,.92) 0%,rgba(5,6,12,.6) 45%,rgba(5,6,12,.05) 75%)}
-  .hero .scroll{display:none}
-  .hero .in{padding-bottom:32px}
-  .hero .badge{margin-bottom:18px}
-  .hero .cta,.hero .who{margin-top:24px}
-  .dream .top,.cost .top{display:block}
-  .dream .top .lead,.cost .top .lead{margin-top:18px}
+/* ---------- планшет и телефон: поток ---------- */
+@media (max-width:1199px),(max-height:559px),(max-aspect-ratio:100/95){
+  :root{--c:min(calc(100vw / 430),calc(100vh / 860))}
+  .bar .in{height:auto;padding:calc(env(safe-area-inset-top) + calc(var(--c)*18)) 0 calc(var(--c)*12)}
+  .menu,.login{margin:0}
+  .navtoggle{display:block;position:absolute;top:0;right:0;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
+  .burger{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;width:46px;height:33px;border-radius:999px;cursor:pointer;border:1.2px solid var(--hair);background:rgba(255,255,255,.03);backdrop-filter:blur(20px) saturate(.45);-webkit-backdrop-filter:blur(20px) saturate(.45);position:relative}
+  .burger::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:max(44px,100%);height:max(44px,100%)}
+  .burger svg{width:20px;height:auto;fill:none;stroke:var(--nav);stroke-width:1.4;stroke-linecap:round}
+  .burger svg path{transform-box:fill-box;transform-origin:center;transition:transform .24s ease,opacity .18s ease}
+  .navtoggle:focus-visible~.burger{outline:2px solid #9fe0ff;outline-offset:3px}
+  .navtoggle:checked~.burger .b1{transform:translateY(6px) rotate(45deg)}
+  .navtoggle:checked~.burger .b2{opacity:0}
+  .navtoggle:checked~.burger .b3{transform:translateY(-6px) rotate(-45deg)}
+  .scrim{display:none;position:fixed;inset:0;z-index:-1}
+  .navtoggle:checked~.scrim{display:block}
+  .navpanel{display:flex;position:absolute;top:calc(100% + 8px);right:0;flex-direction:column;gap:2px;width:min(300px,82vw);padding:15px;border-radius:22px;
+    background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.045)),linear-gradient(90deg,rgba(224,226,242,.06),rgba(118,183,255,.06)),linear-gradient(180deg,rgba(6,12,22,.72),rgba(6,12,22,.82));
+    backdrop-filter:blur(24px) saturate(.45);-webkit-backdrop-filter:blur(24px) saturate(.45);box-shadow:0 14px 38px rgba(2,6,14,.45);
+    opacity:0;transform:translateY(-8px) scale(.985);transform-origin:100% 0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+  .navtoggle:checked~.navpanel{opacity:1;transform:none;pointer-events:auto}
+  .navpanel .menu{display:flex;flex-direction:column;gap:0}
+  .navpanel .menu a,.navpanel .login{display:flex;align-items:center;gap:8px;padding:13px 14px;border-radius:13px;font-size:16px;min-height:44px;opacity:1}
+  .navpanel .menu a:hover,.navpanel .login:hover{background:rgba(255,255,255,.07)}
+  .navpanel .navarrow{margin-left:auto}
+  .navpanel .pill{justify-content:center;margin-top:9px;height:48px;font-size:16px}
+  .bar.solid{background:rgba(3,5,11,.7)}
+
+  .art{position:absolute;inset:0;width:auto;height:auto;transform:none;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:calc(var(--c)*20);padding:calc(var(--c)*90) calc(var(--c)*22) calc(var(--c)*30)}
+  .title,.sub,.feats,.rule,.foot{position:static}
+  .art::before{left:-10%;right:-10%;top:12%;height:44%}
+  .hero .cta{position:relative;left:auto;top:auto;transform:none}
+  .hero .cta:active{transform:scale(.97)}
+  .title{font-size:calc(var(--c)*33);line-height:1.14;max-width:16ch}
+  .sub{font-size:calc(var(--c)*17);line-height:1.38}
+  .hero .cta{height:auto;padding:calc(var(--c)*16) calc(var(--c)*26);font-size:calc(var(--c)*18);gap:calc(var(--c)*12);--blur:24px;--glow:30px;--hairline:1.2px}
+  .hero .cta .arrow{width:calc(var(--c)*16);height:calc(var(--c)*11)}
+  .feats{display:grid;grid-template-columns:repeat(2,max-content);justify-content:center;gap:calc(var(--c)*15) calc(var(--c)*22);margin-top:calc(var(--c)*6)}
+  .feats li{font-size:calc(var(--c)*14);gap:calc(var(--c)*9)}
+  .chev{width:calc(var(--c)*9);height:calc(var(--c)*16)}
+  .rule{height:calc(var(--c)*30);margin:calc(var(--c)*4) auto 0}
+  .foot{font-size:calc(var(--c)*13.5);line-height:1.6;margin-top:auto;padding:0 calc(var(--c)*10)}
+  .dream .top{display:block}
+  .dream .top .lead{margin-top:18px}
   .bento{grid-template-columns:1fr 1fr}
   .s4{grid-column:span 2}.s2{grid-column:span 1}
-  .flow .grid,.about .grid,.faq .grid,.go .grid{grid-template-columns:1fr}
-  .q{grid-template-columns:1fr;gap:10px;padding:26px 0}
+  .flow .grid,.about .grid,.faq .grid,.panel{grid-template-columns:1fr}
   .case{grid-template-columns:1fr;grid-template-rows:40% 60%;width:84vw;height:min(640px,70vh)}
-  .case .im:after{background:linear-gradient(0deg,rgba(13,16,30,.7),transparent 50%)}
+  .case .im:after{background:linear-gradient(0deg,rgba(10,14,28,.7),transparent 50%)}
+  .big.r{top:calc(24vh + 1em)}
 }
-@media (max-width:700px){
-  body{font-size:15.5px}
+@media (max-width:599px),(max-height:429px){
+  :root{--c:min(calc(100vw / 360),calc(100vh / 770),1px);--rise:6px}
+  .title{font-size:calc(var(--c)*31);line-height:1.2;max-width:none;text-wrap:balance}
+  .sub{font-size:calc(var(--c)*16);line-height:1.45;text-wrap:balance}
+  .art{gap:calc(var(--c)*22);padding-top:calc(var(--c)*96)}
+  .feats{gap:calc(var(--c)*14) calc(var(--c)*16);margin-top:calc(var(--c)*14)}
+  .feats li{font-size:calc(var(--c)*13)}
+  .veil{background:radial-gradient(130% 44% at 50% 45%,rgba(var(--veil),.50) 0%,rgba(var(--veil),.26) 55%,rgba(var(--veil),0) 100%),linear-gradient(180deg,rgba(var(--veil),.34) 0%,rgba(var(--veil),0) 20%,rgba(var(--veil),0) 60%,rgba(var(--veil),.36) 100%)}
+  #word{font-size:16px;letter-spacing:.16em}
   .bento{grid-template-columns:1fr}
   .s4,.s2{grid-column:span 1}
   .bx{min-height:0}
@@ -386,170 +455,177 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
   .fm .nd{position:relative;width:auto}
   .fm .ln{width:1px;height:16px;background:rgba(118,183,255,.4);margin-left:22px}
   .fm .br{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-  .fm .br .tag{position:static;display:inline-block;margin-bottom:8px}
+  .fm .tag{position:static;display:inline-block;margin-bottom:8px}
   .fm .back{font:400 11px/1.4 var(--mono);color:var(--sky);margin-top:12px}
-  .log div{grid-template-columns:16px 1fr 64px}
   .stats{grid-template-columns:1fr 1fr}
   .stats .stat:last-child{grid-column:span 2}
   .case .ba{grid-template-columns:1fr;gap:12px}
-  .case .ba .ar{display:none}
-  .case .ba .was b{font-size:22px}
-  .case .ba .now b{font-size:44px}
+  .case .ar{display:none}
+  .case .was b{font-size:22px}
+  .case .now b{font-size:42px}
   .case .ba p{font-size:13px;margin-top:6px}
   .case .tx{padding:20px}
   .case .tx h3{font-size:22px}
-  .c-head .h2{font-size:30px}
+  .c-head .h2{font-size:28px}
   .nr{grid-template-columns:1fr;gap:4px}
   .nr span{text-align:left;font-size:13px}
   .tpl{flex-direction:column;align-items:stretch}
-  .gr .btn-ink{width:100%;justify-content:space-between}
+  .pr .cta{align-self:stretch}
   .board{height:66vh}
   .bc{width:auto;right:0;padding:12px 14px}
   .bc .tp{margin-bottom:8px}
   .bc p{display:none}
   .bc h3{font-size:15px}
   .board .meter{top:-40px}
-  .scene{width:min(290px,84vw)}
   details .a{padding-right:0}
-  .gl .h2{margin-top:36px}
+  .cutnote{flex-direction:column;align-items:flex-start;bottom:14vh}
+  .close{height:62vh}
+  .big{font-size:12vw}
 }
-@media (max-width:380px){.logo{font-size:13.5px;gap:8px}.hero .badge{font-size:10.5px;padding:8px 11px}}
-@media (max-height:760px) and (max-width:900px){.hero .who{display:none}}
-@media (max-height:760px) and (min-width:901px){.hero .badge{margin-bottom:16px}.hero .cta,.hero .who{margin-top:22px}.hero .sub{margin-top:16px}}
+@media (max-height:429px) and (min-aspect-ratio:1/1){
+  :root{--c:min(calc(100vw / 760),calc(100vh / 430))}
+  .art{gap:calc(var(--c)*12);padding-top:calc(var(--c)*70)}
+  .title{font-size:calc(var(--c)*31);max-width:26ch}
+  .feats{grid-template-columns:repeat(4,max-content);gap:calc(var(--c)*24)}
+  .rule{display:none}
+}
+@media (min-width:600px) and (min-height:430px) and (max-width:1199px){
+  :root{--c:min(calc(100vw / 860),calc(100vh / 1120))}
+  .title{font-size:calc(var(--c)*50);max-width:none}
+  .sub{font-size:calc(var(--c)*22)}
+  .hero .cta{font-size:calc(var(--c)*21);padding:calc(var(--c)*18) calc(var(--c)*34)}
+  .feats li{font-size:calc(var(--c)*16)}
+  .foot{font-size:calc(var(--c)*16)}
+}
+@supports (height:100dvh){
+  @media (max-width:1199px),(max-height:559px),(max-aspect-ratio:100/95){
+    :root{--c:min(calc(100vw / 430),calc(100dvh / 860))}
+    @media (max-width:599px),(max-height:429px){:root{--c:min(calc(100vw / 360),calc(100dvh / 770),1px)}}
+    @media (max-height:429px) and (min-aspect-ratio:1/1){:root{--c:min(calc(100vw / 760),calc(100dvh / 430))}}
+    @media (min-width:600px) and (min-height:430px) and (max-width:1199px){:root{--c:min(calc(100vw / 860),calc(100dvh / 1120))}}
+  }
+}
 @media (prefers-reduced-motion:reduce){
-  *,*:before,*:after{animation:none!important;transition:none!important}
-  .bgv video{display:none}
+  *{animation:none!important;transition:none!important}
 }
 </style>
 </head>
 <body>
 
-<div class="bgv" aria-hidden="true">
-  <img id="poster" alt="" src="bg.jpg">
-  <video id="vid" muted playsinline loop preload="auto"></video>
-  <div class="open" id="dark"></div>
+<div class="reel" aria-hidden="true">
+  <video id="vArcs" class="on" muted loop playsinline preload="auto" data-d="v-arcs.mp4" data-m="v-arcs-m.mp4" data-pd="v-arcs.jpg" data-pm="v-arcs-m.jpg"></video>
+  <video id="vVortex" muted loop playsinline preload="none" data-d="v-vortex.mp4" data-m="v-vortex-m.mp4" data-pd="v-vortex.jpg" data-pm="v-vortex-m.jpg"></video>
+  <video id="vFly" muted loop playsinline preload="none" data-d="v-fly.mp4" data-m="v-fly-m.mp4" data-pd="v-fly.jpg" data-pm="v-fly-m.jpg"></video>
 </div>
-<div class="veil" id="veil"></div>
-<div class="grain" aria-hidden="true"></div>
+<div class="veil"></div>
+<div class="shade" id="shade"></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="wg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4155E8"/><stop offset="1" stop-color="#76B7FF"/></linearGradient>
-    <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4155E8"/><stop offset="1" stop-color="#76B7FF"/></linearGradient>
-    <symbol id="arr" viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="arrow" viewBox="0 0 16 11"><path d="M0 5.5 H14.6 M10.3 1.2 L14.9 5.5 L10.3 9.8"/></symbol>
+    <symbol id="chev" viewBox="0 0 11 20"><path d="M1.15 1.15 L9.6 10 L1.15 18.85"/></symbol>
+    <symbol id="mark" viewBox="0 0 26 18"><rect x="1.2" y="4.6" width="23.6" height="8.8" rx="4.4" transform="rotate(-24 13 9)" fill="none" stroke="#76B7FF" stroke-width="1.4"/><path d="M13 9 L3.4 13.3 A4.4 4.4 0 0 1 1.8 6.6 L9.1 3.4 Z" transform="rotate(-24 13 9) rotate(24 13 9)" fill="#4155E8"/></symbol>
   </defs>
 </svg>
 
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a class="logo" href="#top" aria-label="Александр Комлев, наверх"><span class="mk"></span>Александр Комлев</a>
-    <nav aria-label="Разделы">
-      <a href="#build">Как работаю</a>
-      <a href="#cases">Кейсы</a>
-      <a href="#go">Диагностика</a>
-    </nav>
-    <span class="st"><span class="dot"></span>запись на диагностику открыта</span>
-    <a class="btn btn-p" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать<span class="ar"><svg><use href="#arr"/></svg><svg><use href="#arr"/></svg></span></a>
+<header class="bar" id="bar">
+  <div class="in">
+    <a class="brand" href="#top" aria-label="Александр Комлев, наверх"><svg aria-hidden="true"><use href="#mark"/></svg><span id="word">КОМЛЕВ</span></a>
+    <input class="navtoggle" type="checkbox" id="nav-open">
+    <label class="scrim" for="nav-open" aria-hidden="true"></label>
+    <label class="burger" for="nav-open" aria-label="Меню"><svg viewBox="0 0 22 14" aria-hidden="true"><path class="b1" d="M1 1 H21"/><path class="b2" d="M1 7 H21"/><path class="b3" d="M1 13 H21"/></svg></label>
+    <div class="navpanel">
+      <nav class="menu" aria-label="Разделы">
+        <a href="#build">Как работаю</a>
+        <a href="#cases">Кейсы</a>
+        <a href="#about">Обо мне</a>
+      </nav>
+      <a class="login" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Telegram<svg class="navarrow" viewBox="0 0 10 9" aria-hidden="true"><path d="M0 4.5 H9.1 M5.4 0.9 L9.2 4.5 L5.4 8.1"/></svg></a>
+      <a class="pill" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Хочу на диагностику</a>
+    </div>
   </div>
 </header>
 
 <main id="top">
 
-<!-- 1. герой: капсула раскрывается, из неё свет -->
-<section class="hero" id="hero">
-  <div class="cap" id="cap" aria-hidden="true">
-    <div class="glow" id="glow"></div>
-    <img class="a" id="capA" src="capA.webp" alt="">
-    <img class="b" id="capB" src="capB.webp" alt="">
+<!-- 1. первый экран -->
+<section class="hero" id="hero" data-scene="arcs" data-shade="0">
+  <div class="art">
+    <h1 class="title"><span id="h1a">Глупо делать одни и те же действия,</span> <span id="h1b">рассчитывая на <span class="g">другой результат.</span></span></h1>
+    <p class="sub"><span id="sub1">Помогаю экспертам увеличить продажи своих продуктов.</span> <span id="sub2">Через уверенность, а не через очередную схему.</span></p>
+    <a class="cta" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener"><span id="cta">Хочу на диагностику</span><svg class="arrow"><use href="#arrow"/></svg></a>
+    <ul class="feats">
+      <li><svg class="chev"><use href="#chev"/></svg><span>Из −2 млн в +4 млн</span></li>
+      <li><svg class="chev"><use href="#chev"/></svg><span>Без рекламы</span></li>
+      <li><svg class="chev"><use href="#chev"/></svg><span>12 лет в продажах</span></li>
+      <li><svg class="chev"><use href="#chev"/></svg><span>100 млн+ у клиентов</span></li>
+    </ul>
+    <span class="rule" aria-hidden="true"></span>
+    <p class="foot"><span id="foot1">После диагностики вы знаете, как сделать продажи в ближайшие две недели.</span><span id="foot2">30–40 минут в zoom · без презентаций · без дожима</span></p>
   </div>
-  <div class="scrim"></div>
-  <div class="in"><div class="wrap">
-    <span class="badge fx"><span class="dot"></span>для экспертов с доходом от 150 000 ₽ в месяц</span>
-    <h1 class="fx" style="transition-delay:.08s">Глупо делать одни и&nbsp;те&nbsp;же действия, рассчитывая на&nbsp;<span class="i">другой результат.</span></h1>
-    <p class="sub fx" style="transition-delay:.16s">Клиенты есть, деньги есть. Но каждая продажа держится на вас.</p>
-    <div class="cta fx" style="transition-delay:.24s">
-      <a class="btn btn-p" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Хочу <b>×2</b><span class="ar"><svg><use href="#arr"/></svg><svg><use href="#arr"/></svg></span></a>
-      <a class="btn btn-g" href="#week">Узнать себя за минуту</a>
-    </div>
-    <div class="who fx" style="transition-delay:.32s">
-      <img id="ava" src="me.webp" alt="Александр Комлев">
-      <p><b>Александр Комлев</b>12 лет в продажах · отвечаю сам</p>
-    </div>
-  </div></div>
-  <span class="scroll" aria-hidden="true">листайте</span>
 </section>
 
-<!-- 2. неделя: сцены, потом всё, что уже пробовали -->
-<section class="pin" id="week" aria-label="Пара сцен из вашей недели">
+<!-- 2. узнавание: неделя, потом всё, что уже пробовали -->
+<section class="pin" id="week" data-scene="vortex" data-shade=".35" aria-label="Пара сцен из вашей недели">
   <div class="stage">
-    <div class="cap-c" id="wCap">
-      <h2 class="h2">Пара сцен из <span class="i">вашей</span> недели.</h2>
-    </div>
-    <div class="cap-c" id="wCap2" style="opacity:0">
-      <h2 class="h2">Узнали себя?</h2>
-      <p class="lead">Значит, вы по адресу. И нет, продавать вы умеете.</p>
-    </div>
+    <div class="cap-c" id="wCap"><h2 class="h2">Пара сцен из <span class="g">вашей</span> недели.</h2></div>
+    <div class="cap-c" id="wCap2" style="opacity:0"><h2 class="h2">Узнали себя?</h2><p class="lead">Значит, вы по адресу. И нет, продавать вы умеете.</p></div>
 
-    <article class="scene glass" data-x="-30" data-y="-24" data-d="1.1">
-      <div class="hd"><b>понедельник</b><span class="mono">заметки</span></div>
-      <p class="nt">до конца месяца:<br><s>ещё 6 продаж</s> <em>ещё 5</em><br>опять считаю</p>
-    </article>
-    <article class="scene glass" data-x="27" data-y="-27" data-d=".8">
-      <div class="hd"><b>встреча</b><span class="mono">zoom · 42:10</span></div>
-      <p>Называете цену и тут же добавляете:</p>
-      <span class="bub me">можно частями</span>
-      <p class="mono" style="margin-top:8px">вас никто не просил</p>
-    </article>
-    <article class="scene glass" data-x="-33" data-y="20" data-d=".9">
-      <div class="hd"><b>диагностика</b><span class="mono">после встречи</span></div>
-      <span class="bub">Я подумаю</span>
-      <span class="bub me">Конечно</span>
-      <p class="mono" style="margin-top:8px">вы обе знаете, чем это закончится</p>
-    </article>
-    <article class="scene glass" data-x="31" data-y="18" data-d="1.2">
-      <div class="hd"><b>23:40</b><span class="mono">директ · 3 новых</span></div>
-      <p>Отвечаете клиентке. Потому что кто, если не вы?</p>
-    </article>
-    <article class="scene glass" data-x="2" data-y="33" data-d="1">
-      <div class="hd"><b>отпуск</b><span class="mono">3 дня</span></div>
-      <p>Уехали на три дня. Доход тоже.</p>
-    </article>
+    <article class="scene glass" data-x="-30" data-y="-24" data-d="1.1"><div class="hd"><b>понедельник</b><span class="mono">заметки</span></div><p class="nt">до конца месяца:<br><s>ещё 6 продаж</s> <em>ещё 5</em><br>опять считаю</p></article>
+    <article class="scene glass" data-x="27" data-y="-27" data-d=".8"><div class="hd"><b>встреча</b><span class="mono">zoom · 42:10</span></div><p>Называете цену и тут же добавляете:</p><span class="bub me">можно частями</span><p class="mono" style="margin-top:8px">вас никто не просил</p></article>
+    <article class="scene glass" data-x="-33" data-y="20" data-d=".9"><div class="hd"><b>диагностика</b><span class="mono">после встречи</span></div><span class="bub">Я подумаю</span><span class="bub me">Конечно</span><p class="mono" style="margin-top:8px">вы обе знаете, чем это закончится</p></article>
+    <article class="scene glass" data-x="31" data-y="18" data-d="1.2"><div class="hd"><b>23:40</b><span class="mono">директ · 3 новых</span></div><p>Отвечаете клиентке. Потому что кто, если не вы?</p></article>
+    <article class="scene glass" data-x="2" data-y="33" data-d="1"><div class="hd"><b>отпуск</b><span class="mono">3 дня</span></div><p>Уехали на три дня. Доход тоже.</p></article>
 
-    <p class="kq" id="kq">«я это уже пробовала. не работает»</p>
+    <p class="kq" id="kq">«пробовала. не сработало»</p>
     <div class="kw">Маркетолог.</div>
+    <div class="kw">Рилсы.</div>
     <div class="kw">Контент.</div>
-    <div class="kw">Ещё один наставник.</div>
-    <div class="kw">Новая схема.</div>
+    <div class="kw">Другой наставник.</div>
     <div class="kfin" id="kfin">
-      <h2 class="h2">А продаёте всё равно <span class="i">вы.</span></h2>
-      <p class="lead">Нет уверенности в себе и в своём продукте, и ничего не продаст. Ни продукт от маркетолога, ни рилсы, ни схема.</p>
+      <h2 class="h2">Не <span class="g">сработало.</span></h2>
+      <p class="lead">И теперь сложно поверить, что сработает с кем-то ещё. Понимаю. Поэтому не прошу верить на слово: сначала диагностика, и вы сами увидите план.</p>
+      <a class="lnk" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Хочу на диагностику <i>→</i></a>
     </div>
   </div>
 </section>
 
 <!-- срез -->
-<section class="pin" id="cut" aria-label="Всё держится на вас">
+<section class="pin" id="cut" data-scene="vortex" data-shade=".62" aria-label="Всё держится на вас">
   <div class="stage">
-    <p class="l l1">Всё держится на&nbsp;вас.</p>
-    <p class="l l2">И вы этим немного гордитесь.</p>
-    <p class="l l3 i">Правда?</p>
+    <p class="big l">Всё держится</p>
+    <p class="big r g">на вас.</p>
+    <div class="cutnote"><p>И вы этим немного гордитесь.</p><b class="g">Правда?</b></div>
   </div>
 </section>
 
-<!-- 3. сборка -->
-<section class="pin" id="build" aria-label="Что собираем за три месяца">
+<!-- 3. история: частицы −2 → +4 -->
+<section class="pin" id="story" data-scene="arcs" data-shade=".9" aria-label="Из минус двух миллионов в плюс четыре">
   <div class="stage">
-    <div class="b-intro" id="bIn">
-      <h2 class="h2">Я продаю <span class="i">уверенность.</span></h2>
-      <p class="mono">на встречах · в себе · в своём продукте<br>а люди со мной зарабатывают деньги</p>
+    <canvas id="pc" aria-hidden="true"></canvas>
+    <div class="st-top"><p class="mono"><span class="dot"></span>моя история</p><h2 class="h2">Я сам начинал с минуса.</h2></div>
+    <p class="st-lab" id="labA">было · долг</p>
+    <p class="st-lab" id="labB">стало · без рекламы</p>
+    <p class="st-static h2 g">−2 млн → +4 млн</p>
+    <div class="st-end" id="stEnd">
+      <p class="lead">Поэтому я не продаю схему. Я продаю уверенность, на которой держатся продажи.</p>
+      <a class="lnk" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Хочу на диагностику <i>→</i></a>
     </div>
+  </div>
+</section>
+
+<!-- 4. сборка -->
+<section class="pin" id="build" data-scene="fly" data-shade=".42" aria-label="Что собираем за три месяца">
+  <div class="stage">
+    <div class="b-intro" id="bIn"><h2 class="h2">Я продаю <span class="g">уверенность.</span></h2><p class="mono">на встречах · в себе · в своём продукте<br>а люди со мной зарабатывают деньги</p></div>
     <div class="prompt" id="prompt" aria-hidden="true">
-      <span class="mk"></span><span class="tx" id="ptx"></span>
+      <svg class="mk"><use href="#mark"/></svg><span class="tx" id="ptx"></span>
       <span class="send" id="send"><svg viewBox="0 0 16 16"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </div>
     <div class="working" id="working"><i></i>Собираем ваши три месяца</div>
     <div class="board" id="board">
-      <div class="meter"><span>собрано <b id="mN">0</b> из 5</span><span class="bar"><i id="mB"></i></span></div>
+      <div class="meter"><span>собрано <b id="mN">0</b> из 5</span><span class="bar2"><i id="mB"></i></span></div>
       <svg class="wire" aria-hidden="true"><path id="wp" d=""/></svg>
       <article class="bc glass"><div class="tp"><span class="n">01</span><span class="chip"><i></i><span>собираем</span></span></div><h3>Уверенность</h3><p>На встречах, в себе и в своём продукте. С неё всё начинается.</p></article>
       <article class="bc glass"><div class="tp"><span class="n">02</span><span class="chip"><i></i><span>собираем</span></span></div><h3>Чёткий понятный продукт</h3><p>Клиент сам понимает, за что платит. И платит больше.</p></article>
@@ -558,55 +634,38 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
       <article class="bc glass"><div class="tp"><span class="n">05</span><span class="chip"><i></i><span>собираем</span></span></div><h3>Стратегия от точки А до точки Б</h3><p>И позиционирование. Вас начинают воспринимать уверенно, клиенты это замечают.</p></article>
     </div>
     <div class="b-fin" id="bFin">
-      <h2 class="h2">Всё <span class="i">связано.</span> Дальше ×2.</h2>
-      <a class="btn btn-p" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Собрать это у себя<span class="ar"><svg><use href="#arr"/></svg><svg><use href="#arr"/></svg></span></a>
+      <h2 class="h2">Всё связано.<br><span class="g">Продаж больше.</span></h2>
+      <a class="cta cta-b" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Хочу на диагностику<svg class="arrow"><use href="#arrow"/></svg></a>
     </div>
   </div>
 </section>
 
-<!-- 4. через три месяца -->
-<section class="sec dream" id="dream">
+<!-- 5. через три месяца -->
+<section class="sec dream" id="dream" data-scene="fly" data-shade=".66">
   <div class="wrap">
     <div class="top">
-      <h2 class="h2 rv">Обычный <span class="i">вторник</span>,<br>через три месяца.</h2>
-      <p class="lead rv">Это не мотивашка. Это три месяца работы со мной. ×2 это не рывок. Это когда всё собрано.</p>
+      <h2 class="h2 rv">Обычный <span class="g">вторник</span>,<br>через три месяца.</h2>
+      <p class="lead rv">Это не мотивашка. Это три месяца работы со мной, когда всё собрано.</p>
     </div>
     <div class="bento">
       <div class="bx glass s4 rv">
-        <p class="mono">сейчас и через три месяца</p>
-        <h3>Вы делаете <span class="i">×2</span> от того, что делаете сейчас. И работаете меньше.</h3>
-        <div class="viz bars">
-          <div class="g now"><p>сейчас</p>
-            <div class="r"><span>доход</span><div class="t"><i data-w="42%"></i></div></div>
-            <div class="r"><span>часы</span><div class="t"><i data-w="88%"></i></div></div>
-          </div>
-          <div class="g then"><p>через 3 месяца</p>
-            <div class="r"><span>доход</span><div class="t"><i data-w="84%"></i></div></div>
-            <div class="r"><span>часы</span><div class="t"><i data-w="58%"></i></div></div>
-          </div>
-        </div>
+        <p class="mono">продажи по неделям</p>
+        <h3>Продаж становится <span class="g">больше.</span> Заметно. И держится, а не скачет.</h3>
+        <div class="viz"><div class="wk"><i data-h="26"></i><i data-h="18"></i><i data-h="30"></i><i data-h="22"></i><i data-h="34"></i><i data-h="42"></i><i data-h="48"></i><i data-h="56"></i><i class="k" data-h="64"></i><i class="k" data-h="72"></i><i class="k" data-h="84"></i><i class="k" data-h="100"></i></div><div class="wkl mono"><span>до</span><span>через три месяца</span></div></div>
       </div>
       <div class="bx glass s2 rv">
-        <p class="mono">доход в месяц</p>
-        <div class="ring"><svg viewBox="0 0 160 160"><circle class="bg" cx="80" cy="80" r="70"/><circle class="fg" cx="80" cy="80" r="70"/></svg><b>×2</b></div>
+        <p class="mono">первое, что говорят клиентки</p>
+        <p class="quote g">«А что, так можно было?»</p>
       </div>
       <div class="bx glass s2 rv">
         <p class="mono">неделя</p>
         <h3>Левые действия ушли. Осталось то, что приносит деньги.</h3>
-        <ul class="viz left">
-          <li><s>сторис ради сторис</s></li>
-          <li><s>«можно частями»</s></li>
-          <li><s>директ в 23:40</s></li>
-          <li class="k">встреча → оплата</li>
-        </ul>
+        <ul class="viz left"><li><s>сторис ради сторис</s></li><li><s>«можно частями»</s></li><li><s>директ в 23:40</s></li><li class="k">встреча → оплата</li></ul>
       </div>
       <div class="bx glass s2 rv">
         <p class="mono">встреча</p>
-        <h3>Цену называете <span class="i">спокойно.</span></h3>
-        <div class="viz chat">
-          <span class="bub me">Работаем три месяца. Стоимость такая.</span>
-          <span class="bub">Отлично. Куда оплатить?</span>
-        </div>
+        <h3>Цену называете <span class="g">спокойно.</span></h3>
+        <div class="viz chat"><span class="bub me">Работаем три месяца. Стоимость такая.</span><span class="bub">Отлично. Куда оплатить?</span></div>
       </div>
       <div class="bx glass s2 rv">
         <p class="mono">конец месяца</p>
@@ -617,27 +676,22 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
   </div>
 </section>
 
-<!-- 5. путь клиента -->
-<section class="sec flow" id="flow">
+<!-- 6. путь клиента -->
+<section class="sec flow" id="flow" data-scene="fly" data-shade=".8">
   <div class="wrap grid">
     <div>
       <p class="mono rv"><span class="dot"></span>путь клиента</p>
-      <h2 class="h2 rv" style="margin-top:18px">Ни один клиент больше не <span class="i">теряется.</span></h2>
+      <h2 class="h2 rv" style="margin-top:18px">Ни один клиент больше не <span class="g">теряется.</span></h2>
       <p class="lead rv">Тот, кто сказал «я подумаю», не пропадает. Он остаётся в тёплой базе и покупает на запуске. Без дожима и без скидок.</p>
       <a class="lnk rv" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Разобрать мой путь клиента <i>→</i></a>
     </div>
     <div class="canvas glass rv">
       <div class="hd"><span class="mono">ваш путь клиента</span><span class="mono">7 шагов · 1 ветка</span></div>
-      <div class="fbw" id="fbw">
-      <div class="fb" id="fb">
+      <div class="fbw" id="fbw"><div class="fb" id="fb">
         <svg viewBox="0 0 540 460" aria-hidden="true">
-          <path class="p" id="f1" d="M95 72V110"/>
-          <path class="p" id="f2" d="M95 162V200"/>
-          <path class="p" id="f3" d="M170 226C262 226 262 166 350 166"/>
-          <path class="p" id="f4" d="M170 226C262 226 262 316 350 316"/>
-          <path class="p" id="f5" d="M425 342V380"/>
-          <path class="p dash" id="f6" d="M500 406C548 406 548 166 500 166"/>
-          <path class="p" id="f7" d="M425 140V100"/>
+          <path class="p" id="f1" d="M95 72V110"/><path class="p" id="f2" d="M95 162V200"/>
+          <path class="p" id="f3" d="M170 226C262 226 262 166 350 166"/><path class="p" id="f4" d="M170 226C262 226 262 316 350 316"/>
+          <path class="p" id="f5" d="M425 342V380"/><path class="p dash" id="f6" d="M500 406C548 406 548 166 500 166"/><path class="p" id="f7" d="M425 140V100"/>
           <circle class="pd" r="3"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#f3"/></animateMotion></circle>
           <circle class="pd" r="3"><animateMotion dur="2.6s" begin=".8s" repeatCount="indefinite"><mpath href="#f4"/></animateMotion></circle>
           <circle class="pd" r="3"><animateMotion dur="4s" begin="1.6s" repeatCount="indefinite"><mpath href="#f6"/></animateMotion></circle>
@@ -652,11 +706,8 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
         <div class="nd hot" style="left:350px;top:140px"><b>Оплата</b><span>без скидки «сразу»</span></div>
         <div class="nd" style="left:350px;top:290px"><b>Тёплая база</b><span>не дожимаем</span></div>
         <div class="nd" style="left:350px;top:380px"><b>Запуск</b><span>на вашу аудиторию</span></div>
-        <span class="tag" style="left:236px;top:168px">да</span>
-        <span class="tag" style="left:196px;top:272px">«я подумаю»</span>
-        <span class="tag" style="left:452px;top:262px">возвращается</span>
-      </div>
-      </div>
+        <span class="tag" style="left:236px;top:168px">да</span><span class="tag" style="left:196px;top:272px">«я подумаю»</span><span class="tag" style="left:452px;top:262px">возвращается</span>
+      </div></div>
       <div class="fm">
         <div class="nd"><b>Первое касание</b><span>контент, диалог</span></div><div class="ln"></div>
         <div class="nd"><b>Квалификация</b><span>знаете запрос заранее</span></div><div class="ln"></div>
@@ -667,41 +718,20 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
         </div>
         <p class="back">↺ «я подумаю» возвращается на запуске и покупает</p>
       </div>
-      <div class="log">
-        <div><em>✓</em><span>встреча → оплата</span><span class="t"><i style="--w:100%"></i></span></div>
-        <div><em>✓</em><span>«я подумаю» → тёплая база</span><span class="t"><i style="--w:72%"></i></span></div>
-        <div><em>↺</em><span>тёплая база → запуск → оплата</span><span class="t"><i style="--w:54%"></i></span></div>
-      </div>
     </div>
-  </div>
-</section>
-
-<!-- 6. цена качелей -->
-<section class="sec cost" id="cost">
-  <div class="wrap">
-    <div class="top">
-      <h2 class="h2 rv">Сколько вам стоят эти <span class="i">качели?</span></h2>
-      <p class="lead rv">Три вопроса. Ответьте себе честно, это быстро.</p>
-    </div>
-    <div class="q rv"><span class="mono">01</span><h3>Возьмите разницу между хорошим и плохим месяцем.</h3><p>Умножьте на плохие месяцы за год. Неприятная цифра, да?</p></div>
-    <div class="q rv"><span class="mono">02</span><h3>Сколько это уже тянется?</h3><p>Полгода? Год? И каждый раз: «со следующего месяца начну».</p></div>
-    <div class="q rv"><span class="mono">03</span><h3>Что будет через год, если ничего не менять?</h3><p>Да то же самое. Только устанете сильнее.</p></div>
   </div>
 </section>
 
 <!-- 7. обо мне -->
-<section class="sec about" id="about">
+<section class="sec about" id="about" data-scene="arcs" data-shade=".82">
   <div class="wrap grid">
-    <div class="ph">
-      <img id="me" src="me.webp" alt="Александр Комлев">
-      <div class="cap2 glass"><b>Александр Комлев</b><span class="mono">наставник по продажам</span></div>
-    </div>
+    <div class="ph"><img src="me.webp" alt="Александр Комлев"><div class="cap2 glass"><b>Александр Комлев</b><span class="mono">наставник по продажам</span></div></div>
     <div>
-      <blockquote class="rv">Иногда я хочу вашего результата <span class="i">больше, чем вы.</span></blockquote>
-      <p class="body rv">Мне все говорят про мою вовлечённость. Я всегда заряжен на результат. Человек провалился, а я его тыркаю, дёргаю: давай, настраиваемся, делаем по-другому.</p>
+      <blockquote class="rv">Иногда я хочу вашего результата <span class="g">больше, чем вы.</span></blockquote>
+      <p class="body rv">Мне все говорят про мою вовлечённость. Я всегда заряжен на результат. Человек провалился, а я его тыркаю, дёргаю: давай, настраиваемся, делаем по-другому. Все, кто хочет расти, со мной продлеваются.</p>
       <div class="stats">
         <div class="stat glass rv"><b>12 лет</b><p>в продажах</p><div class="v"><i data-h="20"></i><i data-h="28"></i><i data-h="34"></i><i data-h="44"></i><i data-h="52"></i><i data-h="60"></i><i data-h="72"></i><i class="k" data-h="100"></i></div></div>
-        <div class="stat glass rv"><b>2 → 4 млн</b><p>мой рост без рекламы</p><div class="v"><i data-h="50"></i><i class="k" data-h="100"></i></div></div>
+        <div class="stat glass rv"><b>−2 → +4 млн</b><p>мой путь без рекламы</p><div class="v"><i class="neg" data-h="34"></i><i data-h="12"></i><i data-h="40"></i><i class="k" data-h="100"></i></div></div>
         <div class="stat glass rv"><b>100 млн+</b><p>заработали клиенты</p><div class="v"><i class="k" data-h="40"></i><i class="k" data-h="48"></i><i class="k" data-h="56"></i><i class="k" data-h="64"></i><i class="k" data-h="72"></i><i class="k" data-h="80"></i><i class="k" data-h="90"></i><i class="k" data-h="100"></i></div></div>
       </div>
       <div class="more rv">
@@ -710,29 +740,23 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
       </div>
     </div>
   </div>
-  <div class="wrap renew">
-    <h2 class="h2 rv">Все, кто хочет расти,<br>со мной <span class="i">продлеваются.</span></h2>
-  </div>
 </section>
 
-<!-- 8. главные кейсы: горизонтально -->
-<section class="pin" id="cases" aria-label="Кейсы">
+<!-- 8. главные кейсы -->
+<section class="pin" id="cases" data-scene="arcs" data-shade=".72" aria-label="Кейсы">
   <div class="stage">
-    <div class="c-head"><div class="wrap">
-      <h2 class="h2">Было так же. <span class="i">Стало</span> по-другому.</h2>
-      <span class="ct" id="cCt">01 / 04</span>
-    </div></div>
+    <div class="c-head"><div class="wrap"><h2 class="h2">«А что, так <span class="g">можно было?</span>»</h2><span class="ct" id="cCt">01 / 04</span></div></div>
     <div class="track" id="track"></div>
-    <div class="c-prog"><div class="wrap"><span class="mono">листайте</span><span class="bar"><i id="cBar"></i></span></div></div>
+    <div class="c-prog"><div class="wrap"><span class="mono">листайте</span><span class="bar3"><i id="cBar"></i></span></div></div>
   </div>
 </section>
 
 <!-- 9. ещё 19 -->
-<section class="sec names" id="names">
+<section class="sec names" id="names" data-scene="arcs" data-shade=".86">
   <div class="wrap">
     <div class="top">
-      <h2 class="h2 rv">Ещё 19 историй.<br>Найдите <span class="i">похожую</span> на свою.</h2>
-      <a class="btn btn-g rv" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Хочу свою историю →</a>
+      <h2 class="h2 rv">Ещё 19 историй.<br>Найдите <span class="g">похожую</span> на свою.</h2>
+      <a class="cta cta-b rv" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Хочу на диагностику<svg class="arrow"><use href="#arrow"/></svg></a>
     </div>
     <div id="nameList"></div>
     <p class="mono" style="margin-top:30px">*Инстаграм принадлежит Meta, признанной экстремистской организацией в РФ</p>
@@ -741,15 +765,12 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
 </section>
 
 <!-- 10. возражения -->
-<section class="sec faq" id="faq">
+<section class="sec faq" id="faq" data-scene="arcs" data-shade=".86">
   <div class="wrap grid">
-    <div>
-      <h2 class="h2 rv">«Ну да, <span class="i">но…»</span></h2>
-      <p class="lead rv">Вы сами продаёте и считываете приёмчики за секунду. Поэтому прямо.</p>
-    </div>
+    <div><h2 class="h2 rv">«Ну да, <span class="g">но…»</span></h2><p class="lead rv">Вы сами продаёте и считываете приёмчики за секунду. Поэтому прямо.</p></div>
     <div class="rv">
-      <details><summary>«Я это уже пробовала. Не работает»<i></i></summary><p class="a">Пробовали с маркетологом, контентщиком, другим наставником. Делали за вас или давали схему и уходили. <b>Я не ухожу: три месяца рядом, дёргаю и настраиваю, пока не пойдёт.</b></p></details>
-      <details><summary>«А вдруг у меня не получится?»<i></i></summary><p class="a">Страшно, это нормально. <b>Провалитесь, я вас вытащу, и сделаем по-другому.</b> Для этого я и нужен.</p></details>
+      <details><summary>«Я уже работала с другими. Не верю, что сработает»<i></i></summary><p class="a">Нормально не верить после маркетологов, рилс и чужих схем. Поэтому сначала диагностика: <b>за 30–40 минут вы увидите, как сделать продажи в ближайшие две недели.</b> Дальше решаете сами.</p></details>
+      <details><summary>«А вдруг у меня не получится?»<i></i></summary><p class="a">Страшно, это нормально. <b>Провалитесь, я вас вытащу, и сделаем по-другому.</b> Три месяца рядом, дёргаю и настраиваю, пока не пойдёт.</p></details>
       <details><summary>«Сейчас не время»<i></i></summary><p class="a">Время само не появится. «Потом» это ещё полгода того же самого.</p></details>
       <details><summary>«Сколько стоит работа?»<i></i></summary><p class="a">Работаем три месяца. Цену называю на диагностике, когда понимаю вашу ситуацию.</p></details>
       <details><summary>«Это очередной созвон, где будут дожимать?»<i></i></summary><p class="a">Нет. Не вижу, что могу помочь, так и скажу. Дожимать смысла нет.</p></details>
@@ -757,33 +778,33 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
   </div>
 </section>
 
-<!-- 11. финал -->
-<section class="sec go" id="go">
-  <div class="wrap grid">
-    <div class="gl glass rv">
-      <span class="logo"><span class="mk"></span>Диагностика</span>
-      <h2 class="h2">Диагностика это <span class="i">зелёный свет.</span></h2>
-      <p class="lead">Выходите и понимаете: можно. И понятно как.</p>
+<!-- 11. финал: капсула смыкается -->
+<section class="sec go" id="go" data-scene="arcs" data-shade=".3">
+  <div class="close" id="close">
+    <div class="flash" id="flash"></div>
+    <div class="cap" id="cap2"><img class="a" id="cA" src="capA.webp" alt=""><img class="b" id="cB" src="capB.webp" alt=""></div>
+    <div class="word"><h2 class="h2">Всё сходится <span class="g">в одной точке.</span></h2></div>
+  </div>
+  <div class="wrap panel">
+    <div class="pl glass rv">
+      <p class="mono"><span class="dot"></span>диагностика</p>
+      <h2 class="h2" style="margin-top:14px">Что вы уносите с диагностики</h2>
+      <p class="lead">Понимание, как сделать продажи в ближайшие две недели. Даже если дальше мы не работаем.</p>
       <div class="steps">
         <div><span><b>Где вы сейчас</b><p>Смотрим ваши цифры, продукт и как проходят встречи.</p></span></div>
         <div><span><b>Что мешает</b><p>Почти всегда это уверенность. Разбираем, где именно она проседает.</p></span></div>
-        <div><span><b>Что делать</b><p>Понятные шаги к ×2. Даже если дальше мы не работаем.</p></span></div>
+        <div><span><b>План на две недели</b><p>Конкретные шаги, чтобы продажи пошли уже сейчас.</p></span></div>
       </div>
     </div>
-    <div class="gr rv">
-      <p class="mono">что дальше</p>
-      <h2>Можно ещё полгода делать то же самое. А можно <span class="i">написать.</span></h2>
+    <div class="pr rv">
+      <p class="mono" style="color:rgba(255,255,255,.7)">что дальше</p>
+      <h2>Можно ещё полгода делать то же самое. А можно <span class="g">написать.</span></h2>
       <p class="sm">Кнопка не кусается. В отличие от ещё одного месяца качелей.</p>
-      <div class="tpl">
-        <pre id="tpl">Александр, здравствуйте! Хочу на диагностику.
+      <div class="tpl"><pre id="tpl">Александр, здравствуйте! Хочу на диагностику.
 Ниша: <span>…</span>
 Доход в месяц сейчас: <span>…</span>
-Что хочу изменить: <span>…</span></pre>
-        <button type="button" id="copy">Скопировать</button>
-      </div>
-      <div class="row">
-        <a class="btn btn-ink" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать в Telegram<span class="ar"><svg><use href="#arr"/></svg><svg><use href="#arr"/></svg></span></a>
-      </div>
+Что хочу изменить: <span>…</span></pre><button type="button" id="copy">Скопировать</button></div>
+      <a class="cta cta-b" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Хочу на диагностику<svg class="arrow"><use href="#arrow"/></svg></a>
       <p class="meta">30–40 минут в zoom · без презентаций · без прогревов · без дожима</p>
       <p class="cond">Одно условие: вы готовы работать со своей задачей, а не просто послушать и напитаться инсайтами.</p>
     </div>
@@ -805,105 +826,132 @@ footer .lg div{display:flex;flex-wrap:wrap;gap:8px 22px}
 </footer>
 
 <script>
+(function(){
+  /* вход: снимаем, когда отыграл последний элемент */
+  var t,el=document.getElementById('foot2');
+  function done(){clearTimeout(t);el&&el.removeEventListener('animationend',done);document.documentElement.classList.add('is-entered')}
+  t=setTimeout(done,4000);el&&el.addEventListener('animationend',done);
+})();
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-const cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),vh=()=>innerHeight,mob=()=>innerWidth<=700;
+const cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),vh=()=>innerHeight,mob=()=>innerWidth<=599;
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ease=t=>1-Math.pow(1-t,3),io=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const seg=(p,a,b)=>cl((p-a)/(b-a));
 const P=el=>{const r=el.getBoundingClientRect();return cl(-r.top/(el.offsetHeight-vh()))};
 
-/* ---------- видео на фоне: своё, отрендерено под этот сайт ---------- */
-const vid=$('#vid'),poster=$('#poster');
-const SRC={d:'bg.mp4',m:'bg-m.mp4',pd:'bg.jpg',pm:'bg-m.jpg'};
-let isM=null;
-function pickVideo(){const m=innerWidth<innerHeight&&innerWidth<=820;if(m===isM)return;isM=m;poster.src=m?SRC.pm:SRC.pd;if(RM)return;vid.classList.remove('on');vid.src=m?SRC.m:SRC.d;vid.play().catch(()=>{})}
-vid.addEventListener('playing',()=>vid.classList.add('on'));
-/* самая яркая точка видео: там раскрывается капсула */
-const FOC={d:[.64,.58,1600,900],m:[.774,.347,720,1280]};
-let DIST=230;
-
-/* ---------- 1. герой: капсула раскрывается ---------- */
-const hero=$('#hero'),cap=$('#cap'),A=$('#capA'),B=$('#capB'),glow=$('#glow'),dark=$('#dark');
-let open=RM?1:0;
-function placeCap(){
-  const [fx,fy,W,H]=isM?FOC.m:FOC.d,w=innerWidth,h=vh();
-  const s=Math.max(w/W,h/H),x=(w-W*s)/2+fx*W*s,y=(h-H*s)/2+fy*H*s;
-  /* на телефоне текст внизу, капсула раскрывается над ним */
-  if(isM){cap.style.setProperty('--x',w*.62+'px');cap.style.setProperty('--y',Math.max(128,h*.155)+'px')}
-  else{cap.style.setProperty('--x',x+'px');cap.style.setProperty('--y',y+'px')}
-  cap.style.setProperty('--s',(isM?Math.min(w/390,1.3)*.17:Math.min(w/1440,1.15)*.4).toFixed(3));
-  DIST=isM?120:210;
+/* ---------- видео по главам ---------- */
+const V={arcs:$('#vArcs'),vortex:$('#vVortex'),fly:$('#vFly')};
+let portrait=null,cur='arcs';
+function srcs(){
+  const p=innerWidth<innerHeight&&innerWidth<=820;if(p===portrait)return;portrait=p;
+  for(const v of Object.values(V)){v.poster=p?v.dataset.pm:v.dataset.pd;if(v.dataset.loaded){v.src=p?v.dataset.m:v.dataset.d;if(v===V[cur]&&!RM)v.play().catch(()=>{})}}
 }
-function heroFrame(){
-  const sp=cl(scrollY/vh());
-  const d=open*DIST+sp*260;
-  A.style.transform=`translate(${-.6*d}px,${.8*d}px)`;
-  B.style.transform=`translate(${.6*d}px,${-.8*d}px)`;
-  A.style.opacity=B.style.opacity=(1-sp*.9).toFixed(3);
-  glow.style.opacity=(Math.sin(open*Math.PI)*.9+open*.25).toFixed(3);
-  glow.style.transform=`scale(${.3+open*.9})`;
-  dark.style.setProperty('--o',(1-open).toFixed(3));
-}
-function intro(){
-  if(RM){open=1;hero.classList.add('go');return}
-  const t0=performance.now();
-  (function f(t){const k=cl((t-t0-500)/2200);open=io(k);if(k>.35)hero.classList.add('go');if(k<1)requestAnimationFrame(f)})(t0);
+function load(k){const v=V[k];if(v.dataset.loaded)return;v.dataset.loaded=1;v.preload='auto';v.src=portrait?v.dataset.m:v.dataset.d}
+function scene(k){if(k===cur)return;cur=k;load(k);for(const [n,v] of Object.entries(V)){const on=n===k;v.classList.toggle('on',on);if(RM)continue;if(on)v.play().catch(()=>{});else setTimeout(()=>{if(cur!==n)v.pause()},1200)}}
+const SECS=$$('main section').map(s=>[s,s.dataset.scene,+s.dataset.shade]);
+const shade=$('#shade'),bar=$('#bar');let lastS=-1;
+function sceneFrame(){
+  const mid=vh()*.5;let k='arcs',sh=0;
+  for(const [s,sc,v] of SECS){const r=s.getBoundingClientRect();if(r.top<=mid&&r.bottom>mid){k=sc;sh=v;break}}
+  if(scrollY<vh())sh=cl(scrollY/vh())*.3;
+  scene(k);
+  if(Math.abs(sh-lastS)>.004){shade.style.setProperty('--shade',sh.toFixed(3));lastS=sh}
+  bar.classList.toggle('solid',scrollY>vh()*.6);
+  /* заранее грузим следующее видео */
+  if(scrollY>vh()*.4)load('vortex');
+  if($('#story').getBoundingClientRect().top<vh()*2)load('fly');
 }
 
 /* ---------- 2. неделя ---------- */
 const week=$('#week'),scenes=$$('.scene',week),kws=$$('.kw',week),kq=$('#kq'),kfin=$('#kfin'),wCap=$('#wCap'),wCap2=$('#wCap2');
 function weekFrame(p){
-  const m=mob();
-  const c1=seg(p,.34,.40);
+  const m=mob(),c1=seg(p,.30,.36);
   wCap.style.opacity=(1-c1).toFixed(3);wCap.style.filter=c1>0?`blur(${c1*10}px)`:'none';
-  const c2=seg(p,.40,.44)*(1-seg(p,.50,.54));
-  wCap2.style.opacity=c2.toFixed(3);wCap2.style.transform=`translateY(${(1-seg(p,.40,.44))*20}px)`;
-  const away=seg(p,.46,.54);
+  wCap2.style.opacity=(seg(p,.36,.40)*(1-seg(p,.45,.49))).toFixed(3);wCap2.style.transform=`translateY(${(1-seg(p,.36,.40))*20}px)`;
+  const away=seg(p,.42,.49);
   scenes.forEach((s,i)=>{
-    const a=.03+i*.065,k=ease(seg(p,a,a+.07)),dp=+s.dataset.d;
+    const a=.03+i*.058,k=ease(seg(p,a,a+.06)),dp=+s.dataset.d;
     let x=+s.dataset.x,y=+s.dataset.y,o=k,sc=.9+k*.1,bl=(1-k)*12;
-    if(m){x=0;y=i%2?20:-22;const nx=.03+(i+1)*.065;if(i<4)o*=1-seg(p,nx,nx+.04)}
-    const drift=(p-a)*40*dp;
-    o*=1-away;sc+=away*.6*dp;bl+=away*16;
+    if(m){x=0;y=i%2?20:-22;const nx=.03+(i+1)*.058;if(i<4)o*=1-seg(p,nx,nx+.035)}
+    const drift=(p-a)*40*dp;o*=1-away;sc+=away*.6*dp;bl+=away*16;
     s.style.opacity=o.toFixed(3);
     s.style.transform=`translate(calc(${x}vw - 50%),calc(${y}vh - 50% - ${drift.toFixed(1)}px)) scale(${sc.toFixed(3)})`;
     s.style.filter=bl>.2?`blur(${bl.toFixed(1)}px)`:'none';
   });
-  kq.style.opacity=(seg(p,.54,.57)*(1-seg(p,.80,.83))).toFixed(3);
+  kq.style.opacity=(seg(p,.5,.53)*(1-seg(p,.76,.79))).toFixed(3);
   kws.forEach((w,i)=>{
-    const a=.56+i*.06,lp=seg(p,a,a+.075);
-    let x=0,o=0,b=0;
+    const a=.52+i*.06,lp=seg(p,a,a+.075);let x=0,o=0,b=0;
     if(lp>0&&lp<1){if(lp<.3){const t=ease(lp/.3);x=(1-t)*30;o=t;b=(1-t)*18}else if(lp<.7){x=-(lp-.3)*4;o=1}else{const t=(lp-.7)/.3;x=-1.6-t*30;o=1-t;b=t*18}}
     w.style.opacity=o.toFixed(3);w.style.transform=`translateX(${x}vw) scaleX(${1+b/120})`;w.style.filter=b>.2?`blur(${b.toFixed(1)}px)`:'none';
   });
-  const f=seg(p,.83,.9);
-  kfin.style.opacity=f.toFixed(3);kfin.style.transform=`scale(${1.08-f*.08})`;kfin.style.filter=f<1?`blur(${(1-f)*12}px)`:'none';
+  const f=seg(p,.8,.88);
+  kfin.style.opacity=f.toFixed(3);kfin.style.transform=`scale(${1.08-f*.08})`;kfin.style.filter=f<1?`blur(${(1-f)*12}px)`:'none';kfin.style.pointerEvents=f>.9?'auto':'none';
 }
 
 /* ---------- срез ---------- */
-const cut=$('#cut'),cl1=$('.l1',cut),cl2=$('.l2',cut),cl3=$('.l3',cut);
+const cut=$('#cut'),bl=$('.big.l',cut),br=$('.big.r',cut),cn=$('.cutnote',cut);
 function cutFrame(p){
-  const z=(el,a,b,c,d,ty=0)=>{const i=ease(seg(p,a,b)),o=seg(p,c,d);el.style.opacity=(i*(1-o)).toFixed(3);el.style.transform=`translateY(${ty}px) scale(${(1.25-i*.25+o*.35).toFixed(3)})`;const bl=(1-i)*14+o*14;el.style.filter=bl>.2?`blur(${bl.toFixed(1)}px)`:'none'};
-  z(cl1,.02,.2,.62,.74,mob()?-30:-40);
-  z(cl2,.24,.4,.62,.74,mob()?50:70);
-  z(cl3,.72,.86,2,3);
+  const z=(el,a,b,dir)=>{const i=ease(seg(p,a,b)),o=seg(p,.78,.92);el.style.opacity=(i*(1-o)).toFixed(3);el.style.transform=`translateX(${((1-i)*12*dir).toFixed(2)}vw) scale(${(1+o*.12).toFixed(3)})`;const b2=(1-i)*16+o*14;el.style.filter=b2>.2?`blur(${b2.toFixed(1)}px)`:'none'};
+  z(bl,.04,.24,-1);z(br,.16,.36,1);z(cn,.42,.6,0);
 }
 
-/* ---------- 3. сборка ---------- */
+/* ---------- 3. частицы: −2 млн → +4 млн ---------- */
+const story=$('#story'),cv=$('#pc'),ctx=cv.getContext('2d'),labA=$('#labA'),labB=$('#labB'),stEnd=$('#stEnd');
+let PW=0,PH=0,DPR=1,N=0,TA=[],TB=[],PS=[];
+function sample(text,W,H){
+  const o=document.createElement('canvas');o.width=W;o.height=H;const c=o.getContext('2d');
+  let fs=Math.min(W*.13,H*.26,190);c.font=`300 ${fs}px ${getComputedStyle(document.body).fontFamily}`;
+  const w=c.measureText(text).width;if(w>W*.9){fs*=W*.9/w;c.font=`300 ${fs}px ${getComputedStyle(document.body).fontFamily}`}
+  c.fillStyle='#fff';c.textAlign='center';c.textBaseline='middle';c.fillText(text,W/2,H/2);
+  const d=c.getImageData(0,0,W,H).data,st=Math.max(2,Math.round(fs/46)),pts=[];
+  for(let y=0;y<H;y+=st)for(let x=0;x<W;x+=st)if(d[(y*W+x)*4+3]>128)pts.push([x,y]);
+  for(let i=pts.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pts[i],pts[j]]=[pts[j],pts[i]]}
+  return pts;
+}
+function setupParticles(){
+  DPR=Math.min(devicePixelRatio||1,2);PW=cv.clientWidth;PH=cv.clientHeight;if(!PW)return;
+  cv.width=PW*DPR;cv.height=PH*DPR;
+  TA=sample('−2 000 000 ₽',PW,PH);TB=sample('+4 000 000 ₽',PW,PH);
+  N=Math.min(mob()?1800:4200,Math.max(TA.length,TB.length));
+  PS=[];for(let i=0;i<N;i++){const r=Math.pow(Math.random(),.6);PS.push({a:Math.random()*6.283,r:r,w:(.25+Math.random()*.6)*(Math.random()<.5?-1:1),s:.6+Math.random()*1.2,ph:Math.random()*6.283})}
+}
+let tt=0;
+function storyFrame(p,dt){
+  const r=story.getBoundingClientRect();if(r.bottom<0||r.top>vh()||!N)return;
+  tt+=dt;
+  const s1=ease(seg(p,.1,.32)),s2=ease(seg(p,.46,.56)),s3=ease(seg(p,.56,.74)),fo=seg(p,.88,1);
+  labA.style.opacity=(seg(p,.28,.33)*(1-seg(p,.44,.48))).toFixed(3);
+  labB.style.opacity=(seg(p,.7,.75)*(1-fo)).toFixed(3);
+  stEnd.style.opacity=seg(p,.8,.86).toFixed(3);stEnd.style.pointerEvents=p>.84?'auto':'none';
+  ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,PW,PH);ctx.globalCompositeOperation='lighter';
+  const cx=PW/2,cy=PH/2,R=Math.min(PW,PH)*.46;
+  const colA=[224,226,242],colB=[118,183,255],mixC=s3;
+  const cr=Math.round(colA[0]+(colB[0]-colA[0])*mixC),cg=Math.round(colA[1]+(colB[1]-colA[1])*mixC),cb=Math.round(colA[2]+(colB[2]-colA[2])*mixC);
+  ctx.fillStyle=`rgb(${cr},${cg},${cb})`;
+  for(let i=0;i<N;i++){
+    const q=PS[i],ang=q.a+tt*q.w*.35,rr=R*q.r*(1+.08*Math.sin(tt*.7+q.ph));
+    let sx=cx+Math.cos(ang)*rr,sy=cy+Math.sin(ang)*rr*.62;
+    const A=TA[i%TA.length],B=TB[i%TB.length];
+    let x,y;
+    if(p<.46){x=sx+(A[0]-sx)*s1;y=sy+(A[1]-sy)*s1}
+    else if(p<.56){const ex=cx+Math.cos(ang)*rr*1.25,ey=cy+Math.sin(ang)*rr*.8;x=A[0]+(ex-A[0])*s2;y=A[1]+(ey-A[1])*s2}
+    else{const ex=cx+Math.cos(ang)*rr*1.25,ey=cy+Math.sin(ang)*rr*.8;x=ex+(B[0]-ex)*s3;y=ey+(B[1]-ey)*s3}
+    x+=Math.sin(tt*1.3+q.ph)*.7;y+=Math.cos(tt*1.1+q.ph)*.7-fo*fo*PH*.5*q.s;
+    const sz=(q.s*.8+.9)*(1-fo*.6);ctx.globalAlpha=1-fo;ctx.fillRect(x,y,sz,sz);
+  }
+  ctx.globalAlpha=1;
+}
+
+/* ---------- 4. сборка ---------- */
 const build=$('#build'),bIn=$('#bIn'),prompt=$('#prompt'),ptx=$('#ptx'),send=$('#send'),working=$('#working'),board=$('#board'),bcs=$$('.bc',board),bFin=$('#bFin'),mN=$('#mN'),mB=$('#mB'),wp=$('#wp');
-const PHR='Хочу ×2 и работать меньше';
+const PHR='Хочу больше продаж своего продукта';
 function layoutBoard(){
   const W=board.clientWidth,H=board.clientHeight,m=mob(),pts=[];
-  bcs.forEach((c,i)=>{
-    const x=m?0:i*(W-c.offsetWidth)/4,y=m?i*(H/5):(4-i)*(H-c.offsetHeight)/4;
-    c.style.left=x+'px';c.style.top=y+'px';
-    pts.push(m?[-10,y+c.offsetHeight/2]:[x+c.offsetWidth/2,y+c.offsetHeight/2]);
-  });
+  bcs.forEach((c,i)=>{const x=m?0:i*(W-c.offsetWidth)/4,y=m?i*(H/5):(4-i)*(H-c.offsetHeight)/4;c.style.left=x+'px';c.style.top=y+'px';pts.push(m?[-10,y+c.offsetHeight/2]:[x+c.offsetWidth/2,y+c.offsetHeight/2])});
   let d=`M${pts[0][0]} ${pts[0][1]}`;
   for(let i=1;i<pts.length;i++){const [x0,y0]=pts[i-1],[x1,y1]=pts[i];d+=m?` L${x1} ${y1}`:` C${(x0+x1)/2} ${y0} ${(x0+x1)/2} ${y1} ${x1} ${y1}`}
-  wp.setAttribute('d',d);
-  const L=wp.getTotalLength();wp.style.strokeDasharray=L;wp.dataset.l=L;
+  wp.setAttribute('d',d);const L=wp.getTotalLength();wp.style.strokeDasharray=L;wp.dataset.l=L;
 }
 function buildFrame(p){
   const i1=ease(seg(p,0,.06)),o1=seg(p,.12,.16);
@@ -914,15 +962,11 @@ function buildFrame(p){
   send.classList.toggle('hit',p>.27&&p<.3);
   working.style.opacity=(seg(p,.31,.33)*(1-seg(p,.37,.39))).toFixed(3);
   const bo=seg(p,.37,.41),bx=seg(p,.86,.9);
-  board.style.opacity=(bo*(1-bx*.85)).toFixed(3);
-  board.style.transform=`scale(${(1-bx*.06).toFixed(3)})`;
-  board.style.filter=bx>0?`blur(${bx*6}px)`:'none';
-  let done=0;
-  bcs.forEach((c,i)=>{const a=.41+i*.08,dn=p>a+.06;c.classList.toggle('on',p>a);c.classList.toggle('done',dn);if(dn)done++;$('.chip>span',c).textContent=dn?'собрано':'собираем'});
-  mN.textContent=done;mB.style.width=done*20+'%';
+  board.style.opacity=(bo*(1-bx*.85)).toFixed(3);board.style.transform=`scale(${(1-bx*.06).toFixed(3)})`;board.style.filter=bx>0?`blur(${bx*6}px)`:'none';
+  let n=0;bcs.forEach((c,i)=>{const a=.41+i*.08,dn=p>a+.06;c.classList.toggle('on',p>a);c.classList.toggle('done',dn);if(dn)n++;$('.chip>span',c).textContent=dn?'собрано':'собираем'});
+  mN.textContent=n;mB.style.width=n*20+'%';
   const L=+wp.dataset.l||0;wp.style.strokeDashoffset=(L*(1-seg(p,.41,.8))).toFixed(1);
-  const f=ease(seg(p,.89,.95));bFin.style.opacity=f.toFixed(3);bFin.style.transform=`scale(${1.1-f*.1})`;bFin.style.filter=f<1?`blur(${(1-f)*12}px)`:'none';
-  bFin.style.pointerEvents=f>.9?'auto':'none';
+  const f=ease(seg(p,.89,.95));bFin.style.opacity=f.toFixed(3);bFin.style.transform=`scale(${1.1-f*.1})`;bFin.style.filter=f<1?`blur(${(1-f)*12}px)`:'none';bFin.style.pointerEvents=f>.9?'auto':'none';
 }
 
 /* ---------- главные кейсы ---------- */
@@ -931,13 +975,9 @@ const TOP=[
  {f:'zelinskaya',n:'Ирина Зелинская',r:'наставник, коуч',a:'250 000 ₽',ad:'продажи от случая к случаю',b:'4,9 млн ₽',bd:'продажи каждый месяц'},
  {f:'emelyanova',n:'Ира Емельянова',r:'бизнес-коуч',a:'низкий чек',ad:'много работы за маленькие деньги',b:'4,2 млн ₽',bd:'за 10 недель'},
  {f:'kuznetsova-s',n:'Серафима Кузнецова',r:'бизнес-наставник, коуч',a:'100 000 ₽',ad:'страх поднимать стоимость, разрозненные продажи',b:'11 млн ₽',bd:'средний чек вырос в 10 раз'}];
-$('#track').innerHTML=TOP.map((c,i)=>`<article class="case glass"><div class="im"><img src="c/${c.f}.webp" alt="${c.n}"></div><div class="tx"><span class="mono">кейс 0${i+1}</span><h3>${c.n}</h3><p class="role">${c.r}</p><div class="ba"><div class="was"><p class="mono">было</p><b>${c.a}</b><p>${c.ad}</p></div><span class="ar">→</span><div class="now"><p class="mono">стало</p><b>${c.b}</b><p>${c.bd}</p></div></div></div></article>`).join('');
+$('#track').innerHTML=TOP.map((c,i)=>`<article class="case glass"><div class="im"><img src="c/${c.f}.webp" alt="${c.n}"></div><div class="tx"><span class="mono">кейс 0${i+1}</span><h3>${c.n}</h3><p class="role">${c.r}</p><div class="ba"><div class="was"><p class="mono">было</p><b>${c.a}</b><p>${c.ad}</p></div><span class="ar">→</span><div class="now"><p class="mono">стало</p><b class="g">${c.b}</b><p>${c.bd}</p></div></div></div></article>`).join('');
 const cases=$('#cases'),track=$('#track'),cBar=$('#cBar'),cCt=$('#cCt');
-function casesFrame(p){
-  const max=track.scrollWidth-innerWidth;
-  const k=io(seg(p,.04,.96));track.style.transform=`translateX(${(-k*Math.max(max,0)).toFixed(1)}px)`;
-  cBar.style.width=k*100+'%';cCt.textContent=`0${Math.min(4,Math.floor(k*3.999)+1)} / 04`;
-}
+function casesFrame(p){const max=track.scrollWidth-innerWidth,k=io(seg(p,.04,.96));track.style.transform=`translateX(${(-k*Math.max(max,0)).toFixed(1)}px)`;cBar.style.width=k*100+'%';cCt.textContent=`0${Math.min(4,Math.floor(k*3.999)+1)} / 04`}
 
 /* ---------- ещё 19 ---------- */
 const G=[
@@ -951,45 +991,55 @@ if(matchMedia('(hover:hover)').matches){
   addEventListener('mousemove',e=>{px=e.clientX+(e.clientX>innerWidth-320?-170:170);py=e.clientY});
 }
 
-/* ---------- шаблон сообщения ---------- */
+/* ---------- финал: капсула смыкается ---------- */
+const close=$('#close'),cA=$('#cA'),cB=$('#cB'),cap2=$('#cap2'),flash=$('#flash');
+function closeFrame(){
+  const r=close.getBoundingClientRect();if(r.bottom<0||r.top>vh())return;
+  const k=RM?1:ease(cl((vh()-r.top)/(vh()*.9+r.height*.35)));
+  const d=(1-k)*620;
+  cA.style.transform=`translate(${-.6*d}px,${.8*d}px)`;cB.style.transform=`translate(${.6*d}px,${-.8*d}px)`;
+  flash.style.opacity=(seg(k,.82,1)*.9).toFixed(3);
+}
+function capScale(){cap2.style.setProperty('--s',(mob()?.17:Math.min(innerWidth/1440,1.1)*.3).toFixed(3))}
+
+/* ---------- шаблон ---------- */
 $('#copy').addEventListener('click',e=>{const t=$('#tpl').innerText.replace(/…/g,'');(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{e.target.textContent='Скопировано ✓';setTimeout(()=>e.target.textContent='Скопировать',1800)}).catch(()=>{})});
 
 /* ---------- появление ---------- */
 const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ob.unobserve(e.target)}}),{threshold:.18,rootMargin:'0px 0px -6% 0px'});
 $$('.rv,.bx,.about,.flow').forEach(el=>ob.observe(el));
-const ob2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$$('.bars i',e.target).forEach(i=>i.style.width=i.dataset.w);$$('.v i',e.target).forEach(i=>i.style.height=i.dataset.h+'%');ob2.unobserve(e.target)}}),{threshold:.3});
+const ob2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$$('.wk i,.v i',e.target).forEach(i=>i.style.height=i.dataset.h+'%');ob2.unobserve(e.target)}}),{threshold:.3});
 $$('.bx,.stat').forEach(el=>ob2.observe(el));
 
 /* ---------- путь клиента: доска по ширине ---------- */
 const fb=$('#fb'),fbw=$('#fbw');
 function fitBoard(){const w=fbw.clientWidth;if(!w)return;const s=Math.min(1,w/545);fb.style.transform=`scale(${s})`;fbw.style.height=460*s+'px'}
 
-/* ---------- шапка и затемнение по главам ---------- */
-const nav=$('#nav'),veil=$('#veil');
-const VEIL=[['week',.35],['cut',.55],['build',.3],['dream',.55],['flow',.55],['cost',.6],['about',.62],['cases',.5],['names',.7],['faq',.72],['go',.55]].map(([id,v])=>[$('#'+id),v]);
-let lastV=-1;
-function veilFrame(){
-  const mid=vh()*.5;let v=cl(scrollY/vh())*.35;
-  if(scrollY>=vh()*.9)for(const [el,val] of VEIL){const r=el.getBoundingClientRect();if(r.top<=mid&&r.bottom>mid){v=val;break}}
-  if(Math.abs(v-lastV)>.004){veil.style.setProperty('--veil',v.toFixed(3));lastV=v}
-  nav.classList.toggle('solid',scrollY>vh()*.6);
-}
-
 /* ---------- цикл ---------- */
-function frame(){
-  heroFrame();
+let last=performance.now();
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;
+  sceneFrame();
   weekFrame(RM?1:P(week));
-  cutFrame(RM?.9:P(cut));
+  cutFrame(RM?.6:P(cut));
+  storyFrame(RM?.8:P(story),RM?0:dt);
   buildFrame(RM?1:P(build));
   casesFrame(P(cases));
-  veilFrame();
+  closeFrame();
   if(pk){cx+=(px-cx)*.16;cy+=(py-cy)*.16;peek.style.left=cx+'px';peek.style.top=cy+'px'}
   requestAnimationFrame(frame);
 }
-function resize(){pickVideo();placeCap();layoutBoard();fitBoard()}
+function resize(){srcs();layoutBoard();fitBoard();capScale();setupParticles()}
 addEventListener('resize',resize);
-resize();intro();frame();
-if(document.fonts)document.fonts.ready.then(layoutBoard);
+srcs();load('arcs');if(!RM)V.arcs.play().catch(()=>{});
+resize();requestAnimationFrame(frame);
+if(document.fonts)document.fonts.ready.then(()=>{layoutBoard();setupParticles()});
+})();
+(function(){
+  /* при «меньше движения» видео стоит на первом кадре */
+  var q=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)');if(!q)return;
+  function sync(){document.querySelectorAll('.reel video').forEach(function(v){if(q.matches)v.pause()})}
+  sync();q.addEventListener?q.addEventListener('change',sync):q.addListener(sync);
 })();
 </script>
 </body>
