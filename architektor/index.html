@@ -1026,6 +1026,35 @@ body{background:#020605}
 .nx .stats.s4 b{white-space:nowrap}
 @media (min-width:820px){.nx .hero .cut{height:min(80svh,880px)}}
 @media (max-width:819px){.nx .hero .cut{height:40svh;bottom:31svh}.nx .hero .h{font-size:clamp(26px,7.6vw,32px)}}
+/* огонь на входе */
+.nx .gate{isolation:isolate;background:radial-gradient(75% 65% at 50% 50%,rgba(3,5,16,.0),rgba(2,3,10,.75))}
+.nx .gate .fire{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.nx .gate .hint{display:none}
+.nx .snd,.nx .trk{display:none!important}
+/* кольцо за фото */
+.nx .hero .ring{position:absolute;z-index:0;right:-1vw;bottom:0;height:min(80svh,880px);aspect-ratio:1;pointer-events:none}
+@media (max-width:819px){.nx .hero .ring{right:50%;transform:translateX(50%);height:40svh;bottom:31svh}}
+/* чёрная дыра */
+.nx .hole{overflow:clip}
+.nx .hole canvas{position:absolute;z-index:0;right:-8vw;top:50%;transform:translateY(-50%);width:min(70vw,900px);height:min(70vw,900px);pointer-events:none;opacity:.9}
+.nx .hole .wrap{position:relative;z-index:1}
+@media (max-width:819px){.nx .hole canvas{right:-30vw;width:120vw;height:120vw;opacity:.55}}
+/* ДНК */
+.nx .dna{display:block;width:100%;height:clamp(180px,38vh,420px);margin-top:18px}
+@media (max-width:819px){.nx .dna{height:150px}}
+/* сборка капсулы */
+.nx .asm{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-width:620px;height:64px;margin-top:22px}
+.nx .asm::before{content:"";position:absolute;left:10%;right:10%;top:-120px;height:200px;background:radial-gradient(50% 100% at 50% 0%,rgba(118,183,255,.22),transparent 70%);pointer-events:none;opacity:0;transition:opacity 1.2s}
+.nx .asm.on::before{opacity:1}
+.nx .asm i{display:grid;place-items:center;font:600 11px var(--sans);letter-spacing:.2em;color:#E9EDF7;background:linear-gradient(180deg,rgba(118,183,255,.35),rgba(65,85,232,.55));border:1px solid rgba(118,183,255,.6);font-style:normal;opacity:0;transform:translateY(-60px) rotate(-8deg);transition:transform 1s cubic-bezier(.16,.84,.2,1),opacity .8s,box-shadow 1s}
+.nx .asm i:first-child{border-radius:32px 6px 6px 32px}.nx .asm i:last-child{border-radius:6px 32px 32px 6px;background:linear-gradient(180deg,rgba(255,120,90,.45),rgba(200,40,40,.55));border-color:rgba(255,120,90,.7)}
+.nx .asm.on i{opacity:1;transform:none;box-shadow:0 0 30px -6px rgba(118,183,255,.7)}
+.nx .asm.on i:nth-child(2){transition-delay:.15s}.nx .asm.on i:nth-child(3){transition-delay:.3s}.nx .asm.on i:nth-child(4){transition-delay:.45s}.nx .asm.on i:nth-child(5){transition-delay:.6s;box-shadow:0 0 34px -6px rgba(255,90,70,.7)}
+/* галактика в финале */
+.nx .final .gx{position:absolute;z-index:0;left:-14vw;bottom:-6vh;width:90vw;height:70vh;pointer-events:none;opacity:1}
+@media (max-width:819px){.nx .final .gx{left:-30vw;width:160vw;height:40vh;bottom:4vh;opacity:.6}}
+
+.nx:not(.in) .orb{opacity:0!important}
 </style>
 </head><body>
 
@@ -1043,20 +1072,20 @@ body{background:#020605}
   <div class="top"><span class="brand"><span class="wmk">komlev<svg class="cmk" viewBox="0 0 26 13" aria-hidden="true"><rect x=".7" y=".7" width="24.6" height="11.6" rx="5.8" fill="none" stroke="#76B7FF" stroke-width="1.3"/><path d="M13 .7H6.5a5.8 5.8 0 0 0 0 11.6H13Z" fill="#4155E8"/></svg></span></span><span class="chap" aria-hidden="true"><span>Вход</span></span><button class="snd" type="button" aria-label="Звук"><span class="bars"><i></i><i></i><i></i></span><span class="st">Звук</span></button></div>
   <audio class="trk" loop preload="auto"></audio>
 
-  <div class="gate">
+  <div class="gate"><canvas class="fire" aria-hidden="true"></canvas>
     <div>
       <p class="wmk gw">komlev<svg class="cmk" viewBox="0 0 26 13" aria-hidden="true"><rect x=".7" y=".7" width="24.6" height="11.6" rx="5.8" fill="none" stroke="#76B7FF" stroke-width="1.3"/><path d="M13 .7H6.5a5.8 5.8 0 0 0 0 11.6H13Z" fill="#4155E8"/></svg></p>
       <p class="k gk" style="justify-content:center">Александр Комлев · эксперт в области продаж</p>
       <p class="gt">Всё держится<br>на вас<span style="color:var(--g)">.</span></p>
       <button class="enter" type="button">Войти</button>
       <p class="hint">Лучше со звуком</p>
-      <button class="mute" type="button">Войти без звука</button>
+      
     </div>
   </div>
 
     <main>
     <section class="hero" data-veil=".05" data-name="Начало">
-      <img width="1100" height="1100" class="cut" src="me-cut.webp" alt="Александр Комлев">
+      <canvas class="ring" data-fx="ring" aria-hidden="true"></canvas><img width="1100" height="1100" class="cut" src="me-cut.webp" alt="Александр Комлев">
       <div class="wrap">
         <div>
           <p class="k">Александр Комлев · эксперт в области продаж</p>
@@ -1093,7 +1122,7 @@ body{background:#020605}
       </div>
     </div></div></section>
 
-    <section data-veil=".12"><div class="slide"><div class="wrap">
+    <section class="hole" data-veil=".12"><canvas data-fx="hole" aria-hidden="true"></canvas><div class="slide"><div class="wrap">
       <div class="head"><p class="k">03 — Уже пробовали</p><h2 class="h" data-split>Пробовали. <span class="gd">Не сработало</span></h2></div>
       <div class="rows">
         <div class="row"><p class="t strike">Маркетолог</p><p class="d">Делал за вас и уходил. <b class="gl">А продаёте всё равно вы.</b></p></div>
@@ -1134,7 +1163,7 @@ body{background:#020605}
     </div></div></section>
 
     <section data-veil=".4" data-orb="34,-27,.5,1" data-orbm="41,-44,.46,1"><div class="slide"><div class="wrap">
-      <div class="head"><p class="k">07 — Что вы получаете</p><h2 class="h" data-split>Пять частей. <span class="gd">Одна система</span></h2><p class="lead rv">Когда всё собрано, продажи держатся не на ваших силах. <b class="gl">На системе.</b></p></div>
+      <div class="head"><p class="k">07 — Что вы получаете</p><h2 class="h" data-split>Пять частей. <span class="gd">Одна система</span></h2><p class="lead rv">Когда всё собрано, продажи держатся не на ваших силах. <b class="gl">На системе.</b></p><div class="asm" aria-hidden="true"><i>01</i><i>02</i><i>03</i><i>04</i><i>05</i></div></div>
       <div class="rows">
         <div class="row"><p class="t gt">Уверенность</p><p class="d">На встречах, в себе и в своём продукте. <b class="gl">С неё начинается всё остальное.</b></p></div>
         <div class="row"><p class="t gt">Продукт</p><p class="d">Понятный. Клиент сам понимает, за что платит, <b class="gl">и платит дороже</b>.</p></div>
@@ -1145,7 +1174,7 @@ body{background:#020605}
     </div></div></section>
 
     <section class="dslide one pth" data-veil=".12"><div class="wrap pathgrid">
-      <div class="head"><p class="k">08 — Путь клиента</p><h2 class="h" data-split>Ни один клиент <span class="gd">больше не теряется</span></h2><p class="q rv">Тот, кто сказал «я подумаю», не пропадает.</p></div>
+      <div class="head"><p class="k">08 — Путь клиента</p><h2 class="h" data-split>Ни один клиент <span class="gd">больше не теряется</span></h2><p class="q rv">Тот, кто сказал «я подумаю», не пропадает.</p><canvas class="dna" data-fx="dna" aria-hidden="true"></canvas></div>
         <div class="path">
           <div class="st"><span class="n">01</span><p class="ct">Первое касание</p><p class="cd">Контент и диалог. Человек приходит уже с интересом, а не «просто спросить».</p></div>
           <div class="st"><span class="n">02</span><p class="ct">Квалификация</p><p class="cd">Знаете запрос заранее. <b class="gl">На встречу приходят те, кому вы нужны.</b></p></div>
@@ -1215,7 +1244,7 @@ body{background:#020605}
       </div>
     </div></section>
 
-    <section class="final" data-veil=".08" data-name="Финал">
+    <section class="final" data-veil=".08" data-name="Финал"><canvas class="gx" data-fx="galaxy" aria-hidden="true"></canvas>
       <img width="1100" height="1100" class="cut" src="me-cut.webp" alt="Александр Комлев">
       <div class="wrap">
         <h2 class="h xl" data-split>Можно ещё полгода <span class="gd">делать то же самое.</span></h2>
@@ -1273,7 +1302,7 @@ body{background:#020605}
   function enter(s){if(entered)return;entered=true;setTimeout(showCk,1600);gate.classList.add('off');root.classList.add('in');var q=v.play();if(q&&q.catch)q.catch(function(){});document.documentElement.style.overflow='';if(s){au.volume=0;setSnd(true)}
     setTimeout(function(){var h=$('.hero .h');h&&h.classList.remove('pre');setTimeout(function(){h&&h.classList.add('done')},1700)},200)}
   document.documentElement.style.overflow='hidden';var hh=$('.hero .h');if(hh&&!reduce)hh.classList.add('pre');
-  $('.enter').addEventListener('click',function(){enter(true);req()});$('.mute').addEventListener('click',function(){enter(false);req()});
+  $('.enter').addEventListener('click',function(){enter(false);req()});
   snd.addEventListener('click',function(){if(!entered){enter(true);req();return}else setSnd(!snd.classList.contains('on'))});
   // reveals
   if(!reduce&&'IntersectionObserver' in window){var vh=innerHeight;
@@ -1429,6 +1458,72 @@ body{background:#020605}
     raf=requestAnimationFrame(draw)}
   setup();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(setup);addEventListener('resize',function(){setup()});
   new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!on){on=true;t0=performance.now()/1000;sec.classList.remove('done');if(!raf)raf=requestAnimationFrame(draw)}}else{on=false}})},{threshold:.45}).observe(sec);
+})();
+</script>
+<script>
+(function(){
+var root=document.querySelector('.nx');if(!root)return;
+var mob=matchMedia('(max-width:819px)').matches,DPR=Math.min(devicePixelRatio||1,mob?1.5:2);
+var BL=[65,85,232],SK=[118,183,255],MI=[224,226,242],RD=[255,58,48],OR=[255,120,70];
+function rgb(c,a){return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')'}
+function lerp(a,b,k){return [a[0]+(b[0]-a[0])*k|0,a[1]+(b[1]-a[1])*k|0,a[2]+(b[2]-a[2])*k|0]}
+/* ---------- огонь на входе: WebGL ---------- */
+(function(){var cv=root.querySelector('.gate .fire');if(!cv)return;var gl=cv.getContext('webgl',{premultipliedAlpha:false});if(!gl){cv.remove();return}
+var fs='precision highp float;uniform vec2 R;uniform float T;'+
+'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}'+
+'float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}'+
+'float fb(vec2 p){float s=0.,a=.5;for(int i=0;i<6;i++){s+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return s;}'+
+'float rd(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*(1.-abs(n(p)*2.-1.));p=p*2.1+vec2(3.1,1.3);a*=.5;}return s;}'+
+'void main(){vec2 uv=(gl_FragCoord.xy-.5*R)/min(R.x,R.y)*.8;float t=T*.18;'+
+'vec2 q=vec2(fb(uv*2.2+t),fb(uv*2.2-t+4.));vec2 w=uv+.22*(q-.5);'+
+'float r=length(w*vec2(1.,1.08));float body=smoothstep(.62,.18,r+.18*(fb(w*3.+t)-.5));'+
+'float wisp=pow(rd(w*3.4+vec2(t*.6,-t*.4)),3.2)*body;'+
+'float heat=pow(fb(w*2.6+vec2(-t,t*.7)),2.2)*smoothstep(.55,.0,r);'+
+'float pulse=.65+.35*sin(T*.9)+.25*sin(T*2.3+r*6.);heat*=pulse*3.2;'+
+'float side=smoothstep(-.35,.35,w.x+.25*sin(t*2.+w.y*3.));'+
+'vec3 hot=mix(vec3(.25,.33,.95),vec3(1.,.22,.12),side);vec3 core=mix(vec3(.6,.75,1.),vec3(1.,.55,.3),side);'+
+'vec3 col=mix(vec3(.5,.55,.75),vec3(.75,.5,.5),side)*wisp*1.5+hot*heat*1.5+core*pow(heat,2.5)*1.2;'+
+'float a=clamp(wisp*1.2+heat,0.,1.);gl_FragColor=vec4(col,a);}';
+function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o}
+var p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0,1);}'));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS)){cv.remove();return}
+gl.useProgram(p);var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+var uR=gl.getUniformLocation(p,'R'),uT=gl.getUniformLocation(p,'T'),t0=performance.now(),gate=root.querySelector('.gate');
+function sz(){var s=Math.min(DPR,1.25);cv.width=cv.clientWidth*s;cv.height=cv.clientHeight*s;gl.viewport(0,0,cv.width,cv.height)}sz();addEventListener('resize',sz);
+(function f(){if(gate.classList.contains('off')){setTimeout(function(){cv.remove()},1500);return}gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,(performance.now()-t0)/1000);gl.drawArrays(gl.TRIANGLES,0,3);requestAnimationFrame(f)})();
+})();
+/* ---------- частицы на холстах: кольцо, чёрная дыра, ДНК, галактика ---------- */
+function FX(cv,init,draw){var o={cv:cv,ctx:cv.getContext('2d'),on:false,t:0,W:0,H:0};o.size=function(){o.W=cv.clientWidth;o.H=cv.clientHeight;cv.width=o.W*DPR;cv.height=o.H*DPR;init(o)};o.size();addEventListener('resize',o.size);
+var last=0;function f(now){if(!o.on){last=0;return}var dt=last?Math.min(.05,(now-last)/1000):.016;last=now;o.t+=dt;var c=o.ctx;c.setTransform(DPR,0,0,DPR,0,0);c.clearRect(0,0,o.W,o.H);c.globalCompositeOperation='lighter';draw(o,dt);requestAnimationFrame(f)}
+new IntersectionObserver(function(es){es.forEach(function(e){var was=o.on;o.on=e.isIntersecting;if(o.on&&!was)requestAnimationFrame(f)})},{rootMargin:'100px'}).observe(cv)}
+function rnd(a,b){return a+Math.random()*(b-a)}
+/* кольцо из частиц: синий слева, красный справа, ореол */
+root.querySelectorAll('canvas[data-fx=ring]').forEach(function(cv){FX(cv,function(o){o.P=[];var n=mob?900:1800;for(var i=0;i<n;i++)o.P.push({a:rnd(0,6.283),d:Math.pow(Math.random(),2)*(Math.random()<.5?-1:1),s:rnd(.6,1.8),w:rnd(.5,2),ph:rnd(0,6.28)})},
+function(o){var c=o.ctx,cx=o.W*.5,cy=o.H*.42,R=Math.min(o.W,o.H)*.36;
+  var g=c.createRadialGradient(cx,cy,R*.6,cx,cy,R*1.25);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.75,rgb(BL,.10));g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(0,0,o.W,o.H);
+  for(var i=0;i<o.P.length;i++){var q=o.P[i],a=q.a+o.t*.12,flick=Math.sin(o.t*q.w*3+q.ph),rr=R*(1+q.d*.09+flick*.012*q.w);var x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;
+    var k=(Math.cos(a)+1)/2,col=lerp(lerp(BL,SK,.5),RD,k);c.fillStyle=rgb(col,.55+.45*Math.abs(flick));c.fillRect(x,y,q.s,q.s)}})});
+/* чёрная дыра: всё затягивается */
+root.querySelectorAll('canvas[data-fx=hole]').forEach(function(cv){FX(cv,function(o){o.P=[];var n=mob?900:2200;for(var i=0;i<n;i++)o.P.push({a:rnd(0,6.283),r:rnd(.15,1),s:rnd(.6,1.7),c:Math.random()})},
+function(o,dt){var c=o.ctx,cx=o.W*.5,cy=o.H*.5,R=Math.min(o.W,o.H)*.48;
+  for(var i=0;i<o.P.length;i++){var q=o.P[i];q.a+=dt*(.25/(q.r*q.r+.05));q.r-=dt*.035/q.r*.6;if(q.r<.13){q.r=rnd(.85,1);q.a=rnd(0,6.283)}
+    var x=cx+Math.cos(q.a)*q.r*R,y=cy+Math.sin(q.a)*q.r*R*.42;var heat=1-Math.min(1,(q.r-.13)/.5),col=lerp(q.c<.6?SK:BL,q.c<.5?OR:RD,heat*heat);c.fillStyle=rgb(col,.25+.7*heat);c.fillRect(x,y,q.s,q.s)}
+  c.globalCompositeOperation='source-over';var g=c.createRadialGradient(cx,cy,0,cx,cy,R*.2);g.addColorStop(0,'#000');g.addColorStop(.62,'#000');g.addColorStop(.8,rgb(RD,.55));g.addColorStop(.9,rgb(SK,.35));g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.beginPath();c.ellipse(cx,cy,R*.2,R*.2,0,0,6.283);c.fill()})});
+/* спираль ДНК: шаги пути клиента */
+root.querySelectorAll('canvas[data-fx=dna]').forEach(function(cv){FX(cv,function(){},
+function(o){var c=o.ctx,cx=o.W*.5,A=Math.min(o.W*.3,90),N=mob?70:110,k=10/o.H;
+  for(var i=0;i<N;i++){var y=(i+.5)/N*o.H,ph=y*k*Math.PI*.9+o.t*.9;var s1=Math.sin(ph),c1=Math.cos(ph);
+    var x1=cx+c1*A,x2=cx-c1*A,z1=(s1+1)/2,z2=1-z1;
+    if(i%5===0){var gg=c.createLinearGradient(x1,y,x2,y);gg.addColorStop(0,rgb(SK,.35));gg.addColorStop(1,rgb(RD,.35));c.strokeStyle=gg;c.lineWidth=1;c.beginPath();c.moveTo(x1,y);c.lineTo(x2,y);c.stroke()}
+    c.fillStyle=rgb(lerp(BL,SK,z1),.35+.65*z1);c.beginPath();c.arc(x1,y,1.2+2.4*z1,0,6.283);c.fill();
+    c.fillStyle=rgb(lerp(BL,RD,z2),.35+.65*z2);c.beginPath();c.arc(x2,y,1.2+2.4*z2,0,6.283);c.fill()}})});
+/* галактика в финале */
+root.querySelectorAll('canvas[data-fx=galaxy]').forEach(function(cv){FX(cv,function(o){o.P=[];var n=mob?1200:2600;for(var i=0;i<n;i++){var r=Math.pow(Math.random(),1.6);o.P.push({r:r,a:rnd(0,6.283)+r*4,s:rnd(.5,1.6),arm:Math.random()<.5})}},
+function(o){var c=o.ctx,cx=o.W*.5,cy=o.H*.5,R=Math.min(o.W*.48,o.H*1.1);
+  for(var i=0;i<o.P.length;i++){var q=o.P[i],a=q.a+o.t*(.08+.25*(1-q.r)),x=cx+Math.cos(a)*q.r*R,y=cy+Math.sin(a)*q.r*R*.26;var col=q.r<.18?lerp(MI,OR,q.r*5):lerp(q.arm?RD:SK,BL,q.r);c.fillStyle=rgb(col,.35+.6*(1-q.r));c.fillRect(x,y,q.s,q.s)}
+  var g=c.createRadialGradient(cx,cy,0,cx,cy,R*.22);g.addColorStop(0,'rgba(255,240,230,.9)');g.addColorStop(.3,rgb(OR,.35));g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.beginPath();c.ellipse(cx,cy,R*.22,R*.1,0,0,6.283);c.fill()})});
+/* сборка капсулы из пяти частей */
+var asm=root.querySelector('.asm');if(asm)new IntersectionObserver(function(es){es.forEach(function(e){asm.classList.toggle('on',e.isIntersecting)})},{threshold:.4}).observe(asm);
 })();
 </script>
 </body></html>
