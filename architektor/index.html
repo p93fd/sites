@@ -1126,7 +1126,7 @@ body{background:#020605}
 .nx .sbg{z-index:1}.nx .veil{opacity:.12!important}
 .nx .hero .tglow{opacity:.55}
 .nx .hero .cut,.nx .final .cut{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 22%),linear-gradient(to top,transparent 0,#000 18%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0,#000 22%),linear-gradient(to top,transparent 0,#000 18%);mask-composite:intersect}
-@media (max-width:819px){.nx .sbg{opacity:.75}}
+@media (max-width:819px){.nx.in .sbg{opacity:.55}}
 
 /* Apple-типографика и 3D-появление слов */
 .nx .h,.nx .kpc b{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",var(--sans);font-weight:600;letter-spacing:-.035em}
@@ -1585,7 +1585,7 @@ function lerp(a,b,k){return [a[0]+(b[0]-a[0])*k|0,a[1]+(b[1]-a[1])*k|0,a[2]+(b[2
 (function(){var cv=root.querySelector('.gate .fire');if(!cv)return;var gate=root.querySelector('.gate');
 function go(){var T=window.THREE;if(!T){cv.remove();return}
 var r;try{r=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true})}catch(e){cv.remove();return}
-r.setPixelRatio(Math.min(DPR,1.5));var sc=new T.Scene(),cam=new T.PerspectiveCamera(42,1,.1,50);
+r.setPixelRatio(mob?1:Math.min(DPR,1.5));r.setClearColor(0x020309,1);var sc=new T.Scene(),cam=new T.PerspectiveCamera(42,1,.1,50);
 /* нити растут по вихревому полю: шаги считаются один раз на CPU */
 var NS=mob?1600:3600,NP=mob?26:34,ST=.035,pos=new Float32Array(NS*(NP-1)*2*3),aux=new Float32Array(NS*(NP-1)*2*2),k=0,j=0;
 function fld(x,y,z,s){var vx=Math.sin(y*2.1+z*1.7+s)+ -z*1.4,vy=Math.sin(z*2.3+x*1.9)*.6+.55,vz=Math.sin(x*2.2+y*1.3+s*.5)+x*1.4;var l=Math.hypot(vx,vy,vz)||1;return[vx/l,vy/l,vz/l]}
@@ -1635,9 +1635,9 @@ if(window.THREE)go();else{var tries=0;(function w(){if(window.THREE)return go();
 /* ---------- основа фона: круг → воронка → двойная спираль (по прокрутке) ---------- */
 (function(){var cv=root.querySelector('.sbg');if(!cv)return;
 function go(){var T=window.THREE;if(!T){cv.remove();return}
-var r;try{r=new T.WebGLRenderer({canvas:cv,antialias:false,alpha:true})}catch(e){cv.remove();return}
-r.setPixelRatio(Math.min(DPR,1.5));var sc=new T.Scene(),cam=new T.PerspectiveCamera(40,1,.1,50);cam.position.z=6.2;
-var N=mob?7000:16000,NM=Math.floor(N*.62),L=mob?64:110,PL=Math.ceil(NM/L),R3=function(){return new Float32Array(N*3)},aR=R3(),aF=R3(),aH=R3(),aW=R3(),aB=R3(),aG=R3(),aX=new Float32Array(N*4);
+var r;try{r=new T.WebGLRenderer({canvas:cv,antialias:false,alpha:false,powerPreference:'high-performance'})}catch(e){cv.remove();return}
+r.setPixelRatio(mob?1:Math.min(DPR,1.5));r.setClearColor(0x020309,1);var sc=new T.Scene(),cam=new T.PerspectiveCamera(40,1,.1,50);cam.position.z=6.2;
+var N=mob?16000:44000,NM=Math.floor(N*.66),L=mob?90:170,PL=Math.ceil(NM/L),R3=function(){return new Float32Array(N*3)},aR=R3(),aF=R3(),aH=R3(),aW=R3(),aB=R3(),aG=R3(),aX=new Float32Array(N*4);
 function gs(){return(Math.random()+Math.random()+Math.random()-1.5)/1.5}
 for(var i=0;i<N;i++){var rim=i>=NM,v,t;
   if(!rim){v=Math.floor(i/PL)/L;t=(i%PL)/PL+Math.random()/PL}else{v=Math.random();t=Math.random()}
@@ -1661,7 +1661,7 @@ for(var i=0;i<N;i++){var rim=i>=NM,v,t;
   aG[i*3]=gr;aG[i*3+1]=core?Math.random()*6.2832:arm+gr*3.1+gs()*.5/(gr+.35);aG[i*3+2]=gs()*(core?.12:.05);
   aX[i*4]=Math.random();aX[i*4+1]=rim?3:st;aX[i*4+2]=fl;aX[i*4+3]=t}
 var g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(aR,3));['aF','aH','aW','aB','aG'].forEach(function(n,j){g.setAttribute(n,new T.BufferAttribute([aF,aH,aW,aB,aG][j],3))});g.setAttribute('aX',new T.BufferAttribute(aX,4));
-var U={T:{value:0},M:{value:0},S:{value:mob?2.2:2.8}};
+var U={T:{value:0},M:{value:0},S:{value:mob?1.5:1.45}};
 var VS='attribute vec3 aF;attribute vec3 aH;attribute vec3 aW;attribute vec3 aB;attribute vec3 aG;attribute vec4 aX;uniform float T;uniform float M;uniform float S;varying vec3 vC;varying float vA;'+
 'mat2 rt(float a){return mat2(cos(a),-sin(a),sin(a),cos(a));}'+
 'vec3 bl=vec3(.25,.33,.91),sk=vec3(.46,.72,1.),mi=vec3(.9,.92,1.),rd=vec3(1.,.25,.22),cy=vec3(.35,.85,1.),vi=vec3(.55,.35,1.);'+
@@ -1688,72 +1688,85 @@ var VS='attribute vec3 aF;attribute vec3 aH;attribute vec3 aW;attribute vec3 aB;
 'vC=mix(C(i0),C(i0+1),f);vA=mix(A(i0),A(i0+1),f)*(.75+.25*sin(T*2.+aX.x*60.));'+
 'vec4 mv=modelViewMatrix*vec4(p,1.);float dz=-mv.z;vA*=clamp(1.5-(dz-5.6)*.5,.12,1.5);vC*=clamp(1.3-(dz-5.6)*.3,.5,1.35);'+
 'float sz=S*(i0==0&&rim?1.6+aX.z*2.:1.15)*(1.+.35*step(1.5,M));gl_PointSize=sz*(6./dz);gl_Position=projectionMatrix*mv;}';
-var FS='varying vec3 vC;varying float vA;void main(){float d=length(gl_PointCoord-.5);if(d>.5)discard;gl_FragColor=vec4(vC*1.25,min(1.,vA*1.5)*pow(1.-d*2.,1.4));}';
-var pts=new T.Points(g,new T.ShaderMaterial({uniforms:U,vertexShader:VS,fragmentShader:FS,transparent:true,depthWrite:false,blending:T.AdditiveBlending}));sc.add(pts);
-var arcs=[];for(var ai=0;ai<7;ai++){var AN=600,ap=new Float32Array(AN*3),aa=new Float32Array(AN);for(var j=0;j<AN;j++){var A=j/(AN-1)*6.2832;ap[j*3]=Math.cos(A)*1.745;ap[j*3+1]=Math.sin(A)*1.745;aa[j]=A}
+var FS='varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=dot(q,q)*4.;if(d>1.)discard;gl_FragColor=vec4(vC*vA*exp(-d*3.)*.95,1.);}';
+var pts=new T.Points(g,new T.ShaderMaterial({uniforms:U,vertexShader:VS,fragmentShader:FS,transparent:true,depthWrite:false,depthTest:false,blending:T.AdditiveBlending}));sc.add(pts);
+/* электрический обод сферы */
+var arcs=[];for(var ai=0;ai<(mob?4:8);ai++){var AN=900,ap=new Float32Array(AN*3),aa=new Float32Array(AN);for(var j=0;j<AN;j++){var A0=j/(AN-1)*6.2832;ap[j*3]=Math.cos(A0)*1.745;ap[j*3+1]=Math.sin(A0)*1.745;aa[j]=A0}
  var ag=new T.BufferGeometry();ag.setAttribute('position',new T.BufferAttribute(ap,3));ag.setAttribute('aA',new T.BufferAttribute(aa,1));
- var am=new T.ShaderMaterial({uniforms:{T:U.T,O:{value:1},K:{value:ai*1.7+.3}},transparent:true,depthWrite:false,blending:T.AdditiveBlending,
-  vertexShader:'attribute float aA;uniform float T;uniform float K;varying float vT;void main(){float n=sin(aA*13.+T*2.3+K)*.5+sin(aA*31.-T*3.7+K*2.)*.3+sin(aA*67.+T*6.1+K*3.)*.2;float sp=pow(max(0.,sin(aA*5.+T*1.3+K*1.9)),6.);vec3 p=position*(1.+n*.018+sp*n*.09);vT=sin(aA);gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}',
-  fragmentShader:'uniform float O;varying float vT;void main(){vec3 c=mix(vec3(.4,.85,1.),vec3(1.,.3,.28),smoothstep(-.15,.8,vT));c=mix(c,vec3(1.),.06);gl_FragColor=vec4(c,.7*O);}'});
+ var am=new T.ShaderMaterial({uniforms:{T:U.T,O:{value:1},K:{value:ai*1.7+.3}},transparent:true,depthWrite:false,depthTest:false,blending:T.AdditiveBlending,
+  vertexShader:'attribute float aA;uniform float T;uniform float K;varying float vT;void main(){float n=sin(aA*13.+T*2.3+K)*.5+sin(aA*31.-T*3.7+K*2.)*.3+sin(aA*67.+T*6.1+K*3.)*.2;float sp=pow(max(0.,sin(aA*5.+T*1.3+K*1.9)),6.);vec3 p=position*(1.+n*.016+sp*n*.08);vT=sin(aA);gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}',
+  fragmentShader:'uniform float O;varying float vT;void main(){vec3 c=mix(vec3(.3,.75,1.),vec3(1.,.28,.25),smoothstep(-.15,.8,vT));gl_FragColor=vec4(c*.55*O,1.);}'});
  var ln=new T.Line(ag,am);arcs.push(ln);pts.add(ln)}
-var rc=document.createElement('canvas');rc.width=rc.height=512;var rx=rc.getContext('2d'),rg=rx.createRadialGradient(256,256,0,256,256,256);rg.addColorStop(0,'rgba(65,85,232,.0)');rg.addColorStop(.62,'rgba(65,85,232,.10)');rg.addColorStop(.74,'rgba(110,160,255,.5)');rg.addColorStop(.8,'rgba(200,215,255,.22)');rg.addColorStop(.87,'rgba(118,183,255,.12)');rg.addColorStop(1,'rgba(0,0,0,0)');rx.fillStyle=rg;rx.fillRect(0,0,512,512);
-var glowR=new T.Sprite(new T.SpriteMaterial({map:new T.CanvasTexture(rc),blending:T.AdditiveBlending,depthWrite:false,transparent:true,opacity:.9}));glowR.scale.set(4.7,4.7,1);pts.add(glowR);
-/* передний план: размытые частицы у самой камеры (глубина резкости, параллакс) */
-var NB=mob?26:60,bp=new Float32Array(NB*3),bx=new Float32Array(NB*2);for(i=0;i<NB;i++){bp[i*3]=(Math.random()-.5)*7;bp[i*3+1]=(Math.random()-.5)*6;bp[i*3+2]=2.2+Math.random()*2.4;bx[i*2]=Math.random();bx[i*2+1]=Math.random()}
-var bg2=new T.BufferGeometry();bg2.setAttribute('position',new T.BufferAttribute(bp,3));bg2.setAttribute('aB',new T.BufferAttribute(bx,2));
-var UB={T:U.T,Y:{value:0},P:{value:Math.min(DPR,1.5)}};
-var bok=new T.Points(bg2,new T.ShaderMaterial({uniforms:UB,transparent:true,depthWrite:false,blending:T.AdditiveBlending,
- vertexShader:'attribute vec2 aB;uniform float T;uniform float Y;uniform float P;varying vec3 vC;varying float vA;void main(){vec3 p=position;float k=(p.z-2.)*.9;p.y=mod(p.y+Y*k+T*.04*(aB.x-.5)+3.,6.)-3.;p.x+=sin(T*.2+aB.y*9.)*.15;'+
- 'vC=mix(vec3(.25,.33,.91),vec3(.46,.72,1.),aB.y);vA=(.035+.06*aB.y);vec4 mv=modelViewMatrix*vec4(p,1.);gl_PointSize=P*(26.+90.*aB.x)*(2.6/-mv.z);gl_Position=projectionMatrix*mv;}',
- fragmentShader:'varying vec3 vC;varying float vA;void main(){float d=length(gl_PointCoord-.5)*2.;if(d>1.)discard;float a=smoothstep(1.,.55,d)*.8+smoothstep(.98,.9,d)*.25;gl_FragColor=vec4(vC,vA*a);}'}));
-sc.add(bok);
-/* объёмный свет за объектом */
-var hc=document.createElement('canvas');hc.width=hc.height=256;var hx=hc.getContext('2d'),hg=hx.createRadialGradient(128,128,0,128,128,128);hg.addColorStop(0,'rgba(118,160,255,.55)');hg.addColorStop(.35,'rgba(65,85,232,.22)');hg.addColorStop(1,'rgba(0,0,0,0)');hx.fillStyle=hg;hx.fillRect(0,0,256,256);
-var halo=new T.Sprite(new T.SpriteMaterial({map:new T.CanvasTexture(hc),blending:T.AdditiveBlending,depthWrite:false,transparent:true,opacity:.34}));halo.position.z=-1.5;sc.add(halo);
-function sz(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}sz();addEventListener('resize',sz);
-var secs=[].slice.call(root.querySelectorAll('main > section')),iP=secs.indexOf(root.querySelector('.pcs')),iF=root.querySelector('.fanw')?secs.indexOf(root.querySelector('.fanw').closest('section')):99;
-/* сцены как в образце: 0 сфера, 1 воронка, 2 ДНК, 3 горизонт, 4 чёрная дыра, 5 галактика */
+/* чёрная дыра: тёмный диск с тонким кольцом */
+function spr(draw,sz,blend){var c=document.createElement('canvas');c.width=c.height=sz;draw(c.getContext('2d'),sz);var s=new T.Sprite(new T.SpriteMaterial({map:new T.CanvasTexture(c),depthWrite:false,depthTest:false,transparent:true,opacity:0,blending:blend}));return s}
+var hole=spr(function(x,z){var g=x.createRadialGradient(z/2,z/2,0,z/2,z/2,z/2);g.addColorStop(0,'rgba(2,3,9,1)');g.addColorStop(.6,'rgba(2,3,9,1)');g.addColorStop(.66,'rgba(2,3,9,0)');g.addColorStop(1,'rgba(2,3,9,0)');x.fillStyle=g;x.fillRect(0,0,z,z)},256,T.NormalBlending);
+hole.scale.set(1.75,1.75,1);hole.renderOrder=5;pts.add(hole);
+var ringH=spr(function(x,z){var g=x.createRadialGradient(z/2,z/2,0,z/2,z/2,z/2);g.addColorStop(.5,'rgba(0,0,0,0)');g.addColorStop(.555,'rgba(170,190,255,.9)');g.addColorStop(.6,'rgba(255,150,140,.35)');g.addColorStop(.7,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,z,z)},256,T.AdditiveBlending);
+ringH.scale.set(1.75,1.75,1);ringH.renderOrder=6;pts.add(ringH);
+/* галактика: ядро и орбиты */
+var gcore=spr(function(x,z){var g=x.createRadialGradient(z/2,z/2,0,z/2,z/2,z/2);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.15,'rgba(255,210,235,.6)');g.addColorStop(.4,'rgba(140,90,255,.12)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,z,z)},256,T.AdditiveBlending);
+gcore.scale.set(1.5,.75,1);pts.add(gcore);
+var orbs=[[1.45,0x76B7FF],[2.15,0x9FB8FF],[2.85,0x8C6BFF]].map(function(o){var n=360,pp=new Float32Array(n*3);for(var j=0;j<n;j++){var a=j/(n-1)*6.2832;pp[j*3]=Math.cos(a)*o[0];pp[j*3+1]=Math.sin(a)*o[0]}
+ var lg=new T.BufferGeometry();lg.setAttribute('position',new T.BufferAttribute(pp,3));var l=new T.Line(lg,new T.LineBasicMaterial({color:o[1],transparent:true,opacity:0,blending:T.AdditiveBlending,depthWrite:false,depthTest:false}));l.rotation.x=-1.2;pts.add(l);return l});
+/* «клиент»: одна светящаяся точка со шлейфом проходит весь путь (логика первого образца) */
+var TN=48,tp=new Float32Array(TN*3),ts=new Float32Array(TN);for(i=0;i<TN;i++)ts[i]=1-i/TN;
+var tg2=new T.BufferGeometry();tg2.setAttribute('position',new T.BufferAttribute(tp,3));tg2.setAttribute('aK',new T.BufferAttribute(ts,1));
+var trail=new T.Points(tg2,new T.ShaderMaterial({uniforms:{P:{value:mob?1:Math.min(DPR,1.5)}},transparent:true,depthWrite:false,depthTest:false,blending:T.AdditiveBlending,
+ vertexShader:'attribute float aK;uniform float P;varying float vK;void main(){vK=aK;vec4 mv=modelViewMatrix*vec4(position,1.);gl_PointSize=P*(2.+aK*aK*16.)*(6./-mv.z);gl_Position=projectionMatrix*mv;}',
+ fragmentShader:'varying float vK;void main(){vec2 q=gl_PointCoord-.5;float d=dot(q,q)*4.;if(d>1.)discard;vec3 c=mix(vec3(.46,.72,1.),vec3(1.),vK*vK);gl_FragColor=vec4(c*exp(-d*4.)*vK*1.6,1.);}'}));
+pts.add(trail);
+function crest(x,z,t){return .5*Math.sin(x*.42+z*.5+t*.35)+.2*Math.sin(x*1.25-t*.55)+.07*Math.sin(x*3.3+t*1.2)+x*.13}
+function path(k,u,t,o){var a,r,y;
+ if(k===0){a=u*6.2832*1.5-t*.05;o[0]=Math.cos(a)*1.76;o[1]=Math.sin(a)*1.76;o[2]=0;return}
+ if(k===1){var tt=u;y=(1-2*tt)*2.15;r=.1+Math.pow(1-tt,1.5)*1.75;a=tt*6.2832*2.2+tt*2.6+t*.45;var z=Math.sin(a)*r;o[0]=Math.cos(a)*r;o[1]=y*Math.cos(.22)+z*Math.sin(.22);o[2]=-y*Math.sin(.22)+z*Math.cos(.22);return}
+ if(k===2){y=(2*u-1)*2.7;a=y*2.25-t*.5;o[0]=Math.cos(a)*.66;o[1]=y;o[2]=Math.sin(a)*.66;return}
+ if(k===3){var x=-6.5+13*u;o[0]=x;o[1]=crest(x,0,t)+.02;o[2]=0;return}
+ if(k===4){r=.55+2.6*Math.pow(1-u,1.6);a=u*6.2832*3.5+t*.2;o[0]=Math.cos(a)*r;o[1]=-.75/r+.28;o[2]=Math.sin(a)*r;return}
+ r=1.45;a=u*6.2832+t*.15;var py=Math.sin(a)*r;o[0]=Math.cos(a)*r;o[1]=py*Math.cos(1.2);o[2]=-py*Math.sin(1.2)}
+var pa=[0,0,0],pb=[0,0,0];
+/* свечение как в кино: bloom */
+var comp=null,bloom=null;
+function sz(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();if(comp){comp.setSize(w,h);bloom.resolution.set(w*(mob?.5:1),h*(mob?.5:1))}}
+if(T.EffectComposer&&T.UnrealBloomPass){comp=new T.EffectComposer(r);comp.addPass(new T.RenderPass(sc,cam));bloom=new T.UnrealBloomPass(new T.Vector2(innerWidth,innerHeight),mob?.9:1.05,.62,.08);comp.addPass(bloom)}
+sz();addEventListener('resize',sz);
+var secs=[].slice.call(root.querySelectorAll('main > section')),iP=secs.indexOf(root.querySelector('.pcs'));
+/* сцены: 0 сфера, 1 воронка, 2 ДНК, 3 горизонт, 4 чёрная дыра, 5 галактика */
 var STAGE=[0,1,1,2,2,2,3,3,3,4,4,5,5,5];
-/* планы камеры по слайдам: x, y, масштаб, наклон X, поворот Y, крен Z */
-var SHOT=[[0,.05,1.12,0,0,0],[2.3,0,1,0,0,0],[.6,0,1,0,0,0],
+var SHOT=[[0,.05,1.12,0,0,0],[2.35,-.15,.8,0,0,0],[.4,-.1,.8,0,0,0],
  [2.6,0,1,0,0,.2],[2.75,-.1,.95,0,0,.25],[2.6,0,1,0,0,-.2],
  [0,-.85,1,.22,0,0],[0,-1.35,1,.28,0,0],[0,-1.05,1,.22,0,0],
  [2.9,1.05,.8,1.05,0,.15],[0,1.3,1.05,1.12,0,0],
  [-2.6,-1.35,.8,0,0,.1],[2.5,0,.9,0,0,-.15],[0,-1.8,1,0,0,0]];
-/* звёздное небо: дальний слой, всегда сзади */
-var NS2=mob?700:1800,sp=new Float32Array(NS2*3),sx2=new Float32Array(NS2);for(i=0;i<NS2;i++){sp[i*3]=(Math.random()-.5)*40;sp[i*3+1]=(Math.random()-.5)*26;sp[i*3+2]=-6-Math.random()*14;sx2[i]=Math.random()}
-var sg=new T.BufferGeometry();sg.setAttribute('position',new T.BufferAttribute(sp,3));sg.setAttribute('aS',new T.BufferAttribute(sx2,1));
-var stars=new T.Points(sg,new T.ShaderMaterial({uniforms:{T:U.T,P:UB.P,Y:UB.Y},transparent:true,depthWrite:false,blending:T.AdditiveBlending,
- vertexShader:'attribute float aS;uniform float T;uniform float P;uniform float Y;varying float vA;varying float vB;void main(){vec3 p=position;p.y=mod(p.y+Y*1.2+13.,26.)-13.;vB=step(.985,aS);vA=(.25+.75*aS)*(.6+.4*sin(T*(1.+aS*3.)+aS*50.));vec4 mv=modelViewMatrix*vec4(p,1.);gl_PointSize=P*(1.+aS*1.6+vB*7.);gl_Position=projectionMatrix*mv;}',
- fragmentShader:'varying float vA;varying float vB;void main(){float d=length(gl_PointCoord-.5)*2.;if(d>1.)discard;vec3 c=mix(vec3(.75,.82,1.),vec3(.45,.7,1.),vB);float a=vB>.5?pow(1.-d,2.5):1.-d;gl_FragColor=vec4(c,vA*a*(vB>.5?1.:.8));}'}));
-sc.add(stars);stars.renderOrder=-1;
-/* чёрная дыра: тёмный диск с кольцом света */
-function spr(draw,sz){var c=document.createElement('canvas');c.width=c.height=sz;draw(c.getContext('2d'),sz);return new T.Sprite(new T.SpriteMaterial({map:new T.CanvasTexture(c),depthWrite:false,depthTest:false,transparent:true,opacity:0}))}
-var hole=spr(function(x,z){var g=x.createRadialGradient(z/2,z/2,0,z/2,z/2,z/2);g.addColorStop(0,'rgba(0,0,0,1)');g.addColorStop(.56,'rgba(0,0,0,1)');g.addColorStop(.6,'rgba(120,150,255,.9)');g.addColorStop(.64,'rgba(255,170,150,.5)');g.addColorStop(.75,'rgba(65,85,232,.12)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,z,z)},256);
-hole.material.blending=T.NormalBlending;hole.scale.set(1.9,1.9,1);hole.renderOrder=5;pts.add(hole);
-/* галактика: горячее ядро и орбиты */
-var gcore=spr(function(x,z){var g=x.createRadialGradient(z/2,z/2,0,z/2,z/2,z/2);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.18,'rgba(255,200,230,.75)');g.addColorStop(.45,'rgba(140,90,255,.25)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,z,z)},256);
-gcore.material.blending=T.AdditiveBlending;gcore.scale.set(2.2,1.1,1);pts.add(gcore);
-var orbs=[[1.55,'#76B7FF'],[2.35,'#B9D6FF'],[3.05,'#8C6BFF']].map(function(o){var n=256,pp=new Float32Array(n*3);for(var j=0;j<n;j++){var a=j/(n-1)*6.2832;pp[j*3]=Math.cos(a)*o[0];pp[j*3+1]=Math.sin(a)*o[0];pp[j*3+2]=0}
- var lg=new T.BufferGeometry();lg.setAttribute('position',new T.BufferAttribute(pp,3));var l=new T.Line(lg,new T.LineBasicMaterial({color:o[1],transparent:true,opacity:0,blending:T.AdditiveBlending,depthWrite:false}));l.rotation.x=-1.2;pts.add(l);return l});
-/* белая вспышка при входе в галактику */
-var fl=document.createElement('div');fl.className='flash';root.appendChild(fl);var lastTg=0;
-var HL=[['−2 млн','точка старта',-.95,1.1,'l'],['+4 млн','без рекламы',1.0,.35,'r'],['12 лет','в продажах',-1.0,-.45,'l'],['100+ млн','заработали клиенты',.95,-1.2,'r']].map(function(d){var e=document.createElement('div');e.className='hl '+d[4];e.innerHTML='<b>'+d[0]+'</b><span>'+d[1]+'</span>';root.appendChild(e);return{e:e,v:new T.Vector3(d[2],d[3],0)}});
+/* подписи в 3D: шаги пути клиента на воронке, цифры на ДНК */
+function mk(t,c,side){var e=document.createElement('div');e.className='hl '+side;e.innerHTML='<b>'+t+'</b><span>'+c+'</span>';root.appendChild(e);return e}
+var HL=[];[['Первое касание','01',.06],['Интерес','02',.34],['Диагностика','03',.62],['Оплата','04',.9]].forEach(function(d){var tt=d[2],y=(1-2*tt)*2.15,rr=.1+Math.pow(1-tt,1.5)*1.75;HL.push({e:mk(d[0],'шаг '+d[1],'r'),st:1,v:new T.Vector3(rr,y*Math.cos(.22),-y*Math.sin(.22))})});
+[['−2 млн','точка старта',-.95,1.1,'l'],['+4 млн','без рекламы',1.0,.35,'r'],['12 лет','в продажах',-1.0,-.45,'l'],['100+ млн','заработали клиенты',.95,-1.2,'r']].forEach(function(d){HL.push({e:mk(d[0],d[1],d[4]),st:2,v:new T.Vector3(d[2],d[3],0)})});
 var tv=new T.Vector3();
-function cur(){var c=innerHeight*.5,idx=0;for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<=c)idx=i}return idx}
-var M=0,Q=[0,.05,1.12,0,0,0],t0=performance.now(),last=t0,mx=0,my=0,sy0=scrollY,vy=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
-(function f(now){requestAnimationFrame(f);if(!root.classList.contains('in'))return;var dt=Math.min(.1,(now-last)/1000);last=now;
- var idx=cur(),tg=STAGE[Math.min(idx,STAGE.length-1)];if(tg===5&&lastTg===4){fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');M=Math.max(M,4.6)}lastTg=tg;M+=(tg-M)*(1-Math.exp(-dt*(Math.abs(tg-M)>1.5?2.6:1.6)));
- var sh=SHOT[Math.min(idx,SHOT.length-1)].slice();if(mob){sh[0]=0;sh[1]=sh[1]*.6;sh[2]*=idx===0?.58:.62}
- var k=1-Math.exp(-dt*2.1);for(var j=0;j<6;j++)Q[j]+=(sh[j]-Q[j])*k;
- pts.position.set(Q[0]+mx*.15,Q[1]-my*.1,0);pts.scale.setScalar(Q[2]);pts.rotation.set(Q[3]+my*.15,Q[4]+mx*.25,Q[5]);
- halo.position.set(Q[0],Q[1],-1.5);var hs=4.2*Q[2]*(1+.06*Math.sin((now-t0)/900));halo.scale.set(hs,hs,1);halo.material.opacity=.34+.3*Math.max(0,1-M);arcs.forEach(function(l,j){l.material.uniforms.O.value=Math.max(0,1-M*1.6)});glowR.material.opacity=.9*Math.max(0,1-M*1.6);var wB=Math.max(0,1-Math.abs(M-4)*1.6),wG=Math.max(0,1-Math.abs(M-5)*1.6);hole.material.opacity=wB;gcore.material.opacity=wG*(.85+.15*Math.sin((now-t0)/700));orbs.forEach(function(l,j){l.material.opacity=wG*(.55-.12*j);l.rotation.z=(now-t0)/1000*(.05+.03*j)});halo.material.opacity*=Math.max(.25,1-Math.max(0,1-Math.abs(M-3)*1.4));
- vy+=((scrollY-sy0)/innerHeight*1.6-vy)*.12;sy0=scrollY;UB.Y.value+=vy*.0+(scrollY/innerHeight-UB.Y.value/1.0)*0;UB.Y.value=scrollY/innerHeight*1.4;
- U.T.value=(now-t0)/1000;U.M.value=M;r.render(sc,cam);
- pts.updateMatrixWorld();var show=!mob&&idx===iP&&M>1.75&&M<2.3;for(var h=0;h<HL.length;h++){var o=HL[h];tv.copy(o.v).applyMatrix4(pts.matrixWorld).project(cam);var x=(tv.x+1)/2*innerWidth,y=(1-tv.y)/2*innerHeight,w=o.e.offsetWidth;
-  o.e.style.transform='translate3d('+(o.e.classList.contains('l')?x-w-46:x+46).toFixed(1)+'px,'+(y-20).toFixed(1)+'px,0)';var lx=o.e.classList.contains('l')?x-w-46:x+46;o.e.classList.toggle('on',show&&lx>innerWidth*.6&&lx+w<innerWidth-40&&y>90&&y<innerHeight-40)}
+function pos(){var c=innerHeight*.5,i=0;for(var j=0;j<secs.length;j++){if(secs[j].getBoundingClientRect().top<=c)i=j}var b=secs[i].getBoundingClientRect();return Math.max(0,Math.min(secs.length-1,i+(c-b.top)/Math.max(1,b.height)-.5))}
+function ease(x){return x*x*(3-2*x)}
+var fl=document.createElement('div');fl.className='flash';root.appendChild(fl);
+var M=0,Q=SHOT[0].slice(),t0=performance.now(),last=t0,mx=0,my=0,smx=0,smy=0,prevM=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+(function f(now){requestAnimationFrame(f);if(!root.classList.contains('in'))return;var dt=Math.min(.1,(now-last)/1000);last=now;var t=(now-t0)/1000;
+ var p=pos(),i0=Math.floor(p),i1=Math.min(secs.length-1,i0+1),fr=ease(Math.max(0,Math.min(1,p-i0)));
+ var mT=STAGE[i0]+(STAGE[i1]-STAGE[i0])*fr,k=1-Math.exp(-dt*7);M+=(mT-M)*k;
+ if(prevM<4.5&&M>=4.5){fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go')}prevM=M;
+ var s0=SHOT[i0],s1=SHOT[i1];for(var j=0;j<6;j++){var v=s0[j]+(s1[j]-s0[j])*fr;if(mob){if(j===0)v=0;if(j===1)v*=.6;if(j===2)v*=(p<.5?.58:.62)}Q[j]+=(v-Q[j])*(1-Math.exp(-dt*5))}
+ smx+=(mx-smx)*.05;smy+=(my-smy)*.05;
+ pts.position.set(Q[0]+smx*.12,Q[1]-smy*.08,0);pts.scale.setScalar(Q[2]);pts.rotation.set(Q[3]+smy*.12,Q[4]+smx*.2,Q[5]);
+ var w0=Math.max(0,1-M*1.4),wB=Math.max(0,1-Math.abs(M-4)*1.8),wG=Math.max(0,1-Math.abs(M-5)*1.8);
+ arcs.forEach(function(l){l.material.uniforms.O.value=w0;l.visible=w0>.01});
+ hole.material.opacity=wB;ringH.material.opacity=wB*(.8+.2*Math.sin(t*2.));gcore.material.opacity=wG*(.85+.15*Math.sin(t*1.4));orbs.forEach(function(l,j){l.material.opacity=wG*(.4-.08*j);l.rotation.z=t*(.04+.025*j)});
+ /* клиент идёт по текущей форме */
+ var ka=Math.floor(M),kb=Math.min(5,ka+1),kf=ease(M-ka);
+ for(var q=0;q<TN;q++){var u=((t*.07-q*.0035)%1+1)%1;path(ka,u,t,pa);path(kb,u,t,pb);tp[q*3]=pa[0]+(pb[0]-pa[0])*kf;tp[q*3+1]=pa[1]+(pb[1]-pa[1])*kf;tp[q*3+2]=pa[2]+(pb[2]-pa[2])*kf}
+ tg2.attributes.position.needsUpdate=true;
+ U.T.value=t;U.M.value=M;if(comp)comp.render();else r.render(sc,cam);
+ pts.updateMatrixWorld();for(var h=0;h<HL.length;h++){var o=HL[h],show=!mob&&Math.abs(M-o.st)<.3&&(o.st===2?Math.round(p)===iP:Math.round(p)===1);
+  tv.copy(o.v).applyMatrix4(pts.matrixWorld).project(cam);var x=(tv.x+1)/2*innerWidth,y=(1-tv.y)/2*innerHeight,wd=o.e.offsetWidth,lx=o.e.classList.contains('l')?x-wd-46:x+46;
+  o.e.style.transform='translate3d('+lx.toFixed(1)+'px,'+(y-20).toFixed(1)+'px,0)';o.e.classList.toggle('on',show&&lx>innerWidth*.55&&lx+wd<innerWidth-30&&y>80&&y<innerHeight-40)}
 })(t0);}
-if(window.THREE)go();else{var tries=0;(function w(){if(window.THREE)return go();if(++tries===8){var s=document.createElement('script');s.src='three.min.js';s.onload=function(){if(window.THREE)go()};document.head.appendChild(s)}if(tries<120)setTimeout(w,60)})()}
+function post(){if(window.THREE&&THREE.UnrealBloomPass)return go();var s=document.createElement('script');s.src='fx/post.js';s.onload=go;s.onerror=go;document.head.appendChild(s)}
+if(window.THREE)post();else{var tries=0;(function w(){if(window.THREE)return post();if(++tries===8){var s=document.createElement('script');s.src='three.min.js';s.onload=function(){if(window.THREE)post()};document.head.appendChild(s)}if(tries<120)setTimeout(w,60)})()}
 })();
 /* ---------- частицы на холстах: кольцо, чёрная дыра, ДНК, галактика ---------- */
 function FX(cv,init,draw){var o={cv:cv,ctx:cv.getContext('2d'),on:false,t:0,W:0,H:0};o.size=function(){o.W=cv.clientWidth;o.H=cv.clientHeight;cv.width=o.W*DPR;cv.height=o.H*DPR;init(o)};o.size();addEventListener('resize',o.size);
