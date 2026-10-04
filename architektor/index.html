@@ -1179,6 +1179,11 @@ body{background:#020605}
 .nx .kpc::before{display:none}
 .nx .hl{background:rgba(6,8,18,.86)}
 .nx .glr{mix-blend-mode:normal;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(185,214,255,.07),transparent 60%)}
+
+html.rnd .nx>*:not(.sbg){display:none!important}html.rnd .nx .sbg{opacity:1!important;transition:none!important}html.rnd body{overflow:hidden}
+
+.nx .sbv{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.6s;background:#020309}
+.nx.in .sbv{opacity:1}
 </style>
 </head><body>
 
@@ -1515,7 +1520,7 @@ var BL=[65,85,232],SK=[118,183,255],MI=[224,226,242],RD=[255,58,48],OR=[255,120,
 function rgb(c,a){return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')'}
 function lerp(a,b,k){return [a[0]+(b[0]-a[0])*k|0,a[1]+(b[1]-a[1])*k|0,a[2]+(b[2]-a[2])*k|0]}
 /* ---------- огонь на входе: объёмное облако волокон (three.js) ---------- */
-(function(){var cv=root.querySelector('.gate .fire');if(!cv)return;var gate=root.querySelector('.gate');
+(function(){var cv=root.querySelector('.gate .fire');if(!cv)return;if(/[?&]render/.test(location.search)){cv.remove();return}var gate=root.querySelector('.gate');
 function go(){var T=window.THREE;if(!T){cv.remove();return}
 var r;try{r=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true})}catch(e){cv.remove();return}
 r.setPixelRatio(mob?1:Math.min(DPR,1.5));r.setClearColor(0x020309,1);var sc=new T.Scene(),cam=new T.PerspectiveCamera(42,1,.1,50);
@@ -1566,11 +1571,18 @@ if(window.THREE)go();else{var tries=0;(function w(){if(window.THREE)return go();
  (function w(){if(root.classList.contains('in'))setTimeout(function(){h.classList.add('go')},250);else setTimeout(w,100)})();
 })();
 /* ---------- основа фона: круг → воронка → двойная спираль (по прокрутке) ---------- */
-(function(){var cv=root.querySelector('.sbg');if(!cv)return;
+(function(){var cv=root.querySelector('.sbg');if(!cv)return;var RND=/[?&]render/.test(location.search);if(RND){document.documentElement.classList.add('rnd');root.classList.add('in');window.requestAnimationFrame=function(){return 0}}
+/* компьютер: заранее отрендеренный кино-ролик, прокрутка двигает время (как у Apple) */
+if(!RND&&!mob&&!/[?&]live/.test(location.search)){var v=document.createElement('video');v.className='sbv';v.muted=true;v.playsInline=true;v.preload='auto';v.setAttribute('aria-hidden','true');v.setAttribute('muted','');v.poster='bg0.jpg';v.src='bg.mp4';cv.parentNode.insertBefore(v,cv);cv.remove();
+ var vs=[].slice.call(root.querySelectorAll('main > section')),cur=.5,t1=performance.now();
+ function vpos(){var c=innerHeight*.5,i=0;for(var j=0;j<vs.length;j++){if(vs[j].getBoundingClientRect().top<=c)i=j}var b=vs[i].getBoundingClientRect();return Math.max(0,Math.min(vs.length-1,i+(c-b.top)/Math.max(1,b.height)-.5))}
+ (function vf(now){requestAnimationFrame(vf);if(!root.classList.contains('in')||!v.duration)return;var p=vpos(),idle=Math.abs(p-Math.round(p))<.02?.38*Math.sin((now-t1)/1000*.55):0;
+  var tgt=Math.max(.02,Math.min(v.duration-.05,2*p+.5+idle));cur+=(tgt-cur)*.16;if(!v.seeking&&Math.abs(v.currentTime-cur)>.03)v.currentTime=cur})(t1);
+ return}
 function go(){var T=window.THREE;if(!T){cv.remove();return}
 var r;try{r=new T.WebGLRenderer({canvas:cv,antialias:false,alpha:false,powerPreference:'high-performance'})}catch(e){cv.remove();return}
 r.setPixelRatio(mob?1:Math.min(DPR,1.5));r.setClearColor(0x020309,1);var sc=new T.Scene(),cam=new T.PerspectiveCamera(40,1,.1,50);cam.position.z=6.2;
-var N=mob?16000:44000,NM=Math.floor(N*.66),L=mob?90:170,PL=Math.ceil(NM/L),R3=function(){return new Float32Array(N*3)},aR=R3(),aF=R3(),aH=R3(),aW=R3(),aB=R3(),aG=R3(),aX=new Float32Array(N*4);
+var N=RND?110000:(mob?16000:44000),NM=Math.floor(N*.66),L=mob?90:170,PL=Math.ceil(NM/L),R3=function(){return new Float32Array(N*3)},aR=R3(),aF=R3(),aH=R3(),aW=R3(),aB=R3(),aG=R3(),aX=new Float32Array(N*4);
 function gs(){return(Math.random()+Math.random()+Math.random()-1.5)/1.5}
 for(var i=0;i<N;i++){var rim=i>=NM,v,t;
   if(!rim){v=Math.floor(i/PL)/L;t=(i%PL)/PL+Math.random()/PL}else{v=Math.random();t=Math.random()}
@@ -1586,7 +1598,7 @@ for(var i=0;i<N;i++){var rim=i>=NM,v,t;
   if(rim&&Math.random()<.45){var k=Math.round(hy/.27)*.27,ha=k*2.25,q=Math.random()*2-1;aH[i*3]=Math.cos(ha)*.64*q;aH[i*3+1]=k;aH[i*3+2]=Math.sin(ha)*.64*q;st=2}
   else{var ha2=hy*2.25+st*Math.PI,tb=Math.random()*6.2832,tt=(rim?.16:.06)*Math.sqrt(Math.random()),cx=Math.cos(ha2)*.66,cz=Math.sin(ha2)*.66;aH[i*3]=cx+Math.cos(tb)*tt*Math.cos(ha2);aH[i*3+1]=hy+Math.sin(tb)*tt;aH[i*3+2]=cz+Math.cos(tb)*tt*Math.sin(ha2)}
   /* 4 волна-горизонт: x, отступ вниз от гребня, глубина */
-  var wl=Math.random();aW[i*3]=(Math.random()*2-1)*6.5;aW[i*3+1]=wl<.55?gs()*.03:-Math.pow(Math.random(),3.)*.9;aW[i*3+2]=wl<.55?gs()*.35:gs()*1.-.2;
+  var wl=Math.random();aW[i*3]=rim?(Math.random()*2-1)*6.5:(t*2-1)*6.5+gs()*.05;aW[i*3+1]=wl<.55?gs()*.03:-Math.pow(Math.random(),3.)*.9;aW[i*3+2]=wl<.55?gs()*.35:gs()*1.-.2;
   /* 5 чёрная дыра: радиус, угол, фаза затягивания */
   aB[i*3]=Math.random();aB[i*3+1]=Math.random()*6.2832;aB[i*3+2]=gs();
   /* 6 галактика: радиус, угол рукава, высота */
@@ -1617,12 +1629,12 @@ var VS='attribute vec3 aF;attribute vec3 aH;attribute vec3 aW;attribute vec3 aB;
 ' if(k==0)return rim?1.:(.3+.4*fract(aX.x*7.));if(k==1)return .45+.3*aX.x;if(k==2)return .6+.4*aX.x;'+
 ' if(k==3)return (.12+1.1*exp(aW.y*6.))*(.6+.4*aX.x);if(k==4){float r=.5+2.7*pow(mod(aB.x-T*.035,1.),1.7);return (.3+.7*aX.x)*clamp(1.6/r,.3,1.6);}return aG.x<.45?1.:.35+.6*aX.x;}'+
 'void main(){rim=aX.y>2.5;int i0=int(floor(clamp(M,0.,4.999)));float f=smoothstep(0.,1.,clamp(M,0.,5.)-float(i0));'+
-'vec3 p=mix(P(i0),P(i0+1),f);p+=vec3(sin(aX.x*90.+T),cos(aX.x*70.+T),sin(aX.x*50.))*.22*sin(f*3.1416);'+
+'vec3 p=mix(P(i0),P(i0+1),f);p+=vec3(sin(aX.x*90.+T),cos(aX.x*70.+T),sin(aX.x*50.))*.035*sin(f*3.1416);'+
 'vC=mix(C(i0),C(i0+1),f);vA=mix(A(i0),A(i0+1),f)*(.75+.25*sin(T*2.+aX.x*60.));'+
 'vec4 mv=modelViewMatrix*vec4(p,1.);float dz=-mv.z;vC*=clamp(1.3-(dz-5.6)*.3,.5,1.35);'+
 'float coc=min(abs(dz-F)*1.9,3.2);vB=coc;'+
 'float sz=S*(i0==0&&rim?1.6+aX.z*2.:1.15)*(1.+.35*step(1.5,M))*(1.+coc*3.2);vA/=(1.+coc*2.2)*(1.+coc*1.2);gl_PointSize=sz*(6./dz);gl_Position=projectionMatrix*mv;}';
-var FS='varying vec3 vC;varying float vA;varying float vB;void main(){vec2 q=gl_PointCoord-.5;float d=dot(q,q)*4.;if(d>1.)discard;float bk=smoothstep(1.,.82,d)*(.75+.25*d);float a=mix(exp(-d*3.),bk,smoothstep(.15,1.,vB));gl_FragColor=vec4(vC*vA*a*.72,1.);}';
+var FS='varying vec3 vC;varying float vA;varying float vB;void main(){vec2 q=gl_PointCoord-.5;float d=dot(q,q)*4.;if(d>1.)discard;float bk=smoothstep(1.,.82,d)*(.75+.25*d);float a=mix(exp(-d*3.),bk,smoothstep(.15,1.,vB));gl_FragColor=vec4(vC*vA*a*.72*'+(RND?'.36':'1.')+',1.);}';
 var pts=new T.Points(g,new T.ShaderMaterial({uniforms:U,vertexShader:VS,fragmentShader:FS,transparent:true,depthWrite:false,depthTest:false,blending:T.AdditiveBlending}));sc.add(pts);
 /* электрический обод сферы */
 var arcs=[];for(var ai=0;ai<(mob?4:8);ai++){var AN=900,ap=new Float32Array(AN*3),aa=new Float32Array(AN);for(var j=0;j<AN;j++){var A0=j/(AN-1)*6.2832;ap[j*3]=Math.cos(A0)*1.745;ap[j*3+1]=Math.sin(A0)*1.745;aa[j]=A0}
@@ -1677,8 +1689,8 @@ function pos(){var c=innerHeight*.5,i=0;for(var j=0;j<secs.length;j++){if(secs[j
 function ease(x){return x*x*(3-2*x)}
 var fl=document.createElement('div');fl.className='flash';root.appendChild(fl);
 var M=0,Q=SHOT[0].slice(),t0=performance.now(),last=t0,mx=0,my=0,smx=0,smy=0,prevM=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
-(function f(now){requestAnimationFrame(f);if(!root.classList.contains('in'))return;var dt=Math.min(.1,(now-last)/1000);last=now;var t=(now-t0)/1000;
- var p=pos(),i0=Math.floor(p),i1=Math.min(secs.length-1,i0+1),fr=ease(Math.max(0,Math.min(1,p-i0)));
+function f(now){if(!RND)requestAnimationFrame(f);if(!root.classList.contains('in'))return;var dt=RND?1:Math.min(.1,(now-last)/1000);last=now;var t=RND?window.__t:(now-t0)/1000;
+ var p=RND?window.__p:pos(),i0=Math.floor(p),i1=Math.min(secs.length-1,i0+1),fr=ease(Math.max(0,Math.min(1,p-i0)));
  var mT=STAGE[i0]+(STAGE[i1]-STAGE[i0])*fr,k=1-Math.exp(-dt*7);M+=(mT-M)*k;
  if(prevM<4.5&&M>=4.5){fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go')}prevM=M;
  var s0=SHOT[i0],s1=SHOT[i1];for(var j=0;j<6;j++){var v=s0[j]+(s1[j]-s0[j])*fr;if(mob){if(j===0)v=0;if(j===1)v*=.6;if(j===2)v*=(p<.5?.58:.62)}Q[j]+=(v-Q[j])*(1-Math.exp(-dt*5))}
@@ -1695,7 +1707,7 @@ var M=0,Q=SHOT[0].slice(),t0=performance.now(),last=t0,mx=0,my=0,smx=0,smy=0,pre
  pts.updateMatrixWorld();for(var h=0;h<HL.length;h++){var o=HL[h],show=!mob&&Math.abs(M-o.st)<.3&&(o.st===2?Math.round(p)===iP:Math.round(p)===1);
   tv.copy(o.v).applyMatrix4(pts.matrixWorld).project(cam);var x=(tv.x+1)/2*innerWidth,y=(1-tv.y)/2*innerHeight,wd=o.e.offsetWidth,lx=o.e.classList.contains('l')?x-wd-46:x+46;
   o.e.style.transform='translate3d('+lx.toFixed(1)+'px,'+(y-20).toFixed(1)+'px,0)';o.e.classList.toggle('on',show&&lx>innerWidth*.55&&lx+wd<innerWidth-30&&y>80&&y<innerHeight-40)}
-})(t0);}
+}if(RND){window.__rf=function(p,t){window.__p=p;window.__t=t;f(0);return cv.toDataURL('image/jpeg',.93)}}else f(t0);}
 function post(){if(window.THREE&&THREE.UnrealBloomPass)return go();var s=document.createElement('script');s.src='fx/post.js';s.onload=go;s.onerror=go;document.head.appendChild(s)}
 if(window.THREE)post();else{var tries=0;(function w(){if(window.THREE)return post();if(++tries===8){var s=document.createElement('script');s.src='three.min.js';s.onload=function(){if(window.THREE)post()};document.head.appendChild(s)}if(tries<120)setTimeout(w,60)})()}
 })();
