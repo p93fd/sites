@@ -1059,8 +1059,8 @@ body{background:#020605}
 /* сборка из частиц */
 .nx .pa-cv{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:40}
 .nx .pa-wait{visibility:hidden}
-.nx .pa-go{animation:paIn .9s cubic-bezier(.2,.8,.2,1) backwards}
-@keyframes paIn{from{opacity:0;transform:perspective(900px) translateZ(-90px) rotateX(8deg) scale(.96);filter:blur(6px) brightness(1.8)}}
+.nx .pa-go{animation:paIn .7s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes paIn{from{opacity:0;transform:translateY(14px)}}
 /* наклон и блик */
 .nx .tlt{transition:transform .12s ease-out!important;transform-style:preserve-3d;box-shadow:0 30px 60px -20px rgba(65,85,232,.35),0 0 0 1px rgba(118,183,255,.18)}
 .nx .glr{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(185,214,255,.16),rgba(65,85,232,.06) 40%,transparent 70%);mix-blend-mode:screen;z-index:3}
@@ -1171,6 +1171,14 @@ body{background:#020605}
 /* шрифт как в образце: тонкий, плотный */
 .nx .h,.nx .h.xl{font-weight:500}
 .nx .h3d{font-weight:500}
+
+/* карточки: чёткое тёмное стекло без размытия фона — без мутных пятен */
+.nx .pane,.nx .kpc,.nx .cc,.nx .dc,.nx .cd,.nx .dgn,.nx .bdg,.nx .hl,.nx .frame{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.nx .pane{background:linear-gradient(160deg,rgba(14,18,38,.92),rgba(4,6,14,.94))!important;border:1px solid rgba(185,214,255,.14)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -30px rgba(0,0,0,.8)!important}
+.nx .kpc{background:linear-gradient(160deg,rgba(14,18,38,.9),rgba(4,6,14,.92))}
+.nx .kpc::before{display:none}
+.nx .hl{background:rgba(6,8,18,.86)}
+.nx .glr{mix-blend-mode:normal;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(185,214,255,.07),transparent 60%)}
 </style>
 </head><body>
 
@@ -1661,8 +1669,8 @@ for(var i=0;i<N;i++){var rim=i>=NM,v,t;
   aG[i*3]=gr;aG[i*3+1]=core?Math.random()*6.2832:arm+gr*3.1+gs()*.5/(gr+.35);aG[i*3+2]=gs()*(core?.12:.05);
   aX[i*4]=Math.random();aX[i*4+1]=rim?3:st;aX[i*4+2]=fl;aX[i*4+3]=t}
 var g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(aR,3));['aF','aH','aW','aB','aG'].forEach(function(n,j){g.setAttribute(n,new T.BufferAttribute([aF,aH,aW,aB,aG][j],3))});g.setAttribute('aX',new T.BufferAttribute(aX,4));
-var U={T:{value:0},M:{value:0},S:{value:mob?1.5:1.45}};
-var VS='attribute vec3 aF;attribute vec3 aH;attribute vec3 aW;attribute vec3 aB;attribute vec3 aG;attribute vec4 aX;uniform float T;uniform float M;uniform float S;varying vec3 vC;varying float vA;'+
+var U={T:{value:0},M:{value:0},S:{value:mob?1.5:1.45},F:{value:6.2}};
+var VS='attribute vec3 aF;attribute vec3 aH;attribute vec3 aW;attribute vec3 aB;attribute vec3 aG;attribute vec4 aX;uniform float T;uniform float M;uniform float S;uniform float F;varying vec3 vC;varying float vA;varying float vB;'+
 'mat2 rt(float a){return mat2(cos(a),-sin(a),sin(a),cos(a));}'+
 'vec3 bl=vec3(.25,.33,.91),sk=vec3(.46,.72,1.),mi=vec3(.9,.92,1.),rd=vec3(1.,.25,.22),cy=vec3(.35,.85,1.),vi=vec3(.55,.35,1.);'+
 'bool rim;'+
@@ -1686,9 +1694,10 @@ var VS='attribute vec3 aF;attribute vec3 aH;attribute vec3 aW;attribute vec3 aB;
 'void main(){rim=aX.y>2.5;int i0=int(floor(clamp(M,0.,4.999)));float f=smoothstep(0.,1.,clamp(M,0.,5.)-float(i0));'+
 'vec3 p=mix(P(i0),P(i0+1),f);p+=vec3(sin(aX.x*90.+T),cos(aX.x*70.+T),sin(aX.x*50.))*.22*sin(f*3.1416);'+
 'vC=mix(C(i0),C(i0+1),f);vA=mix(A(i0),A(i0+1),f)*(.75+.25*sin(T*2.+aX.x*60.));'+
-'vec4 mv=modelViewMatrix*vec4(p,1.);float dz=-mv.z;vA*=clamp(1.5-(dz-5.6)*.5,.12,1.5);vC*=clamp(1.3-(dz-5.6)*.3,.5,1.35);'+
-'float sz=S*(i0==0&&rim?1.6+aX.z*2.:1.15)*(1.+.35*step(1.5,M));gl_PointSize=sz*(6./dz);gl_Position=projectionMatrix*mv;}';
-var FS='varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=dot(q,q)*4.;if(d>1.)discard;gl_FragColor=vec4(vC*vA*exp(-d*3.)*.95,1.);}';
+'vec4 mv=modelViewMatrix*vec4(p,1.);float dz=-mv.z;vC*=clamp(1.3-(dz-5.6)*.3,.5,1.35);'+
+'float coc=min(abs(dz-F)*1.9,3.2);vB=coc;'+
+'float sz=S*(i0==0&&rim?1.6+aX.z*2.:1.15)*(1.+.35*step(1.5,M))*(1.+coc*3.2);vA/=(1.+coc*2.2)*(1.+coc*1.2);gl_PointSize=sz*(6./dz);gl_Position=projectionMatrix*mv;}';
+var FS='varying vec3 vC;varying float vA;varying float vB;void main(){vec2 q=gl_PointCoord-.5;float d=dot(q,q)*4.;if(d>1.)discard;float bk=smoothstep(1.,.82,d)*(.75+.25*d);float a=mix(exp(-d*3.),bk,smoothstep(.15,1.,vB));gl_FragColor=vec4(vC*vA*a*.72,1.);}';
 var pts=new T.Points(g,new T.ShaderMaterial({uniforms:U,vertexShader:VS,fragmentShader:FS,transparent:true,depthWrite:false,depthTest:false,blending:T.AdditiveBlending}));sc.add(pts);
 /* электрический обод сферы */
 var arcs=[];for(var ai=0;ai<(mob?4:8);ai++){var AN=900,ap=new Float32Array(AN*3),aa=new Float32Array(AN);for(var j=0;j<AN;j++){var A0=j/(AN-1)*6.2832;ap[j*3]=Math.cos(A0)*1.745;ap[j*3+1]=Math.sin(A0)*1.745;aa[j]=A0}
@@ -1727,16 +1736,16 @@ var pa=[0,0,0],pb=[0,0,0];
 /* свечение как в кино: bloom */
 var comp=null,bloom=null;
 function sz(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();if(comp){comp.setSize(w,h);bloom.resolution.set(w*(mob?.5:1),h*(mob?.5:1))}}
-if(T.EffectComposer&&T.UnrealBloomPass){comp=new T.EffectComposer(r);comp.addPass(new T.RenderPass(sc,cam));bloom=new T.UnrealBloomPass(new T.Vector2(innerWidth,innerHeight),mob?.9:1.05,.62,.08);comp.addPass(bloom)}
+if(T.EffectComposer&&T.UnrealBloomPass){comp=new T.EffectComposer(r);comp.addPass(new T.RenderPass(sc,cam));bloom=new T.UnrealBloomPass(new T.Vector2(innerWidth,innerHeight),mob?.7:.82,.6,.12);comp.addPass(bloom)}
 sz();addEventListener('resize',sz);
 var secs=[].slice.call(root.querySelectorAll('main > section')),iP=secs.indexOf(root.querySelector('.pcs'));
 /* сцены: 0 сфера, 1 воронка, 2 ДНК, 3 горизонт, 4 чёрная дыра, 5 галактика */
-var STAGE=[0,1,1,2,2,2,3,3,3,4,4,5,5,5];
-var SHOT=[[0,.05,1.12,0,0,0],[2.35,-.15,.8,0,0,0],[.4,-.1,.8,0,0,0],
+var STAGE=[0,1,1,2,2,2,3,3,3,3,3,2,2,0];
+var SHOT=[[0,.05,1.12,0,0,0],[2.95,-.15,.74,0,0,0],[.4,-.1,.8,0,0,0],
  [2.6,0,1,0,0,.2],[2.75,-.1,.95,0,0,.25],[2.6,0,1,0,0,-.2],
  [0,-.85,1,.22,0,0],[0,-1.35,1,.28,0,0],[0,-1.05,1,.22,0,0],
- [2.9,1.05,.8,1.05,0,.15],[0,1.3,1.05,1.12,0,0],
- [-2.6,-1.35,.8,0,0,.1],[2.5,0,.9,0,0,-.15],[0,-1.8,1,0,0,0]];
+ [0,-2.05,1,.3,0,0],[0,-2.45,1,.3,0,0],
+ [0,-1.95,.85,0,0,1.5708],[3.25,0,.9,0,0,-.2],[0,0,.98,0,0,0]];
 /* подписи в 3D: шаги пути клиента на воронке, цифры на ДНК */
 function mk(t,c,side){var e=document.createElement('div');e.className='hl '+side;e.innerHTML='<b>'+t+'</b><span>'+c+'</span>';root.appendChild(e);return e}
 var HL=[];[['Первое касание','01',.06],['Интерес','02',.34],['Диагностика','03',.62],['Оплата','04',.9]].forEach(function(d){var tt=d[2],y=(1-2*tt)*2.15,rr=.1+Math.pow(1-tt,1.5)*1.75;HL.push({e:mk(d[0],'шаг '+d[1],'r'),st:1,v:new T.Vector3(rr,y*Math.cos(.22),-y*Math.sin(.22))})});
@@ -1752,7 +1761,7 @@ var M=0,Q=SHOT[0].slice(),t0=performance.now(),last=t0,mx=0,my=0,smx=0,smy=0,pre
  if(prevM<4.5&&M>=4.5){fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go')}prevM=M;
  var s0=SHOT[i0],s1=SHOT[i1];for(var j=0;j<6;j++){var v=s0[j]+(s1[j]-s0[j])*fr;if(mob){if(j===0)v=0;if(j===1)v*=.6;if(j===2)v*=(p<.5?.58:.62)}Q[j]+=(v-Q[j])*(1-Math.exp(-dt*5))}
  smx+=(mx-smx)*.05;smy+=(my-smy)*.05;
- pts.position.set(Q[0]+smx*.12,Q[1]-smy*.08,0);pts.scale.setScalar(Q[2]);pts.rotation.set(Q[3]+smy*.12,Q[4]+smx*.2,Q[5]);
+ pts.position.set(Q[0]+smx*.12,Q[1]-smy*.08,0);pts.scale.setScalar(Q[2]);pts.rotation.set(Q[3]+smy*.12+Math.sin(t*.11)*.12,Q[4]+smx*.2+Math.sin(t*.07)*.38,Q[5]);U.F.value=6.2-pts.position.z;
  var w0=Math.max(0,1-M*1.4),wB=Math.max(0,1-Math.abs(M-4)*1.8),wG=Math.max(0,1-Math.abs(M-5)*1.8);
  arcs.forEach(function(l){l.material.uniforms.O.value=w0;l.visible=w0>.01});
  hole.material.opacity=wB;ringH.material.opacity=wB*(.8+.2*Math.sin(t*2.));gcore.material.opacity=wG*(.85+.15*Math.sin(t*1.4));orbs.forEach(function(l,j){l.material.opacity=wG*(.4-.08*j);l.rotation.z=t*(.04+.025*j)});
