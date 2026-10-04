@@ -1,374 +1,284 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#02030a">
-<title>Александр Комлев · Чтобы ваш продукт покупали</title>
+<meta name="theme-color" content="#d9d5cd">
+<title>Александр Комлев · Архитектор своего дела</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="preload" href="f/sofia-sans-semi-condensed-cyrillic-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="f/unbounded-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face{font-family:Sofia;font-weight:300;font-display:swap;src:url(f/sofia-sans-semi-condensed-cyrillic-300-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:Sofia;font-weight:300;font-display:swap;src:url(f/sofia-sans-semi-condensed-latin-300-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2190-2193,U+2212}
-@font-face{font-family:Sofia;font-weight:400;font-display:swap;src:url(f/sofia-sans-semi-condensed-cyrillic-400-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:Sofia;font-weight:400;font-display:swap;src:url(f/sofia-sans-semi-condensed-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2190-2193,U+2212}
+@font-face{font-family:Unb;font-weight:500;font-display:swap;src:url(f/unbounded-cyrillic-500-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unb;font-weight:500;font-display:swap;src:url(f/unbounded-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2190-2193,U+2212}
 @font-face{font-family:Onest;font-weight:400;font-display:swap;src:url(f/onest-cyrillic-400-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 @font-face{font-family:Onest;font-weight:400;font-display:swap;src:url(f/onest-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2190-2193,U+2212}
-@font-face{font-family:Onest;font-weight:500;font-display:swap;src:url(f/onest-cyrillic-500-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:Onest;font-weight:500;font-display:swap;src:url(f/onest-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2190-2193,U+2212}
+@font-face{font-family:Onest;font-weight:600;font-display:swap;src:url(f/onest-cyrillic-600-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Onest;font-weight:600;font-display:swap;src:url(f/onest-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+20BD,U+2190-2193,U+2212}
 
 #allrecords{overflow:visible!important}
-:root{color-scheme:dark;
-  --bg:#02030a;--ink:#f1f4ff;--mut:rgba(214,224,255,.68);--dim:rgba(190,205,255,.42);
-  --line:rgba(140,172,255,.2);--glass:rgba(10,16,46,.42);
-  --a:#7db4ff;--a2:#9c8bff;--hot:#ff7a66;
-  --disp:Sofia,"Arial Narrow",system-ui,sans-serif;--sans:Onest,system-ui,-apple-system,"Segoe UI",sans-serif;
-  --e:cubic-bezier(.16,.84,.24,1)}
+:root{--bg:#d9d5cd;--ink:#0b1022;--mut:rgba(11,16,34,.66);--dim:rgba(11,16,34,.42);--line:rgba(11,16,34,.16);--card:rgba(255,255,255,.6);--a:#1f3bff;
+  --disp:Unb,"Arial Black",system-ui,sans-serif;--sans:Onest,system-ui,-apple-system,"Segoe UI",sans-serif;--e:cubic-bezier(.16,.84,.24,1)}
+body.night{--ink:#f4f6ff;--mut:rgba(226,232,255,.74);--dim:rgba(210,220,255,.46);--line:rgba(190,205,255,.22);--card:rgba(8,14,40,.55);--a:#8fb0ff}
 *{box-sizing:border-box}
 html{background:var(--bg);-webkit-text-size-adjust:100%}
-body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#0a1238 0%,#02030a 60%) fixed var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip;transition:color .8s}
 h1,h2,h3,p,ul,figure{margin:0}ul{padding:0;list-style:none}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-img{display:block;max-width:100%}
-[hidden]{display:none!important}
+img{display:block;max-width:100%}[hidden]{display:none!important}
 
-/* ---------- сцена ---------- */
-#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
-.vig{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(130% 100% at 50% 45%,transparent 45%,rgba(2,3,10,.72) 100%)}
-.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* фильм */
+#film{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;background:var(--bg)}
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:#050a1e;opacity:0;transition:opacity .9s var(--e)}
+.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.05;mix-blend-mode:multiply;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
-/* ---------- вход ---------- */
-.intro{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;transition:opacity 1.1s var(--e),visibility 0s 1.1s}
-.intro p{font:400 11px/1 var(--sans);letter-spacing:.42em;text-transform:uppercase;color:var(--dim);padding-left:.42em}
-.intro i{display:block;width:120px;height:1px;margin:18px auto 0;background:var(--line);position:relative;overflow:hidden}
-.intro i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--a),#fff);transform:translateX(-100%);animation:ld 1.3s var(--e) forwards}
-@keyframes ld{to{transform:none}}
+.intro{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;transition:opacity 1s var(--e),visibility 0s 1s}
+.intro p{font:500 12px/1 var(--disp);letter-spacing:.3em;text-transform:uppercase;color:#0b1022}
+.intro i{display:block;width:150px;height:2px;margin:18px auto 0;background:rgba(11,16,34,.14);overflow:hidden}
+.intro i b{display:block;height:100%;background:#1f3bff;transform-origin:0 50%;transform:scaleX(0);transition:transform .3s}
 .ready .intro{opacity:0;visibility:hidden}
 
-/* ---------- шапка ---------- */
-.nav{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));z-index:30;transform:translate(-50%,-140%);display:flex;align-items:center;gap:26px;padding:7px 7px 7px 20px;border:1px solid var(--line);border-radius:99px;background:rgba(6,10,30,.55);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);transition:transform 1.2s var(--e) .5s;white-space:nowrap}
+/* шапка */
+.nav{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));z-index:30;transform:translate(-50%,-150%);display:flex;align-items:center;gap:26px;padding:7px 7px 7px 20px;border:1px solid var(--line);border-radius:99px;background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);transition:transform 1.1s var(--e) .3s,background .8s,border-color .8s;white-space:nowrap}
 .ready .nav{transform:translate(-50%,0)}
-.logo{display:flex;align-items:center;gap:9px;font:400 15px/1 var(--disp);letter-spacing:.14em;text-transform:uppercase}
-.logo i{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 12px 3px var(--a)}
-.nav nav{display:flex;gap:22px;font-size:13px;color:var(--mut)}
-.nav nav a{transition:color .3s}.nav nav a:hover,.nav nav a.on{color:#fff}
-.pill{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:99px;border:1px solid rgba(190,210,255,.5);font:500 13px/1 var(--sans);transition:background .4s,color .4s,border-color .4s}
-.pill:hover{background:#fff;color:#050818;border-color:#fff}
-.prog{position:fixed;left:0;top:0;height:2px;width:100%;z-index:31;background:linear-gradient(90deg,var(--a2),var(--a),#fff);transform-origin:0 50%;transform:scaleX(0)}
-.count{position:fixed;left:max(22px,2vw);bottom:22px;z-index:20;font:400 11px/1 var(--sans);letter-spacing:.3em;color:var(--dim);text-transform:uppercase;opacity:0;transition:opacity 1s 1.4s}
-.ready .count{opacity:1}.count b{font-weight:400;color:#fff}
+.logo{font:500 12px/1 var(--disp);letter-spacing:.12em;text-transform:uppercase}
+.nav nav{display:flex;gap:22px;font-size:13px;color:var(--mut)}.nav nav a:hover,.nav nav a.on{color:var(--ink)}
+.pill{padding:10px 16px;border-radius:99px;background:var(--ink);color:var(--bg);font:600 13px/1 var(--sans);transition:background .8s,color .8s,transform .4s var(--e)}
+body.night .pill{color:#0b1022}.pill:hover{transform:scale(1.04)}
+.prog{position:fixed;left:0;top:0;height:3px;width:100%;z-index:31;background:var(--a);transform-origin:0 50%;transform:scaleX(0)}
+.count{position:fixed;left:max(22px,2vw);bottom:22px;z-index:20;font:500 10px/1 var(--disp);letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
 
-/* ---------- общее ---------- */
 main{position:relative;z-index:5}
-section{position:relative;overflow-x:clip;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:110px 0 90px}
-.wrap{width:min(1240px,100% - 48px);margin:0 auto}
-.k{display:flex;align-items:center;gap:12px;font:400 11px/1.3 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
-.k::before{content:"";width:26px;height:1px;background:currentColor;opacity:.6}
-.h{font:300 clamp(38px,5.4vw,84px)/1 var(--disp);letter-spacing:-.022em;margin-top:20px;text-wrap:balance}
-.gdw{background:linear-gradient(100deg,#9cc8ff 0%,#b9a8ff 60%,#ff9a86 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{font-size:clamp(16px,1.25vw,19px);color:var(--mut);max-width:46ch;margin-top:22px}
-.q{font:300 clamp(20px,1.9vw,28px)/1.25 var(--disp);color:#fff;max-width:34ch}
-.gl{font-weight:500;color:#fff}
-.txt{text-shadow:0 2px 26px rgba(2,3,10,.9)}
+section{position:relative;min-height:140vh;display:flex;align-items:center;overflow-x:clip;padding:16vh 0}
+.wrap{width:min(1320px,100% - 64px);margin:0 auto;display:flex}
+.pn{width:min(450px,100%);padding:28px 28px 30px;border-radius:24px;background:var(--card);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);border:1px solid var(--line);transition:background .8s,border-color .8s}
+.cases .pn,.more .pn{background:none;border:0;padding:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.R{justify-content:flex-end}
+.k{font:500 10px/1.4 var(--disp);letter-spacing:.22em;text-transform:uppercase;color:var(--a)}
+.h{font:500 clamp(28px,3.1vw,50px)/1.08 var(--disp);letter-spacing:-.02em;margin-top:18px;text-transform:uppercase;text-wrap:balance}
+.h .gd{color:var(--dim)}
+.lead{font-size:clamp(16px,1.2vw,18px);color:var(--mut);margin-top:20px;max-width:40ch}
+.q{font:600 clamp(17px,1.35vw,21px)/1.35 var(--sans);margin-top:26px;max-width:32ch}
+.gl{font-weight:600;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:8px 26px 8px 8px;border-radius:99px;background:var(--ink);color:var(--bg);font:600 15px/1 var(--sans);transition:transform .45s var(--e),background .8s,color .8s}
+body.night .btn{color:#0b1022}
+.btn i{width:40px;height:40px;border-radius:50%;background:var(--a);color:#fff;display:grid;place-items:center;transition:transform .5s var(--e)}
+.btn svg{width:15px;height:15px}.btn:hover{transform:translateY(-2px)}.btn:hover i{transform:rotate(45deg)}
+.btn.sm{padding:12px 20px;background:none;color:var(--ink);border:1px solid var(--line);font-size:14px}body.night .btn.sm{color:var(--ink)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 
-.btn{display:inline-flex;align-items:center;gap:14px;padding:8px 24px 8px 8px;border-radius:99px;border:1px solid rgba(200,216,255,.55);font:500 15px/1 var(--sans);background:rgba(8,12,36,.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:background .45s var(--e),color .45s,border-color .45s,transform .45s var(--e)}
-.btn i{width:38px;height:38px;border-radius:50%;background:#fff;color:#050818;display:grid;place-items:center;transition:transform .5s var(--e)}
-.btn svg{width:15px;height:15px}
-.btn:hover{background:#fff;color:#050818;border-color:#fff}.btn:hover i{transform:rotate(45deg);background:#050818;color:#fff}
-.btn.sm{padding:11px 20px;font-size:14px}
-.btns{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+/* появление */
+.pn>*{opacity:0;transform:translateY(22px);transition:opacity .9s var(--e),transform .9s var(--e)}
+.in .pn>*{opacity:1;transform:none}
+.in .pn>*:nth-child(2){transition-delay:.1s}.in .pn>*:nth-child(3){transition-delay:.2s}.in .pn>*:nth-child(4){transition-delay:.3s}.in .pn>*:nth-child(5){transition-delay:.4s}.in .pn>*:nth-child(6){transition-delay:.5s}
 
-/* появление: у каждой главы своё */
-.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
-.w>span{display:inline-block;transform:translateY(105%) rotate(4deg);transform-origin:0 100%;transition:transform 1.1s var(--e);transition-delay:calc(var(--i)*55ms)}
-.in .w>span{transform:none}
-.fd{opacity:0;filter:blur(10px);transform:translateY(14px);transition:opacity 1s var(--e),filter 1s var(--e),transform 1s var(--e);transition-delay:calc(var(--d,0)*1ms)}
-.in .fd{opacity:1;filter:none;transform:none}
+/* первый экран */
+.hero{min-height:150vh;align-items:flex-start;padding-top:0}
+.hero .st{position:sticky;top:0;height:100vh;height:100svh;width:100%;display:flex;flex-direction:column;justify-content:space-between;padding:110px 0 54px}
+.hero .wrap{display:block}
+.hero h1{font:500 clamp(34px,5.3vw,92px)/1.02 var(--disp);letter-spacing:-.03em;text-transform:uppercase;max-width:11em}
+.hero h1 span{color:var(--a)}
+.hero .bt{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.hero .lead{margin-top:0;max-width:34ch}
+.scroll{font:500 10px/1 var(--disp);letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
 
-/* ---------- 0. первый экран ---------- */
-.hero{justify-content:center;text-align:center;padding:90px 0 60px}
-.hero .in0{width:min(640px,100% - 40px);margin:0 auto;display:flex;flex-direction:column;align-items:center}
-.hero .k{justify-content:center}.hero .k::after{content:"";width:26px;height:1px;background:currentColor;opacity:.6}
-.hero h1{font:300 clamp(31px,3.7vw,56px)/1.03 var(--disp);letter-spacing:-.022em;margin-top:22px;text-wrap:balance}
-.hero .lead{margin:20px auto 0;max-width:40ch;font-size:clamp(15px,1.1vw,17px)}
-.hero .btns{justify-content:center;margin-top:28px}
-.hero::before{content:"";position:absolute;left:50%;top:50%;width:min(860px,120vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(2,3,12,.86) 0%,rgba(2,3,12,.6) 62%,transparent 86%);pointer-events:none}
-.hero .in0{position:relative}
-.scroll{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font:400 10px/1 var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:10px}
-.scroll::after{content:"";width:1px;height:34px;background:linear-gradient(#fff,transparent);animation:sc 2.2s var(--e) infinite;transform-origin:50% 0}
-@keyframes sc{0%{transform:scaleY(0)}55%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+.rows{margin-top:26px;border-top:1px solid var(--line)}
+.row{padding:14px 0;border-bottom:1px solid var(--line)}
+.row .t{font:600 17px/1.2 var(--sans)}.row .t.strike{text-decoration:line-through;text-decoration-color:var(--a);text-decoration-thickness:2px;color:var(--mut)}
+.row .d{font-size:14.5px;color:var(--mut);margin-top:4px}
 
-/* ---------- 1. пробовали ---------- */
-.two{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center}
-.rows{margin-top:38px;border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:22px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);position:relative;opacity:0;transform:translateX(-26px);transition:opacity .9s var(--e),transform .9s var(--e);transition-delay:calc(var(--i)*110ms + 250ms)}
-.in .row{opacity:1;transform:none}
-.row .t{font:300 clamp(22px,2vw,30px)/1.1 var(--disp);position:relative;justify-self:start}
-.row .t.strike{color:var(--mut)}
-.row .t.strike::after{content:"";position:absolute;left:-4px;right:-4px;top:54%;height:1px;background:var(--hot);box-shadow:0 0 10px var(--hot);transform:scaleX(0);transform-origin:0 50%;transition:transform .8s var(--e);transition-delay:calc(var(--i)*110ms + 900ms)}
-.in .row .t.strike::after{transform:none}
-.row .d{font-size:15px;color:var(--mut)}
-.row .n{font:400 11px/1 var(--sans);letter-spacing:.2em;color:var(--a);position:absolute;right:0;top:22px}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
+.nums div{padding:16px 16px 14px;border-radius:14px;background:var(--card);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--line)}
+.nums b{display:block;font:500 clamp(24px,2.3vw,34px)/1 var(--disp);letter-spacing:-.02em}
+.nums b em{font:400 12px/1 var(--sans);font-style:normal;color:var(--mut);margin-left:6px}
+.nums span{display:block;font-size:12px;color:var(--mut);margin-top:9px}
+.nums .neg b{color:#c63a1f}
 
-/* ---------- 2. история: спираль и стеклянные карточки ---------- */
-.story .wrap{position:relative;min-height:min(640px,74vh);display:flex;flex-direction:column;justify-content:space-between}
-.story .q{margin-top:30px}.story .h{max-width:5.4em}
-.cards{position:absolute;inset:0;pointer-events:none;perspective:1100px}
-.gc{position:absolute;width:232px;padding:18px 20px 16px;border:1px solid rgba(160,190,255,.28);border-radius:14px;background:linear-gradient(140deg,rgba(26,40,110,.42),rgba(6,10,34,.5));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 30px 70px -20px rgba(40,90,255,.45),inset 0 1px 0 rgba(255,255,255,.14);
-  opacity:0;transform:translate3d(0,0,-420px) rotateY(var(--ry)) rotateX(var(--rx));transition:opacity 1.2s var(--e),transform 1.5s var(--e);transition-delay:calc(var(--i)*140ms + 300ms)}
-.in .gc{opacity:1;transform:translate3d(calc(var(--mx,0)*var(--p)*1px),calc(var(--my,0)*var(--p)*1px),0) rotateY(calc(var(--ry) + var(--mx,0)*5deg)) rotateX(calc(var(--rx) - var(--my,0)*5deg))}
-.gc small{display:flex;align-items:center;gap:8px;font:400 10px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
-.gc small::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--a);box-shadow:0 0 8px var(--a)}
-.gc b{display:block;font:300 46px/1 var(--disp);letter-spacing:-.02em;margin-top:12px}
-.gc b em{font:400 14px/1 var(--sans);font-style:normal;color:var(--mut);margin-left:6px;letter-spacing:0}
-.gc u{display:block;height:2px;margin-top:14px;background:rgba(160,190,255,.18);border-radius:2px;overflow:hidden;text-decoration:none}
-.gc u::after{content:"";display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--a2),var(--a),#fff);transform:scaleX(0);transform-origin:0 50%;transition:transform 1.6s var(--e) 1s}
-.in .gc u::after{transform:none}
-.gc.neg b{color:#ffb1a4}.gc.neg small::before{background:var(--hot);box-shadow:0 0 8px var(--hot)}.gc.neg u::after{background:linear-gradient(90deg,#ff5a48,#ffb1a4)}
-.g1{left:49%;top:0;--ry:22deg;--rx:6deg;--p:14}
-.g2{right:0;top:20%;--ry:-24deg;--rx:4deg;--p:-22}
-.g3{left:40%;bottom:10%;--ry:26deg;--rx:-6deg;--p:26}
-.g4{right:3%;bottom:0;--ry:-20deg;--rx:-5deg;--p:-12}
+/* пять частей: экран держится, здание растёт */
+.sys{min-height:420vh;align-items:flex-start;padding:0}
+.sys .st{position:sticky;top:0;height:100vh;height:100svh;width:100%;display:flex;align-items:center}
+.steps{margin-top:24px;display:grid;gap:2px}
+.step{display:grid;grid-template-columns:40px 1fr;gap:6px;padding:12px 0;border-top:1px solid var(--line);opacity:.34;transition:opacity .5s}
+.step.on{opacity:1}
+.step .n{font:500 11px/1.9 var(--disp);color:var(--a)}
+.step .t{font:600 18px/1.2 var(--sans)}
+.step .d{grid-column:2;font-size:14px;color:var(--mut);max-height:0;overflow:hidden;transition:max-height .6s var(--e),margin .6s}
+.step.on .d{max-height:90px;margin-top:4px}
 
-/* ---------- 3. система ---------- */
-.sys .two{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
-.sys .col{grid-column:2}
-.sys .row{grid-template-columns:44px minmax(0,.7fr) minmax(0,1.3fr);transform:translateX(26px)}
-.sys.in .row{transform:none}.sys .row .n{position:static}.sys{padding:96px 0 50px}.sys .row{padding:14px 0}.sys .rows{margin-top:26px}.sys .h{font-size:clamp(38px,4.6vw,72px)}
+.path{margin-top:24px;display:grid;gap:0;padding-left:22px;position:relative}
+.path::before{content:"";position:absolute;left:4px;top:8px;bottom:8px;width:2px;background:var(--a)}
+.ps{position:relative;padding:0 0 16px}.ps::before{content:"";position:absolute;left:-23px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--a)}
+.ps .ct{font:600 16.5px/1.2 var(--sans)}.ps .cd{font-size:14px;color:var(--mut);margin-top:3px}
 
-/* ---------- 4. путь ---------- */
-.pth{align-items:flex-start;padding-top:130px}
-.path{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:26px;margin-top:54px;position:relative}
-.path::before{content:"";position:absolute;left:0;right:0;top:5px;height:1px;background:linear-gradient(90deg,var(--a),var(--a2),var(--hot));transform:scaleX(0);transform-origin:0 50%;transition:transform 2s var(--e) .3s}
-.in .path::before{transform:none}
-.st{padding-top:30px;position:relative;opacity:0;transform:translateY(-16px);transition:opacity .9s var(--e),transform .9s var(--e);transition-delay:calc(var(--i)*260ms + 450ms)}
-.in .st{opacity:1;transform:none}
-.st::before{content:"";position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(125,180,255,.18),0 0 18px 4px var(--a)}
-.st .n{font:400 11px/1 var(--sans);letter-spacing:.24em;color:var(--a)}
-.st .ct{font:300 clamp(21px,1.8vw,27px)/1.1 var(--disp);margin-top:10px}
-.st .cd{font-size:14px;color:var(--mut);margin-top:10px}
+.who .ph{display:flex;align-items:center;gap:16px;margin-top:22px}
+.who .ph img{width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:50% 22%;border:2px solid var(--a)}
+.who .ph p{font-size:14px;color:var(--mut)}
 
-/* ---------- 5. кто ведёт ---------- */
-.who .two{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:70px}
-.frame{position:relative;border-radius:240px 240px 18px 18px;overflow:hidden;border:1px solid rgba(160,190,255,.3);box-shadow:0 50px 120px -30px rgba(40,90,255,.6);clip-path:inset(100% 0 0 0 round 240px 240px 18px 18px);transition:clip-path 1.6s var(--e) .2s}
-.in .frame{clip-path:inset(0 0 0 0 round 240px 240px 18px 18px)}
-.frame img{width:100%;aspect-ratio:.84;object-fit:cover;transform:scale(1.18);transition:transform 2.4s var(--e) .2s}
-.in .frame img{transform:none}
-.frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(2,3,12,.75))}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:34px;border-top:1px solid var(--line);padding-top:22px}
-.stats b{display:block;font:300 clamp(34px,3.4vw,54px)/1 var(--disp);letter-spacing:-.02em}
-.stats span{display:block;font-size:13px;color:var(--mut);margin-top:8px}
-
-/* ---------- 6. кейсы ---------- */
-.cases{display:block}
-.crail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:44px;perspective:1400px}
-.cc{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--glass);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;transform:translate3d(0,40px,-300px) rotateX(14deg);transition:opacity 1.1s var(--e),transform 1.3s var(--e),border-color .4s;transition-delay:calc(var(--i)*120ms + 200ms)}
+/* кейсы — уже вечер */
+.cases,.more{display:block;min-height:0;padding:14vh 0 10vh}
+.cases .wrap,.more .wrap{display:block}
+.crail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:38px}
+.cc{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transform:translateY(40px);transition:opacity 1s var(--e),transform 1s var(--e);transition-delay:calc(var(--i)*110ms)}
 .in .cc{opacity:1;transform:none}
-.cc:hover{border-color:rgba(170,200,255,.6)}
-.cc .ph{position:relative;aspect-ratio:.86;overflow:hidden}
-.cc .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;transition:transform 1.4s var(--e)}
-.cc:hover .ph img{transform:scale(1.05)}
-.cc .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(4,7,24,.94))}
-.cc .kg{position:absolute;left:18px;bottom:14px;z-index:1;font:300 40px/1 var(--disp);letter-spacing:-.02em}
-.cc .bd{padding:16px 18px 20px}
-.cn{font:400 19px/1.15 var(--disp);letter-spacing:.01em}.cr{font-size:12px;color:var(--dim);margin-top:4px}
-.wins{margin-top:14px;display:grid;gap:7px;font-size:13.5px;color:var(--mut)}
-.wins li{padding-left:14px;position:relative}.wins li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:1px;background:var(--a)}
+.cc .im{position:relative;aspect-ratio:.9;overflow:hidden}
+.cc .im img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+.cc .im::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(5,9,28,.92))}
+.cc .kg{position:absolute;left:16px;bottom:12px;z-index:1;font:500 24px/1 var(--disp);color:#fff}
+.cc .bd{padding:14px 16px 18px}
+.cn{font:600 17px/1.2 var(--sans)}.cr{font-size:12px;color:var(--dim);margin-top:3px}
+.wins{margin-top:12px;display:grid;gap:6px;font-size:13.5px;color:var(--mut)}
+.kr{margin-top:34px;display:grid;gap:14px;overflow:hidden;padding:4px 0}
+.krow{display:flex;gap:14px;width:max-content;animation:mq var(--dur) linear infinite}.krow.rev{animation-direction:reverse}.kr:hover .krow{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.kc{flex:none;width:clamp(260px,25vw,370px);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.kc img{width:100%;aspect-ratio:737/364;object-fit:cover}
+.note{font-size:12px;color:var(--dim);margin-top:18px}
 .swh{display:none}
 
-/* ---------- 7. ещё 19 ---------- */
-.more{display:block}
-.kr{margin-top:40px;display:grid;gap:14px;overflow:hidden;padding:6px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.krow{display:flex;gap:14px;width:max-content;animation:mq var(--dur) linear infinite}
-.krow.rev{animation-direction:reverse}.kr:hover .krow{animation-play-state:paused}
-@keyframes mq{to{transform:translateX(-50%)}}
-.kc{flex:none;width:clamp(260px,26vw,380px);border-radius:12px;overflow:hidden;border:1px solid var(--line);opacity:.9;transition:opacity .3s,border-color .3s,transform .5s var(--e)}
-.kc:hover{opacity:1;border-color:rgba(170,200,255,.7);transform:translateY(-4px)}
-.kc img{width:100%;aspect-ratio:737/364;object-fit:cover}
-.note{font-size:12px;color:var(--dim);margin-top:20px}
+.fin{min-height:130vh;align-items:flex-end;padding-bottom:0;display:block}
+.fin .st{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end}
+.fin .wrap{padding-bottom:50px}
+.fin .h{font-size:clamp(30px,3.6vw,60px)}
+.lnote{font-size:13px;color:var(--dim);margin-top:18px}
+.foot{display:flex;flex-wrap:wrap;gap:8px 22px;padding:20px 32px calc(22px + env(safe-area-inset-bottom));border-top:1px solid var(--line);font-size:12px;color:var(--dim);background:rgba(5,9,28,.6)}
 
-/* ---------- 8–9. финал ---------- */
-.hole{justify-content:center;text-align:center}
-.hole .h{font-size:clamp(28px,3.3vw,50px);max-width:11em;margin:0 auto}
-.fin{flex-direction:column;justify-content:flex-end;text-align:center;padding-bottom:0}
-.fin .in0{width:min(680px,100% - 40px);margin:auto auto 0;padding-top:46vh}
-.fin .h{margin-top:0}
-.fin .lead{margin:18px auto 0}
-.fin .btns{justify-content:center;margin-top:30px}
-.lnote{font-size:13px;color:var(--dim);margin-top:20px}
-.foot{width:100%;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:70px;padding:22px 24px calc(24px + env(safe-area-inset-bottom));border-top:1px solid var(--line);font-size:12px;color:var(--dim);background:linear-gradient(transparent,rgba(2,3,10,.7))}
-.foot a:hover{color:#fff}
+.ck{position:fixed;left:50%;bottom:16px;z-index:40;transform:translateX(-50%);width:min(560px,100% - 28px);display:flex;align-items:center;gap:16px;padding:12px 14px 12px 18px;border-radius:14px;background:rgba(10,14,36,.92);color:rgba(230,236,255,.8);font-size:12.5px}
+.ck a{text-decoration:underline}.ck button{flex:none;padding:9px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.3);color:#fff}
+.lbx{position:fixed;inset:0;z-index:60;background:rgba(2,3,10,.92);display:grid;place-items:center;padding:20px;cursor:zoom-out}
+.lbx img{max-width:min(1100px,100%);max-height:86vh;border-radius:12px}
+.lbx button{position:absolute;right:18px;top:14px;font-size:34px;line-height:1;color:#fff}
 
-.ck{position:fixed;left:50%;bottom:16px;z-index:40;transform:translateX(-50%);width:min(560px,100% - 28px);display:flex;align-items:center;gap:16px;padding:12px 14px 12px 18px;border:1px solid var(--line);border-radius:14px;background:rgba(6,10,30,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);font-size:12.5px;color:var(--mut)}
-.ck a{text-decoration:underline}.ck button{flex:none;padding:9px 14px;border-radius:99px;border:1px solid var(--line);color:#fff}
-.lbx{position:fixed;inset:0;z-index:60;background:rgba(2,3,10,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:grid;place-items:center;padding:20px;cursor:zoom-out}
-.lbx img{max-width:min(1100px,100%);max-height:86vh;border-radius:12px;border:1px solid var(--line)}
-.lbx button{position:absolute;right:18px;top:14px;font-size:34px;line-height:1}
-
-/* ---------- телефон ---------- */
 @media (max-width:860px){
-  section{padding:96px 0 70px}
-  .wrap{width:calc(100% - 40px)}
-  .nav{gap:14px;padding:6px 6px 6px 16px}.nav nav{display:none}
-  .count{display:none}
-  .h{font-size:clamp(36px,10.4vw,54px)}
-  .two,.who .two,.sys .two{grid-template-columns:minmax(0,1fr);gap:30px}
-  .sys .col{grid-column:1}
-  .hero h1{font-size:clamp(29px,8.3vw,40px)}
-  .hero .lead{font-size:15px}
-  .hero::before{width:132vw}
-  .row{grid-template-columns:minmax(0,1fr);gap:6px;padding:15px 0}
-  .sys .row{grid-template-columns:34px minmax(0,1fr)}.sys .row .d{grid-column:2}
-  .story .wrap{min-height:0;display:block}.story .h{max-width:4.2em}
-  .cards{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:38vh;perspective:900px}
-  .gc{position:static;width:auto;padding:14px 14px 13px;--ry:0deg;--rx:10deg}
-  .gc b{font-size:34px}.gc b em{display:block;margin:6px 0 0;font-size:12px}
-  .pth{padding-top:96px}
-  .path{grid-template-columns:minmax(0,1fr);gap:0;margin-top:34px;padding-left:26px}
-  .path::before{left:5px;right:auto;top:6px;bottom:6px;width:1px;height:auto;background:linear-gradient(var(--a),var(--a2),var(--hot));transform:scaleY(0);transform-origin:50% 0}
-  .st{padding:0 0 22px}.st::before{left:-26px;top:2px}
-  .frame{max-width:300px;margin:0 auto}
-  .stats{gap:12px}.stats span{font-size:12px}
-  .crail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:34px -20px 0;padding:0 20px 6px;scrollbar-width:none;perspective:none}
-  .crail::-webkit-scrollbar{display:none}
-  .cc{flex:none;width:76vw;scroll-snap-align:center;transform:translateY(30px)}
-  .swh{display:block;margin-top:14px;font:400 10px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);text-align:center}
-  .kc{width:72vw}
-  .hole .h{font-size:clamp(25px,7.2vw,34px);max-width:9.4em}
-  .fin .in0{padding-top:40vh}
-  .foot{margin-top:50px}
+  .wrap{width:calc(100% - 32px)}
+  .nav{gap:14px;padding:6px 6px 6px 16px}.nav nav{display:none}.count{display:none}
+  section{min-height:150vh;align-items:flex-end;padding:0 0 9vh}
+  .pn{width:100%;padding:22px 20px 24px;border-radius:22px}
+  .h{font-size:clamp(22px,6.4vw,30px)}
+  .hero .st{padding:92px 0 30px}
+  .hero h1{font-size:clamp(30px,9.4vw,44px)}
+  .hero .bt{flex-direction:column;align-items:flex-start;gap:18px}.scroll{display:none}
+  .hero .bt>div{padding:18px 18px 20px;border-radius:22px;background:var(--card);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid var(--line);width:100%}
+  .sys .st{align-items:flex-end;padding-bottom:5vh}
+  .cases,.more{padding:10vh 0 8vh}
+  .crail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:28px -16px 0;padding:0 16px 6px;scrollbar-width:none}.crail::-webkit-scrollbar{display:none}
+  .cc{flex:none;width:76vw;scroll-snap-align:center}
+  .swh{display:block;margin-top:12px;font:500 9px/1 var(--disp);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:center}
+  .kc{width:74vw}
+  .fin .wrap{padding-bottom:24px}.foot{padding:18px 16px 22px}
 }
 </style>
 </head><body>
-<canvas id="gl" aria-hidden="true"></canvas>
-<div class="vig" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
-<div class="intro" aria-hidden="true"><div><p>komlev</p><i></i></div></div>
+<canvas id="film" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+<div class="intro" aria-hidden="true"><div><p>komlev</p><i><b></b></i></div></div>
 <div class="prog" aria-hidden="true"></div>
 
 <header class="nav">
-  <a class="logo" href="#top"><i></i>komlev</a>
+  <a class="logo" href="#top">komlev</a>
   <nav aria-label="Главы"><a href="#story">История</a><a href="#system">Система</a><a href="#path">Путь клиента</a><a href="#cases">Кейсы</a></nav>
   <a class="pill" data-link="telegram">Диагностика</a>
 </header>
-<p class="count" aria-hidden="true"><b id="cn">01</b> / 10 · <span id="cl">Начало</span></p>
+<p class="count" aria-hidden="true"><span id="cn">01</span> / 08 · <span id="cl">Чертёж</span></p>
 
 <main id="top">
 
-<section class="hero" data-name="Начало">
-  <div class="in0 txt">
-    <p class="k fd">Александр Комлев · эксперт в области продаж</p>
-    <h1 data-split>Глупо делать одни и те же действия, рассчитывая на другой результат.</h1>
-    <p class="lead fd" style="--d:500">Помогаю экспертам сделать так, чтобы их продукты <b class="gl">покупали</b>. Через уверенность, а не через очередную схему.</p>
-    <div class="btns fd" style="--d:700"><a class="btn" data-link="telegram"><i><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>Диагностика</a></div>
-  </div>
-  <p class="scroll" aria-hidden="true">Листайте</p>
-</section>
-
-<section data-name="Уже пробовали"><div class="wrap two txt">
-  <div>
-    <p class="k fd">01 — Уже пробовали</p>
-    <h2 class="h" data-split>Пробовали. <span class="gd">Не сработало</span></h2>
-    <div class="rows">
-      <div class="row" style="--i:0"><p class="t strike">Маркетолог</p><p class="d">Делал за вас и уходил. <b class="gl">А продаёте всё равно вы.</b></p></div>
-      <div class="row" style="--i:1"><p class="t strike">Рилсы и контент</p><p class="d">Без уверенности в себе и в своём продукте ничего не продаст. <b class="gl">Даже хорошие рилсы.</b></p></div>
-      <div class="row" style="--i:2"><p class="t strike">Другой наставник</p><p class="d">Дал схему и ушёл. Схема без уверенности не работает.</p></div>
-      <div class="row" style="--i:3"><p class="t strike">Новая схема</p><p class="d">Ещё одна. А результат прежний.</p></div>
+<section class="hero" data-name="Чертёж" data-f="2,40"><div class="st">
+  <div class="wrap"><h1>Вы — архитектор <span>своего дела</span></h1></div>
+  <div class="wrap"><div class="bt">
+    <div>
+      <p class="lead">Помогаю экспертам сделать так, чтобы их продукты <b class="gl">покупали</b>. Через уверенность, а не через очередную схему.</p>
+      <div class="btns"><a class="btn" data-link="telegram"><i><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>Диагностика</a></div>
     </div>
-    <p class="q fd" style="--d:900;margin-top:30px">И теперь сложно поверить, что сработает с кем-то ещё. Понимаю. Поэтому сначала диагностика.</p>
-  </div>
+    <p class="scroll">Листайте — линия начнёт строить</p>
+  </div></div>
 </div></section>
 
-<section class="story" id="story" data-name="Моя история"><div class="wrap txt">
-  <div>
-    <p class="k fd">02 — Моя история</p>
-    <h2 class="h" data-split>Я сам начинал <span class="gd">с минуса</span></h2>
+<section data-name="Уже пробовали" data-f="46"><div class="wrap"><div class="pn">
+  <p class="k">01 — Уже пробовали</p>
+  <h2 class="h">Пробовали. <span class="gd">Не сработало</span></h2>
+  <div class="rows">
+    <div class="row"><p class="t strike">Маркетолог</p><p class="d">Делал за вас и уходил. <b class="gl">А продаёте всё равно вы.</b></p></div>
+    <div class="row"><p class="t strike">Рилсы и контент</p><p class="d">Без уверенности в себе и в своём продукте ничего не продаст. <b class="gl">Даже хорошие рилсы.</b></p></div>
+    <div class="row"><p class="t strike">Другой наставник</p><p class="d">Дал схему и ушёл. Схема без уверенности не работает.</p></div>
+    <div class="row"><p class="t strike">Новая схема</p><p class="d">Ещё одна. А результат прежний.</p></div>
   </div>
-  <div class="cards">
-    <div class="gc neg g1" style="--i:0;--w:34%"><small>Было</small><b>−2<em>млн ₽</em></b><u></u></div>
-    <div class="gc g2" style="--i:1;--w:92%"><small>Стало · без рекламы</small><b>+4<em>млн ₽</em></b><u></u></div>
-    <div class="gc g3" style="--i:2;--w:70%"><small>Лет в продажах</small><b>12</b><u></u></div>
-    <div class="gc g4" style="--i:3;--w:100%"><small>Заработали клиенты</small><b>100+<em>млн ₽</em></b><u></u></div>
-  </div>
-  <p class="q fd" style="--d:900">Поэтому здесь не схема. Здесь система, на которой держатся продажи.</p>
-</div></section>
+  <p class="q">И теперь сложно поверить, что сработает с кем-то ещё. Понимаю. Поэтому сначала диагностика.</p>
+</div></div></section>
 
-<section class="sys" id="system" data-name="Система"><div class="wrap two txt">
-  <div class="col">
-    <p class="k fd">03 — Что вы получаете</p>
-    <h2 class="h" data-split>Пять частей. <span class="gd">Одна система</span></h2>
-    <p class="lead fd" style="--d:400">Когда всё собрано, продажи держатся не на ваших силах. <b class="gl">На системе.</b></p>
-    <div class="rows">
-      <div class="row" style="--i:0"><span class="n">01</span><p class="t">Уверенность</p><p class="d">На встречах, в себе и в своём продукте. <b class="gl">С неё начинается всё остальное.</b></p></div>
-      <div class="row" style="--i:1"><span class="n">02</span><p class="t">Продукт</p><p class="d">Понятный. Клиент сам понимает, за что платит, <b class="gl">и платит дороже</b>.</p></div>
-      <div class="row" style="--i:2"><span class="n">03</span><p class="t">Путь клиента</p><p class="d">От первого касания до оплаты. Продажи на тёплую, <b class="gl">без дожима</b>.</p></div>
-      <div class="row" style="--i:3"><span class="n">04</span><p class="t">Запуски</p><p class="d">На ту аудиторию, что у вас уже есть. И стратегия привлечения новой.</p></div>
-      <div class="row" style="--i:4"><span class="n">05</span><p class="t">Стратегия</p><p class="d">От точки А до точки Б. Позиционирование, при котором <b class="gl">покупают те, кому вы хотите продавать</b>.</p></div>
-    </div>
+<section id="story" data-name="Моя история" data-f="60"><div class="wrap R"><div class="pn">
+  <p class="k">02 — Моя история</p>
+  <h2 class="h">Я сам начинал <span class="gd">с минуса</span></h2>
+  <div class="nums">
+    <div class="neg"><b>−2<em>млн ₽</em></b><span>Было</span></div>
+    <div><b>+4<em>млн ₽</em></b><span>Стало · без рекламы</span></div>
+    <div><b>12</b><span>Лет в продажах</span></div>
+    <div><b>100+<em>млн ₽</em></b><span>Заработали клиенты</span></div>
   </div>
-</div></section>
+  <p class="q">Поэтому здесь не схема. Здесь система, на которой держатся продажи.</p>
+</div></div></section>
 
-<section class="pth" id="path" data-name="Путь клиента"><div class="wrap txt">
-  <p class="k fd">04 — Путь клиента</p>
-  <h2 class="h" data-split>Ни один клиент <span class="gd">больше не теряется</span></h2>
-  <p class="q fd" style="--d:400;margin-top:20px">Тот, кто сказал «я подумаю», не пропадает.</p>
+<section class="sys" id="system" data-name="Система" data-f="64,136"><div class="st"><div class="wrap"><div class="pn">
+  <p class="k">03 — Что вы получаете</p>
+  <h2 class="h">Пять частей. <span class="gd">Одна система</span></h2>
+  <div class="steps">
+    <div class="step"><span class="n">01</span><p class="t">Уверенность</p><p class="d">На встречах, в себе и в своём продукте. С неё начинается всё остальное.</p></div>
+    <div class="step"><span class="n">02</span><p class="t">Продукт</p><p class="d">Понятный. Клиент сам понимает, за что платит, и платит дороже.</p></div>
+    <div class="step"><span class="n">03</span><p class="t">Путь клиента</p><p class="d">От первого касания до оплаты. Продажи на тёплую, без дожима.</p></div>
+    <div class="step"><span class="n">04</span><p class="t">Запуски</p><p class="d">На ту аудиторию, что у вас уже есть. И стратегия привлечения новой.</p></div>
+    <div class="step"><span class="n">05</span><p class="t">Стратегия</p><p class="d">От точки А до точки Б. Позиционирование, при котором покупают те, кому вы хотите продавать.</p></div>
+  </div>
+</div></div></div></section>
+
+<section id="path" data-name="Путь клиента" data-f="154"><div class="wrap R"><div class="pn">
+  <p class="k">04 — Путь клиента</p>
+  <h2 class="h">Ни один клиент <span class="gd">больше не теряется</span></h2>
   <div class="path">
-    <div class="st" style="--i:0"><span class="n">01</span><p class="ct">Первое касание</p><p class="cd">Контент и диалог. Человек приходит уже с интересом, а не «просто спросить».</p></div>
-    <div class="st" style="--i:1"><span class="n">02</span><p class="ct">Квалификация</p><p class="cd">Знаете запрос заранее. <b class="gl">На встречу приходят те, кому вы нужны.</b></p></div>
-    <div class="st" style="--i:2"><span class="n">03</span><p class="ct">Встреча</p><p class="cd">Уверенно, по сценарию. Цену называете спокойно, без «можно частями» на автомате.</p></div>
-    <div class="st" style="--i:3"><span class="n">04</span><p class="ct">«Я подумаю»</p><p class="cd">Не дожимаем. Человек остаётся в тёплой базе <b class="gl">и покупает на запуске</b>.</p></div>
-    <div class="st" style="--i:4"><span class="n">05</span><p class="ct">Оплата и продление</p><p class="cd">Без скидки «сразу». Дальше повторная покупка и продление.</p></div>
+    <div class="ps"><p class="ct">Первое касание</p><p class="cd">Человек приходит уже с интересом, а не «просто спросить».</p></div>
+    <div class="ps"><p class="ct">Квалификация</p><p class="cd">На встречу приходят те, кому вы нужны.</p></div>
+    <div class="ps"><p class="ct">Встреча</p><p class="cd">Уверенно, по сценарию. Цену называете спокойно.</p></div>
+    <div class="ps"><p class="ct">«Я подумаю»</p><p class="cd">Не дожимаем. Человек остаётся в тёплой базе и покупает на запуске.</p></div>
+    <div class="ps"><p class="ct">Оплата и продление</p><p class="cd">Без скидки «сразу». Дальше повторная покупка.</p></div>
   </div>
-</div></section>
+</div></div></section>
 
-<section class="who" data-name="Кто ведёт"><div class="wrap two txt">
-  <figure class="frame"><img width="750" height="816" src="me.webp" alt="Александр Комлев" loading="lazy"></figure>
-  <div>
-    <p class="k fd">05 — Кто ведёт</p>
-    <h2 class="h" data-split>Александр <span class="gd">Комлев</span></h2>
-    <p class="lead fd" style="--d:400">Эксперт в области продаж. Три месяца рядом: <b class="gl">дёргаю, настраиваю, пока не пойдёт.</b></p>
-    <div class="stats fd" style="--d:550"><div><b>12</b><span>лет в продажах</span></div><div><b>−2→+4</b><span>млн, мой путь без рекламы</span></div><div><b>100+</b><span>млн заработали клиенты</span></div></div>
-    <div class="btns fd" style="--d:700;margin-top:28px"><a class="btn sm" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY2NjkzMTI5OTY4MjU4?story_media_id=2413957420203862326&amp;igsh=dWV1MjlwdnFvcHYx" target="_blank" rel="noopener">Чеки клиентов*</a><a class="btn sm" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTgyNjY4OTcyMTE0MzI5?story_media_id=3156090925834601469&amp;igsh=a3JxczlqMG9oOHNl" target="_blank" rel="noopener">Отзывы*</a></div>
-    <p class="q fd" style="--d:850;margin-top:28px">Все, кто хочет расти, со мной продлеваются.</p>
-  </div>
-</div></section>
+<section class="who" data-name="Встреча" data-f="178"><div class="wrap"><div class="pn">
+  <p class="k">05 — Кто ведёт</p>
+  <h2 class="h">Александр <span class="gd">Комлев</span></h2>
+  <div class="ph"><img src="me.webp" alt="Александр Комлев" width="750" height="816" loading="lazy"><p>Эксперт в области продаж. Три месяца рядом: <b class="gl">дёргаю, настраиваю, пока не пойдёт.</b></p></div>
+  <div class="btns"><a class="btn sm" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY2NjkzMTI5OTY4MjU4?story_media_id=2413957420203862326&amp;igsh=dWV1MjlwdnFvcHYx" target="_blank" rel="noopener">Чеки клиентов*</a><a class="btn sm" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTgyNjY4OTcyMTE0MzI5?story_media_id=3156090925834601469&amp;igsh=a3JxczlqMG9oOHNl" target="_blank" rel="noopener">Отзывы*</a></div>
+  <p class="q">Все, кто хочет расти, со мной продлеваются.</p>
+</div></div></section>
 
-<section class="cases" id="cases" data-name="Кейсы"><div class="wrap txt">
-  <p class="k fd">06 — Кейсы</p>
-  <h2 class="h" data-split>«А что, так <span class="gd">можно было?»</span></h2>
+<section class="cases" id="cases" data-name="Кейсы" data-f="198" data-veil=".62"><div class="wrap"><div class="pn" style="width:100%">
+  <p class="k">06 — Кейсы</p>
+  <h2 class="h">«А что, так <span class="gd">можно было?»</span></h2>
+</div>
   <div class="crail">
-    <article class="cc" style="--i:0"><div class="ph"><img width="560" height="747" src="c/milky.webp" alt="Настя Milky" loading="lazy"><span class="kg">3,3 млн ₽</span></div><div class="bd"><h3 class="cn">Настя Milky</h3><p class="cr">Наставник бьюти-экспертов</p><ul class="wins"><li>Было <b class="gl">500 000 ₽</b>, нестабильный доход</li><li>Стало <b class="gl">3,3 млн ₽</b></li><li>За <b class="gl">8 недель</b> наставничества</li></ul></div></article>
-    <article class="cc" style="--i:1"><div class="ph"><img width="560" height="840" src="c/zelinskaya.webp" alt="Ирина Зелинская" loading="lazy"><span class="kg">4,9 млн ₽</span></div><div class="bd"><h3 class="cn">Ирина Зелинская</h3><p class="cr">Наставник, коуч</p><ul class="wins"><li>Было <b class="gl">250 000 ₽</b>, продажи от случая к случаю</li><li>Стало <b class="gl">4,9 млн ₽</b></li><li>Продажи <b class="gl">каждый месяц</b></li></ul></div></article>
-    <article class="cc" style="--i:2"><div class="ph"><img width="560" height="1013" src="c/emelyanova.webp" alt="Ира Емельянова" loading="lazy"><span class="kg">4,2 млн ₽</span></div><div class="bd"><h3 class="cn">Ира Емельянова</h3><p class="cr">Бизнес-коуч</p><ul class="wins"><li>Было: <b class="gl">низкий чек</b>, много работы за маленькие деньги</li><li>Стало <b class="gl">4,2 млн ₽</b></li><li>За <b class="gl">10 недель</b></li></ul></div></article>
-    <article class="cc" style="--i:3"><div class="ph"><img width="560" height="995" src="c/kuznetsova-s.webp" alt="Серафима Кузнецова" loading="lazy"><span class="kg">11 млн ₽</span></div><div class="bd"><h3 class="cn">Серафима Кузнецова</h3><p class="cr">Бизнес-наставник, коуч</p><ul class="wins"><li>Было <b class="gl">100 000 ₽</b>, страх поднимать стоимость</li><li>Стало <b class="gl">11 млн ₽</b></li><li>Средний чек вырос <b class="gl">в 10 раз</b></li></ul></div></article>
+    <article class="cc" style="--i:0"><div class="im"><img width="560" height="747" src="c/milky.webp" alt="Настя Milky" loading="lazy"><span class="kg">3,3 млн ₽</span></div><div class="bd"><h3 class="cn">Настя Milky</h3><p class="cr">Наставник бьюти-экспертов</p><ul class="wins"><li>Было <b class="gl">500 000 ₽</b>, нестабильный доход</li><li>Стало <b class="gl">3,3 млн ₽</b> за <b class="gl">8 недель</b></li></ul></div></article>
+    <article class="cc" style="--i:1"><div class="im"><img width="560" height="840" src="c/zelinskaya.webp" alt="Ирина Зелинская" loading="lazy"><span class="kg">4,9 млн ₽</span></div><div class="bd"><h3 class="cn">Ирина Зелинская</h3><p class="cr">Наставник, коуч</p><ul class="wins"><li>Было <b class="gl">250 000 ₽</b>, продажи от случая к случаю</li><li>Стало <b class="gl">4,9 млн ₽</b>, продажи каждый месяц</li></ul></div></article>
+    <article class="cc" style="--i:2"><div class="im"><img width="560" height="1013" src="c/emelyanova.webp" alt="Ира Емельянова" loading="lazy"><span class="kg">4,2 млн ₽</span></div><div class="bd"><h3 class="cn">Ира Емельянова</h3><p class="cr">Бизнес-коуч</p><ul class="wins"><li>Было: <b class="gl">низкий чек</b>, много работы за маленькие деньги</li><li>Стало <b class="gl">4,2 млн ₽</b> за <b class="gl">10 недель</b></li></ul></div></article>
+    <article class="cc" style="--i:3"><div class="im"><img width="560" height="995" src="c/kuznetsova-s.webp" alt="Серафима Кузнецова" loading="lazy"><span class="kg">11 млн ₽</span></div><div class="bd"><h3 class="cn">Серафима Кузнецова</h3><p class="cr">Бизнес-наставник, коуч</p><ul class="wins"><li>Было <b class="gl">100 000 ₽</b>, страх поднимать стоимость</li><li>Стало <b class="gl">11 млн ₽</b>, чек вырос <b class="gl">в 10 раз</b></li></ul></div></article>
   </div>
   <p class="swh" aria-hidden="true">листайте в сторону</p>
 </div></section>
 
-<section class="more" data-name="Ещё 19 историй">
-  <div class="wrap txt">
-    <p class="k fd">06 — Ещё 19 историй</p>
-    <h2 class="h" data-split>Найдите <span class="gd">похожую на свою</span></h2>
-    <p class="lead fd" style="--d:400">Нажмите на карточку, чтобы открыть её целиком.</p>
-  </div>
-  <div class="kr fd" style="--d:500" id="kr"></div>
-  <div class="wrap"><p class="note">*Инстаграм принадлежит Meta, признанной экстремистской организацией в РФ</p></div>
+<section class="more" data-name="Ещё 19 историй" data-f="204" data-veil=".62">
+  <div class="wrap"><div class="pn" style="width:100%">
+    <p class="k">Ещё 19 историй</p>
+    <h2 class="h">Найдите <span class="gd">похожую на свою</span></h2>
+  </div></div>
+  <div class="kr" id="kr"></div>
+  <div class="wrap"><p class="note">Нажмите на карточку, чтобы открыть её целиком. *Инстаграм принадлежит Meta, признанной экстремистской организацией в РФ</p></div>
 </section>
 
-<section class="hole" data-name="Развилка"><div class="wrap txt">
-  <h2 class="h" data-split>Можно ещё полгода <span class="gd">делать то же самое.</span></h2>
-</div></section>
-
-<section class="fin" data-name="Финал">
-  <div class="in0 txt">
-    <h2 class="h" data-split>А можно <span class="gd">написать.</span></h2>
-    <p class="lead fd" style="--d:400">Диагностика 30–40 минут в zoom. Вы уходите с пониманием, как сделать продажи в ближайшие две недели.</p>
-    <div class="btns fd" style="--d:600"><a class="btn" data-link="telegram"><i><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>Диагностика</a></div>
-    <p class="lnote fd" style="--d:750">30–40 минут в zoom · без презентаций · без прогревов · без дожима</p>
-  </div>
+<section class="fin" data-name="Вечер" data-f="210"><div class="st">
+  <div class="wrap"><div class="pn">
+    <h2 class="h">Можно ещё полгода делать то же самое. <span class="gd">А можно написать.</span></h2>
+    <p class="lead">Диагностика 30–40 минут в zoom. Вы уходите с пониманием, как сделать продажи в ближайшие две недели.</p>
+    <div class="btns"><a class="btn" data-link="telegram"><i><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>Диагностика</a></div>
+    <p class="lnote">Без презентаций · без прогревов · без дожима</p>
+  </div></div>
   <p class="foot"><a href="https://drive.google.com/file/d/1R3z2dI6N-Fia2upxG0cJvpNCDnpxnh4x/view?usp=sharing" target="_blank" rel="noopener">Политика</a><a href="https://drive.google.com/file/d/1ibKBrkpKRE5iYUrD1UFqyxS4IfhT4hZ8/view?usp=sharing" target="_blank" rel="noopener">Оферта</a><a href="mailto:komlevalexander@yahoo.com">komlevalexander@yahoo.com</a><a href="tel:+79019783894">+7 901 978-38-94</a><span>ИП Комлев Александр Евгеньевич · ИНН 782003396570</span></p>
-</section>
+</div></section>
 </main>
 
-<div class="ck" hidden><span>Сайт использует cookie и сервисы для шрифтов и видео. <a href="https://drive.google.com/file/d/1R3z2dI6N-Fia2upxG0cJvpNCDnpxnh4x/view?usp=sharing" target="_blank" rel="noopener">Подробнее</a></span><button type="button">Понятно</button></div>
+<div class="ck" hidden><span>Сайт использует cookie. <a href="https://drive.google.com/file/d/1R3z2dI6N-Fia2upxG0cJvpNCDnpxnh4x/view?usp=sharing" target="_blank" rel="noopener">Подробнее</a></span><button type="button">Понятно</button></div>
 <div class="lbx" hidden><img alt=""><button type="button" aria-label="Закрыть">×</button></div>
-
-<script src="three.min.js"></script>
-<script src="app.js?v=15"></script>
+<script src="app.js?v=21"></script>
 </body></html>
