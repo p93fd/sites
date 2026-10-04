@@ -1095,10 +1095,10 @@ body{background:#020605}
 @media (max-width:819px){.nx .kp{gap:6px;margin:16px 0}.nx .kpc{padding:10px 9px 8px;border-radius:12px}.nx .kl{font-size:7.5px;letter-spacing:.08em}.nx .kl i{display:none}.nx .kpc b{font-size:17px;margin-top:7px}.nx .kch{height:26px;margin-top:6px}}
 /* бейдж с огоньком, вертикальная линия, свечение сверху */
 .nx .bdg{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 10px;border-radius:999px;border:1px solid rgba(185,214,255,.16);background:rgba(65,85,232,.08);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.nx .bdg i{width:7px;height:7px;border-radius:50%;background:#FF3A30;box-shadow:0 0 0 3px rgba(255,58,48,.18),0 0 12px #FF3A30;animation:bdg 2s ease-in-out infinite}
+.nx .bdg i{width:6px;height:6px;border-radius:50%;background:#76B7FF;box-shadow:0 0 10px #76B7FF}
 @keyframes bdg{50%{box-shadow:0 0 0 6px rgba(255,58,48,0),0 0 18px #FF3A30}}
 .nx .hero .tglow{position:absolute;left:0;right:0;top:0;height:70svh;pointer-events:none;z-index:0;
- background:radial-gradient(60% 70% at 22% -12%,rgba(65,85,232,.55),transparent 70%),radial-gradient(45% 60% at 78% -18%,rgba(255,58,48,.28),transparent 70%);mix-blend-mode:screen}
+ background:radial-gradient(60% 70% at 22% -12%,rgba(65,85,232,.55),transparent 70%),radial-gradient(45% 60% at 78% -18%,rgba(118,183,255,.12),transparent 70%);mix-blend-mode:screen}
 .nx .hero .vline{position:absolute;left:max(14px,2.2vw);top:22svh;bottom:22svh;width:1px;background:linear-gradient(rgba(185,214,255,.5),rgba(185,214,255,.05));z-index:2}
 .nx .hero .vline::before{content:"";position:absolute;left:-3px;top:-3px;width:7px;height:7px;border-radius:50%;background:#E0E2F2;box-shadow:0 0 10px #76B7FF}
 .nx .hero .vline::after{content:"scroll";position:absolute;left:-4px;bottom:-46px;font:600 9px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:rgba(224,226,242,.4);writing-mode:vertical-rl;transform:rotate(180deg)}
@@ -1127,6 +1127,19 @@ body{background:#020605}
 .nx .hero .tglow{opacity:.55}
 .nx .hero .cut,.nx .final .cut{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 22%),linear-gradient(to top,transparent 0,#000 18%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0,#000 22%),linear-gradient(to top,transparent 0,#000 18%);mask-composite:intersect}
 @media (max-width:819px){.nx .sbg{opacity:.75}}
+
+/* Apple-типографика и 3D-появление слов */
+.nx .h,.nx .kpc b{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",var(--sans);font-weight:600;letter-spacing:-.035em}
+.nx .h3d{font-size:clamp(32px,4.3vw,66px)!important;line-height:1.03!important;max-width:19ch}
+.nx .h3d .w3{display:inline-block;perspective:900px;padding-bottom:.08em}
+.nx .h3d .wi{display:inline-block;transform-origin:50% 100% -.4em;transform:translateY(.45em) rotateX(-82deg) translateZ(-60px);opacity:0;filter:blur(12px);
+ background:linear-gradient(180deg,#fff 20%,#C9D6F3 70%,#8EA4D8);-webkit-background-clip:text;background-clip:text;color:transparent;
+ text-shadow:none;transition:transform 1.2s cubic-bezier(.16,1,.3,1),opacity .8s ease,filter 1s ease;transition-delay:calc(var(--i)*110ms)}
+.nx .h3d .gd .wi{background-image:linear-gradient(180deg,#CFE3FF 10%,#76B7FF 60%,#4155E8)}
+.nx .h3d.go .wi{transform:none;opacity:1;filter:none}
+.nx .h3d{filter:drop-shadow(0 18px 30px rgba(65,85,232,.28))}
+@media (max-width:819px){.nx .h3d{font-size:clamp(32px,9.6vw,44px)!important}}
+.nx .h.xl{font-weight:600}
 </style>
 </head><body>
 
@@ -1157,11 +1170,10 @@ body{background:#020605}
 
     <main>
     <section class="hero" data-veil=".05" data-name="Начало"><div class="tglow" aria-hidden="true"></div><i class="vline" aria-hidden="true"></i>
-      <img width="1100" height="1100" class="cut" src="me-cut.webp" alt="Александр Комлев">
-      <div class="wrap">
+            <div class="wrap">
         <div>
           <p class="k bdg"><i></i>Александр Комлев · эксперт в области продаж</p>
-          <h1 class="h" data-split style="margin-top:22px">Глупо делать одни и те же действия, <span class="gd">рассчитывая на другой результат.</span></h1>
+          <h1 class="h h3d" style="margin-top:22px">Глупо делать одни и те же действия, <span class="gd">рассчитывая на другой результат.</span></h1>
         </div>
         <div>
           <p class="sub">Помогаю экспертам сделать так, чтобы их продукты <b class="gl">покупали</b>. Через уверенность, а не через очередную схему.</p>
@@ -1317,8 +1329,7 @@ body{background:#020605}
     </div></section>
 
     <section class="final" data-veil=".08" data-name="Финал">
-      <img width="1100" height="1100" class="cut" src="me-cut.webp" alt="Александр Комлев">
-      <div class="wrap">
+            <div class="wrap">
         <h2 class="h xl" data-split>Можно ещё полгода <span class="gd">делать то же самое.</span></h2>
         <p class="q rv" style="margin-top:26px">А можно написать.</p>
         <div class="btns rv" style="margin-top:34px"><a class="btn fill ar" data-link="telegram"><i class="ba"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>Диагностика</a><span class="jm">жми</span></div>
@@ -1516,10 +1527,10 @@ body{background:#020605}
     for(var i=0;i<N;i++)PS.push({a:Math.random()*6.283,r:Math.pow(Math.random(),.6),w:(.25+Math.random()*.6)*(Math.random()<.5?-1:1),s:.6+Math.random()*1.2,ph:Math.random()*6.283})}
   function draw(){raf=0;if(!on||!N)return;var now=performance.now()/1000;var dt=Math.min(.05,now-(draw.l||now));draw.l=now;t+=dt;var p=now-t0;
     /* шкала: 0–.6 вихрь, .6–2.2 собирается −2, держим до 4, 4–5 вихрь, 5–6.6 собирается +4 */
-    var k1=ease(cl((p-.6)/1.6)),k2=cl((p-4)/2.6),fromSw=p<4;
-    la.classList.toggle('on',p>2&&p<4);lbb.classList.toggle('on',p>6.4);sec.classList.toggle('done',p>6.8);
+    var k1=ease(cl(p/.9)),k2=cl((p-1.7)/1.4),fromSw=p<1.7;
+    la.classList.toggle('on',p>.7&&p<1.7);lbb.classList.toggle('on',p>2.9);sec.classList.toggle('done',p>3.1);
     ctx.setTransform(D,0,0,D,0,0);ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';
-    var mc=ease(cl((p-4.6)/1.6));ctx.fillStyle='rgb('+Math.round(mix(224,118,mc))+','+Math.round(mix(226,183,mc))+','+Math.round(mix(242,255,mc))+')';
+    var mc=ease(cl((p-2)/1));ctx.fillStyle='rgb('+Math.round(mix(224,118,mc))+','+Math.round(mix(226,183,mc))+','+Math.round(mix(242,255,mc))+')';
     var cx=W/2,cy=H*.48,R=Math.min(W,H*1.6)*.42;
     for(var i=0;i<N;i++){var q=PS[i],ang=q.a+t*q.w*.35,rr=R*q.r*(1+.08*Math.sin(t*.7+q.ph)),sx=cx+Math.cos(ang)*rr,sy=cy+Math.sin(ang)*rr*.5;
       var A=T[0][i%T[0].length],B=T[1][i%T[1].length],x,y;
@@ -1529,7 +1540,7 @@ body{background:#020605}
       x+=Math.sin(t*1.3+q.ph)*.6;y+=Math.cos(t*1.1+q.ph)*.6;var sz=q.s*.8+.9;ctx.fillRect(x,y,sz,sz)}
     raf=requestAnimationFrame(draw)}
   setup();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(setup);addEventListener('resize',function(){setup()});
-  new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!on){on=true;t0=performance.now()/1000;sec.classList.remove('done');if(!raf)raf=requestAnimationFrame(draw)}}else{on=false}})},{threshold:.45}).observe(sec);
+  new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!on){on=true;t0=performance.now()/1000;sec.classList.remove('done');if(!raf)raf=requestAnimationFrame(draw)}}else{on=false}})},{threshold:.2}).observe(sec);
 })();
 </script>
 <script>
@@ -1585,6 +1596,11 @@ var t0=performance.now();
  r.render(sc,cam);requestAnimationFrame(f)})();}
 if(window.THREE)go();else{var tries=0;(function w(){if(window.THREE)return go();if(++tries===8){var s=document.createElement('script');s.src='three.min.js';s.onload=function(){if(window.THREE)go()};document.head.appendChild(s)}if(tries<80)setTimeout(w,60)})()}
 })();
+/* ---------- заголовок первого экрана: слова по одному, 3D ---------- */
+(function(){var h=root.querySelector('.h3d');if(!h)return;var n=0;
+ (function walk(el){[].slice.call(el.childNodes).forEach(function(c){if(c.nodeType===3){var f=document.createDocumentFragment();c.data.split(/(\s+)/).forEach(function(w){if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(' '));return}var o=document.createElement('span');o.className='w3';var i=document.createElement('span');i.className='wi';i.style.setProperty('--i',n++);i.textContent=w;o.appendChild(i);f.appendChild(o)});c.parentNode.replaceChild(f,c)}else if(c.nodeType===1)walk(c)})})(h);
+ (function w(){if(root.classList.contains('in'))setTimeout(function(){h.classList.add('go')},250);else setTimeout(w,100)})();
+})();
 /* ---------- основа фона: круг → воронка → двойная спираль (по прокрутке) ---------- */
 (function(){var cv=root.querySelector('.sbg');if(!cv)return;
 function go(){var T=window.THREE;if(!T){cv.remove();return}
@@ -1594,22 +1610,22 @@ var N=mob?5200:12000,R3=function(){return new Float32Array(N*3)},aR=R3(),aF=R3()
 function gs(){return(Math.random()+Math.random()+Math.random()-1.5)/1.5}
 for(var i=0;i<N;i++){var u=i/N,ra=Math.random();
   /* круг: толстое кольцо с языками пламени наружу */
-  var a=u*6.2832*7%6.2832+gs()*.02,fl=Math.pow(Math.random(),5)*.55,rr=1.62+gs()*.07+fl;
-  aR[i*3]=Math.cos(a)*rr;aR[i*3+1]=Math.sin(a)*rr;aR[i*3+2]=gs()*.12;
+  var a=u*6.2832*7%6.2832+gs()*.02,fl=Math.pow(Math.random(),6)*.4,tb=Math.random()*6.2832,tr=.13+Math.abs(gs())*.04+fl,rr=1.5+Math.cos(tb)*tr;
+  aR[i*3]=Math.cos(a)*rr;aR[i*3+1]=Math.sin(a)*rr;aR[i*3+2]=Math.sin(tb)*tr;
   /* воронка: вихрь, широкий сверху, узкий снизу */
   var y=1-2*Math.pow(ra,.85),w=(y+1)/2,fr=.12+w*w*1.55+gs()*.04*(1+w),fa=a+y*5.;
   aF[i*3]=Math.cos(fa)*fr;aF[i*3+1]=y*2.05;aF[i*3+2]=Math.sin(fa)*fr;
   /* двойная спираль: две нити и перекладины */
   var st=i%2,hy=(u*2-1)*2.7,rung=Math.random()<.14;
   if(rung){var k=Math.round(hy/.27)*.27,ha=k*2.25,t=Math.random()*2-1;aH[i*3]=Math.cos(ha)*.62*t;aH[i*3+1]=k;aH[i*3+2]=Math.sin(ha)*.62*t}
-  else{var ha2=hy*2.25+st*Math.PI,hr=.62+gs()*.05;aH[i*3]=Math.cos(ha2)*hr+gs()*.03;aH[i*3+1]=hy+gs()*.03;aH[i*3+2]=Math.sin(ha2)*hr+gs()*.03}
+  else{var ha2=hy*2.25+st*Math.PI,tb2=Math.random()*6.2832,tt=.07+Math.abs(gs())*.03,cxh=Math.cos(ha2)*.66,czh=Math.sin(ha2)*.66;aH[i*3]=cxh+Math.cos(tb2)*tt*Math.cos(ha2);aH[i*3+1]=hy+Math.sin(tb2)*tt;aH[i*3+2]=czh+Math.cos(tb2)*tt*Math.sin(ha2)}
   aX[i*4]=Math.random();aX[i*4+1]=st+(rung?2:0);aX[i*4+2]=fl;aX[i*4+3]=u}
 var g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(aR,3));g.setAttribute('aF',new T.BufferAttribute(aF,3));g.setAttribute('aH',new T.BufferAttribute(aH,3));g.setAttribute('aX',new T.BufferAttribute(aX,4));
 var U={T:{value:0},M:{value:0},S:{value:mob?2.6:3.4}};
 var VS='attribute vec3 aF;attribute vec3 aH;attribute vec4 aX;uniform float T;uniform float M;uniform float S;varying vec3 vC;varying float vA;'+
 'mat2 rt(float a){return mat2(cos(a),-sin(a),sin(a),cos(a));}'+
-'void main(){vec3 pr=position;pr.xy=rt(T*.06)*pr.xy;pr+=.03*vec3(sin(T*1.3+aX.x*40.),cos(T*1.1+aX.x*31.),0.)*(1.+aX.z*4.);'+
-'vec3 pf=aF;pf.xz=rt(-T*.5)*pf.xz;vec3 ph=aH;ph.xz=rt(T*.35)*ph.xz;'+
+'void main(){vec3 pr=position;pr.xy=rt(T*.12)*pr.xy;pr.yz=rt(.62+.1*sin(T*.25))*pr.yz;pr.xz=rt(.38+.12*sin(T*.18))*pr.xz;pr+=.03*vec3(sin(T*1.3+aX.x*40.),cos(T*1.1+aX.x*31.),0.)*(1.+aX.z*4.);'+
+'vec3 pf=aF;pf.xz=rt(-T*.5)*pf.xz;vec3 ph=aH;ph.xz=rt(T*.35)*ph.xz;ph.xy=rt(.32)*ph.xy;ph.yz=rt(.28)*ph.yz;'+
 'float m1=smoothstep(0.,1.,clamp(M,0.,1.)),m2=smoothstep(0.,1.,clamp(M-1.,0.,1.));'+
 'float sw=sin(aX.w*6.2832+T*.2)*.0;vec3 p=mix(mix(pr,pf,m1),ph,m2);'+
 'float mid=1.-abs(m1*2.-1.)*(1.-m2)-0.;p+=vec3(sin(aX.x*90.+T),cos(aX.x*70.+T),sin(aX.x*50.))*.35*(sin(m1*3.1416)+sin(m2*3.1416));'+
@@ -1618,7 +1634,7 @@ var VS='attribute vec3 aF;attribute vec3 aH;attribute vec4 aX;uniform float T;un
 'vec3 cF=mix(bl,sk,(aF.y+2.)/4.);cF=mix(cF,rd,step(.93,aX.x));'+
 'vec3 cH=aX.y>1.5?mix(bl,mi,.3):(aX.y>.5?bl*1.2:sk);cH=mix(cH,rd,step(.96,aX.x));'+
 'vC=mix(mix(cR,cF,m1),cH,m2);vA=(.35+.65*fract(aX.x*13.))*(.6+.4*sin(T*2.+aX.x*60.));'+
-'vec4 mv=modelViewMatrix*vec4(p,1.);gl_PointSize=S*(1.+aX.z*1.5)*(6./-mv.z);gl_Position=projectionMatrix*mv;}';
+'vec4 mv=modelViewMatrix*vec4(p,1.);float dz=-mv.z;vA*=clamp(1.5-(dz-5.6)*.75,.12,1.5);vC*=clamp(1.35-(dz-5.6)*.4,.45,1.4);gl_PointSize=S*(1.+aX.z*1.5)*(6./dz);gl_Position=projectionMatrix*mv;}';
 var FS='varying vec3 vC;varying float vA;void main(){float d=length(gl_PointCoord-.5);if(d>.5)discard;gl_FragColor=vec4(vC*1.25,min(1.,vA*1.5)*pow(1.-d*2.,1.4));}';
 var pts=new T.Points(g,new T.ShaderMaterial({uniforms:U,vertexShader:VS,fragmentShader:FS,transparent:true,depthWrite:false,blending:T.AdditiveBlending}));sc.add(pts);
 function sz(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}sz();addEventListener('resize',sz);
@@ -1630,7 +1646,7 @@ var M=0,X=0,Y=0,Sc=1,t0=performance.now(),last=t0,mx=0,my=0;addEventListener('po
 (function f(now){requestAnimationFrame(f);if(!root.classList.contains('in'))return;var dt=Math.min(.1,(now-last)/1000);last=now;
  var tg=stage();M+=(tg-M)*(1-Math.exp(-dt*1.6));
  var hero=secs[0].getBoundingClientRect().top>-innerHeight*.5;
- var tx=mob?0:(tg===0?(hero?1.55:2.1):tg===1?2.0:2.95),ty=mob?(tg===0&&hero?.35:0):0,ts=mob?(tg===2?.8:.62):1;
+ var tx=mob?0:(tg===0?(hero?1.75:2.1):tg===1?2.0:2.95),ty=mob?(tg===0&&hero?-.55:0):0,ts=mob?(tg===2?.8:.62):1;
  X+=(tx-X)*(1-Math.exp(-dt*2));Y+=(ty-Y)*(1-Math.exp(-dt*2));Sc+=(ts-Sc)*(1-Math.exp(-dt*2));
  pts.position.set(X+mx*.15,Y-my*.1,0);pts.scale.setScalar(Sc);pts.rotation.y=mx*.25;pts.rotation.x=my*.15;
  U.T.value=(now-t0)/1000;U.M.value=M;r.render(sc,cam)})(t0);}
@@ -1696,7 +1712,7 @@ function cx(J,r){return r.width/2}function cy(J,r){return r.height/2}
 var CARDS='.pane,.cc,.dc,.cd,.stats,.kpc,.frame,.row,.dgn,.faq';
 var els=[].slice.call(root.querySelectorAll(CARDS)).filter(function(e){return !e.closest('.gate')&&!e.closest('.pcs')&&!e.parentNode.closest(CARDS)});
 els.forEach(function(e){e.classList.add('pa-wait')});
-var heads=[].slice.call(root.querySelectorAll('main .h')).filter(function(e){return !e.closest('.pcs')});
+var heads=[].slice.call(root.querySelectorAll('main .h')).filter(function(e){return !e.closest('.pcs')&&!e.classList.contains('h3d')});
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.unobserve(e.target);var el=e.target;
  if(heads.indexOf(el)>-1)setTimeout(function(){launch(el,true)},520);else launch(el,false)})},{threshold:.18});
 (function w(){if(root.classList.contains('in'))setTimeout(function(){els.concat(heads).forEach(function(e){io.observe(e)})},350);else setTimeout(w,120)})();
