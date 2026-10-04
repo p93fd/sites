@@ -1118,6 +1118,15 @@ body{background:#020605}
 @media (max-width:819px){.nx .fan{display:none}}
 /* стекло для панелей, как в дашборде */
 .nx .pane{background:linear-gradient(160deg,rgba(185,214,255,.07),rgba(65,85,232,.025) 50%,rgba(8,10,24,.3))!important;border-color:rgba(185,214,255,.12)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 30px 60px -30px rgba(65,85,232,.45)}
+
+/* строго: один фон-основа, без детского */
+.nx .sbg{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:0;transition:opacity 1.6s}
+.nx.in .sbg{opacity:1}
+.nx .orb,.nx .satin,.nx .silk,.nx .aur,.nx .flare{display:none!important}
+.nx .sbg{z-index:1}.nx .veil{opacity:.12!important}
+.nx .hero .tglow{opacity:.55}
+.nx .hero .cut,.nx .final .cut{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 22%),linear-gradient(to top,transparent 0,#000 18%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0,#000 22%),linear-gradient(to top,transparent 0,#000 18%);mask-composite:intersect}
+@media (max-width:819px){.nx .sbg{opacity:.75}}
 </style>
 </head><body>
 
@@ -1127,7 +1136,7 @@ body{background:#020605}
   <video class="satin" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <div class="veil" aria-hidden="true"></div>
   <div class="aur" aria-hidden="true"></div>
-  <canvas class="orb" aria-hidden="true"></canvas>
+  <canvas class="orb" aria-hidden="true"></canvas><canvas class="sbg" aria-hidden="true"></canvas>
   <div class="prog" aria-hidden="true"></div>
   <nav class="rail" aria-label="Главы"></nav>
   <div class="grain" aria-hidden="true"></div>
@@ -1148,7 +1157,7 @@ body{background:#020605}
 
     <main>
     <section class="hero" data-veil=".05" data-name="Начало"><div class="tglow" aria-hidden="true"></div><i class="vline" aria-hidden="true"></i>
-      <canvas class="ring" data-fx="ring" aria-hidden="true"></canvas><img width="1100" height="1100" class="cut" src="me-cut.webp" alt="Александр Комлев">
+      <img width="1100" height="1100" class="cut" src="me-cut.webp" alt="Александр Комлев">
       <div class="wrap">
         <div>
           <p class="k bdg"><i></i>Александр Комлев · эксперт в области продаж</p>
@@ -1185,7 +1194,7 @@ body{background:#020605}
       </div>
     </div></div></section>
 
-    <section class="hole" data-veil=".12"><canvas data-fx="hole" aria-hidden="true"></canvas><div class="slide"><div class="wrap">
+    <section data-veil=".12"><div class="slide"><div class="wrap">
       <div class="head"><p class="k">03 — Уже пробовали</p><h2 class="h" data-split>Пробовали. <span class="gd">Не сработало</span></h2></div>
       <div class="rows">
         <div class="row"><p class="t strike">Маркетолог</p><p class="d">Делал за вас и уходил. <b class="gl">А продаёте всё равно вы.</b></p></div>
@@ -1237,7 +1246,7 @@ body{background:#020605}
     </div></div></section>
 
     <section class="dslide one pth" data-veil=".12"><div class="wrap pathgrid">
-      <div class="head"><p class="k">08 — Путь клиента</p><h2 class="h" data-split>Ни один клиент <span class="gd">больше не теряется</span></h2><p class="q rv">Тот, кто сказал «я подумаю», не пропадает.</p><canvas class="dna" data-fx="dna" aria-hidden="true"></canvas></div>
+      <div class="head"><p class="k">08 — Путь клиента</p><h2 class="h" data-split>Ни один клиент <span class="gd">больше не теряется</span></h2><p class="q rv">Тот, кто сказал «я подумаю», не пропадает.</p></div>
         <div class="path">
           <div class="st"><span class="n">01</span><p class="ct">Первое касание</p><p class="cd">Контент и диалог. Человек приходит уже с интересом, а не «просто спросить».</p></div>
           <div class="st"><span class="n">02</span><p class="ct">Квалификация</p><p class="cd">Знаете запрос заранее. <b class="gl">На встречу приходят те, кому вы нужны.</b></p></div>
@@ -1277,7 +1286,7 @@ body{background:#020605}
       </div></div>
     </section>
 
-    <section data-veil=".36" data-orb="-33,37,.78" data-orbm="33,-41,.58"><div class="slide"><canvas class="dome" data-fx="dome" aria-hidden="true"></canvas><div class="wrap dgng">
+    <section data-veil=".36" data-orb="-33,37,.78" data-orbm="33,-41,.58"><div class="slide"><div class="wrap dgng">
       <div class="head"><p class="k">11 — Что дальше</p><h2 class="h" data-split>Всё начинается <span class="gd">с диагностики</span></h2></div>
       <div class="pane t3 dgn rv">
         <p class="lab">Диагностика · 30–40 минут в zoom</p>
@@ -1307,7 +1316,7 @@ body{background:#020605}
       </div>
     </div></section>
 
-    <section class="final" data-veil=".08" data-name="Финал"><canvas class="gx" data-fx="galaxy" aria-hidden="true"></canvas>
+    <section class="final" data-veil=".08" data-name="Финал">
       <img width="1100" height="1100" class="cut" src="me-cut.webp" alt="Александр Комлев">
       <div class="wrap">
         <h2 class="h xl" data-split>Можно ещё полгода <span class="gd">делать то же самое.</span></h2>
@@ -1575,6 +1584,57 @@ var t0=performance.now();
  var p=.85+.15*Math.sin(t*1.1);glow.scale.set(1.5*p,1.5*p,1);glow.material.opacity=.55*p;
  r.render(sc,cam);requestAnimationFrame(f)})();}
 if(window.THREE)go();else{var tries=0;(function w(){if(window.THREE)return go();if(++tries===8){var s=document.createElement('script');s.src='three.min.js';s.onload=function(){if(window.THREE)go()};document.head.appendChild(s)}if(tries<80)setTimeout(w,60)})()}
+})();
+/* ---------- основа фона: круг → воронка → двойная спираль (по прокрутке) ---------- */
+(function(){var cv=root.querySelector('.sbg');if(!cv)return;
+function go(){var T=window.THREE;if(!T){cv.remove();return}
+var r;try{r=new T.WebGLRenderer({canvas:cv,antialias:false,alpha:true})}catch(e){cv.remove();return}
+r.setPixelRatio(Math.min(DPR,1.5));var sc=new T.Scene(),cam=new T.PerspectiveCamera(40,1,.1,50);cam.position.z=6.2;
+var N=mob?5200:12000,R3=function(){return new Float32Array(N*3)},aR=R3(),aF=R3(),aH=R3(),aX=new Float32Array(N*4);
+function gs(){return(Math.random()+Math.random()+Math.random()-1.5)/1.5}
+for(var i=0;i<N;i++){var u=i/N,ra=Math.random();
+  /* круг: толстое кольцо с языками пламени наружу */
+  var a=u*6.2832*7%6.2832+gs()*.02,fl=Math.pow(Math.random(),5)*.55,rr=1.62+gs()*.07+fl;
+  aR[i*3]=Math.cos(a)*rr;aR[i*3+1]=Math.sin(a)*rr;aR[i*3+2]=gs()*.12;
+  /* воронка: вихрь, широкий сверху, узкий снизу */
+  var y=1-2*Math.pow(ra,.85),w=(y+1)/2,fr=.12+w*w*1.55+gs()*.04*(1+w),fa=a+y*5.;
+  aF[i*3]=Math.cos(fa)*fr;aF[i*3+1]=y*2.05;aF[i*3+2]=Math.sin(fa)*fr;
+  /* двойная спираль: две нити и перекладины */
+  var st=i%2,hy=(u*2-1)*2.7,rung=Math.random()<.14;
+  if(rung){var k=Math.round(hy/.27)*.27,ha=k*2.25,t=Math.random()*2-1;aH[i*3]=Math.cos(ha)*.62*t;aH[i*3+1]=k;aH[i*3+2]=Math.sin(ha)*.62*t}
+  else{var ha2=hy*2.25+st*Math.PI,hr=.62+gs()*.05;aH[i*3]=Math.cos(ha2)*hr+gs()*.03;aH[i*3+1]=hy+gs()*.03;aH[i*3+2]=Math.sin(ha2)*hr+gs()*.03}
+  aX[i*4]=Math.random();aX[i*4+1]=st+(rung?2:0);aX[i*4+2]=fl;aX[i*4+3]=u}
+var g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(aR,3));g.setAttribute('aF',new T.BufferAttribute(aF,3));g.setAttribute('aH',new T.BufferAttribute(aH,3));g.setAttribute('aX',new T.BufferAttribute(aX,4));
+var U={T:{value:0},M:{value:0},S:{value:mob?2.6:3.4}};
+var VS='attribute vec3 aF;attribute vec3 aH;attribute vec4 aX;uniform float T;uniform float M;uniform float S;varying vec3 vC;varying float vA;'+
+'mat2 rt(float a){return mat2(cos(a),-sin(a),sin(a),cos(a));}'+
+'void main(){vec3 pr=position;pr.xy=rt(T*.06)*pr.xy;pr+=.03*vec3(sin(T*1.3+aX.x*40.),cos(T*1.1+aX.x*31.),0.)*(1.+aX.z*4.);'+
+'vec3 pf=aF;pf.xz=rt(-T*.5)*pf.xz;vec3 ph=aH;ph.xz=rt(T*.35)*ph.xz;'+
+'float m1=smoothstep(0.,1.,clamp(M,0.,1.)),m2=smoothstep(0.,1.,clamp(M-1.,0.,1.));'+
+'float sw=sin(aX.w*6.2832+T*.2)*.0;vec3 p=mix(mix(pr,pf,m1),ph,m2);'+
+'float mid=1.-abs(m1*2.-1.)*(1.-m2)-0.;p+=vec3(sin(aX.x*90.+T),cos(aX.x*70.+T),sin(aX.x*50.))*.35*(sin(m1*3.1416)+sin(m2*3.1416));'+
+'vec3 bl=vec3(.25,.33,.91),sk=vec3(.46,.72,1.),mi=vec3(.88,.89,.95),rd=vec3(1.,.23,.19);'+
+'vec3 cR=mix(sk,rd,smoothstep(-.4,.9,position.y+position.x*.3));cR=mix(cR,mi,aX.z*1.4);'+
+'vec3 cF=mix(bl,sk,(aF.y+2.)/4.);cF=mix(cF,rd,step(.93,aX.x));'+
+'vec3 cH=aX.y>1.5?mix(bl,mi,.3):(aX.y>.5?bl*1.2:sk);cH=mix(cH,rd,step(.96,aX.x));'+
+'vC=mix(mix(cR,cF,m1),cH,m2);vA=(.35+.65*fract(aX.x*13.))*(.6+.4*sin(T*2.+aX.x*60.));'+
+'vec4 mv=modelViewMatrix*vec4(p,1.);gl_PointSize=S*(1.+aX.z*1.5)*(6./-mv.z);gl_Position=projectionMatrix*mv;}';
+var FS='varying vec3 vC;varying float vA;void main(){float d=length(gl_PointCoord-.5);if(d>.5)discard;gl_FragColor=vec4(vC*1.25,min(1.,vA*1.5)*pow(1.-d*2.,1.4));}';
+var pts=new T.Points(g,new T.ShaderMaterial({uniforms:U,vertexShader:VS,fragmentShader:FS,transparent:true,depthWrite:false,blending:T.AdditiveBlending}));sc.add(pts);
+function sz(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}sz();addEventListener('resize',sz);
+var secs=[].slice.call(root.querySelectorAll('main > section'));
+function stage(){/* 0 круг: начало…«пробовали»; 1 воронка: история…«через три месяца»; 2 спираль: система и дальше */
+ var c=innerHeight*.5,idx=0;for(var i=0;i<secs.length;i++){var b=secs[i].getBoundingClientRect();if(b.top<=c)idx=i}
+ var s=secs[idx],tg;if(s.querySelector('.fanw')||secs.indexOf(s)>=secs.indexOf(root.querySelector('.fanw')?root.querySelector('.fanw').closest('section'):s))tg=2;else if(secs.indexOf(s)>=secs.indexOf(root.querySelector('.pcs')))tg=1;else tg=0;return tg}
+var M=0,X=0,Y=0,Sc=1,t0=performance.now(),last=t0,mx=0,my=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+(function f(now){requestAnimationFrame(f);if(!root.classList.contains('in'))return;var dt=Math.min(.1,(now-last)/1000);last=now;
+ var tg=stage();M+=(tg-M)*(1-Math.exp(-dt*1.6));
+ var hero=secs[0].getBoundingClientRect().top>-innerHeight*.5;
+ var tx=mob?0:(tg===0?(hero?1.55:2.1):tg===1?2.0:2.95),ty=mob?(tg===0&&hero?.35:0):0,ts=mob?(tg===2?.8:.62):1;
+ X+=(tx-X)*(1-Math.exp(-dt*2));Y+=(ty-Y)*(1-Math.exp(-dt*2));Sc+=(ts-Sc)*(1-Math.exp(-dt*2));
+ pts.position.set(X+mx*.15,Y-my*.1,0);pts.scale.setScalar(Sc);pts.rotation.y=mx*.25;pts.rotation.x=my*.15;
+ U.T.value=(now-t0)/1000;U.M.value=M;r.render(sc,cam)})(t0);}
+if(window.THREE)go();else{var tries=0;(function w(){if(window.THREE)return go();if(++tries===8){var s=document.createElement('script');s.src='three.min.js';s.onload=function(){if(window.THREE)go()};document.head.appendChild(s)}if(tries<120)setTimeout(w,60)})()}
 })();
 /* ---------- частицы на холстах: кольцо, чёрная дыра, ДНК, галактика ---------- */
 function FX(cv,init,draw){var o={cv:cv,ctx:cv.getContext('2d'),on:false,t:0,W:0,H:0};o.size=function(){o.W=cv.clientWidth;o.H=cv.clientHeight;cv.width=o.W*DPR;cv.height=o.H*DPR;init(o)};o.size();addEventListener('resize',o.size);
