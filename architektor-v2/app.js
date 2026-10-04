@@ -6,7 +6,7 @@ var D=document,root=D.documentElement,body=D.body;
 var $=function(s,c){return (c||D).querySelector(s)},$$=function(s,c){return [].slice.call((c||D).querySelectorAll(s))};
 var mob=function(){return innerWidth<=860};
 var SHOT=/[?&]shot/.test(location.search);
-var LAST=210,NIGHT=190;
+var LAST=290,NIGHT=-1;
 
 $$('[data-link]').forEach(function(a){var u=CONFIG[a.dataset.link];if(!u){a.hidden=true;return}a.href=u;a.target='_blank';a.rel='noopener'});
 
@@ -56,7 +56,7 @@ function frame(now){var dt=Math.min(.05,(now-lt)/1000);lt=now;var t=target();
   if(si!==curSec){curSec=si;cn.textContent=(si<9?'0':'')+(si+1);cl.textContent=secs[si].dataset.name||'';veil.style.opacity=secs[si].dataset.veil||0;
     navA.forEach(function(a){a.classList.toggle('on',$(a.getAttribute('href'))===secs[si])})}
   /* пять частей включаются вместе со стройкой */
-  var on=cur<62?-1:cur<76?0:cur<96?1:cur<110?2:cur<124?3:4;steps.forEach(function(s,i){s.classList.toggle('on',i===on||(on===4&&cur>140&&false))});
+  var on=cur<28?-1:cur<42?0:cur<58?1:cur<74?2:cur<90?3:4;steps.forEach(function(s,i){s.classList.toggle('on',i===on||(on===4&&cur>140&&false))});
   var max=root.scrollHeight-innerHeight;prog.style.transform='scaleX('+(max>0?scrollY/max:0)+')';
   if(!SHOT)requestAnimationFrame(frame)}
 window.__frame=function(){frame(performance.now())};
