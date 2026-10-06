@@ -45,7 +45,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--bg);color-scheme:dark;scrollbar-width:none;-webkit-text-size-adjust:100%}
 html::-webkit-scrollbar{display:none}
-body{background:var(--bg);color:var(--i1);font-family:var(--display);font-stretch:100%;font-weight:400;font-size:clamp(16px,.9rem + .28vw,19px);line-height:1.55;
+body{background:var(--bg);color:var(--i1);font-family:var(--display);font-stretch:100%;font-weight:400;font-size:clamp(17px,.95rem + .32vw,20px);line-height:1.5;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-synthesis:none;font-kerning:normal;overflow-x:clip}
 ::selection{background:var(--acc);color:#06070C}
 a{color:inherit;text-decoration:none}
@@ -75,7 +75,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .md{font-weight:800;font-stretch:110%;font-size:clamp(30px,4.3vw,78px);line-height:1;letter-spacing:-.024em}
 .h i{font-style:normal;color:var(--acc)}
 .h .o{text-shadow:none;color:var(--bg);-webkit-text-stroke:clamp(2px,.03em,5px) var(--ink);paint-order:stroke fill}
-.lead{font-size:clamp(17px,1.05rem + .5vw,24px);line-height:1.38;letter-spacing:-.006em;color:var(--i2);max-width:34ch;text-wrap:pretty}
+.lead{font-size:clamp(19px,1.1rem + .6vw,26px);line-height:1.38;letter-spacing:-.006em;color:var(--i2);max-width:34ch;text-wrap:pretty}
 .p{color:var(--i2);max-width:44ch;text-wrap:pretty}
 
 /* строка под маской, проявление, линия */
@@ -93,7 +93,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .where{display:flex;align-items:center;gap:12px}
 .where i{display:block;width:26px;height:1px;background:var(--i4)}
 .name{font:500 clamp(11px,.9vw,13px)/1 var(--mono);letter-spacing:.34em;text-transform:uppercase;color:var(--i1);white-space:nowrap;padding-left:.34em}
-.cta{justify-self:end;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--i1);border:1px solid rgba(232,236,244,.78);border-radius:2px;padding:13px 20px;
+.cta{justify-self:end;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--i1);border:1px solid rgba(232,236,244,.78);border-radius:2px;padding:13px 20px;
   transition:background var(--t-ui) var(--e-out),color var(--t-ui) var(--e-out),border-color var(--t-ui) var(--e-out),transform .15s var(--e-out)}
 .cta:hover{background:var(--ink);color:#06070C;border-color:var(--ink);transition-duration:.15s}
 .cta:active{transform:scale(.97)}
@@ -134,7 +134,7 @@ main{position:relative;z-index:10}
 .c1 .pin{align-content:space-between}
 .c1 .h{grid-column:1/-1;align-self:center;text-align:center;margin-top:auto;transform:translate3d(calc(var(--mx)*8px),calc(var(--my)*6px),0)}
 .c1 .row{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
-.link{display:inline-flex;align-items:center;gap:14px;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--i1);padding:10px 0;position:relative}
+.link{display:inline-flex;align-items:center;gap:14px;font:500 15px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--i1);padding:10px 0;position:relative}
 .link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform-origin:100% 50%;transition:transform .75s var(--e-out)}
 .link:hover::after{transform:scaleX(0);transform-origin:0 50%;transition-duration:.15s}
 .link svg,.go svg{width:16px;height:16px;flex:none;transition:transform .75s var(--e-out)}
@@ -144,17 +144,17 @@ main{position:relative;z-index:10}
 .c2 .ghost{right:-2vw;top:8vh}
 .c2 .col{grid-column:1/8;display:grid;gap:clamp(18px,2.6vh,30px);justify-items:start}
 .tried{display:grid;grid-template-columns:repeat(2,auto);gap:10px clamp(20px,3vw,48px);margin-top:4px}
-.tried .lab{color:var(--i2)}
+.tried .lab{color:var(--i1);font-size:15px;letter-spacing:.04em}
 .tried .lab s{text-decoration:none;color:var(--i3);margin-right:10px}
 
 /* 03 — архитектура: текст справа */
 .c3 .ghost{left:-3vw;bottom:2vh}
 .c3 .col{grid-column:7/13;display:grid;gap:clamp(18px,2.6vh,30px);padding-right:clamp(0px,3vw,48px)}
 .parts{display:grid;width:100%}
-.parts li{list-style:none;display:grid;grid-template-columns:48px minmax(0,11ch) minmax(0,1fr);gap:0 16px;align-items:baseline;padding:11px 0 12px;position:relative}
+.parts li{list-style:none;display:grid;grid-template-columns:40px minmax(0,13.5ch) minmax(0,1fr);gap:0 16px;align-items:baseline;padding:13px 0 14px;position:relative}
 .parts li .hl{position:absolute;left:0;right:0;top:0}
-.parts li b{font-weight:700;font-stretch:108%;font-size:clamp(17px,1.25vw,21px);letter-spacing:-.012em;color:var(--i1)}
-.parts li span.t{font-size:16px;line-height:1.4;color:var(--i2)}
+.parts li b{font-weight:700;font-stretch:106%;font-size:clamp(18px,1.3vw,22px);white-space:nowrap;letter-spacing:-.012em;color:var(--i1)}
+.parts li span.t{font-size:clamp(16px,1.15vw,18px);line-height:1.4;color:var(--i2)}
 
 /* 04 — управление: заголовок сверху, реестр кейсов снизу */
 .c4 .pin{align-content:space-between}
@@ -163,13 +163,20 @@ main{position:relative;z-index:10}
 .ledger{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid rgba(232,236,244,.34);border-radius:3px;
   background:linear-gradient(180deg,rgba(8,10,20,.72),rgba(4,5,10,.86));-webkit-backdrop-filter:blur(14px) saturate(130%);backdrop-filter:blur(14px) saturate(130%);
   box-shadow:0 1px 0 rgba(255,255,255,.07) inset,0 40px 90px -50px rgba(0,2,12,.9)}
-.case{padding:clamp(14px,1.5vw,22px) clamp(14px,1.6vw,24px) clamp(16px,1.7vw,24px);display:grid;gap:10px;align-content:start;border-left:1px solid var(--i4);min-width:0}
+.case{display:grid;grid-template-rows:auto 1fr;border-left:1px solid var(--i4);min-width:0;overflow:hidden}
 .case:first-child{border-left:0}
-.case .who{font-weight:700;font-stretch:106%;font-size:clamp(15px,1.12vw,18px);letter-spacing:-.01em;color:var(--i1);line-height:1.2}
-.case .big{font-weight:800;font-stretch:118%;font-size:clamp(26px,2.9vw,50px);line-height:1;letter-spacing:-.03em;color:var(--acc);white-space:nowrap;margin-top:6px}
-.case .was{display:flex;flex-wrap:wrap;gap:4px 10px}
-.case .lab,.fact .lab{white-space:normal}
-.case .was .lab:last-child{color:var(--i2)}
+.case figure{position:relative;height:clamp(120px,19vh,210px);overflow:hidden;background:#0b0e18}
+.case img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 22%;transform:scale(1.04);transition:transform 1.4s var(--e-out)}
+.case:hover img{transform:scale(1.1)}
+.case figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,5,10,0) 45%,rgba(4,5,10,.82) 100%);box-shadow:inset 0 0 0 1px rgba(230,230,230,.16);pointer-events:none}
+.case figure .lab{position:absolute;left:clamp(12px,1.4vw,20px);bottom:10px;z-index:1;color:var(--i1);font-size:12px}
+.case .txt{padding:clamp(12px,1.3vw,18px) clamp(12px,1.4vw,20px) clamp(14px,1.5vw,20px);display:grid;gap:6px;align-content:start}
+.case .who{font-weight:700;font-stretch:106%;font-size:clamp(17px,1.3vw,21px);letter-spacing:-.01em;color:var(--ink);line-height:1.2}
+.case .role{font-size:15px;line-height:1.3;color:var(--i2)}
+.case .big{font-weight:800;font-stretch:118%;font-size:clamp(30px,3.1vw,54px);line-height:1;letter-spacing:-.03em;color:var(--acc);white-space:nowrap;margin-top:8px}
+.case .was{font-size:clamp(15px,1.1vw,17px);line-height:1.35;color:var(--i1)}
+.case .was span{color:var(--i3)}
+.fact .lab{white-space:normal;font-size:14px;color:var(--i2)}
 
 /* 05 — доказательство: число собрано из частиц */
 .c5 .pin{align-content:end}
@@ -179,19 +186,19 @@ main{position:relative;z-index:10}
 .facts{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.5fr);border-top:1px solid var(--i4)}
 .fact{padding:clamp(14px,1.6vw,22px) clamp(14px,1.6vw,24px) 0;border-left:1px solid var(--i4);display:grid;gap:8px;align-content:start;min-width:0}
 .fact:first-child{border-left:0;padding-left:0}
-.fact .big{font-weight:800;font-stretch:118%;font-size:clamp(28px,3.2vw,54px);line-height:1;letter-spacing:-.03em;color:var(--ink);white-space:nowrap}
+.fact .big{font-weight:800;font-stretch:118%;font-size:clamp(34px,4.4vw,76px);line-height:1;letter-spacing:-.03em;color:var(--ink);white-space:nowrap}
 .me{display:grid;grid-template-columns:clamp(64px,6vw,92px) minmax(0,1fr);gap:clamp(14px,1.4vw,22px);align-items:start}
 .me img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;border-radius:2px;filter:grayscale(1) contrast(1.08) brightness(1.02);background:#0c0f1a;
   -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent);mask-image:linear-gradient(180deg,#000 62%,transparent)}
-.me p{font-size:16px;line-height:1.42;color:var(--i2)}
+.me p{font-size:clamp(16px,1.2vw,18px);line-height:1.42;color:var(--i2)}
 .me .links{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap}
-.me .links a{font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--i1);border-bottom:1px solid var(--i3);padding-bottom:4px;transition:border-color var(--t-ui) linear}
+.me .links a{font:500 14px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--i1);border-bottom:1px solid var(--i3);padding-bottom:4px;transition:border-color var(--t-ui) linear}
 .me .links a:hover{border-color:var(--acc)}
 
 /* 06 — приглашение */
 .c6 .pin{align-content:space-between}
 .c6 .col{grid-column:1/9;display:grid;gap:clamp(18px,2.8vh,32px);justify-items:start;align-self:center;margin-top:auto}
-.go{display:inline-flex;align-items:center;gap:18px;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#06070C;background:var(--acc);border-radius:2px;padding:22px 28px;
+.go{display:inline-flex;align-items:center;gap:18px;font:500 15px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#06070C;background:var(--acc);border-radius:2px;padding:22px 28px;
   will-change:transform;transition:background var(--t-ui) var(--e-out),box-shadow .9s var(--e-out);box-shadow:0 24px 70px -28px rgba(127,182,255,.0)}
 .go:hover{background:#fff;box-shadow:0 24px 70px -22px rgba(242,197,124,.75);transition-duration:.15s,.6s}
 .go:active{scale:.97}
@@ -222,6 +229,8 @@ main{position:relative;z-index:10}
   .where,.rail,.side{display:none}
   .name{letter-spacing:.22em;padding-left:0}
   .lab{font-size:12px}
+  .tried .lab{font-size:14px}
+  .fact .lab{font-size:13px}
   .lg .o,.md .o{color:inherit;-webkit-text-stroke:0}
   .cta{padding:11px 14px}
   .pin{padding:84px var(--pad) 72px;align-content:end}
@@ -233,14 +242,22 @@ main{position:relative;z-index:10}
   .c2 .col,.c3 .col,.c4 .head,.c6 .col{grid-column:1/-1;padding-right:0}
   .ghost{font-size:64vw}
   .parts li{grid-template-columns:30px minmax(0,1fr);padding:8px 0 9px}
-  .parts li span.t{grid-column:2;font-size:15px}
+  .parts li b{white-space:normal}
+  .parts li span.t{grid-column:2;font-size:16px}
   .c4 .pin,.c6 .pin{align-content:space-between}
-  .ledger{grid-template-columns:1fr 1fr}
-  .case{padding:12px 12px 14px;gap:6px}
-  .case:nth-child(3){border-left:0}
-  .case:nth-child(n+3){border-top:1px solid var(--i4)}
-  .case .big{font-size:25px;margin-top:2px}
-  .case .who{font-size:14px}
+  .ledger{grid-template-columns:1fr}
+  .case{grid-template-rows:none;grid-template-columns:74px minmax(0,1fr);border-left:0;border-top:1px solid var(--i4)}
+  .case:first-child{border-top:0}
+  .case figure{height:100%;min-height:78px}
+  .case figure .lab{display:none}
+  .case .txt{padding:8px 12px 9px;gap:1px 10px;grid-template-columns:minmax(0,1fr) auto;align-items:baseline}
+  .case .who{font-size:16px;grid-column:1}
+  .case .big{font-size:21px;margin:0;grid-column:2;grid-row:1}
+  .case .role{font-size:14px;grid-column:1/-1}
+  .case .was{font-size:14px;grid-column:1/-1}
+  .c4 .head{gap:8px}
+  .c4 .md{font-size:clamp(26px,7.4vw,34px)}
+  .c4 .head .lab{display:none}
   .facts{grid-template-columns:1fr 1fr}
   .fact{padding-top:12px}
   .fact.wide{grid-column:1/-1;border-left:0;padding-left:0;border-top:1px solid var(--i4);margin-top:14px}
@@ -336,10 +353,10 @@ main{position:relative;z-index:10}
         <h2 class="h md"><span class="ln"><span>Разные&nbsp;ниши.</span></span><span class="ln" style="--i:1"><span>Один итог&nbsp;—</span></span><span class="ln" style="--i:2"><span><i>управляемые продажи.</i></span></span></h2>
       </div>
       <div class="ledger fd" style="--i:4">
-        <article class="case"><span class="lab num">01 · Наставник бьюти-экспертов</span><div class="who">Настя Milky</div><div class="big num">3,3&nbsp;млн&nbsp;₽</div><div class="was"><span class="lab">было 500&nbsp;000&nbsp;₽</span><span class="lab">за&nbsp;8&nbsp;недель</span></div></article>
-        <article class="case"><span class="lab num">02 · Наставник, коуч</span><div class="who">Ирина Зелинская</div><div class="big num">4,9&nbsp;млн&nbsp;₽</div><div class="was"><span class="lab">было 250&nbsp;000&nbsp;₽</span><span class="lab">каждый месяц</span></div></article>
-        <article class="case"><span class="lab num">03 · Бизнес-коуч</span><div class="who">Ира&nbsp;Емельянова</div><div class="big num">4,2&nbsp;млн&nbsp;₽</div><div class="was"><span class="lab">был&nbsp;низкий чек</span><span class="lab">за&nbsp;10&nbsp;недель</span></div></article>
-        <article class="case"><span class="lab num">04 · Бизнес-наставник, коуч</span><div class="who">Серафима Кузнецова</div><div class="big num">11&nbsp;млн&nbsp;₽</div><div class="was"><span class="lab">было 100&nbsp;000&nbsp;₽</span><span class="lab">чек&nbsp;вырос в&nbsp;10&nbsp;раз</span></div></article>
+        <article class="case"><figure><img src="./img/milky.webp" alt="Настя Milky" loading="lazy" decoding="async"><span class="lab num">Кейс 01</span></figure><div class="txt"><div class="who">Настя Milky</div><div class="role">Наставник бьюти-экспертов</div><div class="big num">3,3&nbsp;млн&nbsp;₽</div><div class="was">было 500&nbsp;000&nbsp;₽ <span>·</span> за&nbsp;8&nbsp;недель</div></div></article>
+        <article class="case"><figure><img src="./img/zelinskaya.webp" alt="Ирина Зелинская" loading="lazy" decoding="async"><span class="lab num">Кейс 02</span></figure><div class="txt"><div class="who">Ирина Зелинская</div><div class="role">Наставник, коуч</div><div class="big num">4,9&nbsp;млн&nbsp;₽</div><div class="was">было 250&nbsp;000&nbsp;₽ <span>·</span> продажи каждый месяц</div></div></article>
+        <article class="case"><figure><img src="./img/emelyanova.webp" alt="Ира Емельянова" loading="lazy" decoding="async"><span class="lab num">Кейс 03</span></figure><div class="txt"><div class="who">Ира Емельянова</div><div class="role">Бизнес-коуч</div><div class="big num">4,2&nbsp;млн&nbsp;₽</div><div class="was">был низкий чек <span>·</span> за&nbsp;10&nbsp;недель</div></div></article>
+        <article class="case"><figure><img src="./img/kuznetsova-s.webp" alt="Серафима Кузнецова" loading="lazy" decoding="async"><span class="lab num">Кейс 04</span></figure><div class="txt"><div class="who">Серафима Кузнецова</div><div class="role">Бизнес-наставник, коуч</div><div class="big num">11&nbsp;млн&nbsp;₽</div><div class="was">было 100&nbsp;000&nbsp;₽ <span>·</span> чек вырос в&nbsp;10&nbsp;раз</div></div></article>
       </div>
     </div>
   </section>
