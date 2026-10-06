@@ -155,7 +155,7 @@ function build() {
   const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 120);
 
   /* ---- сетка u×v: одни и те же точки собирают все состояния ---- */
-  const U = lite ? 300 : 560, V = lite ? 200 : 360, N = U * V, TAU = Math.PI * 2;
+  const U = lite ? 450 : 900, V = lite ? 130 : 220, N = U * V, TAU = Math.PI * 2;   // вдоль линии точек много, линий мало: формы читаются прядями
   const P = [0, 1, 2, 3, 4, 5].map(() => new Float32Array(N * 3));
   const aUV = new Float32Array(N * 2), aR = new Float32Array(N * 4), aChaos = new Float32Array(N);
   let seed = 7; const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
@@ -181,20 +181,19 @@ function build() {
     const k = j * U + i, u = i / (U - 1), v = j / (V - 1), o = k * 3;
     aUV[k * 2] = u; aUV[k * 2 + 1] = v;
     aR[k * 4] = rnd(); aR[k * 4 + 1] = rnd(); aR[k * 4 + 2] = rnd(); aR[k * 4 + 3] = rnd();
-    { const th = u * TAU, ph = Math.acos(1 - 2 * (0.012 + v * 0.976)), R = 2.25;                       // 0 сфера
+    { const th = u * TAU, ph = Math.acos(1 - 2 * (0.012 + v * 0.976)), R = 3.05;                       // 0 сфера: полая оболочка
       P[0][o] = R * Math.sin(ph) * Math.cos(th); P[0][o + 1] = R * Math.cos(ph); P[0][o + 2] = R * Math.sin(ph) * Math.sin(th); }
     { const y = 2.5 - v * 5.2, r = 0.05 + 2.9 * Math.pow(1 - v, 2.3), th = u * TAU + v * 5.5;          // 1 воронка
       P[1][o] = r * Math.cos(th); P[1][o + 1] = y; P[1][o + 2] = r * Math.sin(th); aChaos[k] = Math.pow(1 - v, 1.5); }
-    { const y = (v - 0.5) * 6.2, th = v * TAU * 2.4, s = 2 * u - 1, e = Math.sign(s) * Math.pow(Math.abs(s), 0.3), R = 1.05;   // 2 спираль
+    { const y = (v - 0.5) * 9.4, th = v * TAU * 1.6, s = 2 * u - 1, e = Math.sign(s) * Math.pow(Math.abs(s), 0.22), R = 0.9;   // 2 спираль
       P[2][o] = Math.cos(th) * e * R; P[2][o + 1] = y; P[2][o + 2] = Math.sin(th) * e * R; }
-    { P[3][o] = (u - 0.5) * 17; P[3][o + 1] = -1.25; P[3][o + 2] = 3.2 - Math.pow(v, 1.25) * 24; }     // 3 волна
+    { const g = Math.exp(-Math.pow((u - 0.53) / 0.2, 2)), fan = 0.25 + 0.75 * Math.abs(u - 0.53) * 2;                           // 3 волна: гребень из линий тока
+      P[3][o] = (u - 0.5) * 19; P[3][o + 1] = -0.62 + g * 1.05 + (v - 0.5) * 0.5 * fan; P[3][o + 2] = -(v - 0.5) * 2.2 * fan; }
     { const n = numPts.pts.length || 1, q = numPts.pts[Math.min(n - 1, Math.floor(((i + j / V) / U) * n))] || [0, 0];   // 4 число
       P[4][o] = q[0]; P[4][o + 1] = q[1]; P[4][o + 2] = 0; }
-    { let x, y, z;                                                                                          // 5 ядро и орбиты
-      if (v < 0.42) { const r = 0.62 * Math.cbrt(rnd()), a = rnd() * TAU, c = 2 * rnd() - 1, q = Math.sqrt(1 - c * c); x = r * q * Math.cos(a); y = r * c * 0.82; z = r * q * Math.sin(a); }
-      else if (v < 0.72) { const q = (v - 0.42) / 0.3, r = 0.55 + Math.pow(q, 1.6) * 1.9, th = u * TAU + q * 9; x = r * Math.cos(th); z = r * Math.sin(th); y = (rnd() - 0.5) * 0.05 * (1.4 - q); }
-      else { const k = Math.min(2, Math.floor((v - 0.72) / 0.0934)), r = 2.75 + k * 0.72 + (rnd() - 0.5) * 0.035, th = u * TAU, tl = [0.1, -0.16, 0.24][k]; x = r * Math.cos(th); z = r * Math.sin(th); y = x * tl + (rnd() - 0.5) * 0.02; }
-      P[5][o] = x; P[5][o + 1] = y; P[5][o + 2] = z; }
+    { const w = 1.3, h = 0.86, s5 = Math.min(4.9999, u * 5), k = Math.floor(s5), f = (s5 - k) * (h + w);             // 5 пять ступеней вверх
+      const x = -3.25 + k * w + Math.max(0, f - h), y = -2.3 + (k - 1) * h + Math.min(f, h);
+      P[5][o] = x; P[5][o + 1] = y; P[5][o + 2] = (v - 0.5) * 2.6; }
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.BufferAttribute(P[0], 3));
@@ -234,13 +233,14 @@ function build() {
     float ff=clamp((f-delay)/.6,0.,1.); ff=ff*ff*ff*(ff*(ff*6.-15.)+10.);
     float pe=i+ff;
     w0=max(0.,1.-abs(pe));w1=max(0.,1.-abs(pe-1.));w2=max(0.,1.-abs(pe-2.));w3=max(0.,1.-abs(pe-3.));w4=max(0.,1.-abs(pe-4.));w5=max(0.,1.-abs(pe-5.));
-    vec3 a=rotY(position,uT*.085)*(1.+sin(uT*.9)*.03);
+    float fl=1.+.03*sin(aUV.x*44.+uT*1.3)*sin(aUV.y*19.-uT*.7)+.02*sin(aUV.x*113.-uT*2.1);     // кромка «горит» прядями
+    vec3 a=rotY(position,uT*.06)*fl;
     vec3 b=rotY(p1,uT*.11);
     vec3 c=rotY(p2,uT*.13);
     vec3 d=p3; float far=smoothstep(3.,-21.,d.z);
-    d.y+=sin(d.x*.55+uT*.55)*.34+sin(d.z*.42-uT*.8)*.42*(1.-far*.4)+sin((d.x+d.z)*.23+uT*.35)*.3;
+    d.y+=(sin(d.x*.55+uT*.55)*.34+sin(d.x*.31-uT*.4+aUV.y*5.)*.3)*.3*(.4+abs(aUV.x-.53)*1.6);
     vec3 e=vec3(p4.xy*uNum.z+uNum.xy+(aR.xy-.5)*uNum.z*.0035,(aR.z-.5)*.1*uPoint+sin(uT*.6+p4.x*5.)*.03);
-    vec3 g=rotY(p5,uT*.11);
+    vec3 g=rotY(p5,-.5+sin(uT*.17)*.06);
     vec3 P=a*w0+b*w1+c*w2+d*w3+e*w4+g*w5;
     gTr=sin(3.14159*ff);
     float k=gTr*gTr*uSwirl+uVel*.22;
@@ -249,7 +249,7 @@ function build() {
     vec3 j=aR.xyz-.5;
     P+=uPoint*j*.045*(1.-w4*.75);
     P+=uPoint*vec3(sin(uT*.7+aR.x*40.),cos(uT*.6+aR.y*40.),sin(uT*.5+aR.z*40.))*.018;
-    P+=uPoint*w1*aChaos*(j*2.6+vec3(sin(uT*.5+aR.x*50.),cos(uT*.4+aR.y*50.),sin(uT*.6+aR.z*50.))*.22);
+    P+=uPoint*w1*aChaos*(j*.5+vec3(sin(uT*.5+aR.x*50.),cos(uT*.4+aR.y*50.),sin(uT*.6+aR.z*50.))*.05);
     P+=uPoint*w2*j*.07;
     P+=uPoint*w5*j*.02;
     P+=uPoint*gTr*j*.4;
@@ -267,7 +267,7 @@ function build() {
   };
 
   const points = new THREE.Points(geo, new THREE.ShaderMaterial({
-    uniforms: { ...uni, uPoint: { value: 1 }, uSize: { value: lite ? 0.012 : 0.0088 }, uOp: { value: 0.4 } },
+    uniforms: { ...uni, uPoint: { value: 1 }, uSize: { value: lite ? 0.0135 : 0.0118 }, uOp: { value: 0.4 } },
     transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
     vertexShader: FORM + /* glsl */`
       uniform float uScale,uFocus,uAp,uSize,uYield; uniform vec4 uRect; uniform vec3 cA,cB,cC;
@@ -275,17 +275,21 @@ function build() {
       void main(){
         vec3 P=form(); vec4 mv=modelViewMatrix*vec4(P,1.); gl_Position=projectionMatrix*mv;
         float z=max(.2,-mv.z);
-        float hot=step(.975,aR.w);
+        float hot=0.;
         float solid=0.;
-        float s=uSize*(.55+aR.w*.9+hot*2.6)*(1.+solid*.75)*(.86+.2*sin(uT*(1.2+aR.x*2.)+aR.y*40.));
+        float s=uSize*(.88+aR.w*.24);
         float base=s*uScale/z;
-        float coc=abs(z-uFocus)*uAp*uScale*.0013*(1.+max(0.,uFocus-z)*.4);
+        float coc=abs(z-uFocus)*uAp*uScale*.0006;
         float size=max(1.,base+coc);
         float en=clamp(base*base/(size*size),0.,1.);
         float fog=exp(-max(0.,z-uFocus)*mix(.07,.018,w3));
         float back=smoothstep(-1.3,2.3,z-uFocus);
-        float vol=mix(mix(1.35,.4,back),1.,max(max(w3,w4),w5));               // ближняя сторона ярче, дальняя уходит в тень
-        vA=mix(en,sqrt(en),.2)*fog*(1.+hot*1.6)*vol;
+        float vol=mix(mix(1.3,.45,back),1.,max(max(w3,w4),w5));
+        vec3 vd=normalize(mv.xyz);
+        float rim0=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(normalize(position),0.)).xyz),vd)),2.6);        // сфера: светится только кромка
+        float rim1=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(P.x,0.,P.z,0.)).xyz+vec3(0.,0.,1e-4)),vd)),1.5);   // воронка: края ярче тела
+        float shape=w0*(.012+rim0*2.6)+w1*(.22+rim1*.9)*mix(1.,.3,smoothstep(.55,1.,aUV.y))+w2*.55+w3*.85+w4*.42+w5*.3;
+        vA=mix(en,sqrt(en),.2)*fog*vol*shape;
         vS=solid*smoothstep(.45,.9,base/size)*smoothstep(3.,7.,size);
         // сцена уступает тексту: внутри блока точки тише и мельче
         vec2 uv=gl_Position.xy/gl_Position.w*.5+.5;
@@ -293,14 +297,18 @@ function build() {
         float y=ins*uYield;
         vA*=mix(1.,.1,y); size*=mix(1.,.7,y);
         gl_PointSize=min(size,uScale*.2);
-        float t=clamp(.5+P.y*.2+(aR.y-.5)*.7,0.,1.);
-        vec3 col=mix(cA,cB,smoothstep(0.,.8,t));
-        float hn=snoise(vec3(aUV.x*2.2,aUV.y*1.8,3.7))*.5+.5;                 // холодное тело, горячая кромка — как в образце
-        float heat=smoothstep(.58,.9,hn)*(.25+.75*abs(aUV.y*2.-1.))*(1.-w4);
-        col=mix(col,cC,heat*.92);
-        col*=.75+.6*aR.x;
-        float core=w5*step(aUV.y,.42);
-        vC=mix(col,vec3(1.,.95,.9),hot*.5+gTr*.05+w4*.45+core*.7)*(1.+core*1.4);
+        // цвет стоит на форме по месту, а не пятнами: как в образце
+        vec3 RED=vec3(1.,.03,.06), BLU=vec3(.004,.06,.75), CY=vec3(.11,.66,.92), ICE=vec3(.72,.95,1.), DEEP=vec3(.004,.008,.11);
+        float sy=clamp(position.y/3.05*.5+.5,0.,1.);
+        vec3 c0=mix(mix(CY,BLU,smoothstep(.05,.5,sy)),RED,smoothstep(.55,.92,sy));
+        vec3 c1=mix(DEEP*3.,vec3(.08,.24,.72),smoothstep(.35,1.,aUV.y))+BLU*rim1*.6;
+        float st=smoothstep(.55,1.,abs(aUV.x*2.-1.));
+        vec3 c2=mix(BLU,mix(CY,ICE,.55),st);
+        vec3 c3=mix(mix(BLU,ICE,smoothstep(.2,.5,aUV.x)),RED,smoothstep(.56,.86,aUV.x));
+        vec3 c4=mix(CY,ICE,.6);
+        vec3 c5=mix(mix(BLU,CY,smoothstep(0.,.6,aUV.x)),RED,smoothstep(.8,1.,aUV.x));
+        vec3 col=c0*w0+c1*w1+c2*w2+c3*w3+c4*w4+c5*w5;
+        vC=col*(.9+.2*aR.x)*1.7;
       }`,
     fragmentShader: /* glsl */`
       uniform float uOp; varying vec3 vC; varying float vA; varying float vS;
@@ -313,7 +321,7 @@ function build() {
         gl_FragColor=vec4(vC*mix(a,bead,vS)*vA*uOp,1.); }`,
   }));
   points.frustumCulled = false; scene.add(points);
-  points.material.uniforms.uOp.value = +(Q.get("op") || (lite ? 0.8 : 0.55));
+  points.material.uniforms.uOp.value = +(Q.get("op") || (lite ? 0.95 : 0.8));
 
   /* ---- структурные грани: линии по той же сетке ---- */
   function makeLines(rowStep, colStep, op, isCol) {
@@ -336,20 +344,20 @@ function build() {
           vA=(1.-w1*aChaos*.92)*(1.-gTr*.85)*(1.-w4)*exp(-max(0.,z-uFocus)*mix(.11,.03,w3))*smoothstep(.3,1.6,z)/(1.+coc*coc*.9);
           vA*=uIntro*uIntro*uIntro;
           vec2 uv=gl_Position.xy/gl_Position.w*.5+.5; vec2 dd=abs(uv-uRect.xy)-uRect.zw; vA*=mix(1.,.08,(1.-smoothstep(0.,.17,length(max(dd,0.))))*uYield);
-          float t=clamp(.5+P.y*.2,0.,1.); vC=mix(mix(cA,cB,t),vec3(1.),.12); }`,
+          vC=mix(cA,cB,clamp(.5+P.y*.2,0.,1.))*1.3; vA*=(1.-w0)*(1.+w5*2.2); }`,
       fragmentShader: /* glsl */`uniform float uOp; varying vec3 vC; varying float vA; void main(){ gl_FragColor=vec4(vC*vA*uOp,1.); }`,
     });
     const l = new THREE.LineSegments(g, m); l.frustumCulled = false; l.userData.op = op; scene.add(l); return l;
   }
-  const lineSets = [makeLines(Math.round(V / 18), 0, 0.12, false), makeLines(0, Math.round(U / 12), 0.07, true)];
+  const lineSets = [makeLines(Math.max(2, Math.round(V / 28)), 0, 0.34, false), makeLines(0, Math.round(U / 16), 0.1, true)];
 
   /* ---- воздух: дальняя пыль и редкое ближнее боке ---- */
   {
-    const M = lite ? 1200 : 3200, pos = new Float32Array(M * 3), sz = new Float32Array(M);
+    const M = lite ? 420 : 620, pos = new Float32Array(M * 3), sz = new Float32Array(M);
     for (let i = 0; i < M; i++) {
-      const near = i < (lite ? 3 : 6), r = near ? 2.4 + rnd() * 3 : 9 + rnd() * 26, th = rnd() * TAU, ph = Math.acos(2 * rnd() - 1);
+      const near = i < 8, r = near ? 2.6 + rnd() * 3 : 9 + rnd() * 26, th = rnd() * TAU, ph = Math.acos(2 * rnd() - 1);
       pos[i * 3] = r * Math.sin(ph) * Math.cos(th); pos[i * 3 + 1] = r * Math.cos(ph) * 0.65; pos[i * 3 + 2] = r * Math.sin(ph) * Math.sin(th) + (near ? 3.2 : 0);
-      sz[i] = near ? 0.05 + rnd() * 0.06 : 0.012 + rnd() * 0.04;
+      sz[i] = near ? 0.07 + rnd() * 0.05 : 0.01 + rnd() * 0.022;
     }
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setAttribute("aS", new THREE.BufferAttribute(sz, 1));
@@ -364,8 +372,8 @@ function build() {
           vA=clamp(base*base/(size*size),0.,1.)*(z>uFocus? .6*exp(-(z-uFocus)*.03) : .28)*smoothstep(.4,1.5,z)*uIntro; }`,
       fragmentShader: /* glsl */`varying float vA; varying float vB;
         void main(){ float d=length(gl_PointCoord-.5); if(d>.5)discard;
-          float soft=smoothstep(.5,.0,d); float disc=smoothstep(.5,.42,d)*(.55+.45*smoothstep(.2,.5,d));
-          gl_FragColor=vec4(vec3(.5,.68,1.)*mix(soft*soft,disc,clamp(vB*.5,0.,1.))*vA,1.); }`,
+          float soft=smoothstep(.5,.0,d);
+          gl_FragColor=vec4(mix(vec3(.5,.68,1.),vec3(.2,.9,1.),clamp(vB,0.,1.))*soft*soft*vA,1.); }`,
     }));
     dust.frustumCulled = false; scene.add(dust);
   }
@@ -375,7 +383,7 @@ function build() {
   /* ---- постобработка: свечение в HDR, линза, тональная кривая в самом конце ---- */
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
-  const bloom = new UnrealBloomPass(new THREE.Vector2(2, 2), +(Q.get("bs") || (lite ? 0.55 : 0.7)), +(Q.get("br") || 0.72), +(Q.get("bt") || 0.32));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(2, 2), +(Q.get("bs") || (lite ? 0.42 : 0.5)), +(Q.get("br") || 0.3), +(Q.get("bt") || 0.42));
   composer.addPass(bloom);
   const lens = new ShaderPass({
     uniforms: { tDiffuse: { value: null }, uCA: { value: 0.01 } },
@@ -390,20 +398,20 @@ function build() {
   /* ---- камера по главам: [позиция], [цель] ---- */
   const CAM = {
     wide: [
-      [[0, 0.1, 7.9], [0, 0.05, 0]],
-      [[0.4, 0.9, 8.6], [-2.35, -0.1, 0]],
-      [[-0.6, -0.4, 7.2], [2.0, 0, 0]],
-      [[0, 0.55, 5.8], [0, -0.35, -7]],
+      [[0, 0, 7.9], [0, 0, 0]],
+      [[0.4, 0.7, 8.8], [-2.5, -0.1, 0]],
+      [[-0.4, 0.2, 7.6], [2.3, 0, 0]],
+      [[0, 0.25, 7.4], [0, 0, 0]],
       [[0, 0, 9], [0, 0, 0]],
-      [[0.6, 2.5, 8.6], [-2.1, -0.55, 0]],
+      [[0.9, 2.3, 10.2], [-2.6, 0.2, 0]],
     ],
     tall: [
-      [[0, 0.1, 10.6], [0, -0.2, 0]],
+      [[0, 0, 12.6], [0, 0.2, 0]],
       [[0, 0.6, 12], [0, -2.2, 0]],
-      [[0, 0, 12], [0, -3.6, 0]],
-      [[0, 0.8, 6.2], [0, 0.2, -7]],
+      [[0, 0, 12], [0, -3.4, 0]],
+      [[0, 0.2, 9.5], [0, 1.2, 0]],
       [[0, 0, 9], [0, 0, 0]],
-      [[0, 3.4, 12.2], [0, 0.9, 0]],
+      [[0.8, 2.2, 14.5], [0, 2.6, 0]],
     ],
   };
   const v3 = (a) => new THREE.Vector3(...a);
@@ -449,7 +457,7 @@ function build() {
 
     mouse.sx = damp(mouse.sx, mouse.x, 2.2, dte); mouse.sy = damp(mouse.sy, mouse.y, 2.2, dte);
     camPos.lerpVectors(K[i][0], K[i + 1][0], h); camTgt.lerpVectors(K[i][1], K[i + 1][1], h);
-    camPos.z += env * 0.75 + (1 - uni.uIntro.value) * 2.2; camPos.y += env * 0.18;
+    camPos.z += env * (i === 2 ? -2.6 : 0.75) + (1 - uni.uIntro.value) * 2.2; camPos.y += env * 0.18;   // после спирали камера пролетает сквозь облако
     camPos.x += Math.sin(t * 0.21) * 0.1; camPos.y += Math.cos(t * 0.17) * 0.07;
     camera.position.copy(camPos); camera.lookAt(camTgt);
     right.setFromMatrixColumn(camera.matrixWorld, 0); up.setFromMatrixColumn(camera.matrixWorld, 1);
@@ -459,7 +467,7 @@ function build() {
 
     const wWave = Math.max(0, 1 - Math.abs(pS - 3));
     const dist = tmp.copy(camera.position).sub(camTgt).length();
-    uni.uFocus.value = THREE.MathUtils.lerp(dist, 5.2, wWave * 0.75);
+    uni.uFocus.value = dist;
     uni.uAp.value = 1.0 + env * 0.55 - wNum * 0.6;
 
     // число «100+» садится ровно в свой блок на странице
