@@ -74,6 +74,7 @@ function ui(k, f) {
     const d = raw - j, on = d > -0.4 && d < 0.9;
     if (on !== el._in) { el._in = on; el.classList.toggle("in", on); if (on) $$("[data-sc]", el).forEach((s) => setTimeout(() => scramble(s), 200)); }
     if (Math.abs(d) < 1.2) el.style.setProperty("--d", d.toFixed(3));
+    if (j === 3) el.style.setProperty("--w", Math.min(1, Math.max(0, (-d - 0.03) / 0.42)).toFixed(3));
   });
   const c = Math.round(raw);
   if (c !== curCh) {
@@ -106,6 +107,41 @@ if (fine) {
   }, { passive: true });
   document.addEventListener("pointerleave", () => cur.classList.remove("on"));
 }
+
+/* ---------- кейс раскрывается на весь экран: растёт вся сетка вокруг выбранной карточки ---------- */
+const ledger = $(".ledger"), cp = $("#cp"), CBG = ["#0b1f8a", "#0a4a5e", "#43197a", "#7a1730"];
+let openCard = null;
+function openCase(card, idx) {
+  if (openCard || !ledger) return; openCard = card;
+  const r = card.getBoundingClientRect(), lr = ledger.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const S = Math.max(innerWidth / r.width, innerHeight / r.height) * 1.2;
+  const rot = narrow() ? 0 : (cx < innerWidth / 2 ? -1 : 1) * (idx === 0 || idx === 3 ? 4 : 1.5);
+  card.style.setProperty("--cbg", CBG[idx]); cp.style.setProperty("--cbg", CBG[idx]);
+  ledger.style.transformOrigin = `${cx - lr.left}px ${cy - lr.top}px`;
+  card.classList.add("sel"); root.classList.add("opening");
+  ledger.style.transform = `translate(${innerWidth / 2 - cx}px,${innerHeight / 2 - cy}px) scale(${S}) rotate(${rot}deg)`;
+  const was = $(".was", card).textContent.split("·").map((x) => x.trim());
+  $("#cpn").textContent = "Кейс 0" + (idx + 1); $("#cpw").textContent = $(".who", card).textContent; $("#cpr").textContent = $(".role", card).textContent;
+  $("#cpb").textContent = was[0] || ""; $("#cpa").textContent = $(".big", card).textContent; $("#cpt").textContent = was[1] || "";
+  const im = $("img", card), ci = $("#cpi"); ci.src = im.getAttribute("src"); ci.alt = im.alt;
+  cp.hidden = false;
+  setTimeout(() => { cp.classList.add("on"); root.style.overflow = "hidden"; $("#cpx").focus({ preventScroll: true }); }, reduce ? 0 : 1450);
+}
+function closeCase() {
+  if (!openCard) return; cp.classList.remove("on"); root.style.overflow = "";
+  setTimeout(() => {
+    ledger.style.transform = ""; root.classList.remove("opening"); cp.hidden = true;
+    const c = openCard; setTimeout(() => { c.classList.remove("sel"); openCard = null; }, reduce ? 0 : 1500);
+  }, reduce ? 0 : 380);
+}
+$$(".case").forEach((c, idx) => {
+  c.tabIndex = 0; c.setAttribute("role", "button");
+  c.addEventListener("click", () => openCase(c, idx));
+  c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCase(c, idx); } });
+  c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); c.style.setProperty("--cx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(2)); c.style.setProperty("--cy", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(2)); }, { passive: true });
+});
+$("#cpx") && $("#cpx").addEventListener("click", closeCase);
+addEventListener("keydown", (e) => { if (e.key === "Escape") closeCase(); });
 
 /* ---------- запуск ---------- */
 let scene3d = null;
@@ -288,7 +324,7 @@ function build() {
         vec3 vd=normalize(mv.xyz);
         float rim0=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(normalize(position),0.)).xyz),vd)),2.6);        // сфера: светится только кромка
         float rim1=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(P.x,0.,P.z,0.)).xyz+vec3(0.,0.,1e-4)),vd)),1.5);   // воронка: края ярче тела
-        float shape=w0*(.012+rim0*2.6)+w1*(.22+rim1*.9)*mix(1.,.3,smoothstep(.55,1.,aUV.y))+w2*.55+w3*.85+w4*.42+w5*.3;
+        float shape=w0*(.012+rim0*2.6)+w1*(.22+rim1*.9)*mix(1.,.3,smoothstep(.55,1.,aUV.y))+w2*.55+w3*.85+w4*${narrow() ? ".15" : ".42"}+w5*.3;
         vA=mix(en,sqrt(en),.2)*fog*vol*shape;
         vS=solid*smoothstep(.45,.9,base/size)*smoothstep(3.,7.,size);
         // сцена уступает тексту: внутри блока точки тише и мельче
@@ -386,11 +422,15 @@ function build() {
   const bloom = new UnrealBloomPass(new THREE.Vector2(2, 2), +(Q.get("bs") || (lite ? 0.42 : 0.5)), +(Q.get("br") || 0.3), +(Q.get("bt") || 0.42));
   composer.addPass(bloom);
   const lens = new ShaderPass({
-    uniforms: { tDiffuse: { value: null }, uCA: { value: 0.01 } },
+    uniforms: { tDiffuse: { value: null }, uCA: { value: 0.01 }, uL: { value: new THREE.Vector2(0.5, 0.5) }, uG: { value: 0.3 } },
     vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
-    fragmentShader: `uniform sampler2D tDiffuse; uniform float uCA; varying vec2 vUv;
+    fragmentShader: `uniform sampler2D tDiffuse; uniform float uCA,uG; uniform vec2 uL; varying vec2 vUv;
       void main(){ vec2 c=vUv-.5; vec2 o=c*dot(c,c)*uCA;
-        gl_FragColor=vec4(texture2D(tDiffuse,vUv+o).r,texture2D(tDiffuse,vUv).g,texture2D(tDiffuse,vUv-o).b,1.); }`,
+        vec3 col=vec3(texture2D(tDiffuse,vUv+o).r,texture2D(tDiffuse,vUv).g,texture2D(tDiffuse,vUv-o).b);
+        vec2 d=(vUv-uL)*(.22/${lite ? "12." : "24."}); vec2 uv=vUv; float il=1.; vec3 ray=vec3(0.);
+        for(int i=0;i<${lite ? 12 : 24};i++){ uv-=d; ray+=texture2D(tDiffuse,uv).rgb*il; il*=${lite ? ".88" : ".94"}; }
+        col+=ray*(${lite ? ".07" : ".036"})*uG;
+        gl_FragColor=vec4(col,1.); }`,
   });
   composer.addPass(lens);
   composer.addPass(new OutputPass());
@@ -411,7 +451,7 @@ function build() {
       [[0, 0, 12], [0, -3.4, 0]],
       [[0, 0.2, 9.5], [0, 1.2, 0]],
       [[0, 0, 9], [0, 0, 0]],
-      [[0.8, 2.2, 14.5], [0, 2.6, 0]],
+      [[0.8, 2.2, 15.5], [0, 1.2, 0]],
     ],
   };
   const v3 = (a) => new THREE.Vector3(...a);
@@ -486,6 +526,7 @@ function build() {
     }
     yieldS = damp(yieldS, (1 - env * 0.6) * (1 - wNum), 3, dte); uni.uYield.value = yieldS * uni.uIntro.value;
 
+    { const w0 = Math.max(0, 1 - Math.abs(pS)), w4 = Math.max(0, 1 - Math.abs(pS - 4)); lens.uniforms.uG.value = reduce ? 0.15 : 0.3 + w0 * 0.55 + w4 * (lite || narrow() ? 0.05 : 0.35); }
     lens.uniforms.uCA.value = reduce ? 0 : 0.008 + env * 0.012 + vel * 0.012;
 
     // «магнит» кнопки и курсор
