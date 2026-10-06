@@ -265,7 +265,7 @@ function build() {
   };
 
   const points = new THREE.Points(geo, new THREE.ShaderMaterial({
-    uniforms: { ...uni, uPoint: { value: 1 }, uSize: { value: lite ? 0.021 : 0.0175 }, uOp: { value: +(Q.get("op") || (lite ? 0.54 : 0.4)) } },
+    uniforms: { ...uni, uPoint: { value: 1 }, uSize: { value: lite ? 0.021 : 0.0175 }, uOp: { value: 0.4 } },
     transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
     vertexShader: FORM + /* glsl */`
       uniform float uScale,uFocus,uAp,uSize,uYield; uniform vec4 uRect; uniform vec3 cA,cB,cC;
@@ -308,6 +308,7 @@ function build() {
         gl_FragColor=vec4(vC*mix(a,bead,vS)*vA*uOp,1.); }`,
   }));
   points.frustumCulled = false; scene.add(points);
+  const OP = +(Q.get("op") || (lite ? 0.54 : 0.4));
 
   /* ---- структурные грани: линии по той же сетке ---- */
   function makeLines(rowStep, colStep, op, isCol) {
@@ -333,10 +334,9 @@ function build() {
           float t=clamp(.5+P.y*.2,0.,1.); vC=mix(mix(cA,cB,t),vec3(1.),.12); }`,
       fragmentShader: /* glsl */`uniform float uOp; varying vec3 vC; varying float vA; void main(){ gl_FragColor=vec4(vC*vA*uOp,1.); }`,
     });
-    const l = new THREE.LineSegments(g, m); l.frustumCulled = false; scene.add(l); return l;
+    const l = new THREE.LineSegments(g, m); l.frustumCulled = false; l.userData.op = op; scene.add(l); return l;
   }
-  makeLines(lite ? 7 : 6, 0, 0.42, false);
-  makeLines(0, lite ? 15 : 19, 0.26, true);
+  const lineSets = [makeLines(lite ? 7 : 6, 0, 0.42, false), makeLines(0, lite ? 15 : 19, 0.26, true)];
 
   /* ---- воздух: дальняя пыль и редкое ближнее боке ---- */
   {
@@ -364,6 +364,58 @@ function build() {
     }));
     dust.frustumCulled = false; scene.add(dust);
   }
+
+
+  /* ---- литой объект: одна гладкая форма, которая перетекает из состояния в состояние (трассировка поля расстояний) ---- */
+  const solidU = { uCam: { value: new THREE.Vector3() }, uInv: { value: new THREE.Matrix4() }, uT: uni.uT, uIntro: uni.uIntro, uW: { value: [1, 0, 0, 0, 0, 0] } };
+  const solid = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+    uniforms: solidU, transparent: true, depthTest: false, depthWrite: false,
+    vertexShader: `varying vec2 vN; void main(){ vN=position.xy; gl_Position=vec4(position.xy,0.,1.); }`,
+    fragmentShader: /* glsl */`
+      precision highp float;
+      uniform vec3 uCam; uniform mat4 uInv; uniform float uT,uIntro; uniform float uW[6]; varying vec2 vN;
+      #define STEPS ${lite ? 44 : 72}
+      float sdSphere(vec3 p){ return length(p)-2.28+.15*sin(2.6*p.x+uT*.5)*sin(2.3*p.y+uT*.62)*sin(2.8*p.z+uT*.41); }
+      float sdFunnel(vec3 p){ float v=clamp((2.5-p.y)/5.2,0.,1.); float r=.06+2.9*pow(1.-v,2.3);
+        float shell=abs(length(p.xz)-r)-.045-.03*v; return max(shell,max(p.y-2.5,-2.7-p.y))*.5; }
+      float sdHelix(vec3 p){ float a=p.y*2.432+uT*.13; float c=cos(a),s=sin(a); vec2 q=vec2(c*p.x+s*p.z,-s*p.x+c*p.z);
+        float d=min(length(q-vec2(1.05,0.)),length(q+vec2(1.05,0.)))-.21;
+        float yy=mod(p.y+.31,.62)-.31; d=min(d,max(length(vec2(yy,q.y))-.05,abs(q.x)-1.05));
+        return max(d,abs(p.y)-3.25)*.45; }
+      float sdWave(vec3 p){ float h=-1.25+sin(p.x*.55+uT*.55)*.34+sin(p.z*.42-uT*.8)*.42+sin((p.x+p.z)*.23+uT*.35)*.3; return max((p.y-h)*.55,p.z-6.); }
+      float sdRing(vec3 p){ float a=uT*.045; float c=cos(a),s=sin(a); p.xy=vec2(c*p.x-s*p.y,s*p.x+c*p.y);
+        float d=length(vec2(length(p.xy)-2.5,p.z))-.2+.02*sin(atan(p.y,p.x)*9.+uT*.6);
+        d=min(d,length(vec2(length(p.xy)-2.2,p.z+3.2))-.07); d=min(d,length(vec2(length(p.xy)-1.95,p.z+7.))-.05); return d; }
+      float map(vec3 p){ float d=0.;
+        if(uW[0]>.001)d+=uW[0]*sdSphere(p); if(uW[1]>.001)d+=uW[1]*sdFunnel(p); if(uW[2]>.001)d+=uW[2]*sdHelix(p);
+        if(uW[3]>.001)d+=uW[3]*sdWave(p); if(uW[4]>.001)d+=uW[4]*6.; if(uW[5]>.001)d+=uW[5]*sdRing(p);
+        return d+(1.-uIntro)*2.4; }
+      vec3 nrm(vec3 p){ vec2 e=vec2(.004,-.004); return normalize(e.xyy*map(p+e.xyy)+e.yyx*map(p+e.yyx)+e.yxy*map(p+e.yxy)+e.xxx*map(p+e.xxx)); }
+      vec3 env(vec3 r){                                   // студийный свет: тёплый ключ, холодный контровой, полоса софтбокса
+        float key=smoothstep(.72,.985,dot(r,normalize(vec3(-.55,.72,.42))));
+        float rim=smoothstep(.55,.96,dot(r,normalize(vec3(.85,.12,-.5))));
+        float strip=smoothstep(.07,0.,abs(r.y-.18-.12*sin(r.x*2.4+1.)))*smoothstep(-.9,.2,r.z);
+        float sky=smoothstep(-.3,.9,r.y);
+        return vec3(.012,.02,.06)*(.3+sky)+vec3(1.,.8,.5)*key*2.6+vec3(.22,.48,1.)*rim*2.+vec3(.55,.72,1.)*strip*.9; }
+      void main(){
+        vec4 a=uInv*vec4(vN,-1.,1.), b=uInv*vec4(vN,1.,1.); vec3 ro=uCam, rd=normalize(b.xyz/b.w-a.xyz/a.w);
+        float t=.6, d=0.; bool hit=false;
+        for(int i=0;i<STEPS;i++){ d=map(ro+rd*t); if(d<.0025*t){hit=true;break;} t+=d; if(t>44.)break; }
+        if(!hit){ gl_FragColor=vec4(0.); return; }
+        vec3 p=ro+rd*t, n=nrm(p); float nv=max(dot(n,-rd),0.), fr=pow(1.-nv,4.);
+        float ao=clamp(.35+.65*(map(p+n*.35)/.35),0.,1.)*clamp(.5+.5*(map(p+n*.9)/.9),0.,1.);
+        vec3 L=normalize(vec3(-.55,.72,.42)); float dif=max(dot(n,L),0.);
+        vec3 base=mix(vec3(.008,.014,.05),vec3(.02,.06,.24),.5+.5*n.y);
+        vec3 col=base*(.3+1.1*dif)*ao;
+        col+=env(reflect(rd,n))*(.1+.9*fr)*mix(.55,1.,ao);
+        col+=vec3(.16,.4,1.)*fr*.55+vec3(.3,.2,1.)*pow(fr,2.)*.35;        // холодная кромка с фиолетовым отливом
+        col*=mix(1.,.34,uW[3]);                                          // волна темнее: работает бликами, а не заливкой
+        col*=exp(-max(0.,t-mix(9.,6.,uW[3]))*mix(.085,.16,uW[3]));                                    // глубина: дальнее уходит в темноту
+        float edge=smoothstep(44.,30.,t);
+        gl_FragColor=vec4(col*edge,edge);
+      }`,
+  }));
+  solid.frustumCulled = false; solid.renderOrder = -1; scene.add(solid);
 
   /* ---- постобработка: свечение в HDR, линза, тональная кривая в самом конце ---- */
   const composer = new EffectComposer(renderer);
@@ -393,7 +445,7 @@ function build() {
     tall: [
       [[0, 0.1, 10.6], [0, -0.2, 0]],
       [[0, 0.6, 12], [0, -2.2, 0]],
-      [[0, 0, 11], [0, -2.3, 0]],
+      [[0, 0, 12], [0, -3.6, 0]],
       [[0, 0.8, 6.2], [0, 0.2, -7]],
       [[0, 0, 9], [0, 0, 0]],
       [[0, 0.1, 12.6], [0, -0.3, 0]],
@@ -429,7 +481,7 @@ function build() {
     // прокрутка → состояние: сначала форма стоит (HOLD), потом медленно перетекает
     const { k, f } = rawProgress();
     const target = k + ss(HOLD, 1, f);
-    pS = damp(pS, target, 3.4, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
+    pS = damp(pS, target, 3.0, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
     const i = Math.min(N_CH - 2, Math.floor(pS)), h = pS - i, env = Math.sin(Math.PI * Math.min(1, h));
     uni.uP.value = pS; uni.uT.value = t;
 
@@ -470,6 +522,14 @@ function build() {
       uni.uRect.value.set(rect.x, rect.y, rect.w, rect.h);
     }
     yieldS = damp(yieldS, (1 - env * 0.6) * (1 - wNum), 3, dte); uni.uYield.value = yieldS * uni.uIntro.value;
+
+    // веса состояний для литого объекта; точки и линии уходят в фон, кроме числа
+    const WT = solidU.uW.value; for (let j = 0; j < 6; j++) { const x = Math.max(0, 1 - Math.abs(pS - j)); WT[j] = x * x * (3 - 2 * x); }
+    { const sum = WT.reduce((a, b) => a + b, 0) || 1; for (let j = 0; j < 6; j++) WT[j] /= sum; }
+    points.material.uniforms.uOp.value = OP * (0.1 + 0.9 * WT[4]);
+    lineSets.forEach((l) => { l.material.uniforms.uOp.value = l.userData.op * (0.16 + 0.5 * WT[5]) * (1 - WT[4]); });
+    solidU.uCam.value.copy(camera.position); camera.updateMatrixWorld();
+    solidU.uInv.value.copy(camera.matrixWorld).multiply(camera.projectionMatrixInverse);
 
     lens.uniforms.uCA.value = reduce ? 0 : 0.008 + env * 0.012 + vel * 0.012;
 
