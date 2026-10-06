@@ -32,6 +32,7 @@ const stage = (v) => { boot.target = Math.max(boot.target, v); root.style.setPro
   if (boot.el) boot.el.textContent = String(Math.min(100, boot.shown)).padStart(3, "0");
   if (!root.classList.contains("ready")) setTimeout(tickBoot, 40);
 })();
+{ const bw = $(".boot .w"); if (bw) { const ring = document.createElement("div"); ring.className = "ring"; for (let n = 0; n < 20; n++) { const p = document.createElement("i"); p.style.setProperty("--n", n); ring.appendChild(p); } bw.appendChild(ring); } }
 stage(12);
 
 const setVH = () => root.style.setProperty("--vh", innerHeight * 0.01 + "px");
@@ -66,6 +67,13 @@ function scramble(el) {
     el.textContent = txt.slice(0, keep) + [...txt.slice(keep)].map((c) => (c === " " || c === " " ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join("");
     if (n >= total) { clearInterval(id); el.textContent = txt; el._busy = false; }
   }, 40);
+}
+function typeIn(el, delay = 0) {
+  const txt = el.textContent; if (reduce || !txt) return; const dur = Math.min(1500, Math.max(500, 2 * txt.length + 50) * 1.6), t0 = performance.now() + delay; el.style.visibility = "hidden";
+  const id = setInterval(() => { const x = (performance.now() - t0) / dur; if (x < 0) return; el.style.visibility = "";
+    if (x >= 1) { el.textContent = txt; clearInterval(id); return; }
+    const keep = Math.floor(x * txt.length), tail = Math.min(4, txt.length - keep);
+    el.textContent = txt.slice(0, keep) + [...Array(tail)].map(() => ((Math.random() * 10) | 0)).join(""); }, 66);
 }
 let curCh = -1;
 function ui(k, f) {
@@ -125,7 +133,7 @@ function openCase(card, idx) {
   $("#cpb").textContent = was[0] || ""; $("#cpa").textContent = $(".big", card).textContent; $("#cpt").textContent = was[1] || "";
   const im = $("img", card), ci = $("#cpi"); ci.src = im.getAttribute("src"); ci.alt = im.alt;
   cp.hidden = false;
-  setTimeout(() => { cp.classList.add("on"); root.style.overflow = "hidden"; $("#cpx").focus({ preventScroll: true }); }, reduce ? 0 : 1450);
+  setTimeout(() => { cp.classList.add("on"); typeIn($("#cpn"), 100); typeIn($("#cpw"), 300); typeIn($("#cpr"), 600); typeIn($("#cpa"), 800); typeIn($("#cpt"), 1400); root.style.overflow = "hidden"; $("#cpx").focus({ preventScroll: true }); }, reduce ? 0 : 1450);
 }
 function closeCase() {
   if (!openCard) return; cp.classList.remove("on"); root.style.overflow = "";
@@ -257,8 +265,8 @@ function build() {
     return 42.*dot(m*m,vec4(dot(q0,x0),dot(q1,x1),dot(q2,x2),dot(q3,x3)));}`;
   const FORM = NOISE + /* glsl */`
   attribute vec3 p1,p2,p3,p4,p5; attribute vec2 aUV; attribute vec4 aR; attribute float aChaos;
-  uniform float uP,uT,uPoint,uSwirl,uVel,uIntro; uniform vec3 uNum;
-  float w0,w1,w2,w3,w4,w5,gTr;
+  uniform float uP,uT,uPoint,uSwirl,uVel,uIntro,uRot; uniform vec3 uNum;
+  float w0,w1,w2,w3,w4,w5,gTr,gW;
   vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
   vec3 rotZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
   vec3 form(){
@@ -270,13 +278,13 @@ function build() {
     float pe=i+ff;
     w0=max(0.,1.-abs(pe));w1=max(0.,1.-abs(pe-1.));w2=max(0.,1.-abs(pe-2.));w3=max(0.,1.-abs(pe-3.));w4=max(0.,1.-abs(pe-4.));w5=max(0.,1.-abs(pe-5.));
     float fl=1.+.03*sin(aUV.x*44.+uT*1.3)*sin(aUV.y*19.-uT*.7)+.02*sin(aUV.x*113.-uT*2.1);     // кромка «горит» прядями
-    vec3 a=rotY(position,uT*.06)*fl;
-    vec3 b=rotY(p1,uT*.11);
-    vec3 c=rotY(p2,uT*.13);
+    vec3 a=rotY(position,uT*.06+uRot)*fl;
+    vec3 b=rotY(p1,uT*.11+uRot);
+    vec3 c=rotY(p2,uT*.13+uRot*2.);
     vec3 d=p3; float far=smoothstep(3.,-21.,d.z);
     d.y+=(sin(d.x*.55+uT*.55)*.34+sin(d.x*.31-uT*.4+aUV.y*5.)*.3)*.3*(.4+abs(aUV.x-.53)*1.6);
     vec3 e=vec3(p4.xy*uNum.z+uNum.xy+(aR.xy-.5)*uNum.z*.0035,(aR.z-.5)*.1*uPoint+sin(uT*.6+p4.x*5.)*.03);
-    vec3 g=rotY(p5,-.5+sin(uT*.17)*.06);
+    vec3 g=rotY(p5,-.5+sin(uT*.17)*.06+uRot*.35);
     vec3 P=a*w0+b*w1+c*w2+d*w3+e*w4+g*w5;
     gTr=sin(3.14159*ff);
     float k=gTr*gTr*uSwirl+uVel*.22;
@@ -290,13 +298,17 @@ function build() {
     P+=uPoint*w5*j*.02;
     P+=uPoint*gTr*j*.4;
     // вход: облако собирается из разлёта
-    float it=clamp(uIntro*1.6-aR.w*.6,0.,1.); it=it*it*(3.-2.*it);
-    P=mix(normalize(j+vec3(.001))*(5.+aR.w*9.)+vec3(0.,0.,2.),P,it);
+    // тонкий фронт идёт от центра раз в несколько секунд: точка приподнимается и вспыхивает
+    gW=pow(.5+.5*sin(-uT*.8+length(P)*1.5),140.)*(1.-w4)*(1.-gTr);
+    P+=normalize(P+vec3(.0001))*gW*.1*uPoint;
+    // вход: точки ссыпаются сверху на свои места
+    float it=clamp(uIntro*1.55-aR.w*.55,0.,1.); it=1.-pow(1.-it,3.);
+    P+=(1.-it)*vec3(j.x*5.,3.+10.*aR.w*aR.w,j.z*5.+1.5);
     return P;
   }`;
 
   const uni = {
-    uP: { value: 0 }, uT: { value: 0 }, uSwirl: { value: reduce ? 0.2 : 1 }, uVel: { value: 0 }, uIntro: { value: reduce ? 1 : 0 },
+    uP: { value: 0 }, uT: { value: 0 }, uSwirl: { value: reduce ? 0.2 : 1 }, uVel: { value: 0 }, uIntro: { value: reduce ? 1 : 0 }, uRot: { value: 0 },
     uNum: { value: new THREE.Vector3(0, 0, 6) }, uScale: { value: 1 }, uFocus: { value: 7 }, uAp: { value: 1 },
     uRect: { value: new THREE.Vector4(0.5, 0.5, 0, 0) }, uYield: { value: 0 },
     cA: { value: new THREE.Color("#1233ff") }, cB: { value: new THREE.Color("#2fc0ff") }, cC: { value: new THREE.Color("#ff2f55") },
@@ -313,7 +325,7 @@ function build() {
         float z=max(.2,-mv.z);
         float hot=0.;
         float solid=0.;
-        float s=uSize*(.88+aR.w*.24);
+        float s=uSize*(.88+aR.w*.24)*(1.+gW*1.2)*(1.+.2*sin(uT*5.+aR.x*60.))*(aR.y>.98?2.2:1.);
         float base=s*uScale/z;
         float coc=abs(z-uFocus)*uAp*uScale*.0006;
         float size=max(1.,base+coc);
@@ -422,15 +434,39 @@ function build() {
   const bloom = new UnrealBloomPass(new THREE.Vector2(2, 2), +(Q.get("bs") || (lite ? 0.42 : 0.5)), +(Q.get("br") || 0.3), +(Q.get("bt") || 0.42));
   composer.addPass(bloom);
   const lens = new ShaderPass({
-    uniforms: { tDiffuse: { value: null }, uCA: { value: 0.01 }, uL: { value: new THREE.Vector2(0.5, 0.5) }, uG: { value: 0.3 } },
+    uniforms: { tDiffuse: { value: null }, uCA: { value: 0.01 }, uL: { value: new THREE.Vector2(0.5, 0.5) }, uG: { value: 0.3 },
+      uT: uni.uT, uAsp: { value: 1 }, uBlade: { value: -1 }, uHue: { value: 0 }, uOpen: { value: 0 }, uVis: { value: reduce ? 1 : 0 }, uFlash: { value: 0 } },
     vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
-    fragmentShader: `uniform sampler2D tDiffuse; uniform float uCA,uG; uniform vec2 uL; varying vec2 vUv;
-      void main(){ vec2 c=vUv-.5; vec2 o=c*dot(c,c)*uCA;
-        vec3 col=vec3(texture2D(tDiffuse,vUv+o).r,texture2D(tDiffuse,vUv).g,texture2D(tDiffuse,vUv-o).b);
-        vec2 d=(vUv-uL)*(.22/${lite ? "12." : "24."}); vec2 uv=vUv; float il=1.; vec3 ray=vec3(0.);
-        for(int i=0;i<${lite ? 12 : 24};i++){ uv-=d; ray+=texture2D(tDiffuse,uv).rgb*il; il*=${lite ? ".88" : ".94"}; }
-        col+=ray*(${lite ? ".07" : ".036"})*uG;
-        gl_FragColor=vec4(col,1.); }`,
+    fragmentShader: `uniform sampler2D tDiffuse; uniform float uCA,uG,uT,uAsp,uBlade,uHue,uOpen,uVis,uFlash; uniform vec2 uL; varying vec2 vUv;
+      float h21(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
+      float vn(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.-2.*f); return mix(mix(h21(i),h21(i+vec2(1.,0.)),f.x),mix(h21(i+vec2(0.,1.)),h21(i+vec2(1.,1.)),f.x),f.y); }
+      void main(){
+        vec2 uv0=vUv; vec2 c=vUv-.5;
+        // кейс открыт: сцена уходит в глубину через круг с рваным краем
+        float rr=length(c*vec2(uAsp,1.)); float edge=uOpen*1.25+(vn(c*9.+uT*.3)-.5)*.16*uOpen;
+        float inside=smoothstep(edge,edge-.1,rr)*step(.001,uOpen);
+        uv0=(uv0-.5)/(1.+uOpen*inside)+.5;
+        // клинок: наклонная полоса стекла едет снизу вверх на переходе глав
+        float k=-.14*uAsp; float sl=uv0.y+(uv0.x-.5)*k; float bw=.05; float bd=(sl-uBlade)/bw;
+        float band=(1.-smoothstep(.75,1.,abs(bd)))*step(-.5,uBlade);
+        vec2 nrm=normalize(vec2(k,1.));
+        uv0+=nrm*band*.03*(bd*.6-1.)*.9;
+        vec2 o=c*dot(c,c)*uCA+nrm*band*.004;
+        vec3 col=vec3(texture2D(tDiffuse,uv0+o).r,texture2D(tDiffuse,uv0).g,texture2D(tDiffuse,uv0-o).b);
+        vec2 d=(uv0-uL)*(.22/${lite ? "12." : "20."}); vec2 uv=uv0; float il=1.; vec3 ray=vec3(0.);
+        for(int i=0;i<${lite ? 12 : 20};i++){ uv-=d; ray+=texture2D(tDiffuse,uv).rgb*il; il*=${lite ? ".88" : ".93"}; }
+        col+=ray*(${lite ? ".07" : ".043"})*(uG+uFlash*1.6);
+        // стекло: чуть светлее внутри, тонкие блики по кромкам
+        float rim=smoothstep(.72,.92,abs(bd))*band;
+        col=col*(1.+band*.35)+vec3(.55,.8,1.)*(band*.012+rim*.07)+vec3(1.,.35,.5)*rim*.03*step(0.,bd);
+        // цветные углы: оттенок свой у каждой главы и медленно плывёт
+        float n=vn(vUv*2.2+vec2(uT*.03,-uT*.02)); float r=length(c)*1.42; float hh=uHue+(n-.5)*.5+sin(uT*.07)*.12;
+        vec3 tint=mix(vec3(.05,.42,.38),vec3(.26,.14,.55),smoothstep(.2,.8,hh)); tint=mix(tint,vec3(.5,.08,.2),smoothstep(.85,1.3,hh));
+        float cw=1.12*smoothstep(.02,.81,r)*(.35+n*.9); col+=tint*(.008+cw*cw*.11)*mix(1.,.45,vUv.y*step(.5,vUv.x));
+        col*=1.-inside*.8*uOpen; col*=mix(1.,.3,uOpen*uOpen*uOpen);
+        col*=smoothstep(0.,.5,uVis); col+=vec3(.9,.95,1.)*uFlash*.05*(1.-r*.6);
+        col+=(h21(vUv*vec2(1973.,1289.)+fract(uT)*31.)-.5)*.022;
+        gl_FragColor=vec4(max(col,0.),1.); }`,
   });
   composer.addPass(lens);
   composer.addPass(new OutputPass());
@@ -465,7 +501,7 @@ function build() {
     W = canvas.clientWidth || innerWidth; H = canvas.clientHeight || innerHeight;
     renderer.setPixelRatio(dpr); renderer.setSize(W, H, false); composer.setPixelRatio(dpr); composer.setSize(W, H);
     bloom.resolution.set(W * (lite ? 0.5 : 1), H * (lite ? 0.5 : 1));
-    camera.aspect = W / H; camera.fov = W / H < 0.85 ? 52 : 46; camera.updateProjectionMatrix();
+    lens.uniforms.uAsp.value = W / H; camera.aspect = W / H; camera.fov = W / H < 0.85 ? 52 : 46; camera.updateProjectionMatrix();
     uni.uScale.value = (H * dpr) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2));
     K = keys();
   }
@@ -475,6 +511,28 @@ function build() {
   let t = 0, running = true, pS = 0, vel = 0, lastY = scrollY, intro = reduce ? 1 : 0, introGo = false, yieldS = 0;
   let acc = 0, frames = 0, cool = 0;
   const rect = { x: 0.5, y: 0.5, w: 0, h: 0 };
+  const HUE = [0.15, 0.75, 0.3, 0.9, 0.2, 0.6], blade = $("#blade"), drag = { on: false, x: 0, dx: 0, d: 0, rot: 0 };
+  let sv = 0, svBusy = false;
+  if (fine && !reduce) {
+    addEventListener("pointerdown", (e) => { if (e.button === 0 && !e.target.closest("a,button,.case,.cp")) { drag.on = true; drag.x = e.clientX; } });
+    addEventListener("pointermove", (e) => { if (drag.on) { drag.dx += e.clientX - drag.x; drag.x = e.clientX; root.classList.add("drag"); } }, { passive: true });
+    addEventListener("pointerup", () => { drag.on = false; root.classList.remove("drag"); });
+  }
+  // след курсора: короткие белые штрихи-кометы
+  const tc = $("#trail"), tx = tc && fine && !reduce ? tc.getContext("2d") : null, sparks = []; let tpx = -1, tpy = -1, tW = 0, tH = 0;
+  function trail(dt) {
+    if (!tx) return;
+    if (tW !== W || tH !== H) { tW = W; tH = H; tc.width = W; tc.height = H; }
+    if (tpx >= 0) { const mx = mouse.px - tpx, my = mouse.py - tpy, sp = Math.hypot(mx, my);
+      if (sp > 5 && sparks.length < 260) for (let q = 0; q < Math.min(4, sp / 9); q++) { const a = Math.atan2(my, mx) + (Math.random() - 0.5) * 1.5, v = 30 + Math.random() * 110;
+        sparks.push({ x: mouse.px + (Math.random() - 0.5) * 14, y: mouse.py + (Math.random() - 0.5) * 14, vx: Math.cos(a) * v, vy: Math.sin(a) * v, l: 0, m: 1 + Math.random() * 0.5 }); } }
+    tpx = mouse.px; tpy = mouse.py;
+    tx.clearRect(0, 0, tW, tH); if (!sparks.length) return;
+    tx.lineCap = "round"; tx.lineWidth = 1.2;
+    for (let q = sparks.length - 1; q >= 0; q--) { const p = sparks[q]; p.l += dt; if (p.l > p.m) { sparks.splice(q, 1); continue; }
+      const kq = 1 - p.l / p.m; p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.97; p.vy *= 0.97;
+      tx.strokeStyle = `rgba(235,244,255,${(kq * kq * 0.75).toFixed(3)})`; tx.beginPath(); tx.moveTo(p.x, p.y); tx.lineTo(p.x - p.vx * 0.07, p.y - p.vy * 0.07); tx.stroke(); }
+  }
 
   function frame() {
     if (!running) return;
@@ -484,7 +542,7 @@ function build() {
     // прокрутка → состояние: сначала форма стоит (HOLD), потом медленно перетекает
     const { k, f } = rawProgress();
     const target = k + ss(HOLD, 1, f);
-    pS = damp(pS, target, 3.0, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
+    pS = damp(pS, target, 4.0, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
     const i = Math.min(N_CH - 2, Math.floor(pS)), h = pS - i, env = Math.sin(Math.PI * Math.min(1, h));
     uni.uP.value = pS; uni.uT.value = t;
 
@@ -493,11 +551,11 @@ function build() {
     const v = Math.min(1, Math.abs(dy) * 14); vel = damp(vel, v, v > vel ? 9 : 2.2, dte);
     uni.uVel.value = reduce ? 0 : vel;
 
-    if (introGo && intro < 1) { intro = Math.min(1, intro + dte / 3.0); const e = intro < 0.5 ? 2 * intro * intro : 1 - Math.pow(-2 * intro + 2, 2) / 2; uni.uIntro.value = e; }
+    if (introGo && intro < 1) { intro = Math.min(1, intro + dte / 4.6); const x = ss(0, 1, Math.min(1, intro * 1.25)), e = 1 - Math.pow(1 - x, 2.4); uni.uIntro.value = e; lens.uniforms.uVis.value = e; lens.uniforms.uFlash.value = Math.exp(-Math.pow((intro - 0.66) / 0.06, 2)); if (intro >= 1) lens.uniforms.uFlash.value = 0; }
 
     mouse.sx = damp(mouse.sx, mouse.x, 2.2, dte); mouse.sy = damp(mouse.sy, mouse.y, 2.2, dte);
     camPos.lerpVectors(K[i][0], K[i + 1][0], h); camTgt.lerpVectors(K[i][1], K[i + 1][1], h);
-    camPos.z += env * (i === 2 ? -2.6 : 0.75) + (1 - uni.uIntro.value) * 2.2; camPos.y += env * 0.18;   // после спирали камера пролетает сквозь облако
+    camPos.z += env * (i === 2 ? -2.6 : 0.75) - (1 - uni.uIntro.value) * 6.2; camPos.y += env * 0.18;   // после спирали камера пролетает сквозь облако
     camPos.x += Math.sin(t * 0.21) * 0.1; camPos.y += Math.cos(t * 0.17) * 0.07;
     camera.position.copy(camPos); camera.lookAt(camTgt);
     right.setFromMatrixColumn(camera.matrixWorld, 0); up.setFromMatrixColumn(camera.matrixWorld, 1);
@@ -528,6 +586,16 @@ function build() {
 
     { const w0 = Math.max(0, 1 - Math.abs(pS)), w4 = Math.max(0, 1 - Math.abs(pS - 4)); lens.uniforms.uG.value = reduce ? 0.15 : 0.3 + w0 * 0.55 + w4 * (lite || narrow() ? 0.05 : 0.35); }
     lens.uniforms.uCA.value = reduce ? 0 : 0.008 + env * 0.012 + vel * 0.012;
+    { const bt = Math.min(1, Math.max(0, (f - HOLD * 0.6) / (1 - HOLD * 0.6))), on = !reduce && bt > 0.001 && bt < 0.999 && k < N_CH - 1;
+      lens.uniforms.uBlade.value = on ? -0.2 + bt * 1.4 : -1;
+      if (blade) { blade.style.opacity = on ? Math.min(1, Math.sin(Math.PI * bt) * 4).toFixed(2) : "0"; if (on) blade.style.transform = `translate3d(0,${((1 - (-0.2 + bt * 1.4)) * H).toFixed(1)}px,0) translateY(-50%) rotate(${(-Math.atan(0.14) * 180 / Math.PI).toFixed(2)}deg)`; } }
+    lens.uniforms.uHue.value = HUE[i] + (HUE[i + 1] - HUE[i]) * h;
+    lens.uniforms.uOpen.value = damp(lens.uniforms.uOpen.value, root.classList.contains("opening") ? 1 : 0, root.classList.contains("opening") ? 2.2 : 4.5, dte);
+    drag.d = drag.d + (drag.dx - drag.d) * 0.07; drag.dx = 0; drag.rot += drag.d * 0.0025; uni.uRot.value = drag.rot;
+    { const tot = Math.max(1, tops[N_CH - 1] || 1), raw = Math.max(-3, Math.min(3, 1500 * (dy * VHpx) / tot)); sv += (raw - sv) * 0.1;
+      root.style.setProperty("--sv", (reduce ? 0 : sv).toFixed(3));
+      if (Math.abs(sv) > 1.1 && !svBusy) { svBusy = true; $$(".top .name, #lab, .top .cta").forEach(scramble); setTimeout(() => (svBusy = false), 900); } }
+    trail(dte);
 
     // «магнит» кнопки и курсор
     if (fine) {
