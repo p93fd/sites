@@ -19,7 +19,7 @@ const narrow = () => innerWidth < 860;
 const lite = !Q.has("hq") && (narrow() || (navigator.hardwareConcurrency || 8) <= 4);
 const N_CH = 6;
 const LABELS = ["Система", "Фокус", "Архитектура", "Управление", "Результаты", "Стратегия"];
-const HOLD = 0.34;                       // доля шага, пока форма стоит и текст читается
+const HOLD = 0.3;                        // доля шага, пока форма стоит и текст читается
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const damp = (a, b, l, dt) => a + (b - a) * (1 - Math.exp(-l * dt));
@@ -149,9 +149,9 @@ function build() {
   renderer.setClearColor(0x06070c, 1);
   const TM = { agx: THREE.AgXToneMapping, aces: THREE.ACESFilmicToneMapping, neutral: THREE.NeutralToneMapping, none: THREE.NoToneMapping };
   renderer.toneMapping = TM[Q.get("tm")] ?? THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = +(Q.get("ex") || 1.0);
+  renderer.toneMappingExposure = +(Q.get("ex") || 1.2);
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x06070c);   // фон задаём сценой: так он верно переводится в линейное пространство буфера
+  scene.background = new THREE.Color(0x04050a);   // фон задаём сценой: так он верно переводится в линейное пространство буфера
   const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 120);
 
   /* ---- сетка u×v: одни и те же точки собирают все состояния ---- */
@@ -190,9 +190,9 @@ function build() {
     { P[3][o] = (u - 0.5) * 17; P[3][o + 1] = -1.25; P[3][o + 2] = 3.2 - Math.pow(v, 1.25) * 24; }     // 3 волна
     { const n = numPts.pts.length || 1, q = numPts.pts[Math.min(n - 1, Math.floor(((i + j / V) / U) * n))] || [0, 0];   // 4 число
       P[4][o] = q[0]; P[4][o + 1] = q[1]; P[4][o + 2] = 0; }
-    { const arm = Math.min(2, Math.floor(v * 3)), lane = v * 3 - arm - 0.5;                              // 5 галактика
-      const r = 0.22 + Math.pow(u, 0.82) * 3.7, th = (arm * TAU) / 3 + u * 4.6 + lane * (0.95 - u * 0.45);
-      P[5][o] = r * Math.cos(th); P[5][o + 1] = lane * 0.2 * (1 - u) * (1 - u); P[5][o + 2] = r * Math.sin(th); }
+    { const th = u * TAU;                                                                                   // 5 кольцо-вход: тор и тоннель колец за ним
+      if (v < 0.55) { const a = (v / 0.55) * TAU, R = 2.5, r = 0.2; P[5][o] = (R + r * Math.cos(a)) * Math.cos(th); P[5][o + 1] = (R + r * Math.cos(a)) * Math.sin(th); P[5][o + 2] = r * Math.sin(a); }
+      else { const q = (v - 0.55) / 0.45, R = 2.5 * (1 - q * 0.22); P[5][o] = R * Math.cos(th); P[5][o + 1] = R * Math.sin(th); P[5][o + 2] = -0.5 - Math.pow(q, 1.25) * 17; } }
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.BufferAttribute(P[0], 3));
@@ -223,33 +223,34 @@ function build() {
   uniform float uP,uT,uPoint,uSwirl,uVel,uIntro; uniform vec3 uNum;
   float w0,w1,w2,w3,w4,w5,gTr;
   vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
+  vec3 rotZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
   vec3 form(){
     float i=floor(uP),f=uP-i;
     // пятнами: соседние точки уходят вместе, волна идёт по сетке
     float n=snoise(vec3(aUV.x*3.2,aUV.y*2.4,i*7.31))*.5+.5;
-    float delay=.55*(n*.62+aUV.y*.38);
-    float ff=clamp((f-delay)/.45,0.,1.); ff=ff*ff*ff*(ff*(ff*6.-15.)+10.);
+    float delay=.4*(n*.6+aUV.y*.4);
+    float ff=clamp((f-delay)/.6,0.,1.); ff=ff*ff*ff*(ff*(ff*6.-15.)+10.);
     float pe=i+ff;
     w0=max(0.,1.-abs(pe));w1=max(0.,1.-abs(pe-1.));w2=max(0.,1.-abs(pe-2.));w3=max(0.,1.-abs(pe-3.));w4=max(0.,1.-abs(pe-4.));w5=max(0.,1.-abs(pe-5.));
     vec3 a=rotY(position,uT*.085)*(1.+sin(uT*.9)*.03);
     vec3 b=rotY(p1,uT*.11);
-    vec3 c=rotY(p2,uT*.2);
+    vec3 c=rotY(p2,uT*.13);
     vec3 d=p3; float far=smoothstep(3.,-21.,d.z);
     d.y+=sin(d.x*.55+uT*.55)*.34+sin(d.z*.42-uT*.8)*.42*(1.-far*.4)+sin((d.x+d.z)*.23+uT*.35)*.3;
     vec3 e=vec3(p4.xy*uNum.z+uNum.xy,(aR.z-.5)*.1*uPoint+sin(uT*.6+p4.x*5.)*.03);
-    vec3 g=rotY(p5,uT*.06);
+    vec3 g=rotZ(p5,uT*.045);
     vec3 P=a*w0+b*w1+c*w2+d*w3+e*w4+g*w5;
     gTr=sin(3.14159*ff);
     float k=gTr*gTr*uSwirl+uVel*.22;
     if(k>.002){ vec3 q=vec3(aUV*3.6,uT*.14+i*3.1);
-      P+=vec3(snoise(q),snoise(q+vec3(17.1,3.3,0.)),snoise(q+vec3(41.7,9.2,0.)))*k*.95; }
+      P+=vec3(snoise(q),snoise(q+vec3(17.1,3.3,0.)),snoise(q+vec3(41.7,9.2,0.)))*k*.5; }
     vec3 j=aR.xyz-.5;
     P+=uPoint*j*.045*(1.-w4*.75);
     P+=uPoint*vec3(sin(uT*.7+aR.x*40.),cos(uT*.6+aR.y*40.),sin(uT*.5+aR.z*40.))*.018;
     P+=uPoint*w1*aChaos*(j*2.6+vec3(sin(uT*.5+aR.x*50.),cos(uT*.4+aR.y*50.),sin(uT*.6+aR.z*50.))*.22);
     P+=uPoint*w2*j*.07;
-    P+=uPoint*w5*j*vec3(.55,.16,.55)*(.25+aUV.x);
-    P+=uPoint*gTr*j*.85;
+    P+=uPoint*w5*j*.05;
+    P+=uPoint*gTr*j*.4;
     // вход: облако собирается из разлёта
     float it=clamp(uIntro*1.6-aR.w*.6,0.,1.); it=it*it*(3.-2.*it);
     P=mix(normalize(j+vec3(.001))*(5.+aR.w*9.)+vec3(0.,0.,2.),P,it);
@@ -260,11 +261,11 @@ function build() {
     uP: { value: 0 }, uT: { value: 0 }, uSwirl: { value: reduce ? 0.2 : 1 }, uVel: { value: 0 }, uIntro: { value: reduce ? 1 : 0 },
     uNum: { value: new THREE.Vector3(0, 0, 6) }, uScale: { value: 1 }, uFocus: { value: 7 }, uAp: { value: 1 },
     uRect: { value: new THREE.Vector4(0.5, 0.5, 0, 0) }, uYield: { value: 0 },
-    cA: { value: new THREE.Color("#3a56f0") }, cB: { value: new THREE.Color("#7FB6FF") }, cC: { value: new THREE.Color("#9A7BFF") },
+    cA: { value: new THREE.Color("#1f3cff") }, cB: { value: new THREE.Color("#4a96ff") }, cC: { value: new THREE.Color("#7a5cff") },
   };
 
   const points = new THREE.Points(geo, new THREE.ShaderMaterial({
-    uniforms: { ...uni, uPoint: { value: 1 }, uSize: { value: lite ? 0.021 : 0.0175 }, uOp: { value: +(Q.get("op") || (lite ? 0.5 : 0.36)) } },
+    uniforms: { ...uni, uPoint: { value: 1 }, uSize: { value: lite ? 0.021 : 0.0175 }, uOp: { value: +(Q.get("op") || (lite ? 0.54 : 0.4)) } },
     transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
     vertexShader: FORM + /* glsl */`
       uniform float uScale,uFocus,uAp,uSize,uYield; uniform vec4 uRect; uniform vec3 cA,cB,cC;
@@ -273,26 +274,28 @@ function build() {
         vec3 P=form(); vec4 mv=modelViewMatrix*vec4(P,1.); gl_Position=projectionMatrix*mv;
         float z=max(.2,-mv.z);
         float hot=step(.94,aR.w);
-        float solid=clamp(w2*.95+w4*.45+w0*.14,0.,1.);
+        float solid=clamp(w2*.95+w4*.45+w0*.5+w1*.3+w5*.6,0.,1.);
         float s=uSize*(.55+aR.w*.9+hot*1.5)*(1.+solid*.75)*(.86+.2*sin(uT*(1.2+aR.x*2.)+aR.y*40.));
         float base=s*uScale/z;
         float coc=abs(z-uFocus)*uAp*uScale*.0042*(1.+max(0.,uFocus-z)*.55);
         float size=max(1.4,base+coc);
         float en=clamp(base*base/(size*size),0.,1.);
         float fog=exp(-max(0.,z-uFocus)*mix(.07,.018,w3));
-        vA=mix(en,sqrt(en),.2)*fog*(1.+hot*1.6);
+        float back=smoothstep(-1.3,2.3,z-uFocus);
+        float vol=mix(mix(1.45,.26,back),1.,max(w3,w4));               // ближняя сторона ярче, дальняя уходит в тень
+        vA=mix(en,sqrt(en),.2)*fog*(1.+hot*1.6)*vol;
         vS=solid*smoothstep(.45,.9,base/size)*smoothstep(3.,7.,size);
         // сцена уступает тексту: внутри блока точки тише и мельче
         vec2 uv=gl_Position.xy/gl_Position.w*.5+.5;
-        vec2 dd=abs(uv-uRect.xy)-uRect.zw; float ins=1.-smoothstep(0.,.11,length(max(dd,0.)));
+        vec2 dd=abs(uv-uRect.xy)-uRect.zw; float ins=1.-smoothstep(0.,.17,length(max(dd,0.)));
         float y=ins*uYield;
-        vA*=mix(1.,.16,y); size*=mix(1.,.7,y);
+        vA*=mix(1.,.05,y); size*=mix(1.,.62,y);
         gl_PointSize=min(size,uScale*.2);
         float t=clamp(.5+P.y*.2+(aR.y-.5)*.7,0.,1.);
         vec3 col=mix(cA,cB,smoothstep(0.,.6,t)); col=mix(col,cC,smoothstep(.6,1.,t)*.8);
         col=mix(col,cB,max(w3,w4)*.55);
         col*=.8+.5*aR.x;
-        vC=mix(col,vec3(1.),hot*.55+gTr*.1+w4*.18);
+        vC=mix(col,vec3(1.),hot*.38+gTr*.06+w4*.5);
       }`,
     fragmentShader: /* glsl */`
       uniform float uOp; varying vec3 vC; varying float vA; varying float vS;
@@ -301,7 +304,7 @@ function build() {
         vec3 N=vec3(q,sqrt(1.-m));
         float diff=max(0.,dot(N,vec3(-.47,.66,.59)));
         float spec=pow(max(0.,dot(N,vec3(-.29,.48,.83))),26.);
-        float bead=smoothstep(1.,.8,d)*(.1+.62*diff)+spec*.9;
+        float bead=smoothstep(1.,.8,d)*(.05+.7*diff*diff+.12*diff)+spec*1.15;
         gl_FragColor=vec4(vC*mix(a,bead,vS)*vA*uOp,1.); }`,
   }));
   points.frustumCulled = false; scene.add(points);
@@ -324,10 +327,10 @@ function build() {
         uniform float uFocus,uCol,uAp,uYield; uniform vec4 uRect; uniform vec3 cA,cB; varying vec3 vC; varying float vA;
         void main(){ vec3 P=form(); vec4 mv=modelViewMatrix*vec4(P,1.); gl_Position=projectionMatrix*mv; float z=-mv.z;
           float coc=abs(z-uFocus)*uAp;
-          vA=(1.-w1*aChaos*.92)*(1.-gTr*.85)*(1.-w4)*exp(-max(0.,z-uFocus)*mix(.11,.03,w3))*smoothstep(.3,1.6,z)*mix(1.,1.-w5,1.-uCol)/(1.+coc*coc*.9);
+          vA=(1.-w1*aChaos*.92)*(1.-gTr*.85)*(1.-w4)*exp(-max(0.,z-uFocus)*mix(.11,.03,w3))*smoothstep(.3,1.6,z)/(1.+coc*coc*.9);
           vA*=uIntro*uIntro*uIntro;
-          vec2 uv=gl_Position.xy/gl_Position.w*.5+.5; vec2 dd=abs(uv-uRect.xy)-uRect.zw; vA*=mix(1.,.25,(1.-smoothstep(0.,.11,length(max(dd,0.))))*uYield);
-          float t=clamp(.5+P.y*.2,0.,1.); vC=mix(mix(cA,cB,t),vec3(1.),.25); }`,
+          vec2 uv=gl_Position.xy/gl_Position.w*.5+.5; vec2 dd=abs(uv-uRect.xy)-uRect.zw; vA*=mix(1.,.08,(1.-smoothstep(0.,.17,length(max(dd,0.))))*uYield);
+          float t=clamp(.5+P.y*.2,0.,1.); vC=mix(mix(cA,cB,t),vec3(1.),.12); }`,
       fragmentShader: /* glsl */`uniform float uOp; varying vec3 vC; varying float vA; void main(){ gl_FragColor=vec4(vC*vA*uOp,1.); }`,
     });
     const l = new THREE.LineSegments(g, m); l.frustumCulled = false; scene.add(l); return l;
@@ -385,7 +388,7 @@ function build() {
       [[-0.6, -0.4, 7.2], [2.0, 0, 0]],
       [[0, 0.55, 5.8], [0, -0.35, -7]],
       [[0, 0, 9], [0, 0, 0]],
-      [[1.2, 4.4, 6.6], [-1.7, -0.9, 0]],
+      [[0.7, 0.12, 7.3], [-1.75, -0.45, 0]],
     ],
     tall: [
       [[0, 0.1, 10.6], [0, -0.2, 0]],
@@ -393,7 +396,7 @@ function build() {
       [[0, 0, 11], [0, -2.3, 0]],
       [[0, 0.8, 6.2], [0, 0.2, -7]],
       [[0, 0, 9], [0, 0, 0]],
-      [[0, 5.4, 8.8], [0, 0.5, 0]],
+      [[0, 0.1, 12.6], [0, -0.3, 0]],
     ],
   };
   const v3 = (a) => new THREE.Vector3(...a);
@@ -426,7 +429,7 @@ function build() {
     // прокрутка → состояние: сначала форма стоит (HOLD), потом медленно перетекает
     const { k, f } = rawProgress();
     const target = k + ss(HOLD, 1, f);
-    pS = damp(pS, target, 5.2, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
+    pS = damp(pS, target, 3.4, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
     const i = Math.min(N_CH - 2, Math.floor(pS)), h = pS - i, env = Math.sin(Math.PI * Math.min(1, h));
     uni.uP.value = pS; uni.uT.value = t;
 
@@ -437,9 +440,9 @@ function build() {
 
     if (introGo && intro < 1) { intro = Math.min(1, intro + dte / 3.0); const e = intro < 0.5 ? 2 * intro * intro : 1 - Math.pow(-2 * intro + 2, 2) / 2; uni.uIntro.value = e; }
 
-    mouse.sx = damp(mouse.sx, mouse.x, 3.2, dte); mouse.sy = damp(mouse.sy, mouse.y, 3.2, dte);
+    mouse.sx = damp(mouse.sx, mouse.x, 2.2, dte); mouse.sy = damp(mouse.sy, mouse.y, 2.2, dte);
     camPos.lerpVectors(K[i][0], K[i + 1][0], h); camTgt.lerpVectors(K[i][1], K[i + 1][1], h);
-    camPos.z += env * 1.4 + (1 - uni.uIntro.value) * 2.2; camPos.y += env * 0.3;
+    camPos.z += env * 0.75 + (1 - uni.uIntro.value) * 2.2; camPos.y += env * 0.18;
     camPos.x += Math.sin(t * 0.21) * 0.1; camPos.y += Math.cos(t * 0.17) * 0.07;
     camera.position.copy(camPos); camera.lookAt(camTgt);
     right.setFromMatrixColumn(camera.matrixWorld, 0); up.setFromMatrixColumn(camera.matrixWorld, 1);
@@ -450,7 +453,7 @@ function build() {
     const wWave = Math.max(0, 1 - Math.abs(pS - 3));
     const dist = tmp.copy(camera.position).sub(camTgt).length();
     uni.uFocus.value = THREE.MathUtils.lerp(dist, 5.2, wWave * 0.75);
-    uni.uAp.value = 0.8 + env * 0.9 - wNum * 0.5;
+    uni.uAp.value = 1.0 + env * 0.55 - wNum * 0.6;
 
     // число «100+» садится ровно в свой блок на странице
     if (wNum > 0.001 && numEl100) {

@@ -16,7 +16,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2306070C'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%237FB6FF' stroke-width='2' stroke-dasharray='1.6 5.2' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='4.5' fill='%23E8ECF4'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2306070C'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23F2C57C' stroke-width='2' stroke-dasharray='1.6 5.2' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='4.5' fill='%23E8ECF4'/%3E%3C/svg%3E">
 <link rel="preload" href="./fonts/tts-cyr.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/tts-lat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="modulepreload" href="./lib/three.module.min.js">
@@ -32,8 +32,8 @@
 
 :root{
   /* цвет: тонированный чёрный, тонированный белый, четыре ступени, один акцент */
-  --bg:#06070C; --ink:#E8ECF4; --i1:rgba(232,236,244,.94); --i2:rgba(232,236,244,.64); --i3:rgba(232,236,244,.42); --i4:rgba(232,236,244,.14);
-  --acc:#7FB6FF;
+  --bg:#04050A; --ink:#FFFFFF; --i1:rgba(255,255,255,.97); --i2:rgba(255,255,255,.82); --i3:rgba(255,255,255,.6); --i4:rgba(255,255,255,.26);
+  --acc:#F2C57C; --cold:#6FA8FF;
   /* движение: три длительности, две кривые */
   --t-ui:.3s; --t-rev:1.4s; --t-line:1.8s;
   --e-out:cubic-bezier(.16,1,.3,1); --e-io:cubic-bezier(.66,0,.34,1);
@@ -60,19 +60,21 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .nogl #gl{display:none}
 .nogl .foot .r{display:none}
 .nogl body{background:radial-gradient(60% 50% at 62% 40%,#141b3a,#06070C 70%) fixed}
-.vig{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 105% at 50% 46%,transparent 46%,rgba(6,7,12,.82) 100%)}
+.vig{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 105% at 50% 46%,transparent 40%,rgba(2,3,8,.9) 100%)}
 .grain{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.075;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ---------- типографика ---------- */
-.lab{font:500 11px/1.35 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--i3);font-feature-settings:"kern","case";white-space:nowrap}
+.lab{font:500 13px/1.35 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--i3);font-feature-settings:"kern","case";white-space:nowrap}
 .lab b{font-weight:500;color:var(--i1)}
 .num{font-variant-numeric:tabular-nums lining-nums}
-.h{font-family:var(--display);color:var(--ink);text-wrap:balance;hyphens:none}
+.h{font-family:var(--display);color:var(--ink);text-wrap:balance;hyphens:none;text-shadow:0 0 34px rgba(2,3,8,.9),0 2px 10px rgba(2,3,8,.55)}
+.lead,.p,.parts li span.t,.me p{text-shadow:0 0 22px rgba(2,3,8,.95),0 1px 6px rgba(2,3,8,.7)}
 .xl{font-weight:900;font-stretch:140%;font-size:clamp(46px,12.2vw,228px);line-height:.88;letter-spacing:-.012em;text-transform:uppercase;font-feature-settings:"kern","case"}
 .lg{font-weight:800;font-stretch:112%;font-size:clamp(34px,5.5vw,100px);line-height:.98;letter-spacing:-.026em}
 .md{font-weight:800;font-stretch:110%;font-size:clamp(30px,4.3vw,78px);line-height:1;letter-spacing:-.024em}
 .h i{font-style:normal;color:var(--acc)}
+.h .o{text-shadow:none;color:var(--bg);-webkit-text-stroke:clamp(2px,.03em,5px) var(--ink);paint-order:stroke fill}
 .lead{font-size:clamp(17px,1.05rem + .5vw,24px);line-height:1.38;letter-spacing:-.006em;color:var(--i2);max-width:34ch;text-wrap:pretty}
 .p{color:var(--i2);max-width:44ch;text-wrap:pretty}
 
@@ -90,14 +92,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .top>*{pointer-events:auto}
 .where{display:flex;align-items:center;gap:12px}
 .where i{display:block;width:26px;height:1px;background:var(--i4)}
-.name{font:500 clamp(10px,.82vw,12px)/1 var(--mono);letter-spacing:.34em;text-transform:uppercase;color:var(--i1);white-space:nowrap;padding-left:.34em}
-.cta{justify-self:end;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--i1);border:1px solid rgba(232,236,244,.5);border-radius:2px;padding:13px 20px;
+.name{font:500 clamp(11px,.9vw,13px)/1 var(--mono);letter-spacing:.34em;text-transform:uppercase;color:var(--i1);white-space:nowrap;padding-left:.34em}
+.cta{justify-self:end;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--i1);border:1px solid rgba(232,236,244,.78);border-radius:2px;padding:13px 20px;
   transition:background var(--t-ui) var(--e-out),color var(--t-ui) var(--e-out),border-color var(--t-ui) var(--e-out),transform .15s var(--e-out)}
 .cta:hover{background:var(--ink);color:#06070C;border-color:var(--ink);transition-duration:.15s}
 .cta:active{transform:scale(.97)}
-.bar{position:fixed;left:0;top:0;height:1px;width:100%;z-index:31;transform-origin:0 50%;transform:scaleX(var(--prog,0));background:var(--acc)}
+.bar{position:fixed;left:0;top:0;height:2px;width:100%;z-index:31;transform-origin:0 50%;transform:scaleX(var(--prog,0));background:var(--acc)}
 .rail{position:fixed;right:calc(var(--pad) - 14px);top:50%;transform:translateY(-50%);z-index:30;display:grid;gap:6px;justify-items:end}
-.rail button{display:flex;align-items:center;justify-content:flex-end;gap:12px;height:22px;padding:0 14px;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--i3)}
+.rail button{display:flex;align-items:center;justify-content:flex-end;gap:12px;height:22px;padding:0 14px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--i3)}
 .rail button span{opacity:0;transform:translateX(6px);transition:opacity var(--t-ui) linear,transform var(--t-ui) var(--e-out)}
 .rail button i{display:block;height:1px;width:14px;background:var(--i3);transition:width .9s var(--e-out),background var(--t-ui) linear}
 .rail:hover button span,.rail button:focus-visible span{opacity:1;transform:none}
@@ -109,6 +111,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .scr i{display:block;width:1px;height:30px;background:var(--i4);position:relative;overflow:hidden}
 .scr i::after{content:"";position:absolute;inset:0;background:var(--acc);animation:drop 2.6s var(--e-io) infinite}
 @keyframes drop{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
+.frame{position:fixed;inset:clamp(6px,.75vw,12px);z-index:29;pointer-events:none;border:1px solid var(--i4)}
+.frame i{position:absolute;width:11px;height:11px;border:solid var(--i1);border-width:0}
+.frame i:nth-child(1){left:-1px;top:-1px;border-left-width:1px;border-top-width:1px}
+.frame i:nth-child(2){right:-1px;top:-1px;border-right-width:1px;border-top-width:1px}
+.frame i:nth-child(3){left:-1px;bottom:-1px;border-left-width:1px;border-bottom-width:1px}
+.frame i:nth-child(4){right:-1px;bottom:-1px;border-right-width:1px;border-bottom-width:1px}
 .chrome{opacity:0;transition:opacity 1.2s linear .6s}
 .last .foot{opacity:0;transition-delay:0s;transition-duration:.4s}
 .ready .chrome{opacity:1}
@@ -126,7 +134,7 @@ main{position:relative;z-index:10}
 .c1 .pin{align-content:space-between}
 .c1 .h{grid-column:1/-1;align-self:center;text-align:center;margin-top:auto;transform:translate3d(calc(var(--mx)*8px),calc(var(--my)*6px),0)}
 .c1 .row{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
-.link{display:inline-flex;align-items:center;gap:14px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--i1);padding:10px 0;position:relative}
+.link{display:inline-flex;align-items:center;gap:14px;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--i1);padding:10px 0;position:relative}
 .link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform-origin:100% 50%;transition:transform .75s var(--e-out)}
 .link:hover::after{transform:scaleX(0);transform-origin:0 50%;transition-duration:.15s}
 .link svg,.go svg{width:16px;height:16px;flex:none;transition:transform .75s var(--e-out)}
@@ -143,22 +151,22 @@ main{position:relative;z-index:10}
 .c3 .ghost{left:-3vw;bottom:2vh}
 .c3 .col{grid-column:7/13;display:grid;gap:clamp(18px,2.6vh,30px);padding-right:clamp(0px,3vw,48px)}
 .parts{display:grid;width:100%}
-.parts li{list-style:none;display:grid;grid-template-columns:44px minmax(0,11ch) minmax(0,1fr);gap:0 16px;align-items:baseline;padding:11px 0 12px;position:relative}
+.parts li{list-style:none;display:grid;grid-template-columns:48px minmax(0,11ch) minmax(0,1fr);gap:0 16px;align-items:baseline;padding:11px 0 12px;position:relative}
 .parts li .hl{position:absolute;left:0;right:0;top:0}
 .parts li b{font-weight:700;font-stretch:108%;font-size:clamp(17px,1.25vw,21px);letter-spacing:-.012em;color:var(--i1)}
-.parts li span.t{font-size:15px;line-height:1.4;color:var(--i2)}
+.parts li span.t{font-size:16px;line-height:1.4;color:var(--i2)}
 
 /* 04 — управление: заголовок сверху, реестр кейсов снизу */
 .c4 .pin{align-content:space-between}
 .c4 .ghost{right:-1vw;top:-2vh}
 .c4 .head{grid-column:1/10;display:grid;gap:clamp(14px,2.2vh,24px);justify-items:start}
-.ledger{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--i4);border-radius:3px;
-  background:linear-gradient(180deg,rgba(14,17,30,.52),rgba(8,10,18,.72));-webkit-backdrop-filter:blur(14px) saturate(130%);backdrop-filter:blur(14px) saturate(130%);
+.ledger{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid rgba(232,236,244,.34);border-radius:3px;
+  background:linear-gradient(180deg,rgba(8,10,20,.72),rgba(4,5,10,.86));-webkit-backdrop-filter:blur(14px) saturate(130%);backdrop-filter:blur(14px) saturate(130%);
   box-shadow:0 1px 0 rgba(255,255,255,.07) inset,0 40px 90px -50px rgba(0,2,12,.9)}
 .case{padding:clamp(14px,1.5vw,22px) clamp(14px,1.6vw,24px) clamp(16px,1.7vw,24px);display:grid;gap:10px;align-content:start;border-left:1px solid var(--i4);min-width:0}
 .case:first-child{border-left:0}
 .case .who{font-weight:700;font-stretch:106%;font-size:clamp(15px,1.12vw,18px);letter-spacing:-.01em;color:var(--i1);line-height:1.2}
-.case .big{font-weight:800;font-stretch:118%;font-size:clamp(26px,2.9vw,50px);line-height:1;letter-spacing:-.03em;color:var(--ink);white-space:nowrap;margin-top:6px}
+.case .big{font-weight:800;font-stretch:118%;font-size:clamp(26px,2.9vw,50px);line-height:1;letter-spacing:-.03em;color:var(--acc);white-space:nowrap;margin-top:6px}
 .case .was{display:flex;flex-wrap:wrap;gap:4px 10px}
 .case .lab,.fact .lab{white-space:normal}
 .case .was .lab:last-child{color:var(--i2)}
@@ -175,17 +183,17 @@ main{position:relative;z-index:10}
 .me{display:grid;grid-template-columns:clamp(64px,6vw,92px) minmax(0,1fr);gap:clamp(14px,1.4vw,22px);align-items:start}
 .me img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;border-radius:2px;filter:grayscale(1) contrast(1.08) brightness(1.02);background:#0c0f1a;
   -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent);mask-image:linear-gradient(180deg,#000 62%,transparent)}
-.me p{font-size:15px;line-height:1.42;color:var(--i2)}
+.me p{font-size:16px;line-height:1.42;color:var(--i2)}
 .me .links{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap}
-.me .links a{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--i1);border-bottom:1px solid var(--i3);padding-bottom:4px;transition:border-color var(--t-ui) linear}
+.me .links a{font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--i1);border-bottom:1px solid var(--i3);padding-bottom:4px;transition:border-color var(--t-ui) linear}
 .me .links a:hover{border-color:var(--acc)}
 
 /* 06 — приглашение */
 .c6 .pin{align-content:space-between}
 .c6 .col{grid-column:1/9;display:grid;gap:clamp(18px,2.8vh,32px);justify-items:start;align-self:center;margin-top:auto}
-.go{display:inline-flex;align-items:center;gap:18px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#06070C;background:var(--ink);border-radius:2px;padding:22px 28px;
+.go{display:inline-flex;align-items:center;gap:18px;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#06070C;background:var(--acc);border-radius:2px;padding:22px 28px;
   will-change:transform;transition:background var(--t-ui) var(--e-out),box-shadow .9s var(--e-out);box-shadow:0 24px 70px -28px rgba(127,182,255,.0)}
-.go:hover{background:#fff;box-shadow:0 24px 70px -22px rgba(127,182,255,.7);transition-duration:.15s,.6s}
+.go:hover{background:#fff;box-shadow:0 24px 70px -22px rgba(242,197,124,.75);transition-duration:.15s,.6s}
 .go:active{scale:.97}
 .strip{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between;border-top:1px solid var(--i4);padding-top:16px;margin-top:auto}
 .strip a{transition:color var(--t-ui) linear}
@@ -213,6 +221,8 @@ main{position:relative;z-index:10}
   .top{grid-template-columns:auto 1fr}
   .where,.rail,.side{display:none}
   .name{letter-spacing:.22em;padding-left:0}
+  .lab{font-size:12px}
+  .lg .o,.md .o{color:inherit;-webkit-text-stroke:0}
   .cta{padding:11px 14px}
   .pin{padding:84px var(--pad) 72px;align-content:end}
   .xl{font-size:11.6vw}
@@ -223,7 +233,7 @@ main{position:relative;z-index:10}
   .c2 .col,.c3 .col,.c4 .head,.c6 .col{grid-column:1/-1;padding-right:0}
   .ghost{font-size:64vw}
   .parts li{grid-template-columns:30px minmax(0,1fr);padding:8px 0 9px}
-  .parts li span.t{grid-column:2;font-size:14px}
+  .parts li span.t{grid-column:2;font-size:15px}
   .c4 .pin,.c6 .pin{align-content:space-between}
   .ledger{grid-template-columns:1fr 1fr}
   .case{padding:12px 12px 14px;gap:6px}
@@ -261,6 +271,7 @@ main{position:relative;z-index:10}
 <div class="vig"></div>
 <div class="grain"></div>
 <div class="bar chrome"></div>
+<div class="frame chrome" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
 <header class="top chrome">
   <div class="where lab num"><b id="num">01</b><span>/ 06</span><i></i><span id="lab">Система</span></div>
@@ -273,7 +284,7 @@ main{position:relative;z-index:10}
   <section class="ch c1" id="c1" aria-label="Система продаж">
     <div class="pin">
       <span class="lab fd" style="grid-column:1/-1;text-align:center">Эксперт в&nbsp;области продаж · 12&nbsp;лет</span>
-      <h1 class="h xl y"><span class="ln"><span>Система</span></span><span class="ln" style="--i:1"><span>продаж</span></span></h1>
+      <h1 class="h xl y"><span class="ln"><span>Система</span></span><span class="ln" style="--i:1"><span class="o">продаж</span></span></h1>
       <div class="row">
         <p class="lead fd" style="--i:3">Собираю систему продаж для&nbsp;экспертов. Чтобы доход был&nbsp;управляемым, а&nbsp;не&nbsp;случайным.</p>
         <a class="link fd" style="--i:4" href="#c6" data-go="5">Диагностика, 30–40 минут<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
@@ -368,7 +379,7 @@ main{position:relative;z-index:10}
         <span class="lab fd" style="--i:6;white-space:normal">Без&nbsp;презентаций · без&nbsp;прогревов · без&nbsp;дожима</span>
       </div>
       <div class="strip fd" style="--i:7">
-        <span class="lab"><a href="mailto:komlevalexander@yahoo.com">komlevalexander@yahoo.com</a> · <a href="tel:+79019783894" class="num">+7&nbsp;901&nbsp;978-38-94</a></span>
+        <span class="lab"><a href="mailto:komlevalexander@yahoo.com">komlevalexander@yahoo.com</a> · <a href="tel:+79019783894" class="num" style="white-space:nowrap">+7&nbsp;901&nbsp;978-38-94</a></span>
         <span class="lab"><a href="https://drive.google.com/file/d/1R3z2dI6N-Fia2upxG0cJvpNCDnpxnh4x/view?usp=sharing" target="_blank" rel="noopener">Политика</a> · <a href="https://drive.google.com/file/d/1ibKBrkpKRE5iYUrD1UFqyxS4IfhT4hZ8/view?usp=sharing" target="_blank" rel="noopener">Оферта</a></span>
         <span class="lab num">ИП&nbsp;Комлев Александр Евгеньевич · ИНН&nbsp;782003396570</span>
         <span class="lab" style="flex-basis:100%;color:var(--i3);letter-spacing:.06em">*Инстаграм принадлежит Meta, признанной экстремистской организацией в&nbsp;РФ</span>
