@@ -19,7 +19,7 @@ const narrow = () => innerWidth < 860;
 const lite = !Q.has("hq") && (narrow() || (navigator.hardwareConcurrency || 8) <= 4);
 const N_CH = 8;
 const LABELS = ["Система", "Фокус", "Архитектура", "Управление", "Результаты", "Путь", "Рядом", "Стратегия"];
-const HOLD = 0.3, HOLDS = [0.3, 0.3, 0.3, 0.88, 0.3, 0.3, 0.3, 0.3], ORB_END = 0.84, ORB_STEP = 58, ORB_N = 5;                        // доля шага, пока форма стоит и текст читается
+const HOLD = 0.3, HOLDS = [0.18, 0.18, 0.18, 0.86, 0.18, 0.18, 0.18, 0.18], ORB_END = 0.84, ORB_STEP = 58, ORB_N = 5;                        // доля шага, пока форма стоит и текст читается
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const damp = (a, b, l, dt) => a + (b - a) * (1 - Math.exp(-l * dt));
@@ -288,15 +288,15 @@ function build() {
   const FORM = NOISE + /* glsl */`
   attribute vec3 p1,p2,p3,p4,p5,p6,p7; attribute vec2 aUV; attribute vec4 aR; attribute float aChaos;
   uniform float uP,uT,uPoint,uSwirl,uVel,uIntro,uRot,uOrb; uniform vec3 uNum,uBtn;
-  float w0,w1,w2,w3,w4,w5,w6,w7,gTr,gW;
+  float w0,w1,w2,w3,w4,w5,w6,w7,gTr,gW,gH;
   vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
   vec3 rotZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
   vec3 form(){
     float i=floor(uP),f=uP-i;
     // пятнами: соседние точки уходят вместе, волна идёт по сетке
     float n=snoise(vec3(aUV.x*3.2,aUV.y*2.4,i*7.31))*.5+.5;
-    float delay=.4*(n*.6+aUV.y*.4);
-    float ff=clamp((f-delay)/.6,0.,1.); ff=ff*ff*ff*(ff*(ff*6.-15.)+10.);
+    float delay=.3*(n*.65+aUV.y*.35);
+    float ff=clamp((f-delay)/.7,0.,1.); ff=ff*ff*ff*(ff*(ff*6.-15.)+10.);
     float pe=i+ff;
     w0=max(0.,1.-abs(pe));w1=max(0.,1.-abs(pe-1.));w2=max(0.,1.-abs(pe-2.));w3=max(0.,1.-abs(pe-3.));w4=max(0.,1.-abs(pe-4.));w5=max(0.,1.-abs(pe-5.));w6=max(0.,1.-abs(pe-6.));w7=max(0.,1.-abs(pe-7.));
     float fl=1.+.03*sin(aUV.x*44.+uT*1.3)*sin(aUV.y*19.-uT*.7)+.02*sin(aUV.x*113.-uT*2.1);     // кромка «горит» прядями
@@ -311,7 +311,8 @@ function build() {
     vec3 g7=q7*uBtn.z+vec3(uBtn.xy,0.);
     vec3 P=a*w0+b*w1+c*w2+d*w3+e*w4+g*w5+g6*w6+g7*w7;
     gTr=sin(3.14159*ff);
-    float k=gTr*gTr*uSwirl+uVel*.22;
+    P=rotY(P,gTr*gTr*(.25+.55*n)*(mod(i,2.)<.5?1.:-1.));            // на переходе точки идут дугой, а не по прямой
+    float k=gTr*gTr*uSwirl*.6+uVel*.18;
     if(k>.002){ vec3 q=vec3(aUV*3.6,uT*.14+i*3.1);
       P+=vec3(snoise(q),snoise(q+vec3(17.1,3.3,0.)),snoise(q+vec3(41.7,9.2,0.)))*k*.5; }
     vec3 j=aR.xyz-.5;
@@ -320,7 +321,9 @@ function build() {
     P+=uPoint*w1*aChaos*(j*.07+vec3(sin(uT*.5+aR.x*50.),cos(uT*.4+aR.y*50.),sin(uT*.6+aR.z*50.))*.05);
     P+=uPoint*w2*j*.07;
     P+=uPoint*w5*j*.02;
-    P+=uPoint*gTr*j*.4;
+    P+=uPoint*gTr*j*.16;
+    gH=step(.84,aR.z)*uPoint;                                        // дымка вокруг формы: часть точек висит облаком и даёт объём
+    P+=gH*normalize(j+vec3(.001))*(.25+aR.w*aR.w*1.9)*(1.-w4*.85)*(1.-w7*.6)*(1.-w0*.5);
     // вход: облако собирается из разлёта
     // тонкий фронт идёт от центра раз в несколько секунд: точка приподнимается и вспыхивает
     gW=pow(.5+.5*sin(-uT*.8+length(P)*1.5),140.)*(1.-w4)*(1.-gTr);
@@ -351,7 +354,7 @@ function build() {
         float solid=0.;
         float s=uSize*(.88+aR.w*.24)*(1.+gW*1.2)*(1.+.2*sin(uT*5.+aR.x*60.))*(aR.y>.98?2.2:1.);
         float base=s*uScale/z;
-        float coc=abs(z-uFocus)*uAp*uScale*.0006;
+        float coc=abs(z-uFocus)*uAp*uScale*.0011;
         float size=max(1.,base+coc);
         float en=clamp(base*base/(size*size),0.,1.);
         float fog=exp(-max(0.,z-uFocus)*mix(.07,.018,w3));
@@ -361,7 +364,7 @@ function build() {
         float rim0=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(normalize(position),0.)).xyz),vd)),2.6);        // сфера: светится только кромка
         float rim1=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(P.x,0.,P.z,0.)).xyz+vec3(0.,0.,1e-4)),vd)),1.5);   // воронка: края ярче тела
         float shape=w0*(.012+rim0*2.6)+w1*mix(.2,.5,aChaos)+w2*.55+w3*.5+w4*${narrow() ? ".15" : ".42"}+w5*.55+w6*.36+w7*${narrow() ? ".45" : ".8"};
-        vA=mix(en,sqrt(en),.2)*fog*vol*shape;
+        vA=mix(en,sqrt(en),.2)*fog*vol*shape*mix(1.,.5,gH)*mix(1.25,.7,smoothstep(-2.5,3.,z-uFocus));
         vS=solid*smoothstep(.45,.9,base/size)*smoothstep(3.,7.,size);
         // сцена уступает тексту: внутри блока точки тише и мельче
         vec2 uv=gl_Position.xy/gl_Position.w*.5+.5;
@@ -429,7 +432,7 @@ function build() {
   {
     const M = lite ? 420 : 620, pos = new Float32Array(M * 3), sz = new Float32Array(M);
     for (let i = 0; i < M; i++) {
-      const near = i < 8, r = near ? 2.6 + rnd() * 3 : 9 + rnd() * 26, th = rnd() * TAU, ph = Math.acos(2 * rnd() - 1);
+      const near = i < 22, r = near ? 2.6 + rnd() * 3 : 9 + rnd() * 26, th = rnd() * TAU, ph = Math.acos(2 * rnd() - 1);
       pos[i * 3] = r * Math.sin(ph) * Math.cos(th); pos[i * 3 + 1] = r * Math.cos(ph) * 0.65; pos[i * 3 + 2] = r * Math.sin(ph) * Math.sin(th) + (near ? 3.2 : 0);
       sz[i] = near ? 0.07 + rnd() * 0.05 : 0.01 + rnd() * 0.022;
     }
@@ -572,7 +575,7 @@ function build() {
     // прокрутка → состояние: сначала форма стоит (HOLD), потом медленно перетекает
     const { k, f } = rawProgress();
     const target = k + ss(HOLDS[k], 1, f);
-    pS = damp(pS, target, 4.0, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
+    pS = damp(pS, target, 2.5, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
     const i = Math.min(N_CH - 2, Math.floor(pS)), h = pS - i, env = Math.sin(Math.PI * Math.min(1, h));
     uni.uP.value = pS; uni.uT.value = t;
 
@@ -585,12 +588,12 @@ function build() {
 
     mouse.sx = damp(mouse.sx, mouse.x, 2.2, dte); mouse.sy = damp(mouse.sy, mouse.y, 2.2, dte);
     camPos.lerpVectors(K[i][0], K[i + 1][0], h); camTgt.lerpVectors(K[i][1], K[i + 1][1], h);
-    camPos.z += env * (i === 2 ? -2.6 : 0.75) - (1 - uni.uIntro.value) * 6.2; camPos.y += env * 0.18;   // после спирали камера пролетает сквозь облако
-    camPos.x += Math.sin(t * 0.21) * 0.1; camPos.y += Math.cos(t * 0.17) * 0.07;
+    camPos.z += env * (i === 2 ? -2.6 : -0.9) - (1 - uni.uIntro.value) * 6.2; camPos.y += env * 0.18;   // после спирали камера пролетает сквозь облако
+    camPos.x += Math.sin(t * 0.19) * 0.5; camPos.y += Math.cos(t * 0.15) * 0.2; camPos.z += Math.sin(t * 0.11) * 0.25;
     camera.position.copy(camPos); camera.lookAt(camTgt);
     right.setFromMatrixColumn(camera.matrixWorld, 0); up.setFromMatrixColumn(camera.matrixWorld, 1);
     const wNum = Math.max(0, 1 - Math.abs(pS - 4)), par = 1 - wNum * 0.7;
-    camera.position.addScaledVector(right, mouse.sx * 0.55 * par).addScaledVector(up, -mouse.sy * 0.36 * par);
+    camera.position.addScaledVector(right, mouse.sx * 0.95 * par).addScaledVector(up, -mouse.sy * 0.6 * par);
     camera.lookAt(camTgt); camera.rotation.z += mouse.sx * -0.01 * par;
 
     const wWave = Math.max(0, 1 - Math.abs(pS - 3));
