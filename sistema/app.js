@@ -49,7 +49,24 @@ function rawProgress() {
   const span = (tops[k + 1] - tops[k]) || 1, f = Math.min(1, Math.max(0, (y - tops[k]) / span));
   return { k, f };
 }
-const go = (k) => scrollTo({ top: tops[k] || 0, behavior: reduce ? "auto" : "smooth" });
+const sm = { on: fine && !reduce, t: scrollY, c: scrollY, busy: 0 };
+const smTo = (y) => { if (sm.on) { sm.t = Math.max(0, Math.min(document.documentElement.scrollHeight - innerHeight, y)); sm.busy = performance.now(); } else scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" }); };
+function smTick(dt) {
+  if (!sm.on) return;
+  const d = sm.t - sm.c;
+  if (Math.abs(d) < 0.4) { if (sm.c !== sm.t) { sm.c = sm.t; scrollTo(0, sm.c); } return; }
+  sm.c += d * (1 - Math.exp(-dt * 6.5)); sm.busy = performance.now(); scrollTo(0, sm.c);
+}
+if (sm.on) {
+  addEventListener("wheel", (e) => {
+    if (e.ctrlKey || root.style.overflow === "hidden") return;
+    e.preventDefault();
+    const dy = e.deltaY * (e.deltaMode === 1 ? 34 : e.deltaMode === 2 ? innerHeight : 1);
+    smTo(sm.t + Math.max(-900, Math.min(900, dy)));
+  }, { passive: false });
+  addEventListener("scroll", () => { if (performance.now() - sm.busy > 140 && Math.abs(scrollY - sm.c) > 3) { sm.t = sm.c = scrollY; } }, { passive: true });
+}
+const go = (k) => smTo(tops[k] || 0);
 $$("[data-go]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); go(+b.dataset.go); }));
 addEventListener("keydown", (e) => {
   if (e.target.closest("a,button,input,textarea")) return;
@@ -160,7 +177,7 @@ function closeCase() {
 $$(".case").forEach((c, idx) => {
   c.tabIndex = 0; c.setAttribute("role", "button");
   orb.cards.push(c);
-  c.addEventListener("click", () => { if (Math.abs(idx - orb.qs) < 0.5) { if (c.classList.contains("next")) open("https://t.me/coachkomlevaleks", "_blank", "noopener"); else openCase(c, idx); } else scrollTo({ top: tops[3] + (tops[4] - tops[3]) * ORB_END * (idx / (ORB_N - 1)) + 2, behavior: reduce ? "auto" : "smooth" }); });
+  c.addEventListener("click", () => { if (Math.abs(idx - orb.qs) < 0.5) { if (c.classList.contains("next")) open("https://t.me/coachkomlevaleks", "_blank", "noopener"); else openCase(c, idx); } else smTo(tops[3] + (tops[4] - tops[3]) * ORB_END * (idx / (ORB_N - 1)) + 2); });
   c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); c.click(); } });
   c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); c.style.setProperty("--cx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(2)); c.style.setProperty("--cy", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(2)); }, { passive: true });
 });
@@ -217,7 +234,7 @@ function build() {
   /* ---- сетка u×v: одни и те же точки собирают все состояния ---- */
   const U = lite ? 450 : 900, V = lite ? 130 : 220, N = U * V, TAU = Math.PI * 2;   // вдоль линии точек много, линий мало: формы читаются прядями
   const P = [0, 1, 2, 3, 4, 5, 6, 7].map(() => new Float32Array(N * 3));
-  const aUV = new Float32Array(N * 2), aR = new Float32Array(N * 4), aChaos = new Float32Array(N);
+  const aUV = new Float32Array(N * 2), aR = new Float32Array(N * 4), aChaos = new Float32Array(N), aH = new Float32Array(N);
   let seed = 7; const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
 
   // число «100+»: точки берутся из растра настоящего шрифта
@@ -243,21 +260,23 @@ function build() {
     aR[k * 4] = rnd(); aR[k * 4 + 1] = rnd(); aR[k * 4 + 2] = rnd(); aR[k * 4 + 3] = rnd();
     { const th = u * TAU, ph = Math.acos(1 - 2 * (0.012 + v * 0.976)), R = 3.05;                       // 0 сфера: полая оболочка
       P[0][o] = R * Math.sin(ph) * Math.cos(th); P[0][o + 1] = R * Math.cos(ph); P[0][o + 2] = R * Math.sin(ph) * Math.sin(th); }
-    { const hs = (n) => { const x = Math.sin((j + 1) * n) * 43758.5453; return x - Math.floor(x); }, h1 = hs(12.9898), h2 = hs(78.233), h3 = hs(37.719), h4 = hs(93.989);   // 1 пряди: разбросаны и спутаны, сходятся в один поток
+    const hs = (n) => { const x = Math.sin((j + 1) * n) * 43758.5453; return x - Math.floor(x); }, h1 = hs(12.9898), h2 = hs(78.233), h3 = hs(37.719), h4 = hs(93.989); aH[k] = h3;
+    {   // 1 пряди: разбросаны и спутаны, сходятся в один поток
       const conv = Math.min(1, Math.max(0, (u - 0.12) / 0.5)), cs = conv * conv * (3 - 2 * conv), free = 1 - cs;
       const sx = (h1 - 0.5) * 12, sy = 0.6 + h2 * 4.4, sz = (h3 - 0.5) * 10, an = h4 * TAU + u * (h2 - 0.5) * 16, amp = (0.5 + h1 * 1.3) * free;
       P[1][o] = sx * free + Math.cos(an) * amp + (h4 - 0.5) * 0.16 * cs; P[1][o + 1] = sy + (-4.9 - sy) * Math.pow(u, 0.85) + Math.sin(an * 0.7) * amp * 0.5; P[1][o + 2] = sz * free + Math.sin(an) * amp + (h1 - 0.5) * 0.16 * cs; aChaos[k] = free; }
-    { const y = (v - 0.5) * 9.4, th = v * TAU * 1.6, s = 2 * u - 1, e = Math.sign(s) * Math.pow(Math.abs(s), 0.22), R = 0.9;   // 2 спираль
-      P[2][o] = Math.cos(th) * e * R; P[2][o + 1] = y; P[2][o + 2] = Math.sin(th) * e * R; }
-    { const y = (v - 0.5) * 13, cl = Math.pow(Math.abs(Math.sin(v * 31 + Math.sin(v * 9) * 2.2)), 2.2), q = aR[k * 4 + 1];              // 3 ось: столб из сгустков, вокруг него идут кейсы
-      const r = 0.06 + (0.1 + 0.62 * cl) * Math.pow(q, 0.6), th = u * TAU * 5 + v * 14;
-      P[3][o] = r * Math.cos(th); P[3][o + 1] = y; P[3][o + 2] = r * Math.sin(th); }
+    { const kk = j % 2, core = h3 > 0.9, th = u * TAU * 1.7 + kk * Math.PI, rb = core ? 0.05 + 0.2 * h1 : 0.04 + 0.4 * Math.sqrt(h1), hb = h2 * TAU + u * TAU * 5;   // 2 канат: пряди свиты в две толстые ветви
+      const rad = core ? rb : 1.2 + rb * Math.cos(hb);
+      P[2][o] = Math.cos(th) * rad; P[2][o + 1] = (u - 0.5) * 12.5 + (core ? 0 : rb * Math.sin(hb)); P[2][o + 2] = Math.sin(th) * rad; }
+    { const outer = h3 > 0.7, y = (u - 0.5) * 15, R = outer ? 2.1 + h1 * 1.7 + Math.sin(u * 9 + h2 * 6) * 0.15 : 0.05 + 0.55 * h1 * (0.45 + 0.55 * Math.abs(Math.sin(u * 27 + h2 * 6)));   // 3 ствол с витками: вокруг него идут кейсы
+      const th = outer ? u * TAU * (1 + h2 * 1.2) + h4 * TAU : u * TAU * 3 + h4 * TAU;
+      P[3][o] = R * Math.cos(th); P[3][o + 1] = y; P[3][o + 2] = R * Math.sin(th); }
     { const n = numPts.pts.length || 1, q = numPts.pts[Math.min(n - 1, Math.floor(((i + j / V) / U) * n))] || [0, 0];   // 4 число
       P[4][o] = q[0]; P[4][o + 1] = q[1]; P[4][o + 2] = 0; }
-    { const dip = Math.exp(-Math.pow((u - 0.28) / 0.13, 2)), up = Math.pow(Math.max(0, u - 0.36) / 0.64, 1.6);                 // 5 путь: лента уходит вниз и поднимается
-      P[5][o] = -6.2 + u * 13; P[5][o + 1] = -0.9 - 0.95 * dip + 4.5 * up; P[5][o + 2] = 2.6 - u * 7 + (v - 0.5) * (1.1 + u * 2.4); }
-    { const kk = u < 0.5 ? 0 : 1, uu = (kk ? u - 0.5 : u) * 2, z = 7 - v * 36, rad = 0.07 + 0.13 * aR[k * 4 + 2], an = uu * TAU;                 // 6 рядом: два потока идут вместе к одной точке
-      P[6][o] = (kk ? 0.62 : -0.62) + Math.sin(v * 8 + kk * Math.PI) * 0.24 + rad * Math.cos(an); P[6][o + 1] = -1.55 + v * v * 1.9 + rad * Math.sin(an); P[6][o + 2] = z; }
+    { const dip = Math.exp(-Math.pow((u - 0.28) / 0.13, 2)), up = Math.pow(Math.max(0, u - 0.36) / 0.64, 1.6), rb = 0.03 + (0.1 + 1.25 * u * u) * Math.sqrt(h1), hb = h2 * TAU + u * TAU * 3.2;   // 5 путь: жгут уходит вниз и поднимается, набирая толщину
+      P[5][o] = -6.6 + u * 12.6 + rb * Math.cos(hb) * 0.3; P[5][o + 1] = -1.1 - 1.05 * dip + 4.3 * up + rb * Math.cos(hb); P[5][o + 2] = -7 + u * 10.5 + rb * Math.sin(hb); }
+    { const core = h3 > 0.8, cx = Math.sin(u * 3.2) * 0.35, cz = Math.cos(u * 2.4) * 0.3, R = core ? 0.05 + 0.22 * h1 : (0.8 + 1.7 * h1) * (0.6 + 0.4 * Math.sin(u * 5 + h2 * 6)), th = u * TAU * (core ? 1 : 1.6 + h2 * 1.6) + h4 * TAU;   // 6 рядом: пряди идут вокруг тёплой сердцевины
+      P[6][o] = cx + R * Math.cos(th); P[6][o + 1] = (u - 0.5) * 13; P[6][o + 2] = cz + R * Math.sin(th); }
     { const sx = Math.pow(u, 0.62), r = Math.pow(1 - sx, 1.35) * 1.7 * (0.25 + 0.75 * aR[k * 4 + 1]) + 0.012, th = sx * 17 + v * TAU;            // 7 всё сходится в кнопку
       P[7][o] = (1 - sx) * 6.8; P[7][o + 1] = r * Math.cos(th); P[7][o + 2] = r * Math.sin(th); }
   }
@@ -267,6 +286,7 @@ function build() {
   geo.setAttribute("aUV", new THREE.BufferAttribute(aUV, 2));
   geo.setAttribute("aR", new THREE.BufferAttribute(aR, 4));
   geo.setAttribute("aChaos", new THREE.BufferAttribute(aChaos, 1));
+  geo.setAttribute("aH", new THREE.BufferAttribute(aH, 1));
   geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 80);
   const ptsEl = $("#pts"); if (ptsEl) ptsEl.textContent = N.toLocaleString("ru-RU");
 
@@ -286,7 +306,7 @@ function build() {
     vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;
     return 42.*dot(m*m,vec4(dot(q0,x0),dot(q1,x1),dot(q2,x2),dot(q3,x3)));}`;
   const FORM = NOISE + /* glsl */`
-  attribute vec3 p1,p2,p3,p4,p5,p6,p7; attribute vec2 aUV; attribute vec4 aR; attribute float aChaos;
+  attribute vec3 p1,p2,p3,p4,p5,p6,p7; attribute vec2 aUV; attribute vec4 aR; attribute float aChaos,aH;
   uniform float uP,uT,uPoint,uSwirl,uVel,uIntro,uRot,uOrb; uniform vec3 uNum,uBtn;
   float w0,w1,w2,w3,w4,w5,w6,w7,gTr,gW,gH;
   vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
@@ -305,8 +325,8 @@ function build() {
     vec3 c=rotY(p2,uT*.13+uRot*2.);
     vec3 d=rotY(p3,uT*.07+uRot+uOrb); d.y+=uOrb*.55;
     vec3 e=vec3(p4.xy*uNum.z+uNum.xy+(aR.xy-.5)*uNum.z*.0035,(aR.z-.5)*.1*uPoint+sin(uT*.6+p4.x*5.)*.03);
-    vec3 g=p5; g.y+=sin(p5.x*.7+uT*.5)*.07*(1.+aUV.y); g=rotY(g,uRot*.3);
-    vec3 g6=p6; g6.x+=sin(p6.z*.45+uT*.6)*.07; g6.y+=cos(p6.z*.3-uT*.4)*.04; g6=rotY(g6,uRot*.2);
+    vec3 g=p5; g.y+=sin(p5.x*.7+uT*.5)*.09; g.z+=cos(p5.x*.5-uT*.4)*.09; g=rotY(g,uRot*.3);
+    vec3 g6=rotY(p6,uT*.12+uRot+p6.y*.03*sin(uT*.2)); g6=rotZ(g6,-.5); g6.z+=g6.y*.5;
     vec3 q7=p7; float c7=cos(uT*.5+uRot),s7=sin(uT*.5+uRot); q7.yz=vec2(c7*q7.y-s7*q7.z,s7*q7.y+c7*q7.z); float t7=p7.x/6.8; q7.y+=t7*t7*2.1; q7.z-=t7*4.5;
     vec3 g7=q7*uBtn.z+vec3(uBtn.xy,0.);
     vec3 P=a*w0+b*w1+c*w2+d*w3+e*w4+g*w5+g6*w6+g7*w7;
@@ -363,7 +383,7 @@ function build() {
         vec3 vd=normalize(mv.xyz);
         float rim0=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(normalize(position),0.)).xyz),vd)),2.6);        // сфера: светится только кромка
         float rim1=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(P.x,0.,P.z,0.)).xyz+vec3(0.,0.,1e-4)),vd)),1.5);   // воронка: края ярче тела
-        float shape=w0*(.012+rim0*2.6)+w1*mix(.2,.5,aChaos)+w2*.55+w3*.5+w4*${narrow() ? ".15" : ".42"}+w5*.55+w6*.36+w7*${narrow() ? ".45" : ".8"};
+        float shape=w0*(.012+rim0*2.6)+w1*mix(.2,.5,aChaos)+w2*.4+w3*.45*mix(1.,.4,step(.7,aH))+w4*${narrow() ? ".15" : ".42"}+w5*.42+w6*mix(.5,.3,step(.8,aH))+w7*${narrow() ? ".45" : ".8"};
         vA=mix(en,sqrt(en),.2)*fog*vol*shape*mix(1.,.5,gH)*mix(1.25,.7,smoothstep(-2.5,3.,z-uFocus));
         vS=solid*smoothstep(.45,.9,base/size)*smoothstep(3.,7.,size);
         // сцена уступает тексту: внутри блока точки тише и мельче
@@ -377,12 +397,11 @@ function build() {
         float sy=clamp(position.y/3.05*.5+.5,0.,1.);
         vec3 c0=mix(mix(CY,BLU,smoothstep(.05,.5,sy)),RED,smoothstep(.55,.92,sy));
         float h1c=fract(sin(aUV.y*913.7)*43758.5); vec3 c1=mix(mix(mix(BLU,CY,h1c),RED,step(.86,h1c)*aChaos),mix(CY,ICE,.6),smoothstep(.35,.9,1.-aChaos));
-        float st=smoothstep(.55,1.,abs(aUV.x*2.-1.));
-        vec3 c2=mix(BLU,mix(CY,ICE,.55),st);
-        float s3=fract(aUV.y*4.+aR.y*.15); vec3 c3=mix(mix(BLU,CY,smoothstep(.0,.5,s3)),mix(ICE,vec3(.62,.4,1.),aR.x),smoothstep(.55,1.,aR.y))+RED*smoothstep(.93,1.,aR.z)*.8;
+        vec3 c2=mix(mix(BLU,CY,aR.x*.8),ICE,smoothstep(.55,1.,aH)*.75);
+        float out3=step(.7,aH); vec3 c3=mix(mix(mix(BLU,CY,aR.x),ICE,smoothstep(.6,1.,aR.y)*.8),mix(BLU,vec3(.4,.25,1.),aR.x)*.7,out3);
         vec3 c4=mix(CY,ICE,.6);
         vec3 c5=mix(mix(RED,BLU,smoothstep(.2,.42,aUV.x)),mix(CY,ICE,.5),smoothstep(.5,.95,aUV.x));
-        vec3 c6=mix(aUV.x<.5?mix(BLU,CY,.75):mix(RED,vec3(1.,.42,.5),.35),ICE,smoothstep(.55,1.,aUV.y)*.8);
+        float core6=step(.8,aH); vec3 c6=mix(mix(BLU,CY,aR.x),mix(vec3(1.,.5,.22),vec3(1.,.85,.6),aR.y),core6);
         vec3 c7=mix(mix(BLU,CY,smoothstep(0.,.5,aUV.x)),vec3(1.,.8,.5),smoothstep(.55,1.,aUV.x));
         vec3 col=c0*w0+c1*w1+c2*w2+c3*w3+c4*w4+c5*w5+c6*w6+c7*w7;
         vC=col*(.9+.2*aR.x)*1.7;
@@ -409,7 +428,7 @@ function build() {
       if ((U - 1) % colStep) for (let j = 0; j < V - 1; j++) idx.push(j * U + U - 1, (j + 1) * U + U - 1);
     }
     const g = new THREE.BufferGeometry();
-    for (const n of ["position", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "aUV", "aR", "aChaos"]) g.setAttribute(n, geo.getAttribute(n));
+    for (const n of ["position", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "aUV", "aR", "aChaos", "aH"]) g.setAttribute(n, geo.getAttribute(n));
     g.setIndex(idx); g.boundingSphere = geo.boundingSphere;
     const m = new THREE.ShaderMaterial({
       uniforms: { ...uni, uPoint: { value: 0 }, uOp: { value: op }, uCol: { value: isCol ? 0 : 1 } },
@@ -421,7 +440,7 @@ function build() {
           vA=(1.-w1*aChaos*.3)*(1.-gTr*.85)*(1.-w4)*exp(-max(0.,z-uFocus)*mix(.11,.03,w3))*smoothstep(.3,1.6,z)/(1.+coc*coc*.9);
           vA*=uIntro*uIntro*uIntro;
           vec2 uv=gl_Position.xy/gl_Position.w*.5+.5; vec2 dd=abs(uv-uRect.xy)-uRect.zw; vA*=mix(1.,.08,(1.-smoothstep(0.,.17,length(max(dd,0.))))*uYield);
-          vC=mix(cA,cB,clamp(.5+P.y*.2,0.,1.))*1.3; vA*=(1.-w0)*(1.+w5*1.4)*(1.-w7*.8); }`,
+          vC=mix(cA,cB,clamp(.5+P.y*.2,0.,1.))*1.3; vA*=(1.-w0)*(1.+w5*.6)*(1.-w7*.8)*(1.-(1.-uCol)*max(max(w5,w6),max(w3,w2))); }`,
       fragmentShader: /* glsl */`uniform float uOp; varying vec3 vC; varying float vA; void main(){ gl_FragColor=vec4(vC*vA*uOp,1.); }`,
     });
     const l = new THREE.LineSegments(g, m); l.frustumCulled = false; l.userData.op = op; scene.add(l); return l;
@@ -505,11 +524,11 @@ function build() {
     wide: [
       [[0, 0, 7.9], [0, 0, 0]],
       [[0.9, -2.6, 7.4], [-2.6, 0.5, 0]],
-      [[-0.4, 0.2, 7.6], [2.3, 0, 0]],
+      [[-0.4, 0.2, 8.6], [2.5, 0, 0]],
       [[0, 0.1, 9.4], [-2.6, 0, 0]],
       [[0, 0, 9], [0, 0, 0]],
-      [[0, 0.9, 10], [-3.2, 0.9, 0]],
-      [[0, 0.5, 9], [-2.7, 0.1, 0]],
+      [[0.6, 0.9, 10.5], [-3.0, 0.7, 0]],
+      [[0, 0.3, 9.6], [-2.9, 0, 0]],
       [[0, 0, 9.5], [0, 0, 0]],
     ],
     tall: [
@@ -519,7 +538,7 @@ function build() {
       [[0, 0.2, 11], [0, 1.6, 0]],
       [[0, 0, 9], [0, 0, 0]],
       [[0, 0.5, 17], [0, -4.2, 0]],
-      [[0, 0.4, 11], [0, -2.6, 0]],
+      [[0, 0.4, 13], [0, -3.2, 0]],
       [[0, 0, 12], [0, 0, 0]],
     ],
   };
@@ -570,6 +589,7 @@ function build() {
   function frame() {
     if (!running) return;
     const raw = clock.getDelta(), dt = Math.min(0.05, raw), dte = Math.min(0.25, raw);
+    smTick(dte);
     t += dt * (reduce ? 0.3 : 1);
 
     // прокрутка → состояние: сначала форма стоит (HOLD), потом медленно перетекает
@@ -668,7 +688,7 @@ function build() {
       idle = setTimeout(() => {
         const y = scrollY; let best = -1, bd = 1e9;
         tops.forEach((tp, j) => { const d = Math.abs(y - tp); if (d < bd) { bd = d; best = j; } });
-        if (bd > 2 && bd < VHpx * 0.2) scrollTo({ top: tops[best], behavior: "smooth" });
+        if (bd > 2 && bd < VHpx * 0.2) smTo(tops[best]);
       }, 420);
     }, { passive: true });
   }
