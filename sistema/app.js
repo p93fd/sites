@@ -17,9 +17,9 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
 const narrow = () => innerWidth < 860;
 const lite = !Q.has("hq") && (narrow() || (navigator.hardwareConcurrency || 8) <= 4);
-const N_CH = 6;
-const LABELS = ["Система", "Фокус", "Архитектура", "Управление", "Результаты", "Стратегия"];
-const HOLD = 0.3, HOLDS = [0.3, 0.3, 0.3, 0.88, 0.3, 0.3], ORB_END = 0.84, ORB_STEP = 58, ORB_N = 5;                        // доля шага, пока форма стоит и текст читается
+const N_CH = 8;
+const LABELS = ["Система", "Фокус", "Архитектура", "Управление", "Результаты", "Путь", "Рядом", "Стратегия"];
+const HOLD = 0.3, HOLDS = [0.3, 0.3, 0.3, 0.88, 0.3, 0.3, 0.3, 0.3], ORB_END = 0.84, ORB_STEP = 58, ORB_N = 5;                        // доля шага, пока форма стоит и текст читается
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const damp = (a, b, l, dt) => a + (b - a) * (1 - Math.exp(-l * dt));
@@ -216,7 +216,7 @@ function build() {
 
   /* ---- сетка u×v: одни и те же точки собирают все состояния ---- */
   const U = lite ? 450 : 900, V = lite ? 130 : 220, N = U * V, TAU = Math.PI * 2;   // вдоль линии точек много, линий мало: формы читаются прядями
-  const P = [0, 1, 2, 3, 4, 5].map(() => new Float32Array(N * 3));
+  const P = [0, 1, 2, 3, 4, 5, 6, 7].map(() => new Float32Array(N * 3));
   const aUV = new Float32Array(N * 2), aR = new Float32Array(N * 4), aChaos = new Float32Array(N);
   let seed = 7; const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
 
@@ -243,8 +243,10 @@ function build() {
     aR[k * 4] = rnd(); aR[k * 4 + 1] = rnd(); aR[k * 4 + 2] = rnd(); aR[k * 4 + 3] = rnd();
     { const th = u * TAU, ph = Math.acos(1 - 2 * (0.012 + v * 0.976)), R = 3.05;                       // 0 сфера: полая оболочка
       P[0][o] = R * Math.sin(ph) * Math.cos(th); P[0][o + 1] = R * Math.cos(ph); P[0][o + 2] = R * Math.sin(ph) * Math.sin(th); }
-    { const y = 2.5 - v * 5.2, r = 0.05 + 2.9 * Math.pow(1 - v, 2.3), th = u * TAU + v * 5.5;          // 1 воронка
-      P[1][o] = r * Math.cos(th); P[1][o + 1] = y; P[1][o + 2] = r * Math.sin(th); aChaos[k] = Math.pow(1 - v, 1.5); }
+    { const hs = (n) => { const x = Math.sin((j + 1) * n) * 43758.5453; return x - Math.floor(x); }, h1 = hs(12.9898), h2 = hs(78.233), h3 = hs(37.719), h4 = hs(93.989);   // 1 пряди: разбросаны и спутаны, сходятся в один поток
+      const conv = Math.min(1, Math.max(0, (u - 0.12) / 0.5)), cs = conv * conv * (3 - 2 * conv), free = 1 - cs;
+      const sx = (h1 - 0.5) * 12, sy = 0.6 + h2 * 4.4, sz = (h3 - 0.5) * 10, an = h4 * TAU + u * (h2 - 0.5) * 16, amp = (0.5 + h1 * 1.3) * free;
+      P[1][o] = sx * free + Math.cos(an) * amp + (h4 - 0.5) * 0.16 * cs; P[1][o + 1] = sy + (-4.9 - sy) * Math.pow(u, 0.85) + Math.sin(an * 0.7) * amp * 0.5; P[1][o + 2] = sz * free + Math.sin(an) * amp + (h1 - 0.5) * 0.16 * cs; aChaos[k] = free; }
     { const y = (v - 0.5) * 9.4, th = v * TAU * 1.6, s = 2 * u - 1, e = Math.sign(s) * Math.pow(Math.abs(s), 0.22), R = 0.9;   // 2 спираль
       P[2][o] = Math.cos(th) * e * R; P[2][o + 1] = y; P[2][o + 2] = Math.sin(th) * e * R; }
     { const y = (v - 0.5) * 13, cl = Math.pow(Math.abs(Math.sin(v * 31 + Math.sin(v * 9) * 2.2)), 2.2), q = aR[k * 4 + 1];              // 3 ось: столб из сгустков, вокруг него идут кейсы
@@ -252,13 +254,16 @@ function build() {
       P[3][o] = r * Math.cos(th); P[3][o + 1] = y; P[3][o + 2] = r * Math.sin(th); }
     { const n = numPts.pts.length || 1, q = numPts.pts[Math.min(n - 1, Math.floor(((i + j / V) / U) * n))] || [0, 0];   // 4 число
       P[4][o] = q[0]; P[4][o + 1] = q[1]; P[4][o + 2] = 0; }
-    { const w = 1.3, h = 0.86, s5 = Math.min(4.9999, u * 5), k = Math.floor(s5), f = (s5 - k) * (h + w);             // 5 пять ступеней вверх
-      const x = -3.25 + k * w + Math.max(0, f - h), y = -2.3 + (k - 1) * h + Math.min(f, h);
-      P[5][o] = x; P[5][o + 1] = y; P[5][o + 2] = (v - 0.5) * 2.6; }
+    { const dip = Math.exp(-Math.pow((u - 0.28) / 0.13, 2)), up = Math.pow(Math.max(0, u - 0.36) / 0.64, 1.6);                 // 5 путь: лента уходит вниз и поднимается
+      P[5][o] = -6.2 + u * 13; P[5][o + 1] = -0.9 - 0.95 * dip + 4.5 * up; P[5][o + 2] = 2.6 - u * 7 + (v - 0.5) * (1.1 + u * 2.4); }
+    { const kk = u < 0.5 ? 0 : 1, uu = (kk ? u - 0.5 : u) * 2, z = 7 - v * 36, rad = 0.07 + 0.13 * aR[k * 4 + 2], an = uu * TAU;                 // 6 рядом: два потока идут вместе к одной точке
+      P[6][o] = (kk ? 0.62 : -0.62) + Math.sin(v * 8 + kk * Math.PI) * 0.24 + rad * Math.cos(an); P[6][o + 1] = -1.55 + v * v * 1.9 + rad * Math.sin(an); P[6][o + 2] = z; }
+    { const sx = Math.pow(u, 0.62), r = Math.pow(1 - sx, 1.35) * 1.7 * (0.25 + 0.75 * aR[k * 4 + 1]) + 0.012, th = sx * 17 + v * TAU;            // 7 всё сходится в кнопку
+      P[7][o] = (1 - sx) * 6.8; P[7][o + 1] = r * Math.cos(th); P[7][o + 2] = r * Math.sin(th); }
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.BufferAttribute(P[0], 3));
-  for (let f = 1; f < 6; f++) geo.setAttribute("p" + f, new THREE.BufferAttribute(P[f], 3));
+  for (let f = 1; f < 8; f++) geo.setAttribute("p" + f, new THREE.BufferAttribute(P[f], 3));
   geo.setAttribute("aUV", new THREE.BufferAttribute(aUV, 2));
   geo.setAttribute("aR", new THREE.BufferAttribute(aR, 4));
   geo.setAttribute("aChaos", new THREE.BufferAttribute(aChaos, 1));
@@ -281,9 +286,9 @@ function build() {
     vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;
     return 42.*dot(m*m,vec4(dot(q0,x0),dot(q1,x1),dot(q2,x2),dot(q3,x3)));}`;
   const FORM = NOISE + /* glsl */`
-  attribute vec3 p1,p2,p3,p4,p5; attribute vec2 aUV; attribute vec4 aR; attribute float aChaos;
-  uniform float uP,uT,uPoint,uSwirl,uVel,uIntro,uRot,uOrb; uniform vec3 uNum;
-  float w0,w1,w2,w3,w4,w5,gTr,gW;
+  attribute vec3 p1,p2,p3,p4,p5,p6,p7; attribute vec2 aUV; attribute vec4 aR; attribute float aChaos;
+  uniform float uP,uT,uPoint,uSwirl,uVel,uIntro,uRot,uOrb; uniform vec3 uNum,uBtn;
+  float w0,w1,w2,w3,w4,w5,w6,w7,gTr,gW;
   vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
   vec3 rotZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
   vec3 form(){
@@ -293,15 +298,18 @@ function build() {
     float delay=.4*(n*.6+aUV.y*.4);
     float ff=clamp((f-delay)/.6,0.,1.); ff=ff*ff*ff*(ff*(ff*6.-15.)+10.);
     float pe=i+ff;
-    w0=max(0.,1.-abs(pe));w1=max(0.,1.-abs(pe-1.));w2=max(0.,1.-abs(pe-2.));w3=max(0.,1.-abs(pe-3.));w4=max(0.,1.-abs(pe-4.));w5=max(0.,1.-abs(pe-5.));
+    w0=max(0.,1.-abs(pe));w1=max(0.,1.-abs(pe-1.));w2=max(0.,1.-abs(pe-2.));w3=max(0.,1.-abs(pe-3.));w4=max(0.,1.-abs(pe-4.));w5=max(0.,1.-abs(pe-5.));w6=max(0.,1.-abs(pe-6.));w7=max(0.,1.-abs(pe-7.));
     float fl=1.+.03*sin(aUV.x*44.+uT*1.3)*sin(aUV.y*19.-uT*.7)+.02*sin(aUV.x*113.-uT*2.1);     // кромка «горит» прядями
     vec3 a=rotY(position,uT*.06+uRot)*fl;
-    vec3 b=rotY(p1,uT*.11+uRot);
+    vec3 b=p1+vec3(sin(uT*.6+aUV.y*90.+aUV.x*7.),cos(uT*.5+aUV.y*70.+aUV.x*5.),sin(uT*.4+aUV.y*50.))*.14*aChaos; b=rotY(b,uT*.05+uRot);
     vec3 c=rotY(p2,uT*.13+uRot*2.);
     vec3 d=rotY(p3,uT*.07+uRot+uOrb); d.y+=uOrb*.55;
     vec3 e=vec3(p4.xy*uNum.z+uNum.xy+(aR.xy-.5)*uNum.z*.0035,(aR.z-.5)*.1*uPoint+sin(uT*.6+p4.x*5.)*.03);
-    vec3 g=rotY(p5,-.5+sin(uT*.17)*.06+uRot*.35);
-    vec3 P=a*w0+b*w1+c*w2+d*w3+e*w4+g*w5;
+    vec3 g=p5; g.y+=sin(p5.x*.7+uT*.5)*.07*(1.+aUV.y); g=rotY(g,uRot*.3);
+    vec3 g6=p6; g6.x+=sin(p6.z*.45+uT*.6)*.07; g6.y+=cos(p6.z*.3-uT*.4)*.04; g6=rotY(g6,uRot*.2);
+    vec3 q7=p7; float c7=cos(uT*.5+uRot),s7=sin(uT*.5+uRot); q7.yz=vec2(c7*q7.y-s7*q7.z,s7*q7.y+c7*q7.z); float t7=p7.x/6.8; q7.y+=t7*t7*2.1; q7.z-=t7*4.5;
+    vec3 g7=q7*uBtn.z+vec3(uBtn.xy,0.);
+    vec3 P=a*w0+b*w1+c*w2+d*w3+e*w4+g*w5+g6*w6+g7*w7;
     gTr=sin(3.14159*ff);
     float k=gTr*gTr*uSwirl+uVel*.22;
     if(k>.002){ vec3 q=vec3(aUV*3.6,uT*.14+i*3.1);
@@ -309,7 +317,7 @@ function build() {
     vec3 j=aR.xyz-.5;
     P+=uPoint*j*.045*(1.-w4*.75);
     P+=uPoint*vec3(sin(uT*.7+aR.x*40.),cos(uT*.6+aR.y*40.),sin(uT*.5+aR.z*40.))*.018;
-    P+=uPoint*w1*aChaos*(j*.5+vec3(sin(uT*.5+aR.x*50.),cos(uT*.4+aR.y*50.),sin(uT*.6+aR.z*50.))*.05);
+    P+=uPoint*w1*aChaos*(j*.07+vec3(sin(uT*.5+aR.x*50.),cos(uT*.4+aR.y*50.),sin(uT*.6+aR.z*50.))*.05);
     P+=uPoint*w2*j*.07;
     P+=uPoint*w5*j*.02;
     P+=uPoint*gTr*j*.4;
@@ -324,7 +332,7 @@ function build() {
   }`;
 
   const uni = {
-    uP: { value: 0 }, uT: { value: 0 }, uSwirl: { value: reduce ? 0.2 : 1 }, uVel: { value: 0 }, uIntro: { value: reduce ? 1 : 0 }, uRot: { value: 0 }, uOrb: { value: 0 },
+    uP: { value: 0 }, uT: { value: 0 }, uSwirl: { value: reduce ? 0.2 : 1 }, uVel: { value: 0 }, uIntro: { value: reduce ? 1 : 0 }, uRot: { value: 0 }, uOrb: { value: 0 }, uBtn: { value: new THREE.Vector3(0, 0, 1) },
     uNum: { value: new THREE.Vector3(0, 0, 6) }, uScale: { value: 1 }, uFocus: { value: 7 }, uAp: { value: 1 },
     uRect: { value: new THREE.Vector4(0.5, 0.5, 0, 0) }, uYield: { value: 0 },
     cA: { value: new THREE.Color("#1233ff") }, cB: { value: new THREE.Color("#2fc0ff") }, cC: { value: new THREE.Color("#ff2f55") },
@@ -348,11 +356,11 @@ function build() {
         float en=clamp(base*base/(size*size),0.,1.);
         float fog=exp(-max(0.,z-uFocus)*mix(.07,.018,w3));
         float back=smoothstep(-1.3,2.3,z-uFocus);
-        float vol=mix(mix(1.3,.45,back),1.,max(max(w3,w4),w5));
+        float vol=mix(mix(1.3,.45,back),1.,max(max(max(w3,w4),max(w5,w6)),w7));
         vec3 vd=normalize(mv.xyz);
         float rim0=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(normalize(position),0.)).xyz),vd)),2.6);        // сфера: светится только кромка
         float rim1=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(P.x,0.,P.z,0.)).xyz+vec3(0.,0.,1e-4)),vd)),1.5);   // воронка: края ярче тела
-        float shape=w0*(.012+rim0*2.6)+w1*(.22+rim1*.9)*mix(1.,.3,smoothstep(.55,1.,aUV.y))+w2*.55+w3*.5+w4*${narrow() ? ".15" : ".42"}+w5*.3;
+        float shape=w0*(.012+rim0*2.6)+w1*mix(.2,.5,aChaos)+w2*.55+w3*.5+w4*${narrow() ? ".15" : ".42"}+w5*.55+w6*.36+w7*${narrow() ? ".45" : ".8"};
         vA=mix(en,sqrt(en),.2)*fog*vol*shape;
         vS=solid*smoothstep(.45,.9,base/size)*smoothstep(3.,7.,size);
         // сцена уступает тексту: внутри блока точки тише и мельче
@@ -365,13 +373,15 @@ function build() {
         vec3 RED=vec3(1.,.03,.06), BLU=vec3(.004,.06,.75), CY=vec3(.11,.66,.92), ICE=vec3(.72,.95,1.), DEEP=vec3(.004,.008,.11);
         float sy=clamp(position.y/3.05*.5+.5,0.,1.);
         vec3 c0=mix(mix(CY,BLU,smoothstep(.05,.5,sy)),RED,smoothstep(.55,.92,sy));
-        vec3 c1=mix(DEEP*3.,vec3(.08,.24,.72),smoothstep(.35,1.,aUV.y))+BLU*rim1*.6;
+        float h1c=fract(sin(aUV.y*913.7)*43758.5); vec3 c1=mix(mix(mix(BLU,CY,h1c),RED,step(.86,h1c)*aChaos),mix(CY,ICE,.6),smoothstep(.35,.9,1.-aChaos));
         float st=smoothstep(.55,1.,abs(aUV.x*2.-1.));
         vec3 c2=mix(BLU,mix(CY,ICE,.55),st);
         float s3=fract(aUV.y*4.+aR.y*.15); vec3 c3=mix(mix(BLU,CY,smoothstep(.0,.5,s3)),mix(ICE,vec3(.62,.4,1.),aR.x),smoothstep(.55,1.,aR.y))+RED*smoothstep(.93,1.,aR.z)*.8;
         vec3 c4=mix(CY,ICE,.6);
-        vec3 c5=mix(mix(BLU,CY,smoothstep(0.,.6,aUV.x)),RED,smoothstep(.8,1.,aUV.x));
-        vec3 col=c0*w0+c1*w1+c2*w2+c3*w3+c4*w4+c5*w5;
+        vec3 c5=mix(mix(RED,BLU,smoothstep(.2,.42,aUV.x)),mix(CY,ICE,.5),smoothstep(.5,.95,aUV.x));
+        vec3 c6=mix(aUV.x<.5?mix(BLU,CY,.75):mix(RED,vec3(1.,.42,.5),.35),ICE,smoothstep(.55,1.,aUV.y)*.8);
+        vec3 c7=mix(mix(BLU,CY,smoothstep(0.,.5,aUV.x)),vec3(1.,.8,.5),smoothstep(.55,1.,aUV.x));
+        vec3 col=c0*w0+c1*w1+c2*w2+c3*w3+c4*w4+c5*w5+c6*w6+c7*w7;
         vC=col*(.9+.2*aR.x)*1.7;
       }`,
     fragmentShader: /* glsl */`
@@ -396,7 +406,7 @@ function build() {
       if ((U - 1) % colStep) for (let j = 0; j < V - 1; j++) idx.push(j * U + U - 1, (j + 1) * U + U - 1);
     }
     const g = new THREE.BufferGeometry();
-    for (const n of ["position", "p1", "p2", "p3", "p4", "p5", "aUV", "aR", "aChaos"]) g.setAttribute(n, geo.getAttribute(n));
+    for (const n of ["position", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "aUV", "aR", "aChaos"]) g.setAttribute(n, geo.getAttribute(n));
     g.setIndex(idx); g.boundingSphere = geo.boundingSphere;
     const m = new THREE.ShaderMaterial({
       uniforms: { ...uni, uPoint: { value: 0 }, uOp: { value: op }, uCol: { value: isCol ? 0 : 1 } },
@@ -405,10 +415,10 @@ function build() {
         uniform float uFocus,uCol,uAp,uYield; uniform vec4 uRect; uniform vec3 cA,cB; varying vec3 vC; varying float vA;
         void main(){ vec3 P=form(); vec4 mv=modelViewMatrix*vec4(P,1.); gl_Position=projectionMatrix*mv; float z=-mv.z;
           float coc=abs(z-uFocus)*uAp;
-          vA=(1.-w1*aChaos*.92)*(1.-gTr*.85)*(1.-w4)*exp(-max(0.,z-uFocus)*mix(.11,.03,w3))*smoothstep(.3,1.6,z)/(1.+coc*coc*.9);
+          vA=(1.-w1*aChaos*.3)*(1.-gTr*.85)*(1.-w4)*exp(-max(0.,z-uFocus)*mix(.11,.03,w3))*smoothstep(.3,1.6,z)/(1.+coc*coc*.9);
           vA*=uIntro*uIntro*uIntro;
           vec2 uv=gl_Position.xy/gl_Position.w*.5+.5; vec2 dd=abs(uv-uRect.xy)-uRect.zw; vA*=mix(1.,.08,(1.-smoothstep(0.,.17,length(max(dd,0.))))*uYield);
-          vC=mix(cA,cB,clamp(.5+P.y*.2,0.,1.))*1.3; vA*=(1.-w0)*(1.+w5*2.2); }`,
+          vC=mix(cA,cB,clamp(.5+P.y*.2,0.,1.))*1.3; vA*=(1.-w0)*(1.+w5*1.4)*(1.-w7*.8); }`,
       fragmentShader: /* glsl */`uniform float uOp; varying vec3 vC; varying float vA; void main(){ gl_FragColor=vec4(vC*vA*uOp,1.); }`,
     });
     const l = new THREE.LineSegments(g, m); l.frustumCulled = false; l.userData.op = op; scene.add(l); return l;
@@ -491,19 +501,23 @@ function build() {
   const CAM = {
     wide: [
       [[0, 0, 7.9], [0, 0, 0]],
-      [[0.4, 0.7, 8.8], [-2.5, -0.1, 0]],
+      [[0.9, -2.6, 7.4], [-2.6, 0.5, 0]],
       [[-0.4, 0.2, 7.6], [2.3, 0, 0]],
       [[0, 0.1, 9.4], [-2.6, 0, 0]],
       [[0, 0, 9], [0, 0, 0]],
-      [[0.9, 2.3, 10.2], [-2.6, 0.2, 0]],
+      [[0, 0.9, 10], [-3.2, 0.9, 0]],
+      [[0, 0.5, 9], [-2.7, 0.1, 0]],
+      [[0, 0, 9.5], [0, 0, 0]],
     ],
     tall: [
       [[0, 0, 12.6], [0, 0.2, 0]],
-      [[0, 0.6, 12], [0, -2.2, 0]],
+      [[0, -2.5, 11.5], [0, -2.2, 0]],
       [[0, 0, 12], [0, -3.4, 0]],
       [[0, 0.2, 11], [0, 1.6, 0]],
       [[0, 0, 9], [0, 0, 0]],
-      [[0.8, 2.2, 15.5], [0, 1.2, 0]],
+      [[0, 0.5, 17], [0, -4.2, 0]],
+      [[0, 0.4, 11], [0, -2.6, 0]],
+      [[0, 0, 12], [0, 0, 0]],
     ],
   };
   const v3 = (a) => new THREE.Vector3(...a);
@@ -527,7 +541,7 @@ function build() {
   let t = 0, running = true, pS = 0, vel = 0, lastY = scrollY, intro = reduce ? 1 : 0, introGo = false, yieldS = 0;
   let acc = 0, frames = 0, cool = 0;
   const rect = { x: 0.5, y: 0.5, w: 0, h: 0 };
-  const HUE = [0.15, 0.75, 0.3, 0.9, 0.2, 0.6], drag = { on: false, x: 0, dx: 0, d: 0, rot: 0 };
+  const HUE = [0.15, 0.75, 0.3, 0.9, 0.2, 1.1, 0.5, 0.25], drag = { on: false, x: 0, dx: 0, d: 0, rot: 0 };
   let sv = 0, svBusy = false;
   if (fine && !reduce) {
     addEventListener("pointerdown", (e) => { if (e.button === 0 && !e.target.closest("a,button,.case,.cp")) { drag.on = true; drag.x = e.clientX; } });
@@ -591,6 +605,12 @@ function build() {
       uni.uNum.value.set((r.left + r.width / 2 - W / 2) * wpp, -(r.top + r.height / 2 - H / 2) * wpp, wpx * wpp);
     }
 
+    const wBtn = Math.max(0, 1 - Math.abs(pS - 7));
+    if (wBtn > 0.001 && goBtn) {
+      const r = goBtn.getBoundingClientRect(), wpp = (2 * dist * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) / H;
+      uni.uBtn.value.set((r.left + r.width / 2 - W / 2) * wpp, -(r.top + r.height / 2 - H / 2) * wpp, W / H < 0.85 ? 0.8 : 1.55);
+      goBtn.style.setProperty("--glow", wBtn.toFixed(3));
+    }
     // текст активной главы: сцена под ним гаснет
     const el = yields[f < 0.66 ? k : Math.min(N_CH - 1, k + 1)];
     if (el) {

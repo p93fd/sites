@@ -408,6 +408,16 @@ main{position:relative;z-index:10}
   .ledger.orb .case .big{font-size:34px}
   .orbhint{display:none}
 }
+/* ============ экраны 6–7 и финал: поток уходит в кнопку ============ */
+.c5 .pin{align-content:center}
+.c5 .cap{margin-bottom:0}
+.path{display:flex;align-items:baseline;gap:clamp(14px,1.4vw,22px)}
+.path .big{font-weight:800;font-stretch:118%;font-size:clamp(64px,7vw,128px);line-height:.9;letter-spacing:-.03em;color:var(--ink)}
+.path span{font-size:clamp(18px,1.5vw,24px);color:var(--i1)}
+.c8 .me{grid-template-columns:clamp(84px,8vw,128px) minmax(0,1fr);max-width:620px}
+.c8 .me p{font-size:clamp(18px,1.5vw,23px);line-height:1.42;color:var(--i1)}
+.c8 .me .links a{font-size:14px}
+#go{box-shadow:0 0 calc(var(--glow,0)*70px) calc(var(--glow,0)*6px) rgba(255,205,130,calc(var(--glow,0)*.55)),0 0 calc(var(--glow,0)*18px) rgba(255,255,255,calc(var(--glow,0)*.6))}
 @media (max-width:859px){
   .c6 .strip{position:relative;padding:16px 14px;border-radius:16px;background:rgba(4,5,10,.82);border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 }
@@ -434,9 +444,9 @@ main{position:relative;z-index:10}
 
 <canvas id="trail" aria-hidden="true"></canvas>
 <header class="top chrome">
-  <div class="where lab num"><b id="num">01</b><span>/ 06</span><i></i><span id="lab">Система</span></div>
+  <div class="where lab num"><b id="num">01</b><span>/ 08</span><i></i><span id="lab">Система</span></div>
   <div class="name">Александр Комлев</div>
-  <button class="cta" data-go="5">Стратегия</button>
+  <button class="cta" data-go="7">Стратегия</button>
 </header>
 
 <main id="main">
@@ -447,7 +457,7 @@ main{position:relative;z-index:10}
       <h1 class="h xl y"><span class="ln"><span>Система</span></span><span class="ln" style="--i:1"><span class="o">продаж</span></span></h1>
       <div class="row">
         <p class="lead fd" style="--i:3">Собираю систему продаж для&nbsp;экспертов. Чтобы доход был&nbsp;управляемым, а&nbsp;не&nbsp;случайным.</p>
-        <a class="link fd" style="--i:4" href="#c6" data-go="5">Диагностика, 30–40 минут<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="link fd" style="--i:4" href="#c6" data-go="7">Диагностика, 30–40 минут<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </section>
@@ -511,18 +521,37 @@ main{position:relative;z-index:10}
     <div class="pin">
       <div class="n100 num" aria-hidden="true">100+</div>
       <h2 class="cap h md y"><span class="ln"><span><span style="position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden">100+ </span>млн&nbsp;₽ заработали клиенты</span></span></h2>
-      <div class="facts">
-        <div class="fact fd" style="--i:2"><div class="big num">12</div><span class="lab">лет&nbsp;в&nbsp;продажах</span></div>
-        <div class="fact fd" style="--i:3"><div class="big num">−2 <span style="color:var(--i3)">/</span> +4</div><span class="lab">млн&nbsp;₽ · мой&nbsp;путь без&nbsp;рекламы</span></div>
-        <div class="fact wide fd" style="--i:4">
-          <div class="me">
-            <img src="./img/me.webp" width="1100" height="1100" loading="lazy" decoding="async" alt="Александр Комлев">
-            <div>
-              <p>Три&nbsp;месяца рядом: дёргаю, настраиваю, пока не&nbsp;пойдёт. Все, кто&nbsp;хочет расти, со&nbsp;мной продлеваются.</p>
-              <div class="links">
-                <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY2NjkzMTI5OTY4MjU4?story_media_id=2413957420203862326&igsh=dWV1MjlwdnFvcHYx" target="_blank" rel="noopener">Чеки клиентов*</a>
-                <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTgyNjY4OTcyMTE0MzI5?story_media_id=3156090925834601469&igsh=a3JxczlqMG9oOHNl" target="_blank" rel="noopener">Отзывы*</a>
-              </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="ch c2 c7" id="c7" aria-label="Мой путь">
+    <div class="pin">
+      <div class="ghost" aria-hidden="true">06</div>
+      <div class="col y">
+        <span class="lab fd" data-sc>06&nbsp;— Мой путь</span>
+        <h2 class="h lg"><span class="ln"><span>Из&nbsp;−2&nbsp;млн&nbsp;₽</span></span><span class="ln" style="--i:1"><span>в&nbsp;+4&nbsp;млн&nbsp;₽.</span></span><span class="ln" style="--i:2"><span><i>Без&nbsp;рекламы.</i></span></span></h2>
+        <i class="hl" style="--i:3;width:min(100%,520px)"></i>
+        <div class="path fd" style="--i:4"><div class="big num">12</div><span>лет в&nbsp;продажах</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="ch c2 c8" id="c8" aria-label="Три месяца рядом">
+    <div class="pin">
+      <div class="ghost" aria-hidden="true">07</div>
+      <div class="col y">
+        <span class="lab fd" data-sc>07&nbsp;— Формат</span>
+        <h2 class="h lg"><span class="ln"><span>Три&nbsp;месяца</span></span><span class="ln" style="--i:1"><span>рядом.</span></span><span class="ln" style="--i:2"><span><i>Пока не&nbsp;пойдёт.</i></span></span></h2>
+        <i class="hl" style="--i:3;width:min(100%,520px)"></i>
+        <div class="me fd" style="--i:4">
+          <img src="./img/me.webp" width="1100" height="1100" loading="lazy" decoding="async" alt="Александр Комлев">
+          <div>
+            <p>Дёргаю, настраиваю, пока не&nbsp;пойдёт. Все, кто&nbsp;хочет расти, со&nbsp;мной продлеваются.</p>
+            <div class="links">
+              <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY2NjkzMTI5OTY4MjU4?story_media_id=2413957420203862326&igsh=dWV1MjlwdnFvcHYx" target="_blank" rel="noopener">Чеки клиентов*</a>
+              <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTgyNjY4OTcyMTE0MzI5?story_media_id=3156090925834601469&igsh=a3JxczlqMG9oOHNl" target="_blank" rel="noopener">Отзывы*</a>
             </div>
           </div>
         </div>
@@ -534,7 +563,7 @@ main{position:relative;z-index:10}
   <section class="ch c6" id="c6" aria-label="Диагностика">
     <div class="pin">
       <div class="col y">
-        <span class="lab fd" data-sc>06&nbsp;— Понятная стратегия</span>
+        <span class="lab fd" data-sc>08&nbsp;— Понятная стратегия</span>
         <h2 class="h lg"><span class="ln"><span>Можно ещё&nbsp;полгода</span></span><span class="ln" style="--i:1"><span>делать то&nbsp;же самое.</span></span><span class="ln" style="--i:2"><span><i>А&nbsp;можно написать.</i></span></span></h2>
         <p class="lead fd" style="--i:4;max-width:40ch">Диагностика 30–40 минут в&nbsp;zoom. Вы&nbsp;уходите с&nbsp;пониманием, как&nbsp;сделать продажи в&nbsp;ближайшие две&nbsp;недели.</p>
         <a class="go fd" style="--i:5" id="go" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener"><span>Записаться на&nbsp;диагностику</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
@@ -556,7 +585,9 @@ main{position:relative;z-index:10}
   <button data-go="2"><span>Архитектура</span><i></i></button>
   <button data-go="3"><span>Управление</span><i></i></button>
   <button data-go="4"><span>Результаты</span><i></i></button>
-  <button data-go="5"><span>Стратегия</span><i></i></button>
+  <button data-go="5"><span>Путь</span><i></i></button>
+  <button data-go="6"><span>Рядом</span><i></i></button>
+  <button data-go="7"><span>Стратегия</span><i></i></button>
 </nav>
 <div class="side lab chrome" aria-hidden="true" id="side">Одна система · шесть состояний</div>
 <footer class="foot chrome" aria-hidden="true">
