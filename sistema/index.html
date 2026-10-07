@@ -99,7 +99,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cta:active{transform:scale(.97)}
 .bar{position:fixed;left:0;top:0;height:2px;width:100%;z-index:31;transform-origin:0 50%;transform:scaleX(0);background:var(--acc)}
 .rail{position:fixed;right:calc(var(--pad) - 14px);top:50%;transform:translateY(-50%);z-index:30;display:grid;gap:6px;justify-items:end}
-.rail button{display:flex;align-items:center;justify-content:flex-end;gap:12px;height:22px;padding:0 14px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--i3)}
+.rail button{display:flex;align-items:center;justify-content:flex-end;gap:12px;height:22px;padding:0 14px;font:500 13px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--i3)}
 .rail button span{opacity:0;transform:translateX(6px);transition:opacity var(--t-ui) linear,transform var(--t-ui) var(--e-out)}
 .rail button i{display:block;height:1px;width:14px;background:var(--i3);transition:width .9s var(--e-out),background var(--t-ui) linear}
 .rail:hover button span,.rail button:focus-visible span{opacity:1;transform:none}
@@ -420,6 +420,33 @@ main{position:relative;z-index:10}
 .ch{--mx:0;--my:0}
 .grain{display:none}
 .atmo{display:none}
+/* ============ мелкий текст — выразительнее; документы ============ */
+.lab{font-weight:500;font-size:14px;letter-spacing:.1em;color:var(--i1)}
+.lab[data-sc]{font-size:15px;color:var(--acc);letter-spacing:.14em}
+.lab b{color:#fff}
+.tried .lab{font:500 clamp(18px,1.35vw,21px)/1.3 var(--display);color:#fff}
+.tried .lab s{color:var(--acc);font:500 14px/1 var(--mono);letter-spacing:.08em}
+.parts li span.t{font-size:clamp(17px,1.25vw,20px);color:var(--i1)}
+.parts li .lab{color:var(--acc)}
+.case .role{font-size:17px;color:var(--i1)}
+.case .was{font-size:clamp(16px,1.2vw,19px);color:#fff}
+.case .was span{color:var(--acc)}
+.case figure .lab{font-size:14px;color:#fff}
+.path span{font-size:clamp(20px,1.7vw,27px);color:#fff}
+.orbhint{font-size:14px;color:#fff}
+.strip .lab{font-size:15px;color:var(--i1);letter-spacing:.07em}
+.strip .lab a{border-bottom:1px solid rgba(255,255,255,.28);padding-bottom:2px}
+.strip .lab a:hover{color:var(--acc);border-color:var(--acc)}
+.foot .lab,#hint{font-size:13px;color:var(--i2)}
+.me .links a{font-size:15px;color:#fff;border-color:var(--acc)}
+.ck{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:58;display:flex;align-items:center;gap:16px;padding:12px 14px 12px 20px;border-radius:999px;background:rgba(10,14,26,.92);border:1px solid rgba(255,255,255,.2);font-size:15px;color:var(--i1);max-width:calc(100vw - 24px)}
+.ck[hidden],.dm[hidden]{display:none}
+.ck a{color:#fff;border-bottom:1px solid var(--acc)}
+.ck button{height:38px;padding:0 18px;border-radius:999px;background:#fff;color:#06070C;font:600 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.dm{position:fixed;inset:0;z-index:70;background:rgba(2,3,8,.82);display:grid;place-items:center;padding:clamp(10px,3vw,40px)}
+.dm iframe{width:min(900px,100%);height:100%;border:1px solid rgba(255,255,255,.2);border-radius:16px;background:#04050A}
+.dm .dx{position:absolute;right:clamp(16px,4vw,56px);top:clamp(16px,4vw,52px);z-index:1;height:42px;padding:0 18px;border-radius:999px;background:#fff;color:#06070C;font:600 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:859px){.lab{font-size:13px}.lab[data-sc]{font-size:13px}.strip .lab{font-size:14px}.ck{border-radius:18px;font-size:14px}}
 @media (max-width:859px){
   .c6 .strip{position:relative;padding:16px 14px;border-radius:16px;background:rgba(4,5,10,.82);border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 }
@@ -573,7 +600,7 @@ main{position:relative;z-index:10}
       </div>
       <div class="strip fd" style="--i:7">
         <span class="lab"><a href="mailto:komlevalexander@yahoo.com">komlevalexander@yahoo.com</a> · <a href="tel:+79019783894" class="num" style="white-space:nowrap">+7&nbsp;901&nbsp;978-38-94</a></span>
-        <span class="lab"><a href="https://drive.google.com/file/d/1R3z2dI6N-Fia2upxG0cJvpNCDnpxnh4x/view?usp=sharing" target="_blank" rel="noopener">Политика</a> · <a href="https://drive.google.com/file/d/1ibKBrkpKRE5iYUrD1UFqyxS4IfhT4hZ8/view?usp=sharing" target="_blank" rel="noopener">Оферта</a></span>
+        <span class="lab docs"><a href="https://drive.google.com/file/d/1R3z2dI6N-Fia2upxG0cJvpNCDnpxnh4x/view?usp=sharing" target="_blank" rel="noopener">Политика</a> · <a href="https://drive.google.com/file/d/1ibKBrkpKRE5iYUrD1UFqyxS4IfhT4hZ8/view?usp=sharing" target="_blank" rel="noopener">Оферта</a> · <a href="./legal.html#consent" data-doc="consent">Согласие</a> · <a href="./legal.html#cookie" data-doc="cookie">Cookie</a> · <a href="./legal.html#details" data-doc="details">Реквизиты</a></span>
         <span class="lab num">ИП&nbsp;Комлев Александр Евгеньевич · ИНН&nbsp;782003396570</span>
         <span class="lab" style="flex-basis:100%;color:var(--i3);letter-spacing:.06em">*Инстаграм принадлежит Meta, признанной экстремистской организацией в&nbsp;РФ</span>
       </div>
@@ -611,5 +638,18 @@ main{position:relative;z-index:10}
 
 <noscript><style>.boot{display:none}.ln>span,.fd,.hl{transform:none;opacity:1}.chrome{opacity:1}.n100{color:#E8ECF4}</style></noscript>
 <script type="module" src="./app.js"></script>
+<div class="ck" id="ck" hidden><span>Сайт использует cookie. <a href="./legal.html#cookie" data-doc="cookie">Подробнее</a></span><button type="button">Понятно</button></div>
+<div class="dm" id="dm" hidden role="dialog" aria-modal="true" aria-label="Документы"><button type="button" class="dx" aria-label="Закрыть">Закрыть ×</button><iframe id="dfr" title="Документы"></iframe></div>
+<script>
+(function(){var d=document,dm=d.getElementById("dm"),fr=d.getElementById("dfr"),ck=d.getElementById("ck"),root=d.documentElement;
+function openDoc(id){fr.src="./legal.html#"+id;dm.hidden=false;root.style.overflow="hidden"}
+function closeDoc(){dm.hidden=true;root.style.overflow=""}
+d.querySelectorAll("[data-doc]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();openDoc(a.dataset.doc)})});
+dm.querySelector(".dx").addEventListener("click",closeDoc);dm.addEventListener("click",function(e){if(e.target===dm)closeDoc()});
+d.addEventListener("keydown",function(e){if(e.key==="Escape"&&!dm.hidden)closeDoc()});
+var seen=false;try{seen=localStorage.getItem("ck")==="1"}catch(e){}
+if(!seen){setTimeout(function(){ck.hidden=false},6500);ck.querySelector("button").addEventListener("click",function(){ck.hidden=true;try{localStorage.setItem("ck","1")}catch(e){}})}
+})();
+</script>
 </body>
 </html>
