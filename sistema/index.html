@@ -371,10 +371,10 @@ main{position:relative;z-index:10}
 .cp.on .t>*{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){#trail{display:none}}
 /* ============ кейсы: стеклянные плитки на спирали вокруг оси из частиц ============ */
-.c4{height:calc(var(--vh,1vh)*400)}
-.c4 .pin{clip-path:none;transform:none;background:none;align-content:start;grid-template-rows:auto 1fr}
-.c4 .head{grid-column:1/6;align-self:start;z-index:2}
-.ledger.orb{display:block;position:relative;grid-column:5/-1;grid-row:1/3;align-self:stretch;min-height:0;perspective:1500px;perspective-origin:50% 46%;transform-style:preserve-3d;gap:0}
+.c4{height:calc(var(--vh,1vh)*480)}
+.c4 .pin{clip-path:none;transform:none;background:none;align-content:center;grid-template-rows:auto auto;row-gap:clamp(18px,3vh,34px)}
+.c4 .head{grid-column:1/6;z-index:2}
+.ledger.orb{display:block;position:absolute;inset:0 0 0 42%;perspective:1500px;perspective-origin:50% 46%;transform-style:preserve-3d;gap:0}
 .ledger.orb .case{position:absolute;left:50%;top:50%;width:clamp(300px,29vw,470px);display:grid;grid-template-columns:none;grid-template-rows:auto auto;clip-path:none;border-radius:22px;
   background:linear-gradient(180deg,rgba(18,30,52,.42),rgba(6,10,20,.78));-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
   box-shadow:inset 0 0 0 1px rgba(170,220,255,.34),inset 0 1px 0 rgba(255,255,255,.35),0 40px 90px -30px rgba(0,0,0,.85),0 0 60px -20px rgba(40,168,200,.45);
@@ -388,13 +388,20 @@ main{position:relative;z-index:10}
 .ledger.orb .case .big{font-size:clamp(40px,3.6vw,62px);grid-column:auto;grid-row:auto;margin-top:8px}
 .ledger.orb .case .was{font-size:clamp(16px,1.15vw,18px);grid-column:auto}
 .ledger.orb .case:hover .who{transform:none}.ledger.orb .case .who::before{display:none}
+.case.next{min-height:clamp(300px,52vh,520px);align-content:center;justify-items:start;padding:clamp(22px,2.4vw,38px);gap:18px;grid-template-rows:none!important}
+.case.next .lab{color:var(--acc);font-size:13px}
+.case.next .t1{font-weight:800;font-stretch:118%;font-size:clamp(34px,3.3vw,58px);line-height:1;letter-spacing:-.02em;color:#fff}
+.case.next .t2{font-size:clamp(17px,1.25vw,20px);line-height:1.4;color:var(--i1)}
+.case.next .btn{display:inline-flex;align-items:center;gap:12px;height:54px;padding:0 26px;border-radius:999px;background:#fff;color:#06070C;font:600 13px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+.opening .c4 .head,.opening .c4 .head *,.opening .orbhint{opacity:0!important;transition:opacity .4s linear!important}
 .opening .ledger.orb .case:not(.sel){opacity:0!important;transition:opacity .4s linear}
-.orbhint{grid-column:1/5;align-self:end;display:flex;align-items:center;gap:14px;font:500 13px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--i1);z-index:2}
+.orbhint{grid-column:1/5;grid-row:2;display:flex;align-items:center;gap:14px;font:500 13px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--i1);z-index:2}
 .orbhint i{display:block;width:44px;height:1px;background:var(--acc)}
 @media (max-width:859px){
-  .c4{height:calc(var(--vh,1vh)*380)}
+  .c4{height:calc(var(--vh,1vh)*460)}
   .c4 .head{grid-column:1/-1}
-  .ledger.orb{grid-column:1/-1;grid-row:2;perspective:900px}
+  .c4 .pin{align-content:start}
+  .ledger.orb{inset:24% 0 0 0;perspective:900px}
   .ledger.orb .case{width:min(76vw,330px);border-radius:18px;transform-origin:50% 50%}
   .ledger.orb .case figure{height:min(30vh,250px);margin:6px 6px 0;border-radius:13px}
   .ledger.orb .case .txt{padding:12px 16px 16px}
@@ -494,6 +501,7 @@ main{position:relative;z-index:10}
         <article class="case"><figure><img src="./img/zelinskaya.webp" alt="Ирина Зелинская" loading="lazy" decoding="async"><span class="lab num">Кейс 02</span></figure><div class="txt"><div class="who">Ирина Зелинская</div><div class="role">Наставник, коуч</div><div class="big num">4,9&nbsp;млн&nbsp;₽</div><div class="was">было 250&nbsp;000&nbsp;₽ <span>·</span> продажи каждый месяц</div></div></article>
         <article class="case"><figure><img src="./img/emelyanova.webp" alt="Ира Емельянова" loading="lazy" decoding="async"><span class="lab num">Кейс 03</span></figure><div class="txt"><div class="who">Ира Емельянова</div><div class="role">Бизнес-коуч</div><div class="big num">4,2&nbsp;млн&nbsp;₽</div><div class="was">был низкий чек <span>·</span> за&nbsp;10&nbsp;недель</div></div></article>
         <article class="case"><figure><img src="./img/kuznetsova-s.webp" alt="Серафима Кузнецова" loading="lazy" decoding="async"><span class="lab num">Кейс 04</span></figure><div class="txt"><div class="who">Серафима Кузнецова</div><div class="role">Бизнес-наставник, коуч</div><div class="big num">11&nbsp;млн&nbsp;₽</div><div class="was">было 100&nbsp;000&nbsp;₽ <span>·</span> чек вырос в&nbsp;10&nbsp;раз</div></div></article>
+        <article class="case next"><span class="lab num">Кейс 05</span><div class="t1">Следующий&nbsp;— ваш</div><div class="t2">Диагностика 30–40&nbsp;минут в&nbsp;zoom</div><span class="btn">Записаться&nbsp;→</span></article>
       </div>
     </div>
   </section>

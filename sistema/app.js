@@ -19,7 +19,7 @@ const narrow = () => innerWidth < 860;
 const lite = !Q.has("hq") && (narrow() || (navigator.hardwareConcurrency || 8) <= 4);
 const N_CH = 6;
 const LABELS = ["Система", "Фокус", "Архитектура", "Управление", "Результаты", "Стратегия"];
-const HOLD = 0.3, HOLDS = [0.3, 0.3, 0.3, 0.84, 0.3, 0.3], ORB_END = 0.8, ORB_STEP = 50;                        // доля шага, пока форма стоит и текст читается
+const HOLD = 0.3, HOLDS = [0.3, 0.3, 0.3, 0.88, 0.3, 0.3], ORB_END = 0.84, ORB_STEP = 58, ORB_N = 5;                        // доля шага, пока форма стоит и текст читается
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const damp = (a, b, l, dt) => a + (b - a) * (1 - Math.exp(-l * dt));
@@ -42,7 +42,7 @@ const orb = { q: 0, qs: 0, cards: [], R: 0 };
 /* ---------- приборы, которые работают и без сцены ---------- */
 const chapters = $$(".ch"), railBtns = $$(".rail button"), numEl = $("#num"), labEl = $("#lab"), hintEl = $("#hint");
 let tops = [], VHpx = innerHeight;
-function measure() { tops = chapters.map((c) => c.offsetTop); VHpx = innerHeight; orb.R = Math.min(innerWidth * (innerWidth < 860 ? 0.62 : 0.3), 520); }
+function measure() { tops = chapters.map((c) => c.offsetTop); VHpx = innerHeight; orb.R = Math.min(innerWidth * (innerWidth < 860 ? 0.66 : 0.34), 620); }
 function rawProgress() {
   const y = scrollY; let k = 0;
   for (let i = 0; i < N_CH - 1; i++) if (y >= tops[i]) k = i;
@@ -79,11 +79,13 @@ function typeIn(el, delay = 0) {
 function orbLayout(dt) {
   if (!orb.cards.length) return;
   orb.qs += (orb.q - orb.qs) * Math.min(1, dt * 6);
-  const R = orb.R, stepY = innerHeight * 0.085;
+  const R = orb.R, stepY = innerHeight * 0.17;
   orb.cards.forEach((c, i) => {
     const d = i - orb.qs, a = d * ORB_STEP, ad = Math.abs(d);
-    c.style.transform = `translate(-50%,-50%) translateY(${(d * stepY).toFixed(1)}px) translateZ(${-R}px) rotateY(${a.toFixed(2)}deg) translateZ(${R}px)`;
-    c.style.opacity = Math.max(0, 1 - Math.max(0, ad - 0.55) * 0.75).toFixed(3);
+    c.style.transform = `translate(-50%,-50%) translateY(${(d * stepY).toFixed(1)}px) translateZ(${-R}px) rotateY(${a.toFixed(2)}deg) translateZ(${R}px) rotateX(${(-d * 5).toFixed(2)}deg)`;
+    c.style.opacity = (d < 0 ? Math.max(0, 1 - Math.max(0, ad - 0.25) * 1.5) : Math.max(0, 1 - Math.max(0, ad - 0.7) * 0.62)).toFixed(3);
+    c.style.filter = ad < 0.5 ? "" : `brightness(${Math.max(0.4, 1 - ad * 0.38).toFixed(2)}) saturate(.8) blur(${Math.min(5, (ad - 0.5) * 2.4).toFixed(1)}px)`;
+    c.style.pointerEvents = ad > 1.6 ? "none" : "";
     c.style.zIndex = String(10 - Math.round(ad * 2));
     c.classList.toggle("front", ad < 0.5);
   });
@@ -95,7 +97,7 @@ function ui(k, f) {
     const d = raw - j, on = d > -0.4 && d < 0.9;
     if (on !== el._in) { el._in = on; el.classList.toggle("in", on); if (on) $$("[data-sc]", el).forEach((s) => setTimeout(() => scramble(s), 200)); }
     if (Math.abs(d) < 1.2) el.style.setProperty("--d", d.toFixed(3));
-    if (j === 3) { el.style.setProperty("--w", Math.min(1, Math.max(0, (-d - 0.03) / 0.42)).toFixed(3)); orb.q = Math.min(1, Math.max(0, d / ORB_END)) * 3; }
+    if (j === 3) { el.style.setProperty("--w", Math.min(1, Math.max(0, (-d - 0.03) / 0.42)).toFixed(3)); orb.q = Math.min(1, Math.max(0, d / ORB_END)) * (ORB_N - 1); }
   });
   const c = Math.round(raw);
   if (c !== curCh) {
@@ -158,8 +160,8 @@ function closeCase() {
 $$(".case").forEach((c, idx) => {
   c.tabIndex = 0; c.setAttribute("role", "button");
   orb.cards.push(c);
-  c.addEventListener("click", () => { if (c.classList.contains("front")) openCase(c, idx); else scrollTo({ top: tops[3] + (tops[4] - tops[3]) * ORB_END * (idx / 3) + 2, behavior: reduce ? "auto" : "smooth" }); });
-  c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCase(c, idx); } });
+  c.addEventListener("click", () => { if (Math.abs(idx - orb.qs) < 0.5) { if (c.classList.contains("next")) open("https://t.me/coachkomlevaleks", "_blank", "noopener"); else openCase(c, idx); } else scrollTo({ top: tops[3] + (tops[4] - tops[3]) * ORB_END * (idx / (ORB_N - 1)) + 2, behavior: reduce ? "auto" : "smooth" }); });
+  c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); c.click(); } });
   c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); c.style.setProperty("--cx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(2)); c.style.setProperty("--cy", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(2)); }, { passive: true });
 });
 $("#cpx") && $("#cpx").addEventListener("click", closeCase);
@@ -491,7 +493,7 @@ function build() {
       [[0, 0, 7.9], [0, 0, 0]],
       [[0.4, 0.7, 8.8], [-2.5, -0.1, 0]],
       [[-0.4, 0.2, 7.6], [2.3, 0, 0]],
-      [[0, 0.1, 9.4], [-2.2, 0, 0]],
+      [[0, 0.1, 9.4], [-2.6, 0, 0]],
       [[0, 0, 9], [0, 0, 0]],
       [[0.9, 2.3, 10.2], [-2.6, 0.2, 0]],
     ],
@@ -600,6 +602,7 @@ function build() {
 
     { const w0 = Math.max(0, 1 - Math.abs(pS)), w4 = Math.max(0, 1 - Math.abs(pS - 4)); lens.uniforms.uG.value = reduce ? 0.15 : 0.3 + w0 * 0.55 + w4 * (lite || narrow() ? 0.05 : 0.35); }
     lens.uniforms.uCA.value = reduce ? 0 : 0.008 + env * 0.012 + vel * 0.012;
+    if (intro >= 1) lens.uniforms.uFlash.value = reduce ? 0 : Math.exp(-Math.pow((pS - 3.93) / 0.05, 2)) * Math.min(1, Math.abs(target - pS) * 6) * 0.8;
     lens.uniforms.uHue.value = HUE[i] + (HUE[i + 1] - HUE[i]) * h;
     lens.uniforms.uOpen.value = damp(lens.uniforms.uOpen.value, root.classList.contains("opening") ? 1 : 0, root.classList.contains("opening") ? 2.2 : 4.5, dte);
     drag.d = drag.d + (drag.dx - drag.d) * 0.07; drag.dx = 0; drag.rot += drag.d * 0.0025; uni.uRot.value = drag.rot;
