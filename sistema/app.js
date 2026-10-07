@@ -19,7 +19,7 @@ const narrow = () => innerWidth < 860;
 const lite = !Q.has("hq") && (narrow() || (navigator.hardwareConcurrency || 8) <= 4);
 const N_CH = 6;
 const LABELS = ["Система", "Фокус", "Архитектура", "Управление", "Результаты", "Стратегия"];
-const HOLD = 0.3;                        // доля шага, пока форма стоит и текст читается
+const HOLD = 0.3, HOLDS = [0.3, 0.3, 0.3, 0.84, 0.3, 0.3], ORB_END = 0.8, ORB_STEP = 50;                        // доля шага, пока форма стоит и текст читается
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const damp = (a, b, l, dt) => a + (b - a) * (1 - Math.exp(-l * dt));
@@ -38,10 +38,11 @@ stage(12);
 const setVH = () => root.style.setProperty("--vh", innerHeight * 0.01 + "px");
 setVH();
 
+const orb = { q: 0, qs: 0, cards: [], R: 0 };
 /* ---------- приборы, которые работают и без сцены ---------- */
 const chapters = $$(".ch"), railBtns = $$(".rail button"), numEl = $("#num"), labEl = $("#lab"), hintEl = $("#hint");
 let tops = [], VHpx = innerHeight;
-function measure() { tops = chapters.map((c) => c.offsetTop); VHpx = innerHeight; }
+function measure() { tops = chapters.map((c) => c.offsetTop); VHpx = innerHeight; orb.R = Math.min(innerWidth * (innerWidth < 860 ? 0.62 : 0.3), 520); }
 function rawProgress() {
   const y = scrollY; let k = 0;
   for (let i = 0; i < N_CH - 1; i++) if (y >= tops[i]) k = i;
@@ -75,6 +76,18 @@ function typeIn(el, delay = 0) {
     const keep = Math.floor(x * txt.length), tail = Math.min(4, txt.length - keep);
     el.textContent = txt.slice(0, keep) + [...Array(tail)].map(() => ((Math.random() * 10) | 0)).join(""); }, 66);
 }
+function orbLayout(dt) {
+  if (!orb.cards.length) return;
+  orb.qs += (orb.q - orb.qs) * Math.min(1, dt * 6);
+  const R = orb.R, stepY = innerHeight * 0.085;
+  orb.cards.forEach((c, i) => {
+    const d = i - orb.qs, a = d * ORB_STEP, ad = Math.abs(d);
+    c.style.transform = `translate(-50%,-50%) translateY(${(d * stepY).toFixed(1)}px) translateZ(${-R}px) rotateY(${a.toFixed(2)}deg) translateZ(${R}px)`;
+    c.style.opacity = Math.max(0, 1 - Math.max(0, ad - 0.55) * 0.75).toFixed(3);
+    c.style.zIndex = String(10 - Math.round(ad * 2));
+    c.classList.toggle("front", ad < 0.5);
+  });
+}
 let curCh = -1;
 function ui(k, f) {
   const raw = k + f;
@@ -82,7 +95,7 @@ function ui(k, f) {
     const d = raw - j, on = d > -0.4 && d < 0.9;
     if (on !== el._in) { el._in = on; el.classList.toggle("in", on); if (on) $$("[data-sc]", el).forEach((s) => setTimeout(() => scramble(s), 200)); }
     if (Math.abs(d) < 1.2) el.style.setProperty("--d", d.toFixed(3));
-    if (j === 3) el.style.setProperty("--w", Math.min(1, Math.max(0, (-d - 0.03) / 0.42)).toFixed(3));
+    if (j === 3) { el.style.setProperty("--w", Math.min(1, Math.max(0, (-d - 0.03) / 0.42)).toFixed(3)); orb.q = Math.min(1, Math.max(0, d / ORB_END)) * 3; }
   });
   const c = Math.round(raw);
   if (c !== curCh) {
@@ -144,7 +157,8 @@ function closeCase() {
 }
 $$(".case").forEach((c, idx) => {
   c.tabIndex = 0; c.setAttribute("role", "button");
-  c.addEventListener("click", () => openCase(c, idx));
+  orb.cards.push(c);
+  c.addEventListener("click", () => { if (c.classList.contains("front")) openCase(c, idx); else scrollTo({ top: tops[3] + (tops[4] - tops[3]) * ORB_END * (idx / 3) + 2, behavior: reduce ? "auto" : "smooth" }); });
   c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCase(c, idx); } });
   c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); c.style.setProperty("--cx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(2)); c.style.setProperty("--cy", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(2)); }, { passive: true });
 });
@@ -160,7 +174,7 @@ function reveal() {
 }
 function fallback() { root.classList.add("nogl"); loop2d(); reveal(); }
 function loop2d() {                               // без сцены: только текст и приборы
-  const f = () => { const p = rawProgress(); ui(p.k, p.f); requestAnimationFrame(f); }; requestAnimationFrame(f);
+  const f = () => { const p = rawProgress(); ui(p.k, p.f); orbLayout(0.016); requestAnimationFrame(f); }; requestAnimationFrame(f);
 }
 
 const fontsReady = Promise.race([
@@ -231,8 +245,9 @@ function build() {
       P[1][o] = r * Math.cos(th); P[1][o + 1] = y; P[1][o + 2] = r * Math.sin(th); aChaos[k] = Math.pow(1 - v, 1.5); }
     { const y = (v - 0.5) * 9.4, th = v * TAU * 1.6, s = 2 * u - 1, e = Math.sign(s) * Math.pow(Math.abs(s), 0.22), R = 0.9;   // 2 спираль
       P[2][o] = Math.cos(th) * e * R; P[2][o + 1] = y; P[2][o + 2] = Math.sin(th) * e * R; }
-    { const g = Math.exp(-Math.pow((u - 0.53) / 0.2, 2)), fan = 0.25 + 0.75 * Math.abs(u - 0.53) * 2;                           // 3 волна: гребень из линий тока
-      P[3][o] = (u - 0.5) * 19; P[3][o + 1] = -0.62 + g * 1.05 + (v - 0.5) * 0.5 * fan; P[3][o + 2] = -(v - 0.5) * 2.2 * fan; }
+    { const y = (v - 0.5) * 13, cl = Math.pow(Math.abs(Math.sin(v * 31 + Math.sin(v * 9) * 2.2)), 2.2), q = aR[k * 4 + 1];              // 3 ось: столб из сгустков, вокруг него идут кейсы
+      const r = 0.06 + (0.1 + 0.62 * cl) * Math.pow(q, 0.6), th = u * TAU * 5 + v * 14;
+      P[3][o] = r * Math.cos(th); P[3][o + 1] = y; P[3][o + 2] = r * Math.sin(th); }
     { const n = numPts.pts.length || 1, q = numPts.pts[Math.min(n - 1, Math.floor(((i + j / V) / U) * n))] || [0, 0];   // 4 число
       P[4][o] = q[0]; P[4][o + 1] = q[1]; P[4][o + 2] = 0; }
     { const w = 1.3, h = 0.86, s5 = Math.min(4.9999, u * 5), k = Math.floor(s5), f = (s5 - k) * (h + w);             // 5 пять ступеней вверх
@@ -265,7 +280,7 @@ function build() {
     return 42.*dot(m*m,vec4(dot(q0,x0),dot(q1,x1),dot(q2,x2),dot(q3,x3)));}`;
   const FORM = NOISE + /* glsl */`
   attribute vec3 p1,p2,p3,p4,p5; attribute vec2 aUV; attribute vec4 aR; attribute float aChaos;
-  uniform float uP,uT,uPoint,uSwirl,uVel,uIntro,uRot; uniform vec3 uNum;
+  uniform float uP,uT,uPoint,uSwirl,uVel,uIntro,uRot,uOrb; uniform vec3 uNum;
   float w0,w1,w2,w3,w4,w5,gTr,gW;
   vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
   vec3 rotZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
@@ -281,8 +296,7 @@ function build() {
     vec3 a=rotY(position,uT*.06+uRot)*fl;
     vec3 b=rotY(p1,uT*.11+uRot);
     vec3 c=rotY(p2,uT*.13+uRot*2.);
-    vec3 d=p3; float far=smoothstep(3.,-21.,d.z);
-    d.y+=(sin(d.x*.55+uT*.55)*.34+sin(d.x*.31-uT*.4+aUV.y*5.)*.3)*.3*(.4+abs(aUV.x-.53)*1.6);
+    vec3 d=rotY(p3,uT*.07+uRot+uOrb); d.y+=uOrb*.55;
     vec3 e=vec3(p4.xy*uNum.z+uNum.xy+(aR.xy-.5)*uNum.z*.0035,(aR.z-.5)*.1*uPoint+sin(uT*.6+p4.x*5.)*.03);
     vec3 g=rotY(p5,-.5+sin(uT*.17)*.06+uRot*.35);
     vec3 P=a*w0+b*w1+c*w2+d*w3+e*w4+g*w5;
@@ -308,7 +322,7 @@ function build() {
   }`;
 
   const uni = {
-    uP: { value: 0 }, uT: { value: 0 }, uSwirl: { value: reduce ? 0.2 : 1 }, uVel: { value: 0 }, uIntro: { value: reduce ? 1 : 0 }, uRot: { value: 0 },
+    uP: { value: 0 }, uT: { value: 0 }, uSwirl: { value: reduce ? 0.2 : 1 }, uVel: { value: 0 }, uIntro: { value: reduce ? 1 : 0 }, uRot: { value: 0 }, uOrb: { value: 0 },
     uNum: { value: new THREE.Vector3(0, 0, 6) }, uScale: { value: 1 }, uFocus: { value: 7 }, uAp: { value: 1 },
     uRect: { value: new THREE.Vector4(0.5, 0.5, 0, 0) }, uYield: { value: 0 },
     cA: { value: new THREE.Color("#1233ff") }, cB: { value: new THREE.Color("#2fc0ff") }, cC: { value: new THREE.Color("#ff2f55") },
@@ -336,7 +350,7 @@ function build() {
         vec3 vd=normalize(mv.xyz);
         float rim0=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(normalize(position),0.)).xyz),vd)),2.6);        // сфера: светится только кромка
         float rim1=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(P.x,0.,P.z,0.)).xyz+vec3(0.,0.,1e-4)),vd)),1.5);   // воронка: края ярче тела
-        float shape=w0*(.012+rim0*2.6)+w1*(.22+rim1*.9)*mix(1.,.3,smoothstep(.55,1.,aUV.y))+w2*.55+w3*.85+w4*${narrow() ? ".15" : ".42"}+w5*.3;
+        float shape=w0*(.012+rim0*2.6)+w1*(.22+rim1*.9)*mix(1.,.3,smoothstep(.55,1.,aUV.y))+w2*.55+w3*.5+w4*${narrow() ? ".15" : ".42"}+w5*.3;
         vA=mix(en,sqrt(en),.2)*fog*vol*shape;
         vS=solid*smoothstep(.45,.9,base/size)*smoothstep(3.,7.,size);
         // сцена уступает тексту: внутри блока точки тише и мельче
@@ -352,7 +366,7 @@ function build() {
         vec3 c1=mix(DEEP*3.,vec3(.08,.24,.72),smoothstep(.35,1.,aUV.y))+BLU*rim1*.6;
         float st=smoothstep(.55,1.,abs(aUV.x*2.-1.));
         vec3 c2=mix(BLU,mix(CY,ICE,.55),st);
-        vec3 c3=mix(mix(BLU,ICE,smoothstep(.2,.5,aUV.x)),RED,smoothstep(.56,.86,aUV.x));
+        float s3=fract(aUV.y*4.+aR.y*.15); vec3 c3=mix(mix(BLU,CY,smoothstep(.0,.5,s3)),mix(ICE,vec3(.62,.4,1.),aR.x),smoothstep(.55,1.,aR.y))+RED*smoothstep(.93,1.,aR.z)*.8;
         vec3 c4=mix(CY,ICE,.6);
         vec3 c5=mix(mix(BLU,CY,smoothstep(0.,.6,aUV.x)),RED,smoothstep(.8,1.,aUV.x));
         vec3 col=c0*w0+c1*w1+c2*w2+c3*w3+c4*w4+c5*w5;
@@ -477,7 +491,7 @@ function build() {
       [[0, 0, 7.9], [0, 0, 0]],
       [[0.4, 0.7, 8.8], [-2.5, -0.1, 0]],
       [[-0.4, 0.2, 7.6], [2.3, 0, 0]],
-      [[0, 0.25, 7.4], [0, 0, 0]],
+      [[0, 0.1, 9.4], [-2.2, 0, 0]],
       [[0, 0, 9], [0, 0, 0]],
       [[0.9, 2.3, 10.2], [-2.6, 0.2, 0]],
     ],
@@ -485,7 +499,7 @@ function build() {
       [[0, 0, 12.6], [0, 0.2, 0]],
       [[0, 0.6, 12], [0, -2.2, 0]],
       [[0, 0, 12], [0, -3.4, 0]],
-      [[0, 0.2, 9.5], [0, 1.2, 0]],
+      [[0, 0.2, 11], [0, 1.6, 0]],
       [[0, 0, 9], [0, 0, 0]],
       [[0.8, 2.2, 15.5], [0, 1.2, 0]],
     ],
@@ -511,7 +525,7 @@ function build() {
   let t = 0, running = true, pS = 0, vel = 0, lastY = scrollY, intro = reduce ? 1 : 0, introGo = false, yieldS = 0;
   let acc = 0, frames = 0, cool = 0;
   const rect = { x: 0.5, y: 0.5, w: 0, h: 0 };
-  const HUE = [0.15, 0.75, 0.3, 0.9, 0.2, 0.6], blade = $("#blade"), drag = { on: false, x: 0, dx: 0, d: 0, rot: 0 };
+  const HUE = [0.15, 0.75, 0.3, 0.9, 0.2, 0.6], drag = { on: false, x: 0, dx: 0, d: 0, rot: 0 };
   let sv = 0, svBusy = false;
   if (fine && !reduce) {
     addEventListener("pointerdown", (e) => { if (e.button === 0 && !e.target.closest("a,button,.case,.cp")) { drag.on = true; drag.x = e.clientX; } });
@@ -541,7 +555,7 @@ function build() {
 
     // прокрутка → состояние: сначала форма стоит (HOLD), потом медленно перетекает
     const { k, f } = rawProgress();
-    const target = k + ss(HOLD, 1, f);
+    const target = k + ss(HOLDS[k], 1, f);
     pS = damp(pS, target, 4.0, dte); if (Math.abs(target - pS) < 0.0003) pS = target;
     const i = Math.min(N_CH - 2, Math.floor(pS)), h = pS - i, env = Math.sin(Math.PI * Math.min(1, h));
     uni.uP.value = pS; uni.uT.value = t;
@@ -586,9 +600,6 @@ function build() {
 
     { const w0 = Math.max(0, 1 - Math.abs(pS)), w4 = Math.max(0, 1 - Math.abs(pS - 4)); lens.uniforms.uG.value = reduce ? 0.15 : 0.3 + w0 * 0.55 + w4 * (lite || narrow() ? 0.05 : 0.35); }
     lens.uniforms.uCA.value = reduce ? 0 : 0.008 + env * 0.012 + vel * 0.012;
-    { const bt = Math.min(1, Math.max(0, (f - HOLD * 0.6) / (1 - HOLD * 0.6))), on = !reduce && bt > 0.001 && bt < 0.999 && k < N_CH - 1;
-      lens.uniforms.uBlade.value = on ? -0.2 + bt * 1.4 : -1;
-      if (blade) { blade.style.opacity = on ? Math.min(1, Math.sin(Math.PI * bt) * 4).toFixed(2) : "0"; if (on) blade.style.transform = `translate3d(0,${((1 - (-0.2 + bt * 1.4)) * H).toFixed(1)}px,0) translateY(-50%) rotate(${(-Math.atan(0.14) * 180 / Math.PI).toFixed(2)}deg)`; } }
     lens.uniforms.uHue.value = HUE[i] + (HUE[i + 1] - HUE[i]) * h;
     lens.uniforms.uOpen.value = damp(lens.uniforms.uOpen.value, root.classList.contains("opening") ? 1 : 0, root.classList.contains("opening") ? 2.2 : 4.5, dte);
     drag.d = drag.d + (drag.dx - drag.d) * 0.07; drag.dx = 0; drag.rot += drag.d * 0.0025; uni.uRot.value = drag.rot;
@@ -605,7 +616,7 @@ function build() {
       if (goBtn) goBtn.style.translate = `${mag.x.toFixed(1)}px ${mag.y.toFixed(1)}px`;
     }
     root.style.setProperty("--mx", mouse.sx.toFixed(4)); root.style.setProperty("--my", mouse.sy.toFixed(4));
-    ui(k, f);
+    ui(k, f); orbLayout(dte); uni.uOrb.value = -orb.qs * ORB_STEP * Math.PI / 180;
     composer.render();
 
     // держим плавность: меряем кадр, шагаем плотностью пикселей
@@ -637,7 +648,7 @@ function build() {
   }
 
   resize();
-  { const p = rawProgress(); pS = p.k + ss(HOLD, 1, p.f); }
+  { const p = rawProgress(); pS = p.k + ss(HOLDS[p.k], 1, p.f); }
   if (Q.has("p")) { /* служебное: зафиксировать состояние для снимков */ }
   return {
     resize,
