@@ -273,9 +273,10 @@ function build() {
       P[3][o] = R * Math.cos(th); P[3][o + 1] = y; P[3][o + 2] = R * Math.sin(th); }
     { const n = numPts.pts.length || 1, q = numPts.pts[Math.min(n - 1, Math.floor(((i + j / V) / U) * n))] || [0, 0];   // 4 число
       P[4][o] = q[0]; P[4][o + 1] = q[1]; P[4][o + 2] = 0; }
-    { const Rc = 0.22 + 2.7 * Math.pow(u, 1.35), th = u * TAU * 2.7 + (j % 2) * Math.PI, rb = 0.03 + (0.07 + 0.42 * u) * Math.sqrt(h1), hb = h2 * TAU + u * TAU * 4, rad = Rc + rb * Math.cos(hb);   // 5 путь: та же спираль раскручивается снизу вверх и набирает ширину
-      P[5][o] = Math.cos(th) * rad; P[5][o + 1] = -4.6 + u * 9.6 + rb * Math.sin(hb); P[5][o + 2] = Math.sin(th) * rad; }
-    { const core = h3 > 0.8, cx = Math.sin(u * 3.2) * 0.35, cz = Math.cos(u * 2.4) * 0.3, R = core ? 0.05 + 0.22 * h1 : (0.8 + 1.7 * h1) * (0.6 + 0.4 * Math.sin(u * 5 + h2 * 6)), th = u * TAU * (core ? 1 : 1.6 + h2 * 1.6) + h4 * TAU;   // 6 рядом: пряди идут вокруг тёплой сердцевины
+    { const inner = h3 > 0.78, Rc = inner ? 0.05 + 0.5 * u : 0.3 + 3.0 * Math.pow(u, 1.25), th = u * TAU * (inner ? 4 : 2.4) + (j % 3) * (TAU / 3) + (inner ? h4 * TAU : 0);   // 5 путь: три толстые ветви раскручиваются снизу вверх вокруг светлой оси
+      const rb = inner ? 0.04 + 0.2 * h1 : 0.05 + (0.16 + 0.8 * u) * Math.sqrt(h1), hb = h2 * TAU + u * TAU * 4, rad = Rc + rb * Math.cos(hb);
+      P[5][o] = Math.cos(th) * rad; P[5][o + 1] = -4.4 + u * 9.2 + rb * Math.sin(hb) * 1.2; P[5][o + 2] = Math.sin(th) * rad; }
+    { const core = h3 > 0.8, cx = Math.sin(u * 3.2) * 0.35, cz = Math.cos(u * 2.4) * 0.3, R = core ? 0.05 + 0.3 * h1 : (0.9 + 2.2 * h1) * (0.6 + 0.4 * Math.sin(u * 5 + h2 * 6)), th = u * TAU * (core ? 1 : 1.6 + h2 * 1.6) + h4 * TAU;   // 6 рядом: пряди идут вокруг тёплой сердцевины
       P[6][o] = cx + R * Math.cos(th); P[6][o + 1] = (u - 0.5) * 13; P[6][o + 2] = cz + R * Math.sin(th); }
     { P[7][o] = (h1 - 0.5) * 46 + (h2 - 0.5) * 0.5; P[7][o + 1] = -1.7; P[7][o + 2] = 0; }                                                       // 7 горизонт: пряди ложатся ровным полем и уходят к свету
   }
@@ -382,7 +383,7 @@ function build() {
         vec3 vd=normalize(mv.xyz);
         float rim0=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(normalize(position),0.)).xyz),vd)),2.6);        // сфера: светится только кромка
         float rim1=pow(1.-abs(dot(normalize((modelViewMatrix*vec4(P.x,0.,P.z,0.)).xyz+vec3(0.,0.,1e-4)),vd)),1.5);   // воронка: края ярче тела
-        float shape=w0*(.012+rim0*2.6)+w1*mix(.2,.5,aChaos)+w2*.4+w3*.45*mix(1.,.4,step(.7,aH))+w4*${narrow() ? ".15" : ".42"}+w5*.42+w6*mix(.95,.45,step(.8,aH))+w7*mix(.25,1.7,smoothstep(2.,-38.,P.z));
+        float shape=w0*(.012+rim0*2.6)+w1*mix(.2,.5,aChaos)+w2*.4+w3*.45*mix(1.,.4,step(.7,aH))+w4*${narrow() ? ".15" : ".42"}+w5*.5+w6*mix(1.2,.55,step(.8,aH))+w7*mix(.25,1.7,smoothstep(2.,-38.,P.z));
         vA=mix(en,sqrt(en),.2)*fog*vol*shape*mix(1.,.5,gH)*mix(1.25,.7,smoothstep(-2.5,3.,z-uFocus));
         vS=solid*smoothstep(.45,.9,base/size)*smoothstep(3.,7.,size);
         // сцена уступает тексту: внутри блока точки тише и мельче
@@ -444,7 +445,7 @@ function build() {
     });
     const l = new THREE.LineSegments(g, m); l.frustumCulled = false; l.userData.op = op; scene.add(l); return l;
   }
-  const lineSets = [makeLines(Math.max(2, Math.round(V / 28)), 0, 0.34, false), makeLines(0, Math.round(U / 16), 0.1, true)];
+  const lineSets = [makeLines(Math.max(2, Math.round(V / 28)), 0, 0.16, false)];
 
   /* ---- воздух: дальняя пыль и редкое ближнее боке ---- */
   {
@@ -509,10 +510,10 @@ function build() {
         // цветные углы: оттенок свой у каждой главы и медленно плывёт
         float n=.5+.27*sin(vUv.x*3.1+uT*.05+sin(vUv.y*2.3-uT*.04)*1.4)+.23*sin(vUv.y*2.7-uT*.03+vUv.x*1.9); float r=length(c)*1.42; float hh=uHue+(n-.5)*.5+sin(uT*.07)*.12;
         vec3 tint=mix(vec3(.05,.42,.38),vec3(.26,.14,.55),smoothstep(.2,.8,hh)); tint=mix(tint,vec3(.5,.08,.2),smoothstep(.85,1.3,hh));
-        float cw=1.12*smoothstep(.02,.81,r)*(.35+n*.9); col+=tint*(.006+cw*cw*.07)*mix(1.,.45,vUv.y*step(.5,vUv.x));
+        float cw=1.12*smoothstep(.02,.81,r)*(.35+n*.9); col+=tint*(.002+cw*cw*.022)*mix(1.,.45,vUv.y*step(.5,vUv.x));
         col*=1.-inside*.8*uOpen; col*=mix(1.,.3,uOpen*uOpen*uOpen);
         col*=smoothstep(0.,.5,uVis); col+=vec3(.9,.95,1.)*uFlash*.05*(1.-r*.6);
-        col+=(fract(sin(dot(gl_FragCoord.xy+fract(uT)*61.,vec2(12.9898,78.233)))*43758.5453)-.5)*.01;
+        col+=(fract(sin(dot(gl_FragCoord.xy+fract(uT)*61.,vec2(12.9898,78.233)))*43758.5453)-.5)*.004;
         gl_FragColor=vec4(max(col,0.),1.); }`,
   });
   composer.addPass(lens);
@@ -526,7 +527,7 @@ function build() {
       [[-0.4, 0.2, 8.6], [2.5, 0, 0]],
       [[0, 0.1, 9.4], [-2.6, 0, 0]],
       [[0, 0, 9], [0, 0, 0]],
-      [[0.6, 2.2, 10.5], [-3.0, 0.3, 0]],
+      [[0.4, 4.6, 9.2], [-2.6, -0.3, 0]],
       [[0, 0.3, 9.6], [-2.9, 0, 0]],
       [[0, 0.5, 9.5], [0, 1.7, 0]],
     ],
