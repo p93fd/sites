@@ -279,8 +279,7 @@ main{position:relative;z-index:10}
 .fd{transition-delay:calc(var(--i,0)*50ms + 120ms)}
 /* подтон и точечная сетка: сцена не висит в пустоте */
 .atmo{position:fixed;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;
-  background:radial-gradient(110% 85% at 0% 100%,rgba(22,44,48,.95),transparent 56%),radial-gradient(90% 70% at 100% 0%,rgba(18,30,52,.8),transparent 60%),
-  radial-gradient(rgba(255,255,255,.04) 1px,transparent 1.4px) 0 0/7px 7px}
+  background:radial-gradient(110% 85% at 0% 100%,rgba(22,44,48,.95),transparent 56%),radial-gradient(90% 70% at 100% 0%,rgba(18,30,52,.8),transparent 60%)}
 /* кнопки-таблетки, стеклянная навигация */
 .cta{height:46px;padding:0 22px;display:inline-flex;align-items:center;border-radius:999px;border:1px solid rgba(180,224,227,.34);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:rgba(10,16,24,.35);box-shadow:0 12px 30px -12px rgba(26,144,173,.65)}
@@ -419,6 +418,7 @@ main{position:relative;z-index:10}
 .c8 .me .links a{font-size:14px}
 #go{box-shadow:0 0 calc(var(--glow,0)*70px) calc(var(--glow,0)*6px) rgba(255,205,130,calc(var(--glow,0)*.55)),0 0 calc(var(--glow,0)*18px) rgba(255,255,255,calc(var(--glow,0)*.6))}
 .ch{--mx:0;--my:0}
+.grain{display:none}
 @media (max-width:859px){
   .c6 .strip{position:relative;padding:16px 14px;border-radius:16px;background:rgba(4,5,10,.82);border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 }

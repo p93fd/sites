@@ -220,7 +220,7 @@ measure.w = innerWidth;
    ========================================================================== */
 function build() {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, stencil: false, powerPreference: "high-performance" });
-  const DPR_MAX = Math.min(devicePixelRatio || 1, lite ? 1.25 : 1.5);
+  const DPR_MAX = Math.min(devicePixelRatio || 1, lite ? 1.5 : 2);
   let dpr = DPR_MAX;
   renderer.setPixelRatio(dpr);
   renderer.setClearColor(0x06070c, 1);
@@ -507,12 +507,12 @@ function build() {
         float rim=smoothstep(.72,.92,abs(bd))*band;
         col=col*(1.+band*.35)+vec3(.55,.8,1.)*(band*.012+rim*.07)+vec3(1.,.35,.5)*rim*.03*step(0.,bd);
         // цветные углы: оттенок свой у каждой главы и медленно плывёт
-        float n=vn(vUv*2.2+vec2(uT*.03,-uT*.02)); float r=length(c)*1.42; float hh=uHue+(n-.5)*.5+sin(uT*.07)*.12;
+        float n=.5+.27*sin(vUv.x*3.1+uT*.05+sin(vUv.y*2.3-uT*.04)*1.4)+.23*sin(vUv.y*2.7-uT*.03+vUv.x*1.9); float r=length(c)*1.42; float hh=uHue+(n-.5)*.5+sin(uT*.07)*.12;
         vec3 tint=mix(vec3(.05,.42,.38),vec3(.26,.14,.55),smoothstep(.2,.8,hh)); tint=mix(tint,vec3(.5,.08,.2),smoothstep(.85,1.3,hh));
-        float cw=1.12*smoothstep(.02,.81,r)*(.35+n*.9); col+=tint*(.008+cw*cw*.11)*mix(1.,.45,vUv.y*step(.5,vUv.x));
+        float cw=1.12*smoothstep(.02,.81,r)*(.35+n*.9); col+=tint*(.006+cw*cw*.07)*mix(1.,.45,vUv.y*step(.5,vUv.x));
         col*=1.-inside*.8*uOpen; col*=mix(1.,.3,uOpen*uOpen*uOpen);
         col*=smoothstep(0.,.5,uVis); col+=vec3(.9,.95,1.)*uFlash*.05*(1.-r*.6);
-        col+=(h21(vUv*vec2(1973.,1289.)+fract(uT)*31.)-.5)*.022;
+        col+=(fract(sin(dot(gl_FragCoord.xy+fract(uT)*61.,vec2(12.9898,78.233)))*43758.5453)-.5)*.01;
         gl_FragColor=vec4(max(col,0.),1.); }`,
   });
   composer.addPass(lens);
@@ -669,8 +669,8 @@ function build() {
     if (frames >= 50) {
       const ms = (acc / frames) * 1000; acc = 0; frames = 0;
       if (cool <= 0 && !Q.has("fix")) {
-        if (ms > 20 && dpr > 0.75) { dpr = Math.max(0.75, dpr - 0.25); resize(); cool = 2; }
-        else if (ms > 22 && frac > 0.5) { frac = Math.max(0.5, frac - 0.17); geo.setDrawRange(0, Math.floor(V * frac) * U); cool = 2; }
+        if (ms > 20 && frac > 0.55) { frac = Math.max(0.55, frac - 0.15); geo.setDrawRange(0, Math.floor(V * frac) * U); cool = 2; }
+        else if (ms > 24 && dpr > 1) { dpr = Math.max(1, dpr - 0.25); resize(); cool = 2.5; }
         else if (ms < 12.5 && dpr < DPR_MAX) { dpr = Math.min(DPR_MAX, dpr + 0.25); resize(); cool = 4; }
       }
     }
