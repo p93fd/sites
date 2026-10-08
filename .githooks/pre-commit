@@ -1,0 +1,3 @@
+#!/bin/sh
+# Перед коммитом пересобрать авто-блоки INDEX.md и MAP.md и добавить их в коммит
+node tools/gen-map.mjs >/dev/null && git add INDEX.md MAP.md

@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "git config core.hooksPath .githooks; node tools/gen-map.mjs >/dev/null 2>&1; echo 'Сначала INDEX.md и MAP.md, остальное точечно (см. CLAUDE.md)'" } ] }
+    ]
+  }
+}
