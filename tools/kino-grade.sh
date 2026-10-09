@@ -10,7 +10,7 @@ grep -v '^\s*#' "$LIST" | while read n f ss len slow br sat; do
   [ -n "$ONLY" ] && [ "$ONLY" != "$n" ] && continue
   L=$(echo "$len*$slow" | bc -l)
   sp=""; [ "$slow" != "1" ] && sp="setpts=$slow*PTS,minterpolate=fps=24:mi_mode=mci:mc_mode=aobmc:vsbmc=1,"
-  G="${sp}scale=1920:1080:force_original_aspect_ratio=increase:flags=lanczos,crop=1920:1080,fps=24,eq=contrast=1.1:saturation=$sat:brightness=$br:gamma=0.82,colorbalance=rs=-0.06:bs=0.05:rm=-0.03:bm=0.03:rh=0.02:bh=-0.01,curves=all='0/0 0.5/0.4 1/0.82',vignette=angle=0.62,format=yuv420p"
+  G="${sp}scale=1920:1080:force_original_aspect_ratio=increase:flags=lanczos,crop=1920:1080,fps=24,eq=contrast=1.08:saturation=$sat:brightness=$br:gamma=0.92,colorbalance=rs=-0.05:bs=0.04:rm=-0.02:bm=0.02:rh=0.02:bh=-0.01,curves=all='0/0.02 0.5/0.45 1/0.9',vignette=angle=0.5,format=yuv420p"
   T=$(echo "$L-1"|bc -l)
   F="[0:v]trim=start=$ss:duration=$len,setpts=PTS-STARTPTS,$G,split[a][b];[a]trim=1:$L,setpts=PTS-STARTPTS[m];[b]trim=0:1,setpts=PTS-STARTPTS[h];[m][h]xfade=transition=fade:duration=1:offset=$(echo "$T-1"|bc -l),setsar=1"
   ffmpeg -nostdin -v error -y -i "$SRC/$f" -filter_complex "$F,split[d][p];[d]scale=1600:900:flags=lanczos[D];[p]scale=1024:576:flags=lanczos[P]" \
