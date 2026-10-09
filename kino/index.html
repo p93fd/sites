@@ -4,231 +4,57 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Александр Комлев — система продаж для экспертов</title>
-<meta name="description" content="Собираю систему продаж для экспертов. Чтобы доход был управляемым, а не случайным. Диагностика 30–40 минут в zoom.">
-<meta name="theme-color" content="#05080B">
+<meta name="description" content="Собираю систему продаж для экспертов. Диагностика 30–40 минут в zoom.">
+<meta name="theme-color" content="#04070A">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="Система продаж — Александр Комлев">
-<meta property="og:description" content="Всё, что разбросано, свожу в одно русло.">
-<meta property="og:image" content="https://p93fd.github.io/sites/kino/v/s08.jpg">
+<meta property="og:title" content="Александр Комлев">
+<meta property="og:image" content="https://p93fd.github.io/sites/kino/v/d04.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305080B'/%3E%3Cpath d='M12 40c8-6 14-6 20 0s12 6 20 0' stroke='%23E9E4D8' stroke-width='4' fill='none'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2304070A'/%3E%3Cpath d='M12 40c8-6 14-6 20 0s12 6 20 0' stroke='%23E9E4D8' stroke-width='4' fill='none'/%3E%3C/svg%3E">
 <link rel="preload" href="../sistema/fonts/tts-cyr.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="./v/s01.jpg" as="image">
+<link rel="preload" href="./v/d01.jpg" as="image">
 <link rel="stylesheet" href="./style.css">
+<script type="importmap">{"imports":{"three":"../sistema/lib/three.module.min.js"}}</script>
 </head>
 <body>
 
-<!-- загрузка -->
 <div class="boot" id="boot" aria-hidden="true">
   <div class="bt"><span class="lab">Александр Комлев</span><span class="pc num" id="pc">0</span></div>
   <div class="sh"><i></i><i></i><i></i><i></i><i></i></div>
 </div>
 
-<!-- сцена: все кадры фильма -->
-<div class="stage" id="stage" aria-hidden="true">
-  <div class="cam" id="cam">
-    <video class="shot" data-k="0" data-src="s01" muted playsinline loop preload="none"></video>
-    <video class="shot reveal" id="reveal" data-src="s08" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="1" data-src="s02" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="2" data-src="s03" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="3" data-src="s04" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="4" data-src="s05" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="5" data-src="s06" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="6" data-src="s07" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="7" data-src="s08" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="8" data-src="s09" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="9" data-src="s10" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="10" data-src="s11" muted playsinline loop preload="none"></video>
-    <video class="shot" data-k="11" data-src="s12" muted playsinline loop preload="none"></video>
-  </div>
-  <div class="shade" id="shade"></div>
-  <div class="bars"><i></i><i></i></div>
-</div>
+<!-- сцена: видео идут текстурами в WebGL, поверх — объёмные частицы -->
+<canvas id="gl" aria-hidden="true"></canvas>
+<img class="fb" id="fb" src="./v/d01.jpg" alt="" aria-hidden="true">
 
-<!-- шапка -->
 <header class="top chrome">
-  <a class="logo" href="#s1" data-go="0"><svg viewBox="0 0 32 20" width="30" height="19" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 13c5-5 9-5 15 0s10 5 15 0"/><path d="M1 7c5-5 9-5 15 0s10 5 15 0" opacity=".45"/></svg><span>Комлев</span></a>
-  <nav class="pill" aria-label="Разделы">
-    <button data-go="0" class="on">Система</button>
-    <button data-go="6">Кейсы</button>
-    <button data-go="9">Формат</button>
-    <button data-go="11">Диагностика</button>
-  </nav>
+  <a class="logo" href="#c1" data-go="0"><svg viewBox="0 0 32 20" width="30" height="19" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 13c5-5 9-5 15 0s10 5 15 0"/><path d="M1 7c5-5 9-5 15 0s10 5 15 0" opacity=".45"/></svg><span>Комлев</span></a>
   <a class="cta" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Записаться</a>
 </header>
 
+<!-- 10 глав: пока только картинка, текст и смысл — следующим шагом -->
 <main id="main">
-
-  <!-- 01 -->
-  <section class="sc s1" id="s1" data-h="1.4">
-    <div class="pin hero">
-      <span class="lab fd">Эксперт в&nbsp;области продаж · 12&nbsp;лет</span>
-      <h1 class="ttl xl"><span class="ln"><span>Система</span></span><span class="ln" style="--i:1"><span class="w">продаж</span></span></h1>
-      <div class="hrow">
-        <p class="lead fd" style="--i:3">Собираю систему продаж для&nbsp;экспертов. Чтобы доход был&nbsp;управляемым, а&nbsp;не&nbsp;случайным.</p>
-        <span class="lab fd tip" style="--i:4"><i></i>Наведите на&nbsp;шторм</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 02 -->
-  <section class="sc s2" id="s2">
-    <div class="pin side">
-      <div class="txt">
-        <span class="lab fd">02&nbsp;— Сейчас</span>
-        <h2 class="ttl lg"><span class="ln"><span>Действий много,</span></span><span class="ln" style="--i:1"><span>а&nbsp;продажи идут</span></span><span class="ln" style="--i:2"><span class="w">от&nbsp;случая к&nbsp;случаю.</span></span></h2>
-        <div class="tried fd" style="--i:4">
-          <span><s>01</s>Маркетолог</span><span><s>02</s>Рилсы и&nbsp;контент</span><span><s>03</s>Другой наставник</span><span><s>04</s>Новая схема</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 03 -->
-  <section class="sc s3" id="s3">
-    <div class="pin side">
-      <div class="txt">
-        <span class="lab fd">03&nbsp;— Привычный сценарий</span>
-        <h2 class="ttl lg"><span class="ln"><span>Больше работать&nbsp;=</span></span><span class="ln" style="--i:1"><span class="w">якобы больше</span></span><span class="ln" style="--i:2"><span class="w">зарабатывать.</span></span></h2>
-        <p class="lead fd" style="--i:4">Зарабатывали двести, стали четыреста&nbsp;— ничего не&nbsp;меняется. Всё равно не&nbsp;хватает денег.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 -->
-  <section class="sc s4" id="s4">
-    <div class="pin side">
-      <div class="txt">
-        <span class="lab fd">04&nbsp;— Фокус</span>
-        <h2 class="ttl xl2"><span class="ln"><span>Хаос</span></span><span class="ln" style="--i:1"><span>в&nbsp;стратегии.</span></span><span class="ln" style="--i:2"><span class="w">Нет&nbsp;фокуса.</span></span></h2>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 -->
-  <section class="sc s5" id="s5">
-    <div class="pin side">
-      <div class="txt">
-        <span class="lab fd">05&nbsp;— Одно русло</span>
-        <h2 class="ttl lg"><span class="ln"><span>Я&nbsp;не&nbsp;чиню</span></span><span class="ln" style="--i:1"><span>отдельные точки.</span></span><span class="ln" style="--i:2"><span class="w">Я&nbsp;собираю систему.</span></span></h2>
-        <p class="lead fd" style="--i:4">Всё, что&nbsp;разбросано, свожу в&nbsp;одно&nbsp;русло.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 06 -->
-  <section class="sc s6" id="s6" data-h="1.5">
-    <div class="pin side">
-      <div class="txt">
-        <span class="lab fd">06&nbsp;— Из&nbsp;чего система</span>
-        <h2 class="ttl md"><span class="ln"><span>Делаешь то, что работает.</span></span><span class="ln" style="--i:1"><span class="w">И&nbsp;не&nbsp;делаешь того, что&nbsp;не&nbsp;работает.</span></span></h2>
-        <ol class="parts">
-          <li class="fd" style="--i:3"><span class="num">01</span><b>Уверенность</b><em>На&nbsp;встречах, в&nbsp;себе и&nbsp;в&nbsp;своём продукте.</em></li>
-          <li class="fd" style="--i:4"><span class="num">02</span><b>Продукт</b><em>Клиент сам&nbsp;понимает, за&nbsp;что&nbsp;платит, и&nbsp;платит дороже.</em></li>
-          <li class="fd" style="--i:5"><span class="num">03</span><b>Путь клиента</b><em>От&nbsp;первого касания до&nbsp;оплаты. Без&nbsp;дожима.</em></li>
-          <li class="fd" style="--i:6"><span class="num">04</span><b>Запуски</b><em>На&nbsp;ту&nbsp;аудиторию, что&nbsp;у&nbsp;вас уже&nbsp;есть.</em></li>
-          <li class="fd" style="--i:7"><span class="num">05</span><b>Стратегия</b><em>От&nbsp;точки А&nbsp;до&nbsp;точки&nbsp;Б.</em></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <!-- 07 -->
-  <section class="sc s7" id="s7" data-h="2.8">
-    <div class="pin cases">
-      <div class="chead">
-        <span class="lab fd">07&nbsp;— Кейсы</span>
-        <h2 class="ttl md"><span class="ln"><span>Разные&nbsp;ниши. Один&nbsp;итог&nbsp;—</span></span><span class="ln" style="--i:1"><span class="w">управляемые продажи.</span></span></h2>
-      </div>
-      <div class="track fd" style="--i:3" id="track">
-        <article class="card"><figure><img src="../sistema/img/milky.webp" alt="Настя Milky" loading="lazy" decoding="async"></figure><div class="ct"><span class="lab num">Кейс 01</span><b>Настя Milky</b><em>Наставник бьюти-экспертов</em><strong class="num">3,3&nbsp;млн&nbsp;₽</strong><small>было 500&nbsp;000&nbsp;₽ · за&nbsp;8&nbsp;недель</small></div></article>
-        <article class="card"><figure><img src="../sistema/img/zelinskaya.webp" alt="Ирина Зелинская" loading="lazy" decoding="async"></figure><div class="ct"><span class="lab num">Кейс 02</span><b>Ирина Зелинская</b><em>Наставник, коуч</em><strong class="num">4,9&nbsp;млн&nbsp;₽</strong><small>было 250&nbsp;000&nbsp;₽ · продажи каждый месяц</small></div></article>
-        <article class="card"><figure><img src="../sistema/img/emelyanova.webp" alt="Ира Емельянова" loading="lazy" decoding="async"></figure><div class="ct"><span class="lab num">Кейс 03</span><b>Ира Емельянова</b><em>Бизнес-коуч</em><strong class="num">4,2&nbsp;млн&nbsp;₽</strong><small>был низкий чек · за&nbsp;10&nbsp;недель</small></div></article>
-        <article class="card"><figure><img src="../sistema/img/kuznetsova-s.webp" alt="Серафима Кузнецова" loading="lazy" decoding="async"></figure><div class="ct"><span class="lab num">Кейс 04</span><b>Серафима Кузнецова</b><em>Бизнес-наставник, коуч</em><strong class="num">11&nbsp;млн&nbsp;₽</strong><small>было 100&nbsp;000&nbsp;₽ · чек вырос в&nbsp;10&nbsp;раз</small></div></article>
-        <a class="card next" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener"><span class="lab num">Кейс 05</span><b>Следующий&nbsp;— ваш</b><em>Диагностика 30–40&nbsp;минут в&nbsp;zoom</em><span class="btn">Записаться&nbsp;→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 08 -->
-  <section class="sc s8" id="s8">
-    <div class="pin center">
-      <div class="big num" id="n100" aria-hidden="true">0+</div>
-      <h2 class="ttl md"><span class="ln"><span><span class="sr">100+ </span>млн&nbsp;₽ заработали клиенты</span></span></h2>
-    </div>
-  </section>
-
-  <!-- 09 -->
-  <section class="sc s9" id="s9">
-    <div class="pin side">
-      <div class="txt">
-        <span class="lab fd">09&nbsp;— Мой путь</span>
-        <h2 class="ttl lg"><span class="ln"><span>Из&nbsp;−2&nbsp;млн&nbsp;₽</span></span><span class="ln" style="--i:1"><span>в&nbsp;+4&nbsp;млн&nbsp;₽.</span></span><span class="ln" style="--i:2"><span class="w">Без&nbsp;рекламы.</span></span></h2>
-        <div class="years fd" style="--i:4"><b class="num">12</b><span>лет в&nbsp;продажах</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 10 -->
-  <section class="sc s10" id="s10" data-h="1.3">
-    <div class="pin side">
-      <div class="txt">
-        <span class="lab fd">10&nbsp;— Формат</span>
-        <h2 class="ttl lg"><span class="ln"><span>Три&nbsp;месяца рядом.</span></span><span class="ln" style="--i:1"><span class="w">Пока не&nbsp;пойдёт.</span></span></h2>
-        <div class="me fd" style="--i:4">
-          <img src="../sistema/img/me.webp" width="1100" height="1100" loading="lazy" decoding="async" alt="Александр Комлев">
-          <div>
-            <p>Дёргаю, настраиваю, пока не&nbsp;пойдёт. Все, кто&nbsp;хочет расти, со&nbsp;мной продлеваются.</p>
-            <div class="links">
-              <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODY2NjkzMTI5OTY4MjU4?story_media_id=2413957420203862326&amp;igsh=dWV1MjlwdnFvcHYx" target="_blank" rel="noopener">Чеки клиентов*</a>
-              <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTgyNjY4OTcyMTE0MzI5?story_media_id=3156090925834601469&amp;igsh=a3JxczlqMG9oOHNl" target="_blank" rel="noopener">Отзывы*</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11 -->
-  <section class="sc s11" id="s11">
-    <div class="pin center low">
-      <h2 class="ttl xl2"><span class="ln"><span>Можно ещё&nbsp;полгода</span></span><span class="ln" style="--i:1"><span class="w">делать то&nbsp;же самое.</span></span></h2>
-    </div>
-  </section>
-
-  <!-- 12 -->
-  <section class="sc s12" id="s12" data-h="1.2">
-    <div class="pin final">
-      <div class="fin">
-        <h2 class="ttl xl2"><span class="ln"><span class="w">А&nbsp;можно написать.</span></span></h2>
-        <p class="lead fd" style="--i:2">Диагностика 30–40 минут в&nbsp;zoom. Вы&nbsp;уходите с&nbsp;пониманием, как&nbsp;сделать продажи в&nbsp;ближайшие две&nbsp;недели.</p>
-        <a class="go fd" style="--i:3" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener"><span>Записаться на&nbsp;диагностику</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-        <span class="fd note" style="--i:4">Без&nbsp;презентаций · без&nbsp;прогревов · без&nbsp;дожима</span>
-      </div>
-      <div class="strip fd" style="--i:5">
-        <span><a href="mailto:komlevalexander@yahoo.com">komlevalexander@yahoo.com</a> · <a href="tel:+79019783894" class="num">+7&nbsp;901&nbsp;978-38-94</a></span>
-        <span class="docs"><a href="https://drive.google.com/file/d/1R3z2dI6N-Fia2upxG0cJvpNCDnpxnh4x/view?usp=sharing" target="_blank" rel="noopener">Политика</a> · <a href="https://drive.google.com/file/d/1ibKBrkpKRE5iYUrD1UFqyxS4IfhT4hZ8/view?usp=sharing" target="_blank" rel="noopener">Оферта</a> · <a href="../sistema/legal.html#consent" data-doc>Согласие</a> · <a href="../sistema/legal.html#cookie" data-doc>Cookie</a> · <a href="../sistema/legal.html#details" data-doc>Реквизиты</a></span>
-        <span class="num">ИП&nbsp;Комлев Александр Евгеньевич · ИНН&nbsp;782003396570</span>
-        <span class="meta">*Инстаграм принадлежит Meta, признанной экстремистской организацией в&nbsp;РФ</span>
-      </div>
-    </div>
-  </section>
+  <section class="sc" id="c1" data-h="1.7"><div class="pin"><span class="hint lab chrome" id="hint"><i></i>Наведите на&nbsp;шторм · листайте</span></div></section>
+  <section class="sc" id="c2"></section>
+  <section class="sc" id="c3"></section>
+  <section class="sc" id="c4"></section>
+  <section class="sc" id="c5"></section>
+  <section class="sc" id="c6"></section>
+  <section class="sc" id="c7"></section>
+  <section class="sc" id="c8"></section>
+  <section class="sc" id="c9"></section>
+  <section class="sc" id="c10" data-h="1.2"></section>
 </main>
 
-<!-- приборы: таймкод и прогресс -->
 <div class="hud chrome" aria-hidden="true">
-  <div class="tc lab num"><b id="no">01</b> / 12 <span id="nm">Система</span></div>
+  <div class="tc lab num"><b id="no">01</b> / 10 <span id="nm">Шторм</span></div>
   <div class="prog"><i id="bar"></i><div class="ticks" id="ticks"></div></div>
-  <div class="tc r lab num" id="clk">00:00:00</div>
+  <div class="tc r lab num" id="clk">00:00:00:00</div>
 </div>
-<div class="spot" id="spot" aria-hidden="true"></div>
+<div class="ring" id="ring" aria-hidden="true"></div>
 
-<div class="ck" id="ck" hidden><span>Здесь cookie. <a href="../sistema/legal.html#cookie" data-doc>Подробнее</a></span><button type="button">Понятно</button></div>
-<div class="dm" id="dm" hidden role="dialog" aria-modal="true" aria-label="Документы"><button type="button" class="dx">Закрыть ×</button><iframe id="dfr" title="Документы"></iframe></div>
-
-<noscript><style>.boot{display:none}.ln>span,.fd{transform:none!important;opacity:1!important}.shot[data-k="0"]{opacity:1}</style></noscript>
 <script src="./lib/lenis.min.js"></script>
 <script type="module" src="./app.js"></script>
 </body>
