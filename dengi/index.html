@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self' blob: data:; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0e0f11">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Деньги">
+<title>Деньги</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Замок -->
+<section id="lock" class="lock">
+  <div class="lock-in">
+    <div class="lock-logo">₽</div>
+    <h1 id="lockTitle">Деньги</h1>
+    <p id="lockHint" class="muted">Введи код</p>
+    <div id="dots" class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="pad" id="pad">
+      <button>1</button><button>2</button><button>3</button>
+      <button>4</button><button>5</button><button>6</button>
+      <button>7</button><button>8</button><button>9</button>
+      <button data-k="ok" class="pad-ok">Готово</button><button>0</button><button data-k="del" aria-label="Стереть">⌫</button>
+    </div>
+    <button id="lockCancel" class="btn ghost wide lock-cancel" hidden>Отмена</button>
+    <p class="lock-note">Всё хранится только в этом телефоне и зашифровано твоим кодом. Код не восстановить, запомни его.</p>
+  </div>
+</section>
+
+<!-- Главная -->
+<main id="app" class="app" hidden>
+  <header class="top">
+    <button class="icon-btn" id="prevM" aria-label="Прошлый месяц">‹</button>
+    <div class="month" id="monthLbl"></div>
+    <button class="icon-btn" id="nextM" aria-label="Следующий месяц">›</button>
+    <button class="icon-btn right" id="openSet" aria-label="Настройки">⋯</button>
+  </header>
+
+  <section class="sum">
+    <div class="sum-main">
+      <span class="muted">Потрачено</span>
+      <b id="sumOut">0 ₽</b>
+    </div>
+    <div class="sum-row">
+      <div><span class="muted">Пришло</span><b id="sumIn" class="pos">0 ₽</b></div>
+      <div><span class="muted">Остаток</span><b id="sumBal">0 ₽</b></div>
+      <div><span class="muted">В день</span><b id="sumDay">0 ₽</b></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>По статьям</h2>
+    <div id="cats" class="cats"></div>
+  </section>
+
+  <section>
+    <h2>Операции</h2>
+    <div id="ops" class="ops"></div>
+  </section>
+
+  <div class="bar">
+    <button class="btn ghost" id="addManual">Вручную</button>
+    <label class="btn main" for="photo">Загрузить фото</label>
+    <input type="file" id="photo" accept="image/*" multiple hidden>
+  </div>
+</main>
+
+<!-- Разбор фото -->
+<div id="sheetReview" class="sheet" hidden>
+  <div class="sheet-in">
+    <div class="sheet-head">
+      <h3>Что нашёл на фото</h3>
+      <button class="icon-btn" data-close aria-label="Закрыть">✕</button>
+    </div>
+    <div id="progress" class="progress" hidden>
+      <div class="progress-txt" id="progressTxt">Читаю фото…</div>
+      <div class="progress-bar"><i id="progressBar"></i></div>
+      <p class="muted small">Фото разбирается прямо в телефоне. В интернет не уходит.</p>
+    </div>
+    <div id="reviewBody"></div>
+    <details id="rawBox" class="raw" hidden><summary>Распознанный текст</summary><pre id="rawTxt"></pre></details>
+    <div class="sheet-foot" id="reviewFoot" hidden>
+      <button class="btn ghost" data-close>Отмена</button>
+      <button class="btn main" id="saveReview">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Операция вручную / правка -->
+<div id="sheetOp" class="sheet" hidden>
+  <div class="sheet-in">
+    <div class="sheet-head">
+      <h3 id="opTitle">Новая операция</h3>
+      <button class="icon-btn" data-close aria-label="Закрыть">✕</button>
+    </div>
+    <div class="seg" id="opKind">
+      <button data-v="out" class="on">Расход</button>
+      <button data-v="in">Доход</button>
+    </div>
+    <label class="fld"><span>Сумма, ₽</span><input id="opSum" inputmode="decimal" autocomplete="off" placeholder="0"></label>
+    <label class="fld"><span>Что это</span><input id="opName" autocomplete="off" placeholder="Например, Пятёрочка"></label>
+    <label class="fld"><span>Статья</span><select id="opCat"></select></label>
+    <label class="fld"><span>Дата</span><input id="opDate" type="date"></label>
+    <div class="sheet-foot">
+      <button class="btn danger" id="opDel" hidden>Удалить</button>
+      <button class="btn main" id="opSave">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Настройки -->
+<div id="sheetSet" class="sheet" hidden>
+  <div class="sheet-in">
+    <div class="sheet-head">
+      <h3>Настройки</h3>
+      <button class="icon-btn" data-close aria-label="Закрыть">✕</button>
+    </div>
+    <h4>Лимиты на месяц</h4>
+    <p class="muted small">Поставь потолок по статье. Полоса покраснеет, когда подойдёшь к нему.</p>
+    <div id="limits" class="limits"></div>
+
+    <h4>Защита</h4>
+    <label class="fld"><span>Блокировать, если свернул на</span>
+      <select id="lockAfter">
+        <option value="0">сразу</option>
+        <option value="60">1 минуту</option>
+        <option value="300">5 минут</option>
+      </select>
+    </label>
+    <div class="col">
+      <button class="btn ghost" id="lockNow">Заблокировать сейчас</button>
+      <button class="btn ghost" id="changePin">Сменить код</button>
+    </div>
+
+    <h4>Копия данных</h4>
+    <p class="muted small">Файл зашифрован тем же кодом. Без кода его не открыть никому.</p>
+    <div class="col">
+      <button class="btn ghost" id="exportBtn">Сохранить копию</button>
+      <label class="btn ghost" for="importFile">Восстановить из копии</label>
+      <input type="file" id="importFile" accept=".dengi,application/octet-stream,application/json" hidden>
+      <button class="btn ghost" id="csvBtn">Выгрузить таблицу (CSV)</button>
+    </div>
+
+    <h4>Опасная зона</h4>
+    <button class="btn danger wide" id="wipeBtn">Стереть всё из телефона</button>
+
+    <p class="muted small foot-note">Приложение работает без интернета. Нет серверов, аккаунтов, аналитики и рекламы. Распознавание фото идёт внутри телефона.</p>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="vendor/tesseract.min.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>

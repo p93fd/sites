@@ -9,6 +9,7 @@
 | kino | Личный сайт-фильм, 12 видео-слайдов (выбор Александра 09.10). Код: index.html, style.css, app.js; ролики v/ собирает tools/kino-grade.sh | https://p93fd.github.io/sites/kino/ |
 | sistema | Прошлая версия: 8 экранов, 3D-сцена из частиц. Отсюда шрифты, фото, legal.html для kino | https://p93fd.github.io/sites/sistema/ |
 | bezlishnego | Сайт Саши («Без лишнего»), готов. Отсюда взяты документы | https://p93fd.github.io/sites/bezlishnego/ |
+| dengi | Личное приложение «Деньги»: учёт трат по фото чека или скрину банка. Распознаёт в телефоне (Tesseract в vendor/), данные зашифрованы кодом в localStorage, сети нет | https://p93fd.github.io/sites/dengi/ |
 | architektor | Старая версия сайта Александра, на видео-фонах. Не трогать | https://p93fd.github.io/sites/architektor/ |
 | architektor-v2 | Вторая старая версия. Не трогать | https://p93fd.github.io/sites/architektor-v2/ |
 
@@ -42,11 +43,13 @@
 <!-- auto:files -->
 | Папка | Файлов | Вес | Текстовые файлы (строк) |
 |---|---|---|---|
-| . | 4 | 16 КБ | CLAUDE.md (16), INDEX.md (55), MAP.md (156), README.md (1) |
+| . | 4 | 17 КБ | CLAUDE.md (16), INDEX.md (57), MAP.md (158), README.md (1) |
 | .claude | 7 | 106 КБ | .claude/settings.json (8), .claude/skills/my-voice/SKILL.md (571), .claude/skills/particle-scene/SKILL.md (89), .claude/skills/ru-typography/SKILL.md (60), .claude/skills/site-10k/SKILL.md (94), .claude/skills/studio-layout/SKILL.md (98), .claude/skills/volumetric-web/SKILL.md (43) |
+| anna | 1 | 1.7 МБ | anna/index.html (591) |
 | architektor | 51 | 22.3 МБ | architektor/fx/post.js (894), architektor/index.html (1825) |
 | architektor-v2 | 340 | 10.8 МБ | architektor-v2/app.js (71), architektor-v2/index.html (285) |
 | bezlishnego | 46 | 22.7 МБ | bezlishnego/index.html (1488), bezlishnego/legal.html (157), bezlishnego/satin.html (1494), bezlishnego/tilda-1-oformlenie.txt (2), bezlishnego/tilda-2-stranica.txt (133) |
+| dengi | 16 | 13.1 МБ | dengi/app.js (700), dengi/index.html (167), dengi/style.css (134), dengi/sw.js (28), dengi/vendor/tesseract-core-lstm.wasm.js (283), dengi/vendor/tesseract-core-simd-lstm.wasm.js (283) |
 | kino | 34 | 32.7 МБ | kino/app.js (276), kino/index.html (62), kino/style.css (62) |
 | research | 11 | 599 КБ | research/README.md (153), research/activetheory-ref.md (405), research/studios-ref.md (356), research/video-ref.md (310), research/voice-aleksandr.md (587), research/wave1-eu-creative-dev.md (340), research/wave1-premium-anatomy.md (345), research/wave1-us-visual.md (421), research/wave2-asia.md (269), research/wave2-cyrillic.md (475), research/wave2-deep.md (356) |
 | sistema | 27 | 1.3 МБ | sistema/app.js (706), sistema/index.html (656), sistema/legal.html (98) |
