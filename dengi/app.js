@@ -7,26 +7,26 @@ const VAULT = 'dengi.vault', TRIES = 'dengi.tries';
 
 /* ---------- Статьи ---------- */
 const CATS = [
-  { id: 'food',   n: 'Продукты',          c: '#7ee0a1' },
-  { id: 'cafe',   n: 'Кафе и доставка',   c: '#f2c14e' },
-  { id: 'taxi',   n: 'Транспорт',         c: '#6bb7ff' },
-  { id: 'car',    n: 'Авто',              c: '#5a8dee' },
-  { id: 'home',   n: 'Дом и ЖКХ',         c: '#c79bff' },
-  { id: 'phone',  n: 'Связь и интернет',  c: '#59d2d2' },
-  { id: 'subs',   n: 'Подписки',          c: '#ff9ad5' },
-  { id: 'health', n: 'Здоровье',          c: '#ff7a6b' },
-  { id: 'beauty', n: 'Красота',           c: '#ffb38a' },
-  { id: 'cloth',  n: 'Одежда',            c: '#e3a1ff' },
-  { id: 'shop',   n: 'Покупки',           c: '#ffd36b' },
-  { id: 'kids',   n: 'Дети',              c: '#a6e36b' },
-  { id: 'fun',    n: 'Развлечения',       c: '#ff8fa3' },
-  { id: 'travel', n: 'Путешествия',       c: '#4fd1c5' },
-  { id: 'edu',    n: 'Обучение',          c: '#b0c4ff' },
-  { id: 'biz',    n: 'Бизнес',            c: '#d9f26b' },
-  { id: 'tax',    n: 'Налоги и сборы',    c: '#c0a080' },
-  { id: 'xfer',   n: 'Переводы',          c: '#a0a8b0' },
-  { id: 'other',  n: 'Другое',            c: '#80868c' },
-  { id: 'income', n: 'Доход',             c: '#7ee0a1', inc: true },
+  { id: 'food',   n: 'Продукты',          c: '#8fe3b0' },
+  { id: 'cafe',   n: 'Кафе и доставка',   c: '#f4c86a' },
+  { id: 'taxi',   n: 'Транспорт',         c: '#7cc7e8' },
+  { id: 'car',    n: 'Авто',              c: '#5fa8c9' },
+  { id: 'home',   n: 'Дом и ЖКХ',         c: '#c9a7ff' },
+  { id: 'phone',  n: 'Связь и интернет',  c: '#5fd6c4' },
+  { id: 'subs',   n: 'Подписки',          c: '#ff9fc9' },
+  { id: 'health', n: 'Здоровье',          c: '#ff8f7d' },
+  { id: 'beauty', n: 'Красота',           c: '#ffb98f' },
+  { id: 'cloth',  n: 'Одежда',            c: '#e0b3ff' },
+  { id: 'shop',   n: 'Покупки',           c: '#f4dd96' },
+  { id: 'kids',   n: 'Дети',              c: '#b8e07a' },
+  { id: 'fun',    n: 'Развлечения',       c: '#ff9fae' },
+  { id: 'travel', n: 'Путешествия',       c: '#4fd1b5' },
+  { id: 'edu',    n: 'Обучение',          c: '#a9c1ff' },
+  { id: 'biz',    n: 'Бизнес',            c: '#d8b45a' },
+  { id: 'tax',    n: 'Налоги и сборы',    c: '#c7a27a' },
+  { id: 'xfer',   n: 'Переводы',          c: '#a9bdb5' },
+  { id: 'other',  n: 'Другое',            c: '#7f978d' },
+  { id: 'income', n: 'Доход',             c: '#8fe3b0', inc: true },
 ];
 const CAT = Object.fromEntries(CATS.map(c => [c.id, c]));
 
@@ -196,7 +196,8 @@ function enterApp(msg) {
 
 /* ---------- Формат ---------- */
 const nf = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 2, minimumFractionDigits: 0 });
-const money = n => nf.format(Math.round(n * 100) / 100).replace(/\u00a0/g, '\u202f') + '\u00a0₽';
+const nf2 = new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const money = n => { const r = Math.round(n * 100) / 100; return (r % 1 ? nf2 : nf).format(r).replace(/\u00a0/g, '\u202f') + '\u00a0₽'; };
 const MONTHS = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 const MONTHS_G = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 function dayLabel(d) {
@@ -215,52 +216,239 @@ function catOptions(sel, onlyInc) {
 }
 
 /* ---------- Главный экран ---------- */
+let tab = 'over', query = '';
+const dim = ym => { const [y, m] = ym.split('-').map(Number); return new Date(y, m, 0).getDate(); };
+const pct = (a, b) => b > 0 ? Math.round((a - b) / b * 100) : null;
+const monthName = (ym, gen) => { const m = +ym.split('-')[1] - 1; return gen ? ['январе','феврале','марте','апреле','мае','июне','июле','августе','сентябре','октябре','ноябре','декабре'][m] : MONTHS[m]; };
+function sums(ops) {
+  let out = 0, inc = 0; const by = {};
+  for (const o of ops) { if (o.k === 'in') inc += o.s; else { out += o.s; by[o.c] = (by[o.c] || 0) + o.s; } }
+  return { out, inc, by };
+}
+const opsOf = ym => S.ops.filter(o => o.d.startsWith(ym));
+
 function render() {
   const [Y, M] = view.split('-').map(Number);
   $('#monthLbl').textContent = MONTHS[M - 1][0].toUpperCase() + MONTHS[M - 1].slice(1) + (Y !== new Date().getFullYear() ? ' ' + Y : '');
-  const ops = S.ops.filter(o => o.d.startsWith(view));
-  let out = 0, inc = 0; const by = {};
-  for (const o of ops) {
-    if (o.k === 'in') inc += o.s;
-    else { out += o.s; by[o.c] = (by[o.c] || 0) + o.s; }
-  }
+  $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === tab));
+  ['over', 'ops', 'tips'].forEach(t => $('#tab-' + t).hidden = t !== tab);
+  if (tab === 'over') renderOver(); else if (tab === 'ops') renderOps(); else renderTips();
+}
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { tab = b.dataset.t; render(); window.scrollTo(0, 0); } });
+
+function renderOver() {
+  const ops = opsOf(view), prevYm = shiftYm(view, -1), prevOps = opsOf(prevYm);
+  const { out, inc, by } = sums(ops), P = sums(prevOps);
+  const isNow = view === ymNow(), N = dim(view), day = isNow ? new Date().getDate() : N;
+  const future = view > ymNow();
+
   $('#sumOut').textContent = money(out);
   $('#sumIn').textContent = money(inc);
   const bal = inc - out;
-  $('#sumBal').textContent = money(bal);
-  $('#sumBal').className = bal < 0 ? 'neg' : '';
-  const isNow = view === ymNow();
-  const days = isNow ? new Date().getDate() : new Date(Y, M, 0).getDate();
-  $('#sumDay').textContent = money(out / days);
+  $('#sumBal').textContent = money(bal); $('#sumBal').className = bal < 0 ? 'neg' : '';
+  $('#sumRate').textContent = inc > 0 ? Math.round(bal / inc * 100) + '%' : '—';
+  $('#sumRate').className = inc > 0 ? (bal < 0 ? 'neg' : 'pos') : '';
 
-  // статьи: траты и лимиты
+  // сравнение с прошлым месяцем за тот же срок
+  const prevSame = isNow ? prevOps.filter(o => o.k !== 'in' && +o.d.slice(8) <= day).reduce((s, o) => s + o.s, 0) : P.out;
+  const d = pct(out, prevSame), vs = $('#sumVs');
+  vs.className = 'vs' + (d === null ? '' : d > 0 ? ' up' : ' down');
+  vs.textContent = d === null || !out ? '' : (d === 0 ? 'Как ' : (d > 0 ? '▲ на ' + d + '% больше, чем ' : '▼ на ' + (-d) + '% меньше, чем ')) + (isNow ? 'за те же дни в ' : 'в ') + monthName(prevYm, true);
+
+  const perDay = day && !future ? out / day : 0;
+  const prevPerDay = P.out / dim(prevYm);
+  $('#sumDay').textContent = money(perDay);
+  $('#sumDayVs').textContent = prevPerDay ? 'в ' + monthName(prevYm, true) + ' ' + money(prevPerDay) : 'в среднем';
+  $('#fcLbl').textContent = isNow ? 'Прогноз на месяц' : 'Итог месяца';
+  $('#sumFc').textContent = money(isNow ? perDay * N : out);
+  $('#sumFcVs').textContent = isNow ? (inc > 0 ? (perDay * N > inc ? 'больше, чем пришло' : 'в пределах дохода') : 'если темп не изменится') : (inc > 0 ? 'пришло ' + money(inc) : '');
+
+  // сколько можно тратить в день
+  const limSum = Object.values(S.limits).reduce((s, v) => s + v, 0);
+  const base = inc > 0 ? inc : limSum;
+  const left = N - day + 1;
+  $('#safeBox').hidden = !(isNow && base > 0);
+  if (isNow && base > 0) {
+    const rest = base - out;
+    $('#safeDay').textContent = rest > 0 ? money(rest / left) : money(0);
+    $('#safeDay').className = 'mid-num' + (rest > 0 ? '' : ' neg');
+    $('#safeNote').textContent = rest > 0
+      ? `Осталось ${money(rest)} на ${left} ${plural(left, 'день', 'дня', 'дней')}, считаю от ${inc > 0 ? 'дохода' : 'суммы лимитов'}`
+      : `Уже вышел за ${inc > 0 ? 'доход' : 'лимиты'} на ${money(-rest)}`;
+  }
+
+  drawChart(ops, N, isNow ? day : N);
+
+  // статьи
   const ids = new Set([...Object.keys(by), ...Object.keys(S.limits).filter(k => S.limits[k] > 0)]);
-  const rows = [...ids].map(id => ({ id, s: by[id] || 0, lim: S.limits[id] || 0 })).sort((a, b) => b.s - a.s);
+  const rows = [...ids].map(id => ({ id, s: by[id] || 0, lim: S.limits[id] || 0, p: P.by[id] || 0 })).sort((a, b) => b.s - a.s);
   const max = Math.max(1, ...rows.map(r => r.s));
   $('#cats').innerHTML = rows.length ? rows.map(r => {
     const c = CAT[r.id] || CAT.other;
-    const pct = r.lim ? Math.min(100, r.s / r.lim * 100) : r.s / max * 100;
+    const w = r.lim ? Math.min(100, r.s / r.lim * 100) : r.s / max * 100;
     const over = r.lim && r.s > r.lim;
     const col = r.lim ? (over ? 'var(--neg)' : r.s / r.lim > .8 ? 'var(--warn)' : c.c) : c.c;
+    const share = out ? Math.round(r.s / out * 100) : 0;
+    const dd = pct(r.s, r.p);
+    const left = r.lim ? (over ? `перебор ${money(r.s - r.lim)}` : `осталось ${money(r.lim - r.s)}`) : '';
     return `<div class="cat${over ? ' over' : ''}">
       <div class="cat-top"><span class="cat-name"><i style="background:${c.c}"></i>${c.n}</span>
-      <span class="cat-sum">${money(r.s)}${r.lim ? ` <small>из ${money(r.lim)}</small>` : ''}</span></div>
-      <div class="cat-bar"><i style="width:${pct.toFixed(1)}%;background:${col}"></i></div></div>`;
-  }).join('') : `<div class="empty">Пока пусто. Загрузи фото чека или скрин из банка — разложу по статьям.</div>`;
+      <span class="cat-sum">${money(r.s)}</span></div>
+      <div class="cat-sub"><span>${share}% трат${dd !== null && dd !== 0 && r.s ? ` · ${dd > 0 ? '▲' : '▼'} ${Math.abs(dd)}% к ${monthName(prevYm).slice(0, 3)}` : ''}</span><span>${r.lim ? left : ''}</span></div>
+      <div class="cat-bar"><i style="width:${w.toFixed(1)}%;background:${col}"></i></div></div>`;
+  }).join('') : `<div class="empty">Пока пусто. Загрузи фото чека или скрин из банка, и я разложу траты по статьям.</div>`;
 
-  // операции по дням
+  // места
+  const tops = topPlaces(ops).slice(0, 5);
+  $('#tops').innerHTML = tops.length ? tops.map((t, i) => `<div class="li"><span class="li-n">${i + 1}</span>
+    <span class="li-mid"><b>${esc(t.n)}</b><small>${t.cnt} ${plural(t.cnt, 'раз', 'раза', 'раз')} · ${(CAT[t.c] || CAT.other).n}</small></span>
+    <span class="li-sum">${money(t.s)}</span></div>`).join('') : `<div class="li"><span class="muted small">Здесь появятся места, где ты тратишь больше всего</span></div>`;
+}
+
+function topPlaces(ops) {
+  const m = {};
+  for (const o of ops) {
+    if (o.k === 'in') continue;
+    const k = learnKey(o.n) || '—' + o.c;
+    const x = m[k] || (m[k] = { n: o.n || (CAT[o.c] || CAT.other).n, s: 0, cnt: 0, c: o.c });
+    x.s += o.s; x.cnt++;
+  }
+  return Object.values(m).sort((a, b) => b.s - a.s);
+}
+function plural(n, a, b, c) { n = Math.abs(n) % 100; const n1 = n % 10; return n > 10 && n < 20 ? c : n1 > 1 && n1 < 5 ? b : n1 === 1 ? a : c; }
+
+// столбики по дням: одна серия, золото, линия среднего, подсказка по нажатию
+function drawChart(ops, N, upto) {
+  const per = Array(N).fill(0);
+  for (const o of ops) if (o.k !== 'in') per[+o.d.slice(8) - 1] += o.s;
+  const srt = per.slice().sort((a, b) => b - a), cap = srt[0] > srt[1] * 2.5 && srt[1] ? srt[1] * 1.3 : srt[0];
+  const max = cap, active = per.slice(0, upto).filter(v => v > 0);
+  const avg = upto ? per.slice(0, upto).reduce((s, v) => s + v, 0) / upto : 0;
+  const W = 340, H = 140, padB = 18, gap = 2, bw = (W - gap * (N - 1)) / N, h = H - padB;
+  const y = v => max ? h - v / max * (h - 6) : h;
+  let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+    <line x1="0" x2="${W}" y1="${h + .5}" y2="${h + .5}" stroke="rgba(216,180,90,.25)" stroke-width="1"/>`;
+  const todayN = view === ymNow() ? new Date().getDate() : 0;
+  per.forEach((v, i) => {
+    const x = i * (bw + gap), top = y(Math.min(v, max)), hh = Math.max(v ? 2 : 0, h - top);
+    const fill = i + 1 > upto ? 'rgba(216,180,90,.08)' : v > avg * 2 && v ? 'url(#gHot)' : 'url(#gBar)';
+    if (hh) s += `<rect x="${x.toFixed(2)}" y="${(h - hh).toFixed(2)}" width="${bw.toFixed(2)}" height="${hh.toFixed(2)}" rx="${Math.min(3, bw / 2)}" fill="${fill}"/>`;
+    if (v > max) s += `<path d="M${x.toFixed(2)} 7 l${(bw / 2).toFixed(2)} -5 l${(bw / 2).toFixed(2)} 5" fill="none" stroke="#031d17" stroke-width="1.5"/>`;
+    s += `<rect class="hit" data-i="${i}" x="${x.toFixed(2)}" y="0" width="${(bw + gap).toFixed(2)}" height="${H}" fill="transparent"/>`;
+    if ([1, 10, 20, N].includes(i + 1)) s += `<text x="${(x + bw / 2).toFixed(2)}" y="${H - 3}" text-anchor="middle" font-size="10" fill="#9db5aa">${i + 1}</text>`;
+    if (i + 1 === todayN) s += `<circle cx="${(x + bw / 2).toFixed(2)}" cy="${h + 6}" r="2" fill="#f4dd96"/>`;
+  });
+  if (avg && max) s += `<line x1="0" x2="${W}" y1="${y(avg).toFixed(1)}" y2="${y(avg).toFixed(1)}" stroke="#f4dd96" stroke-width="1" stroke-dasharray="3 4" opacity=".7"/>`;
+  s += `<defs><linearGradient id="gBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4dd96"/><stop offset="1" stop-color="#a8802f"/></linearGradient>
+    <linearGradient id="gHot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb4a6"/><stop offset="1" stop-color="#c8604f"/></linearGradient></defs></svg>`;
+  $('#chart').innerHTML = s;
+  $('#chartNote').textContent = active.length ? `пунктир — в среднем ${money(avg)} в день${srt[0] > max ? '; самый высокий столбик срезан' : ''}` : '';
+  const tip = $('#chartTip');
+  tip.innerHTML = max ? 'Нажми на столбик, чтобы увидеть день' : 'Трат пока нет';
+  $('#chart').onclick = e => {
+    const r = e.target.closest('.hit'); if (!r) return;
+    const i = +r.dataset.i, d = view + '-' + String(i + 1).padStart(2, '0');
+    const list = ops.filter(o => o.d === d && o.k !== 'in').sort((a, b) => b.s - a.s);
+    tip.innerHTML = `<b>${dayLabel(d)}: ${money(per[i])}</b>${list.length ? ' · ' + list.slice(0, 3).map(o => esc(o.n || (CAT[o.c] || CAT.other).n)).join(', ') : ''}`;
+  };
+}
+
+function renderOps() {
+  const all = opsOf(view);
+  const q = norm(query.trim());
+  const ops = q ? all.filter(o => norm(o.n + ' ' + (CAT[o.c] || CAT.other).n).includes(q)) : all;
+  const { out, inc } = sums(ops);
   const sorted = ops.slice().sort((a, b) => b.d.localeCompare(a.d) || b.t - a.t);
-  let html = '', last = '';
+  const dayOut = {};
+  for (const o of sorted) if (o.k !== 'in') dayOut[o.d] = (dayOut[o.d] || 0) + o.s;
+  let html = `<div class="ops-total gold"><div><span class="label">Расходы${q ? ' в поиске' : ''}</span><b>${money(out)}</b></div><div><span class="label">Доходы</span><b class="pos">${money(inc)}</b></div></div>
+    <input class="search" id="search" type="search" placeholder="Поиск: магазин или статья" value="${esc(query)}" autocomplete="off">`;
+  let last = '';
   for (const o of sorted) {
-    if (o.d !== last) { html += `<div class="day">${dayLabel(o.d)}</div>`; last = o.d; }
+    if (o.d !== last) { html += `<div class="day"><span>${dayLabel(o.d)}</span><span>${dayOut[o.d] ? '−' + money(dayOut[o.d]) : ''}</span></div>`; last = o.d; }
     const c = CAT[o.c] || CAT.other;
     html += `<button class="op" data-id="${esc(o.id)}">
       <span class="op-dot" style="background:${c.c}">${esc(c.n[0])}</span>
-      <span class="op-mid"><span class="op-name">${esc(o.n || c.n)}</span><span class="op-cat">${c.n}</span></span>
+      <span class="op-mid"><span class="op-name">${esc(o.n || c.n)}</span><span class="op-cat">${c.n}${o.src === 'photo' ? ' · с фото' : ''}</span></span>
       <span class="op-sum ${o.k === 'in' ? 'pos' : ''}">${o.k === 'in' ? '+' : '−'}${money(o.s)}</span></button>`;
   }
+  if (!sorted.length) html += `<div class="empty" style="margin-top:14px">${q ? 'Ничего не нашёл' : 'В этом месяце операций нет'}</div>`;
   $('#ops').innerHTML = html;
+  const inp = $('#search');
+  inp.oninput = () => { query = inp.value; const pos = inp.selectionStart; renderOps(); const n = $('#search'); n.focus(); n.setSelectionRange(pos, pos); };
 }
+
+// Советы: только то, что видно из твоих цифр
+function renderTips() {
+  const ops = opsOf(view), prevYm = shiftYm(view, -1), P = sums(opsOf(prevYm)), { out, inc, by } = sums(ops);
+  const isNow = view === ymNow(), N = dim(view), day = isNow ? new Date().getDate() : N;
+  const T = [];
+  const exp = ops.filter(o => o.k !== 'in');
+  if (!S.ops.length) {
+    $('#tips').innerHTML = `<div class="tip gold"><div class="tip-t"><i>✦</i>Здесь будут подсказки</div><p class="muted">Добавь траты за пару недель, и я покажу, куда утекают деньги, что повторяется каждый месяц и сколько можно отложить.</p></div>`;
+    return;
+  }
+  // 1. норма сбережений
+  if (inc > 0) {
+    const r = Math.round((inc - out) / inc * 100);
+    T.push(['%', r >= 20 ? 'Откладываешь хорошо' : r >= 0 ? 'Запас тонкий' : 'Тратишь больше, чем приходит',
+      `Из каждых 100 ₽ дохода остаётся <span class="num">${Math.max(r, 0)} ₽</span>${r < 0 ? `, минус <span class="num">${money(out - inc)}</span>` : ''}. ` +
+      (r >= 20 ? 'Это уровень, на котором копится подушка. Держи.' : `Ориентир 20%. Для этого в месяц тратить не больше <span class="num">${money(inc * .8)}</span>.`)]);
+  } else T.push(['+', 'Добавь доходы', 'Без доходов не посчитать, сколько остаётся и сколько можно тратить в день. Внеси поступления вручную или скрином из банка.']);
+  // 2. рост статьи
+  const grow = Object.keys(by).map(id => ({ id, s: by[id], p: P.by[id] || 0 })).filter(x => x.p > 0 && x.s - x.p > 1000).sort((a, b) => (b.s - b.p) - (a.s - a.p))[0];
+  if (grow) T.push(['▲', `${CAT[grow.id].n}: выросло`, `На <span class="num">${money(grow.s - grow.p)}</span> больше, чем в ${monthName(prevYm, true)} (${money(grow.p)} → ${money(grow.s)}). Посмотри, что изменилось.`]);
+  // 3. регулярные платежи
+  const reg = regular();
+  if (reg.length) {
+    const sum = reg.reduce((s, r) => s + r.s, 0);
+    T.push(['↻', 'Платишь каждый месяц', `${reg.slice(0, 5).map(r => `${esc(r.n)} <span class="num">${money(r.s)}</span>`).join(', ')}. Итого <span class="num">${money(sum)}</span> в месяц, <span class="num">${money(sum * 12)}</span> в год. Проверь, всё ли ещё нужно.`]);
+  }
+  // 4. мелочь
+  const small = exp.filter(o => o.s < 500);
+  const smallSum = small.reduce((s, o) => s + o.s, 0);
+  if (small.length >= 5) T.push(['◦', 'Мелочь набегает', `${small.length} ${plural(small.length, 'покупка', 'покупки', 'покупок')} до 500 ₽ дали <span class="num">${money(smallSum)}</span>${out ? `, это ${Math.round(smallSum / out * 100)}% трат` : ''}. За год так уходит около <span class="num">${money(smallSum / day * 365)}</span>.`]);
+  // 5. крупнейшая
+  const big = exp.slice().sort((a, b) => b.s - a.s)[0];
+  if (big && out) T.push(['◆', 'Самая крупная трата', `${esc(big.n || CAT[big.c].n)}, <span class="num">${money(big.s)}</span>, ${dayLabel(big.d).toLowerCase()}. Это ${Math.round(big.s / out * 100)}% всех трат месяца.`]);
+  // 6. будни и выходные
+  let wd = 0, we = 0, nwd = 0, nwe = 0;
+  for (let i = 1; i <= day; i++) { const w = new Date(+view.slice(0, 4), +view.slice(5) - 1, i).getDay(); (w === 0 || w === 6) ? nwe++ : nwd++; }
+  for (const o of exp) { const w = new Date(o.d + 'T12:00').getDay(); (w === 0 || w === 6) ? we += o.s : wd += o.s; }
+  if (nwe && nwd && exp.length >= 6) {
+    const a = we / nwe, b = wd / nwd;
+    if (a > b * 1.3) T.push(['☾', 'Выходные дороже', `В выходной уходит в среднем <span class="num">${money(a)}</span>, в будни <span class="num">${money(b)}</span>. Заранее реши сумму на выходные.`]);
+    else if (b > a * 1.3) T.push(['☀', 'Будни дороже', `В будни в среднем <span class="num">${money(b)}</span> в день, в выходные <span class="num">${money(a)}</span>. Обычно это обеды, такси и доставка.`]);
+  }
+  // 7. лимиты
+  const lims = Object.keys(S.limits).filter(k => S.limits[k] > 0);
+  const over = lims.filter(k => (by[k] || 0) > S.limits[k]);
+  const near = lims.filter(k => !over.includes(k) && (by[k] || 0) > S.limits[k] * .8);
+  if (over.length) T.push(['!', 'Вышел за лимит', over.map(k => `${CAT[k].n}: перебор <span class="num">${money(by[k] - S.limits[k])}</span>`).join('; ') + '.']);
+  if (near.length && isNow) T.push(['≈', 'Лимит близко', near.map(k => `${CAT[k].n}: осталось <span class="num">${money(S.limits[k] - (by[k] || 0))}</span>`).join('; ') + '.']);
+  if (!lims.length) T.push(['⚑', 'Поставь лимиты', 'Выбери 2–3 статьи, где чаще всего перебор, и задай потолок в настройках (⋯). Полоса покажет, сколько осталось.']);
+  // 8. правило 50/30/20
+  if (inc > 0 && out) {
+    const need = ['food', 'home', 'phone', 'taxi', 'car', 'health', 'kids', 'tax'].reduce((s, k) => s + (by[k] || 0), 0);
+    T.push(['⅔', 'Обязательные и желания', `Обязательное (еда, дом, связь, транспорт, здоровье, дети, налоги): <span class="num">${Math.round(need / inc * 100)}%</span> дохода. Остальное: <span class="num">${Math.round((out - need) / inc * 100)}%</span>. Ориентир 50 / 30 и 20% отложить.`]);
+  }
+  $('#tips').innerHTML = T.map(t => `<div class="tip gold"><div class="tip-t"><i>${t[0]}</i>${t[1]}</div><p>${t[2]}</p></div>`).join('');
+}
+// одно и то же место с похожей суммой минимум в двух из трёх последних месяцев
+function regular() {
+  const months = [view, shiftYm(view, -1), shiftYm(view, -2)];
+  const m = {};
+  for (const o of S.ops) {
+    const ym = o.d.slice(0, 7); if (o.k === 'in' || !months.includes(ym)) continue;
+    const k = learnKey(o.n); if (!k) continue;
+    (m[k] = m[k] || { n: o.n, by: {} }).by[ym] = (m[k].by[ym] || 0) + o.s;
+  }
+  return Object.values(m).filter(x => {
+    const v = Object.values(x.by); if (v.length < 2) return false;
+    const mn = Math.min(...v), mx = Math.max(...v); return mx <= mn * 1.25;
+  }).map(x => ({ n: x.n, s: Object.values(x.by).reduce((a, b) => a + b, 0) / Object.keys(x.by).length })).sort((a, b) => b.s - a.s);
+}
+
 $('#prevM').onclick = () => { view = shiftYm(view, -1); render(); };
 $('#nextM').onclick = () => { view = shiftYm(view, 1); render(); };
 function shiftYm(ym, d) { let [y, m] = ym.split('-').map(Number); m += d; if (m < 1) { m = 12; y--; } if (m > 12) { m = 1; y++; } return y + '-' + String(m).padStart(2, '0'); }

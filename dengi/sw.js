@@ -1,6 +1,6 @@
 // Офлайн-кэш. Своё — сразу, распознавание — при первом обращении. Никаких запросов наружу.
-const V = 'dengi-v1';
-const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png', 'vendor/tesseract.min.js'];
+const V = 'dengi-v2';
+const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png', 'vendor/tesseract.min.js', 'fonts/cg-cyrillic-600.woff2', 'fonts/cg-cyrillic-700.woff2', 'fonts/cg-latin-600.woff2', 'fonts/cg-latin-700.woff2'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });
