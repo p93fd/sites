@@ -43,7 +43,7 @@
 <!-- auto:files -->
 | Папка | Файлов | Вес | Текстовые файлы (строк) |
 |---|---|---|---|
-| . | 4 | 17 КБ | CLAUDE.md (16), INDEX.md (57), MAP.md (158), README.md (1) |
+| . | 4 | 17 КБ | CLAUDE.md (16), INDEX.md (58), MAP.md (158), README.md (1) |
 | .claude | 7 | 106 КБ | .claude/settings.json (8), .claude/skills/my-voice/SKILL.md (571), .claude/skills/particle-scene/SKILL.md (89), .claude/skills/ru-typography/SKILL.md (60), .claude/skills/site-10k/SKILL.md (94), .claude/skills/studio-layout/SKILL.md (98), .claude/skills/volumetric-web/SKILL.md (43) |
 | anna | 1 | 1.7 МБ | anna/index.html (591) |
 | architektor | 51 | 22.3 МБ | architektor/fx/post.js (894), architektor/index.html (1825) |
