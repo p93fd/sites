@@ -71,8 +71,27 @@ function size() { const d = Math.min(1.5, devicePixelRatio || 1); W = Math.round
 size(); addEventListener('resize', size);
 
 let ready = false, scene = 0, amp = 0, iw = 16, ih = 9;
+// живая петля покоя: камера дышит по своему 3D-пути (v/<набор>i<сцена>.mp4), кадр 0 = постер сцены
+const idle = document.createElement('video'); idle.muted = true; idle.loop = true; idle.playsInline = true; idle.preload = 'auto';
+idle.setAttribute('playsinline', ''); idle.setAttribute('aria-hidden', 'true');
+idle.style.cssText = 'position:absolute;width:2px;height:2px;opacity:0;pointer-events:none;left:0;top:0';
+document.body.appendChild(idle);
+const idleUrl = window.__idleUrl || (() => null);
+const cache = {};
+function fetchIdle(k) { const u = idleUrl(k); if (!u || cache[k]) return cache[k]; return cache[k] = fetch(u).then(r => r.ok ? r.blob() : null).then(b => b && (cache[k] = URL.createObjectURL(b))).catch(() => null); }
+let idleScene = -1, idleLive = false;
+function startIdle(k) {
+  idleLive = false; idleScene = k;
+  const c = cache[k], u = typeof c === 'string' ? c : idleUrl(k); if (!u) return;
+  idle.src = u; idle.currentTime = 0;
+  idle.onplaying = () => { if (idleScene === k) idleLive = true; };
+  const pr = idle.play(); if (pr && pr.catch) pr.catch(() => {});
+}
+// после старта догружаем петли всех сцен по очереди, начиная с текущей
+setTimeout(async () => { for (let d = 0; d < 9; d++) for (const k of [scene + d, scene - d]) if (k >= 0 && k < 9) await fetchIdle(k); }, 2500);
 // кадр сцены меняется в конце каждого ролика — тогда же переливаем его в текстуру
 still.addEventListener('load', () => {
+  if (scene >= 0 && !(window.__state && window.__state().playing)) startIdle(scene);
   try { gl.bindTexture(gl.TEXTURE_2D, tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, still); iw = still.naturalWidth; ih = still.naturalHeight; ready = true; amp = 0; }
   catch (e) { ready = false; }
 });
@@ -83,6 +102,8 @@ let last = performance.now(), shown = false;
 function frame(now) {
   const dt = Math.min(.05, (now - last) / 1000); last = now;
   const play = st().playing;
+  if (play && !idle.paused && amp <= 0) { idle.pause(); idleLive = false; }
+  else if (!play && ready && idleScene !== scene) startIdle(scene);
   const target = ready && !play ? 1 : 0;
   // нарастание 1.8 с с мягким стартом, угасание 0.25 с
   amp = target ? Math.min(1, amp + dt / 1.8) : Math.max(0, amp - dt / .25);
@@ -92,6 +113,7 @@ function frame(now) {
     const p = P[scene] || P[0], a = amp * amp * (3 - 2 * amp);
     gl.uniform2f(u.R, W, H); gl.uniform2f(u.I, iw, ih); gl.uniform2f(u.S, p.src[0], p.src[1]); gl.uniform2f(u.D, p.drift[0], p.drift[1]);
     gl.uniform1f(u.t, now / 1000); gl.uniform1f(u.A, a); gl.uniform1f(u.F, p.flow); gl.uniform1f(u.G, p.glow);
+    if (idleLive && idle.readyState >= 2) { try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, idle); iw = idle.videoWidth; ih = idle.videoHeight; } catch (e) { idleLive = false; } }
     gl.uniform1f(u.W, p.sweep); gl.uniform1f(u.Y, p.ray); gl.uniform1f(u.U, p.tun); gl.uniform1f(u.X, p.swirl ? 1 : 0);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
