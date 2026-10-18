@@ -1,0 +1,384 @@
+<meta charset="utf-8">
+<title>Архитектор · Александр Комлев</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&family=Manrope:wght@400;500;700&display=swap">
+<style>
+/* Концепция: один пролёт камеры сквозь стекло и свет; прокрутка = время фильма, текст живёт в том же кадре. */
+:root{
+  --ink:#03050d; --ink-2:#070b1d; --royal:#4155e8; --sky:#76b7ff; --ice:#e0e2f2; --white:#f5f7ff;
+  --mute:rgba(224,226,242,.78); --line:rgba(118,183,255,.28);
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--ink)}
+body{margin:0;background:var(--ink);color:var(--white);font-family:var(--f-body);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+#film{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;background:var(--ink)}
+#stage{position:fixed;z-index:2;pointer-events:none}
+#scroll{position:relative;z-index:1}
+.layer{position:fixed;inset:0;z-index:3;pointer-events:none;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.layer *{pointer-events:none}
+.layer a,.layer button{pointer-events:auto}
+[data-p]{opacity:0;will-change:opacity,transform}
+
+/* шапка */
+.top{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:18px max(20px,env(safe-area-inset-right,0px)) 16px max(20px,env(safe-area-inset-left,0px));
+  background:linear-gradient(var(--ink) 0%,rgba(3,5,13,.6) 60%,rgba(3,5,13,0))}
+.brand{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.32em;color:var(--white);text-decoration:none;white-space:nowrap}
+.chap{font-family:var(--f-display);font-weight:300;font-size:14px;letter-spacing:.14em;color:var(--mute);text-transform:uppercase;font-variant-numeric:tabular-nums}
+.chap b{color:var(--white);font-weight:400}
+.cta-top{font-family:var(--f-body);font-weight:700;font-size:15px;color:var(--ink);background:var(--ice);border-radius:999px;padding:11px 20px;text-decoration:none;white-space:nowrap;transition:background .2s}
+.cta-top:hover,.cta-top:focus-visible{background:#fff;outline:2px solid var(--sky);outline-offset:3px}
+.bar{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--royal),var(--sky),var(--ice));width:0}
+.ticks{position:fixed;right:max(18px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:14px}
+.ticks button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;justify-content:flex-end;font-family:var(--f-display);font-size:11px;letter-spacing:.14em;color:transparent;text-transform:uppercase}
+.ticks button i{display:block;width:18px;height:2px;background:rgba(224,226,242,.35);transition:width .3s,background .3s}
+.ticks button.on i{width:36px;background:var(--ice)}
+.ticks button:hover,.ticks button:focus-visible{color:var(--mute)}
+.ticks button:focus-visible i{background:var(--sky)}
+
+/* типографика */
+.eyebrow{font-family:var(--f-display);font-weight:400;font-size:clamp(13px,1.1vw,16px);letter-spacing:.28em;text-transform:uppercase;color:var(--sky)}
+.h1{font-family:var(--f-display);font-weight:300;font-size:clamp(34px,4.6vw,84px);line-height:.98;letter-spacing:-.02em;margin:0;text-wrap:balance;text-transform:uppercase}
+.h2{font-family:var(--f-display);font-weight:300;font-size:clamp(28px,3.8vw,64px);line-height:1.02;letter-spacing:-.015em;margin:0;text-wrap:balance;text-transform:uppercase}
+.h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,2.2vw,34px);line-height:1.12;margin:0;text-wrap:balance}
+.lead{font-size:clamp(19px,1.6vw,24px);line-height:1.45;color:var(--mute);max-width:34ch;margin:0}
+.scrim::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 45% at 50% 50%,rgba(3,5,13,.72),rgba(3,5,13,0) 75%);opacity:var(--sv,0)}
+.scrimL::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,5,13,.8) 0%,rgba(3,5,13,.45) 34%,rgba(3,5,13,0) 58%);opacity:var(--sv,0)}
+@media (max-width:760px){.scrimL::before{background:linear-gradient(0deg,rgba(3,5,13,.85) 0%,rgba(3,5,13,.4) 40%,rgba(3,5,13,0) 62%)}}
+.glow{text-shadow:0 0 28px rgba(3,5,13,.9),0 2px 12px rgba(3,5,13,.85)}
+.outline{-webkit-text-stroke:1px rgba(224,226,242,.85);color:transparent}
+
+/* позиционирование глав */
+.ch{position:fixed;inset:0;display:grid;padding-top:96px;padding-bottom:48px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.left-bottom{align-content:end;justify-items:start;gap:22px;padding-bottom:9vh;padding-left:max(6vw,24px)}
+.left-mid{align-content:center;justify-items:start;gap:22px;padding-left:max(6vw,24px)}
+.center{align-content:center;justify-items:center;text-align:center;gap:22px}
+.top-left{align-content:start;justify-items:start;gap:16px;padding-top:120px;padding-left:max(6vw,24px)}
+
+/* окна-точки (в координатах кадра) */
+.pane-label{position:absolute;transform:translate(-50%,0);text-align:left;display:grid;gap:8px;width:var(--w,18%)}
+.pane-label strong{font-family:var(--f-display);font-weight:400;font-size:clamp(16px,1.45vw,23px);line-height:1.15;color:var(--white)}
+.pane-label span{font-size:clamp(16px,1.3vw,20px);color:var(--mute);line-height:1.35}
+
+/* ворота */
+.gate{position:fixed;left:max(6vw,24px);bottom:10vh;display:grid;gap:14px;max-width:min(560px,86vw)}
+.gate .num{font-family:var(--f-display);font-weight:300;font-size:clamp(64px,9vw,150px);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(224,226,242,.9)}
+.gate p{margin:0;font-size:clamp(18px,1.5vw,22px);color:var(--mute);line-height:1.45}
+
+/* цифры */
+.stats{display:grid;grid-template-columns:repeat(3,auto);gap:clamp(24px,6vw,110px);align-items:end;justify-content:center}
+.stat{display:grid;gap:10px;justify-items:center}
+.stat .n{font-family:var(--f-display);font-weight:300;font-size:clamp(44px,4.8vw,92px);line-height:.9;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat .l{font-size:clamp(16px,1.3vw,20px);color:var(--mute);letter-spacing:.04em}
+
+/* спираль кейсов */
+.spiral{position:fixed;inset:0;perspective:1100px;perspective-origin:50% 50%;overflow:hidden}
+.card{position:absolute;left:50%;top:50%;width:min(560px,74vw);aspect-ratio:1474/728;margin-left:calc(min(560px,74vw) / -2);margin-top:calc(min(560px,74vw) * -0.2469);
+  border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(118,183,255,.35);background:var(--ink-2);opacity:0}
+.card img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* рост */
+.became{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.became li{font-family:var(--f-display);font-weight:300;font-size:clamp(18px,1.7vw,27px);line-height:1.2;display:flex;gap:14px;align-items:baseline}
+.became li::before{content:"";flex:none;width:22px;height:1px;background:var(--sky);transform:translateY(-6px)}
+
+/* формат */
+.formats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:980px}
+.formats span{font-size:clamp(17px,1.4vw,21px);padding:12px 22px;border:1px solid var(--line);border-radius:999px;background:var(--ink-2);backdrop-filter:blur(6px)}
+
+/* финал */
+.word{font-family:var(--f-display);font-weight:600;font-size:clamp(34px,8.6vw,170px);letter-spacing:-.02em;line-height:.85;margin:0;
+  background:linear-gradient(180deg,#ffffff 0%,#dfe6ff 45%,rgba(118,183,255,.55) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.final-cta{display:inline-flex;align-items:center;gap:14px;font-family:var(--f-display);font-weight:400;font-size:clamp(16px,1.3vw,20px);letter-spacing:.04em;
+  color:var(--ink);background:var(--white);padding:20px 34px;border-radius:999px;text-decoration:none;box-shadow:0 0 60px rgba(118,183,255,.45)}
+.final-cta:hover,.final-cta:focus-visible{background:#fff;box-shadow:0 0 90px rgba(118,183,255,.75);outline:2px solid var(--sky);outline-offset:4px}
+
+/* вход */
+#enter{position:fixed;inset:0;z-index:100;background:var(--ink);display:grid;place-content:center;justify-items:center;gap:22px;transition:opacity .9s ease,visibility .9s}
+#enter.gone{opacity:0;visibility:hidden}
+#enter .brand-big{font-family:var(--f-display);font-weight:300;font-size:clamp(28px,5vw,64px);letter-spacing:.3em;padding-left:.3em}
+#enter .pct{font-family:var(--f-display);font-weight:300;font-size:14px;letter-spacing:.3em;color:var(--mute);font-variant-numeric:tabular-nums}
+#enter .line{width:min(320px,60vw);height:1px;background:rgba(224,226,242,.18);position:relative;overflow:hidden}
+#enter .line i{position:absolute;inset:0 auto 0 0;width:0;background:var(--ice)}
+.hint{font-family:var(--f-display);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute)}
+
+@media (max-width:760px){
+  .chap{display:none}
+  .brand{font-size:12px;letter-spacing:.22em}
+  .cta-top{font-size:14px;padding:10px 16px}
+  .ticks{display:none}
+  .left-bottom,.left-mid,.top-left{padding-left:max(20px,env(safe-area-inset-left,0px))}
+  .left-bottom{padding-bottom:7vh}
+  .stats{grid-template-columns:1fr;gap:28px}
+  .gate{left:max(20px,env(safe-area-inset-left,0px));bottom:7vh}
+  .pane-label{text-align:center;justify-items:center;gap:4px}
+  .author{align-content:end;padding-bottom:6vh}
+  .author .lead:last-child{display:none}
+  .pane-intro{display:none}
+  .became-wrap{align-content:start;padding-top:104px}
+  .became-wrap.scrimL::before{background:linear-gradient(180deg,rgba(3,5,13,.85) 0%,rgba(3,5,13,.4) 45%,rgba(3,5,13,0) 65%)}
+  .pane-label strong{font-size:17px}
+  .pane-label span{font-size:15px}
+}
+.author .lead{max-width:30ch}
+.author .h2{max-width:12ch}
+</style>
+
+<canvas id="film" aria-hidden="true"></canvas>
+<div id="stage" aria-hidden="true"></div>
+
+<div id="enter" role="status">
+  <div class="brand-big" id="enterWord">АРХИТЕКТОР</div>
+  <div class="line"><i id="enterBar"></i></div>
+  <div class="pct" id="enterPct">00</div>
+</div>
+
+<header class="top">
+  <a class="brand" href="#top">АРХИТЕКТОР</a>
+  <div class="chap" id="chap"><b>01</b> / 10 · Вход</div>
+  <a class="cta-top" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Получить стратегию</a>
+  <div class="bar" id="bar"></div>
+</header>
+<nav class="ticks" id="ticks" aria-label="Главы"></nav>
+
+<main id="scroll"></main>
+
+<!-- 00 вход -->
+<section class="ch left-bottom layer scrimL" data-scrim=".0,.08" aria-label="Вход">
+  <div class="eyebrow glow" data-p=".0,.075" data-fx="up">Александр Комлев · система продаж</div>
+  <h1 class="h1 glow" data-p=".0,.075" data-fx="scr" data-delay="0">Собираю систему<br>продаж для экспертов</h1>
+  <p class="lead glow" data-p=".0,.075" data-fx="up">Чтобы доход был управляемым, а не случайным.</p>
+  <div class="hint" data-p=".0,.03" data-fx="fade">Листайте вниз</div>
+</section>
+
+<!-- 01 точки -->
+<section class="ch top-left layer" aria-label="Вам сюда, если">
+  <div class="eyebrow glow" data-p=".105,.19" data-fx="up">Вам сюда, если</div>
+  <h2 class="h3 glow pane-intro" data-p=".11,.19" data-fx="scr">Есть амбиции. Пора переводить их в результат.</h2>
+</section>
+<div class="layer" id="paneLayer" aria-label="Три точки">
+  <div class="pane-label glow" data-p=".125,.19" data-fx="up" data-pane="0"><strong>Продажи нестабильны</strong><span>Есть результат, но нет управляемости</span></div>
+  <div class="pane-label glow" data-p=".135,.19" data-fx="up" data-pane="1"><strong>Созвоны не конвертируются</strong><span>Интерес есть, сделки нет</span></div>
+  <div class="pane-label glow" data-p=".145,.19" data-fx="up" data-pane="2"><strong>Чек не растёт</strong><span>Страшно пересобрать цену</span></div>
+</div>
+
+<!-- 02 сборка -->
+<section class="ch center layer" aria-label="Система">
+  <h2 class="h2 glow" data-p=".205,.262" data-fx="wide">Система не&nbsp;собрана</h2>
+  <p class="lead glow" data-p=".215,.262" data-fx="up" style="text-align:center">Инструменты меняются. Система — нет.</p>
+</section>
+<section class="ch center layer" aria-label="Подход">
+  <div class="eyebrow glow" data-p=".272,.325" data-fx="up">Подход</div>
+  <h2 class="h2 glow" data-p=".275,.325" data-fx="scr">Я не чиню отдельные точки.<br>Я собираю систему.</h2>
+  <p class="lead glow" data-p=".283,.325" data-fx="up" style="text-align:center;max-width:40ch">Меняется архитектура решений, ощущение себя в продаже и фактический результат.</p>
+</section>
+
+<!-- 03 путь -->
+<section class="ch top-left layer" aria-label="Как собирается система">
+  <div class="eyebrow glow" data-p=".34,.495" data-fx="up">Как собирается система · 4 этапа</div>
+</section>
+<div class="layer" aria-label="Этапы">
+  <div class="gate glow" data-gate="0"><div class="num">01</div><h3 class="h3">Диагностика</h3><p>Смотрим не только на воронку, а на всю систему: позиционирование, продукт, продажи, мышление, состояние и логику решений.</p></div>
+  <div class="gate glow" data-gate="1"><div class="num">02</div><h3 class="h3">Пересборка</h3><p>Собираем связку: что вы продаёте, кому, как это звучит, как это продаётся и на чём держится стабильно.</p></div>
+  <div class="gate glow" data-gate="2"><div class="num">03</div><h3 class="h3">Внедрение</h3><p>Не теория ради теории. Всё превращается в конкретные действия, опоры, сценарии, тексты и управляемую систему.</p></div>
+  <div class="gate glow" data-gate="3"><div class="num">04</div><h3 class="h3">Закрепление</h3><p>Чтобы система не распалась через неделю. Нужна не вспышка мотивации, а рабочая конструкция, которая выдержит рост.</p></div>
+</div>
+
+<!-- 04 автор -->
+<section class="ch left-mid layer author scrimL" data-scrim=".505,.578" aria-label="Кто я">
+  <div class="eyebrow glow" data-p=".505,.575" data-fx="up">Кто я</div>
+  <h2 class="h2 glow" data-p=".508,.575" data-fx="scr">Александр<br>Комлев</h2>
+  <p class="lead glow" data-p=".515,.575" data-fx="up">Мой путь — от нестабильных продаж к системе, которая даёт результат.</p>
+  <p class="lead glow" data-p=".522,.575" data-fx="up">Обучался у сильных экспертов в маркетинге, продажах и мышлении и свёл подходы в одну рабочую систему.</p>
+</section>
+
+<!-- 05 масштаб -->
+<section class="ch center layer" aria-label="Цифры">
+  <div class="stats">
+    <div class="stat glow" data-p=".588,.648" data-fx="up"><div class="n" data-count="100" data-suf=" млн+">0</div><div class="l">заработали клиенты</div></div>
+    <div class="stat glow" data-p=".594,.648" data-fx="up"><div class="n" data-count="12" data-suf=" лет">0</div><div class="l">в продажах</div></div>
+    <div class="stat glow" data-p=".600,.648" data-fx="up"><div class="n">2 → <span data-count="4" data-suf=" млн">0</span></div><div class="l">без рекламы</div></div>
+  </div>
+</section>
+
+<!-- 06 кейсы -->
+<div class="spiral" id="spiral" aria-label="Кейсы клиентов" style="z-index:3"></div>
+<section class="ch top-left layer" aria-label="Трансформации" style="z-index:4">
+  <div class="eyebrow glow" data-p=".655,.745" data-fx="up">Что меняется у клиентов</div>
+  <h2 class="h3 glow" data-p=".658,.745" data-fx="scr" style="max-width:20ch">Трансформации, которые уже случились</h2>
+  <p class="lead glow" data-p=".665,.745" data-fx="up">Разные ниши и точки старта. Один итог — управляемые продажи.</p>
+</section>
+
+<!-- 07 рост -->
+<section class="ch left-mid layer scrimL became-wrap" data-scrim=".785,.858" aria-label="Стало">
+  <div class="eyebrow glow" data-p=".785,.855" data-fx="up">Стало</div>
+  <ul class="became glow">
+    <li data-p=".79,.855" data-fx="up">Понятная стратегия</li>
+    <li data-p=".796,.855" data-fx="up">Стабильные продажи</li>
+    <li data-p=".802,.855" data-fx="up">Уверенная позиция на встречах</li>
+    <li data-p=".808,.855" data-fx="up">Деньги как результат решений, а не удачи</li>
+    <li data-p=".814,.855" data-fx="up">Ясное понимание своей ценности</li>
+    <li data-p=".82,.855" data-fx="up">Рост среднего чека</li>
+  </ul>
+</section>
+
+<!-- 08 формат -->
+<section class="ch center layer scrim" data-scrim=".862,.92" aria-label="Формат">
+  <h2 class="h2 glow" data-p=".866,.918" data-fx="scr">Не курсы. Не марафоны.<br>Не на поболтать.</h2>
+  <p class="lead glow" data-p=".874,.918" data-fx="up" style="text-align:center;max-width:40ch">Точечная и глубокая работа по пересборке системы продаж.</p>
+  <div class="formats" data-p=".882,.918" data-fx="up"><span>Индивидуальная работа</span><span>Пересборка продаж и продуктов</span><span>Сопровождение системы</span></div>
+</section>
+
+<!-- 09 решение -->
+<section class="ch center layer final scrim" data-scrim=".93,1.2" aria-label="Получить стратегию" style="align-content:start;padding-top:16vh">
+  <p class="word" data-p=".93,1.2" data-fx="wide">АРХИТЕКТОР</p>
+  <h2 class="h3 glow" data-p=".945,1.2" data-fx="scr">Получить понятную стратегию</h2>
+  <p class="lead glow" data-p=".952,1.2" data-fx="up" style="text-align:center;max-width:36ch">Встреча 30–40 минут. Без презентаций и прогревов.</p>
+  <a class="final-cta" data-p=".958,1.2" data-fx="up" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать в Telegram <span aria-hidden="true">→</span></a>
+</section>
+
+<script>
+(() => {
+'use strict';
+// ---------- шкала фильма (та же, что в студии рендера) ----------
+const CAM = [[0,6.5],[.09,6.0],[.20,7.0],[.30,8.6],[.34,7.6],[.395,.8],[.50,-12.5],[.55,-14.8],[.60,-19],[.66,-25],[.74,-31],[.80,-33.6],[.86,-34.8],[.92,-38],[1,-44]];
+const GATES = [-1.5,-5,-8.5,-12];
+// главы: диапазон фильма и «вес» прокрутки — где человеку нужно время, там длиннее
+const CH = [
+  ['Вход',0,.09,1.3],['Точки',.09,.20,1.8],['Сборка',.20,.32,1.6],['Путь',.32,.50,2.8],['Автор',.50,.58,1.4],
+  ['Масштаб',.58,.65,1.2],['Кейсы',.65,.75,2.8],['Рост',.75,.86,1.8],['Формат',.86,.92,1.3],['Решение',.92,1,1.5]];
+const MOBILE = () => innerHeight > innerWidth;
+const SET = { d:{ dir:'d', n:270, w:1280, h:720, fov:40 }, m:{ dir:'m', n:190, w:540, h:960, fov:64 } };
+
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const easeOut=t=>1-Math.pow(1-t,3);
+function camZ(p){ if(p<=CAM[0][0])return CAM[0][1]; for(let i=0;i<CAM.length-1;i++){const[a,va]=CAM[i],[b,vb]=CAM[i+1]; if(p<=b) return va+(vb-va)*ease(clamp((p-a)/(b-a)));} return CAM[CAM.length-1][1]; }
+
+// ---------- прокрутка → время фильма ----------
+const scrollEl=document.getElementById('scroll');
+const totalW=CH.reduce((s,c)=>s+c[3],0);
+function layoutScroll(){ scrollEl.style.height=(totalW*100+100)+'vh'; }
+layoutScroll();
+function scrollToP(){ const max=document.documentElement.scrollHeight-innerHeight; const s=max>0?clamp(scrollY/max):0;
+  let acc=0; for(const c of CH){ const f=c[3]/totalW; if(s<=acc+f||c===CH[CH.length-1]) return c[1]+(c[2]-c[1])*clamp((s-acc)/f); acc+=f; } return 1; }
+function chapterStartScroll(k){ const max=document.documentElement.scrollHeight-innerHeight; let acc=0; for(let i=0;i<k;i++) acc+=CH[i][3]/totalW; return acc*max + (k?innerHeight*.05:0); }
+
+// ---------- кадры ----------
+let set=MOBILE()?SET.m:SET.d; const frames={d:[],m:[]}; let loaded=0;
+function src(s,i){ return `${s.dir}/f${String(i).padStart(4,'0')}.webp`; }
+function loadSet(s,onFirst){
+  const arr=frames[s.dir]; if(arr.started) return; arr.started=true;
+  const order=[]; const seen=new Set();
+  for(const step of [32,16,8,4,2,1]) for(let i=0;i<s.n;i+=step) if(!seen.has(i)){seen.add(i);order.push(i);}
+  if(!seen.has(s.n-1)) order.push(s.n-1);
+  const first=Math.ceil(s.n/16)+1; let done=0, firedFirst=false;
+  let q=0; const PAR=6;
+  function next(){ if(q>=order.length) return; const i=order[q++]; const im=new Image(); im.decoding='async';
+    im.onload=()=>{ arr[i]=im; done++; if(s===set){ loaded=done; } if(!firedFirst&&done>=first){firedFirst=true; onFirst&&onFirst();} progress(done,first); next(); };
+    im.onerror=()=>{ done++; next(); }; im.src=src(s,i); }
+  for(let k=0;k<PAR;k++) next();
+}
+function nearest(arr,i,n){ for(let d=0;d<n;d++){ if(arr[i-d]) return arr[i-d]; if(arr[i+d]) return arr[i+d]; } return null; }
+
+// ---------- холст ----------
+const cv=document.getElementById('film'), cx=cv.getContext('2d'); const stage=document.getElementById('stage');
+let rect={x:0,y:0,w:0,h:0};
+function resize(){ const dpr=Math.min(devicePixelRatio||1,2); cv.width=Math.round(innerWidth*dpr); cv.height=Math.round(innerHeight*dpr);
+  const ns=MOBILE()?SET.m:SET.d; if(ns!==set){ set=ns; loadSet(set); }
+  const sc=Math.max(innerWidth/set.w, innerHeight/set.h); rect={w:set.w*sc,h:set.h*sc}; rect.x=(innerWidth-rect.w)/2; rect.y=(innerHeight-rect.h)/2;
+  Object.assign(stage.style,{left:rect.x+'px',top:rect.y+'px',width:rect.w+'px',height:rect.h+'px'}); drawn=-1; }
+let drawn=-1;
+function draw(p){
+  const arr=frames[set.dir]; const f=p*(set.n-1); const i0=Math.floor(f), i1=Math.min(set.n-1,i0+1), a=f-i0;
+  const key=Math.round(f*100); if(key===drawn) return; drawn=key;
+  const dpr=cv.width/innerWidth; const A=arr[i0]||nearest(arr,i0,set.n); if(!A) return;
+  cx.globalAlpha=1; cx.drawImage(A,rect.x*dpr,rect.y*dpr,rect.w*dpr,rect.h*dpr);
+  const B=arr[i1]; if(B&&B!==A&&a>0.01){ cx.globalAlpha=a; cx.drawImage(B,rect.x*dpr,rect.y*dpr,rect.w*dpr,rect.h*dpr); cx.globalAlpha=1; }
+}
+
+// ---------- текст ----------
+const GLY='АРХИТЕКТОРСИСТЕМА#/<>=+*01';
+const els=[...document.querySelectorAll('[data-p]')].map(el=>{ const [a,b]=el.dataset.p.split(',').map(Number);
+  const o={el,a,b,fx:el.dataset.fx||'up',state:0}; if(o.fx==='scr'){ o.text=el.innerHTML; } return o; });
+function scramble(o){ const el=o.el; const html=o.text; const tmp=document.createElement('div'); tmp.innerHTML=html;
+  const parts=[]; tmp.childNodes.forEach(n=>parts.push(n.nodeType===3?{t:n.textContent}:{br:true}));
+  const total=parts.reduce((s,x)=>s+(x.t?x.t.length:0),0); const t0=performance.now(), dur=900;
+  cancelAnimationFrame(o.raf);
+  const tick=now=>{ const k=clamp((now-t0)/dur); let shown=Math.floor(easeOut(k)*total), out='';
+    for(const x of parts){ if(x.br){out+='<br>';continue;} for(const ch of x.t){ if(shown>0||ch===' '){out+=ch;shown--;} else out+=GLY[(Math.random()*GLY.length)|0]; } }
+    el.innerHTML=out; if(k<1) o.raf=requestAnimationFrame(tick); else el.innerHTML=html; };
+  o.raf=requestAnimationFrame(tick); }
+const W8=.012;
+function vis(p,a,b){ return Math.min(clamp((p-a)/W8), clamp((b-p)/W8)); }
+function applyFx(o,v,p){ const el=o.el; const e=easeOut(v);
+  el.style.opacity=v.toFixed(3);
+  if(o.fx==='up'||o.fx==='scr') el.style.transform=(el.dataset.pane!==undefined?'translate(-50%,0) ':'')+`translate3d(0,${(1-e)*26}px,0)`;
+  if(o.fx==='wide'){ el.style.letterSpacing=(0.42*(1-e)-0.03)+'em'; el.style.filter=`blur(${(1-e)*10}px)`; }
+  if(o.fx==='scr'){ if(v>0.6&&!o.state){ o.state=1; scramble(o); } if(v<0.05&&o.state){ o.state=0; } }
+}
+// окна: проекция их мира в координаты кадра
+const paneEls=[...document.querySelectorAll('[data-pane]')];
+function placePanes(p){ const m=set===SET.m, cz=camZ(p), t=Math.tan(set.fov*Math.PI/360), asp=set.w/set.h;
+  paneEls.forEach((el,i)=>{ const x=m?0:(i-1)*2.05, y=m?(1-i)*1.6:0, z=0; const d=cz-z;
+    const nx=x/(d*t*asp), ny=y/(d*t); const pw=(m?2.3:1.7)/(d*t*asp)*50, ph=(m?1.35:2.35)/(d*t)*50;
+    const L=rect.x+rect.w*(.5+nx/2), T=rect.y+rect.h*(.5-ny/2);
+    if(m){ el.style.left=L+'px'; el.style.top=(T+rect.h*ph/100*0.2)+'px'; el.style.width=Math.min(innerWidth-32,rect.w*pw/100*1.05)+'px'; }
+    else { el.style.left=L+'px'; el.style.top=(T+rect.h*ph/100*0.5+18)+'px'; el.style.width=Math.max(200,rect.w*pw/100*1.15)+'px'; }
+    // на телефоне подпись внутри окна; на компьютере — под окном
+  }); }
+// ворота
+const gateEls=[...document.querySelectorAll('[data-gate]')];
+function placeGates(p){ const cz=camZ(p); gateEls.forEach((el,k)=>{ const d=cz-GATES[k];
+  const v=p<.33||p>.52?0:Math.min(clamp((3.7-d)/0.7), clamp((d-0.1)/0.7)); const e=easeOut(v);
+  el.style.opacity=v.toFixed(3); el.style.transform=`translate3d(${(1-e)*-30}px,0,0)`; el.style.filter=`blur(${(1-e)*8}px)`; }); }
+// цифры
+const counts=[...document.querySelectorAll('[data-count]')];
+const scrims=[...document.querySelectorAll('[data-scrim]')].map(el=>{const[a,b]=el.dataset.scrim.split(',').map(Number);return{el,a,b};});
+function placeScrims(p){ scrims.forEach(s=>s.el.style.setProperty('--sv',vis(p,s.a,s.b).toFixed(3))); }
+function placeCounts(p){ const t=easeOut(clamp((p-.588)/.026)); counts.forEach(el=>{ const n=+el.dataset.count; el.textContent=Math.round(n*t)+el.dataset.suf; }); }
+// спираль кейсов
+const spiral=document.getElementById('spiral'); const NC=18; const cards=[];
+for(let k=0;k<NC;k++){ const c=document.createElement('div'); c.className='card'; const im=document.createElement('img'); im.alt='Кейс клиента'; im.loading='lazy'; im.src=`cases/c${String(k).padStart(2,'0')}.webp`; c.appendChild(im); spiral.appendChild(c); cards.push(c); }
+function placeSpiral(p){ const on=p>.645&&p<.765; spiral.style.visibility=on?'visible':'hidden'; if(!on) return;
+  const lt=clamp((p-.655)/(.752-.655)); const m=MOBILE(); const RX=m?innerWidth*.18:innerWidth*.22, RY=m?innerHeight*.16:innerHeight*.16;
+  cards.forEach((c,k)=>{ const u=lt*(NC+2.2)-k*0.92+0.2; // карточка выходит из глубины и проходит мимо зрителя при u≈2.5
+    const z=-1900+u*900, ang=u*1.05+k*.4, x=Math.cos(ang)*RX, y=Math.sin(ang)*RY+ (m?innerHeight*.06:innerHeight*.05);
+    const op=Math.min(clamp((u+0.4)/0.9), clamp((2.55-u)/0.45)); c.style.opacity=op.toFixed(3);
+    c.style.transform=`translate3d(${x}px,${y}px,${z}px) rotateY(${Math.sin(ang)*-14}deg) rotateZ(${Math.cos(ang)*3}deg)`;
+    c.style.zIndex=String(1000+Math.round(z)); }); }
+
+// ---------- навигация ----------
+const chapEl=document.getElementById('chap'), bar=document.getElementById('bar'), ticks=document.getElementById('ticks');
+CH.forEach((c,k)=>{ const b=document.createElement('button'); b.type='button'; b.innerHTML=`${c[0]}<i></i>`; b.setAttribute('aria-label',`Глава ${k+1}: ${c[0]}`);
+  b.addEventListener('click',()=>scrollTo({top:chapterStartScroll(k),behavior:'smooth'})); ticks.appendChild(b); });
+const tickBtns=[...ticks.children]; let lastCh=-1;
+function nav(p){ const k=Math.max(0,CH.findIndex(c=>p>=c[1]&&p<=c[2]));
+  if(k!==lastCh){ lastCh=k; chapEl.innerHTML=`<b>${String(k+1).padStart(2,'0')}</b> / 10 · ${CH[k][0]}`; tickBtns.forEach((b,i)=>b.classList.toggle('on',i===k)); }
+  bar.style.width=(p*100).toFixed(2)+'%'; }
+
+// ---------- цикл ----------
+let cur=0, target=0, last=performance.now();
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function frame(now){ const dt=Math.min(64,now-last); last=now; target=scrollToP();
+  const k=reduce?1:1-Math.pow(1-0.085,dt/16.7); cur+= (target-cur)*k; if(Math.abs(target-cur)<1e-5) cur=target;
+  draw(cur); for(const o of els) applyFx(o,vis(cur,o.a,o.b),cur); placePanes(cur); placeGates(cur); placeCounts(cur); placeScrims(cur); placeSpiral(cur); nav(cur);
+  requestAnimationFrame(frame); }
+
+// ---------- вход ----------
+const enter=document.getElementById('enter'), ePct=document.getElementById('enterPct'), eBar=document.getElementById('enterBar');
+function progress(done,first){ const v=clamp(done/first); ePct.textContent=String(Math.round(v*100)).padStart(2,'0'); eBar.style.width=(v*100)+'%'; }
+const tStart=performance.now();
+function open(){ const wait=Math.max(0,1400-(performance.now()-tStart)); setTimeout(()=>{ enter.classList.add('gone'); },wait); }
+addEventListener('resize',()=>{ resize(); });
+resize(); loadSet(set,open);
+setTimeout(open,9000); // страховка на медленной сети
+requestAnimationFrame(frame);
+})();
+</script>
