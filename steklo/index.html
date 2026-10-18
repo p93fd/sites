@@ -21,11 +21,11 @@ body{margin:0;background:var(--ink);color:var(--white);font-family:var(--f);font
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
 #stage{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--ink)}
 #stage .layer{position:absolute;inset:0;will-change:transform;filter:contrast(1.14) saturate(1.12) brightness(1.03)}
-#stage #still{transition:filter .38s ease}
-#stage.deep #still{filter:blur(5px) brightness(.5);transition:filter 1.6s cubic-bezier(.22,1,.36,1)}
+#stage #still,#stage #live{transition:filter .38s ease}
+#stage.deep #still,#stage.deep #live{filter:blur(5px) brightness(.5);transition:filter 1.6s cubic-bezier(.22,1,.36,1)}
 #stage img,#stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 #stage video{opacity:0;transition:opacity .35s cubic-bezier(.4,0,.2,1)}
-#stage video.show{opacity:1;transition:none}
+#stage video.show{opacity:1;transition:opacity .3s cubic-bezier(.4,0,.2,1)}
 #grain{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;mix-blend-mode:screen}
 #touch{position:fixed;inset:0;z-index:2;touch-action:none}
 
@@ -260,4 +260,5 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </section>
 
 <script src="player.js"></script>
+<script src="live.js"></script>
 <script src="particles.js"></script>
