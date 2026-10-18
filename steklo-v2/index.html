@@ -1,0 +1,363 @@
+<meta charset="utf-8">
+<title>Архитектор · Александр Комлев</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&family=Manrope:wght@400;500;700&display=swap">
+<style>
+/* Концепция: один пролёт камеры сквозь стекло и свет; прокрутка = время фильма, текст живёт в том же кадре. */
+:root{
+  --ink:#03050d; --ink-2:#070b1d; --royal:#4155e8; --sky:#76b7ff; --ice:#e0e2f2; --white:#f5f7ff;
+  --mute:rgba(224,226,242,.78); --line:rgba(118,183,255,.28);
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--ink)}
+body{margin:0;background:var(--ink);color:var(--white);font-family:var(--f-body);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+#film{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;background:var(--ink)}
+#stage{position:fixed;z-index:2;pointer-events:none}
+#scroll{position:relative;z-index:1}
+.layer{position:fixed;inset:0;z-index:3;pointer-events:none;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.layer *{pointer-events:none}
+.layer a,.layer button{pointer-events:auto}
+[data-p]{opacity:0;will-change:opacity,transform}
+
+/* шапка */
+.top{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:18px max(20px,env(safe-area-inset-right,0px)) 16px max(20px,env(safe-area-inset-left,0px));
+  background:linear-gradient(var(--ink) 0%,rgba(3,5,13,.6) 60%,rgba(3,5,13,0))}
+.brand{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.32em;color:var(--white);text-decoration:none;white-space:nowrap}
+.chap{font-family:var(--f-display);font-weight:300;font-size:14px;letter-spacing:.14em;color:var(--mute);text-transform:uppercase;font-variant-numeric:tabular-nums}
+.chap b{color:var(--white);font-weight:400}
+.cta-top{font-family:var(--f-body);font-weight:700;font-size:15px;color:var(--ink);background:var(--ice);border-radius:999px;padding:11px 20px;text-decoration:none;white-space:nowrap;transition:background .2s}
+.cta-top:hover,.cta-top:focus-visible{background:#fff;outline:2px solid var(--sky);outline-offset:3px}
+.bar{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--royal),var(--sky),var(--ice));width:0}
+.ticks{position:fixed;right:max(18px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:14px}
+.ticks button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;justify-content:flex-end;font-family:var(--f-display);font-size:11px;letter-spacing:.14em;color:transparent;text-transform:uppercase}
+.ticks button i{display:block;width:18px;height:2px;background:rgba(224,226,242,.35);transition:width .3s,background .3s}
+.ticks button.on i{width:36px;background:var(--ice)}
+.ticks button:hover,.ticks button:focus-visible{color:var(--mute)}
+.ticks button:focus-visible i{background:var(--sky)}
+
+/* типографика */
+.eyebrow{font-family:var(--f-display);font-weight:400;font-size:clamp(13px,1.1vw,16px);letter-spacing:.28em;text-transform:uppercase;color:var(--sky)}
+.h1{font-family:var(--f-display);font-weight:300;font-size:clamp(34px,4.6vw,84px);line-height:.98;letter-spacing:-.02em;margin:0;text-wrap:balance;text-transform:uppercase}
+.h2{font-family:var(--f-display);font-weight:300;font-size:clamp(28px,3.8vw,64px);line-height:1.02;letter-spacing:-.015em;margin:0;text-wrap:balance;text-transform:uppercase}
+.h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,2.2vw,34px);line-height:1.12;margin:0;text-wrap:balance}
+.lead{font-size:clamp(19px,1.6vw,24px);line-height:1.45;color:var(--mute);max-width:34ch;margin:0}
+.scrim::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 45% at 50% 50%,rgba(3,5,13,.72),rgba(3,5,13,0) 75%);opacity:var(--sv,0)}
+.scrimL::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,5,13,.8) 0%,rgba(3,5,13,.45) 34%,rgba(3,5,13,0) 58%);opacity:var(--sv,0)}
+@media (max-width:760px){.scrimL::before{background:linear-gradient(0deg,rgba(3,5,13,.85) 0%,rgba(3,5,13,.4) 40%,rgba(3,5,13,0) 62%)}}
+.glow{text-shadow:0 0 28px rgba(3,5,13,.9),0 2px 12px rgba(3,5,13,.85)}
+.outline{-webkit-text-stroke:1px rgba(224,226,242,.85);color:transparent}
+
+/* позиционирование глав */
+.ch{position:fixed;inset:0;display:grid;padding-top:96px;padding-bottom:48px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.left-bottom{align-content:end;justify-items:start;gap:22px;padding-bottom:9vh;padding-left:max(6vw,24px)}
+.left-mid{align-content:center;justify-items:start;gap:22px;padding-left:max(6vw,24px)}
+.center{align-content:center;justify-items:center;text-align:center;gap:22px}
+.top-left{align-content:start;justify-items:start;gap:16px;padding-top:120px;padding-left:max(6vw,24px)}
+
+/* окна-точки (в координатах кадра) */
+.pane-label{position:absolute;transform:translate(-50%,0);text-align:left;display:grid;gap:8px;width:var(--w,18%)}
+.pane-label strong{font-family:var(--f-display);font-weight:400;font-size:clamp(16px,1.45vw,23px);line-height:1.15;color:var(--white)}
+.pane-label span{font-size:clamp(16px,1.3vw,20px);color:var(--mute);line-height:1.35}
+
+/* ворота */
+.gate{position:fixed;left:max(6vw,24px);bottom:10vh;display:grid;gap:14px;max-width:min(560px,86vw)}
+.gate .num{font-family:var(--f-display);font-weight:300;font-size:clamp(64px,9vw,150px);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(224,226,242,.9)}
+.gate p{margin:0;font-size:clamp(18px,1.5vw,22px);color:var(--mute);line-height:1.45}
+
+/* цифры */
+.stats{display:grid;grid-template-columns:repeat(3,auto);gap:clamp(24px,6vw,110px);align-items:end;justify-content:center}
+.stat{display:grid;gap:10px;justify-items:center}
+.stat .n{font-family:var(--f-display);font-weight:300;font-size:clamp(44px,4.8vw,92px);line-height:.9;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat .l{font-size:clamp(16px,1.3vw,20px);color:var(--mute);letter-spacing:.04em}
+
+/* спираль кейсов */
+.spiral{position:fixed;inset:0;perspective:1100px;perspective-origin:50% 50%;overflow:hidden}
+.card{position:absolute;left:50%;top:50%;width:min(560px,74vw);aspect-ratio:1474/728;margin-left:calc(min(560px,74vw) / -2);margin-top:calc(min(560px,74vw) * -0.2469);
+  border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(118,183,255,.35);background:var(--ink-2);opacity:0}
+.card img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* рост */
+.became{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.became li{font-family:var(--f-display);font-weight:300;font-size:clamp(18px,1.7vw,27px);line-height:1.2;display:flex;gap:14px;align-items:baseline}
+.became li::before{content:"";flex:none;width:22px;height:1px;background:var(--sky);transform:translateY(-6px)}
+
+/* формат */
+.formats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:980px}
+.formats span{font-size:clamp(17px,1.4vw,21px);padding:12px 22px;border:1px solid var(--line);border-radius:999px;background:var(--ink-2);backdrop-filter:blur(6px)}
+
+/* финал */
+.word{font-family:var(--f-display);font-weight:600;font-size:clamp(34px,8.6vw,170px);letter-spacing:-.02em;line-height:.85;margin:0;
+  background:linear-gradient(180deg,#ffffff 0%,#dfe6ff 45%,rgba(118,183,255,.55) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.final-cta{display:inline-flex;align-items:center;gap:14px;font-family:var(--f-display);font-weight:400;font-size:clamp(16px,1.3vw,20px);letter-spacing:.04em;
+  color:var(--ink);background:var(--white);padding:20px 34px;border-radius:999px;text-decoration:none;box-shadow:0 0 60px rgba(118,183,255,.45)}
+.final-cta:hover,.final-cta:focus-visible{background:#fff;box-shadow:0 0 90px rgba(118,183,255,.75);outline:2px solid var(--sky);outline-offset:4px}
+
+/* вход */
+#enter{position:fixed;inset:0;z-index:100;background:var(--ink);display:grid;place-content:center;justify-items:center;gap:22px;transition:opacity .9s ease,visibility .9s}
+#enter.gone{opacity:0;visibility:hidden}
+#enter .brand-big{font-family:var(--f-display);font-weight:300;font-size:clamp(28px,5vw,64px);letter-spacing:.3em;padding-left:.3em}
+#enter .pct{font-family:var(--f-display);font-weight:300;font-size:14px;letter-spacing:.3em;color:var(--mute);font-variant-numeric:tabular-nums}
+#enter .line{width:min(320px,60vw);height:1px;background:rgba(224,226,242,.18);position:relative;overflow:hidden}
+#enter .line i{position:absolute;inset:0 auto 0 0;width:0;background:var(--ice)}
+.hint{font-family:var(--f-display);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute)}
+
+@media (max-width:760px){
+  .chap{display:none}
+  .brand{font-size:12px;letter-spacing:.22em}
+  .cta-top{font-size:14px;padding:10px 16px}
+  .ticks{display:none}
+  .left-bottom,.left-mid,.top-left{padding-left:max(20px,env(safe-area-inset-left,0px))}
+  .left-bottom{padding-bottom:7vh}
+  .stats{grid-template-columns:1fr;gap:28px}
+  .gate{left:max(20px,env(safe-area-inset-left,0px));bottom:7vh}
+  .pane-label{text-align:center;justify-items:center;gap:4px}
+  .author{align-content:end;padding-bottom:6vh}
+  .author .lead:last-child{display:none}
+  .pane-intro{display:none}
+  .became-wrap{align-content:start;padding-top:104px}
+  .became-wrap.scrimL::before{background:linear-gradient(180deg,rgba(3,5,13,.85) 0%,rgba(3,5,13,.4) 45%,rgba(3,5,13,0) 65%)}
+  .pane-label strong{font-size:17px}
+  .pane-label span{font-size:15px}
+}
+.author .lead{max-width:30ch}
+.author .h2{max-width:12ch}
+.pane-label{text-align:center;justify-items:center}
+.portrait{position:fixed;z-index:2;border-radius:50%;overflow:hidden;opacity:0;pointer-events:none;
+  box-shadow:0 0 0 1px rgba(224,226,242,.25),0 0 60px rgba(118,183,255,.35);
+  -webkit-mask-image:radial-gradient(circle,#000 60%,transparent 72%);mask-image:radial-gradient(circle,#000 60%,transparent 72%)}
+.portrait img{width:100%;height:100%;object-fit:cover;filter:saturate(.55) contrast(1.05) brightness(.95)}
+.gate{opacity:0}
+.pane-list{display:none}
+@media (max-width:760px){.pane-wrap{display:none}.pane-list{display:grid;align-content:end;gap:18px;padding-bottom:7vh}
+.pl-item{display:grid;gap:4px;position:relative;padding-left:18px;border-left:1px solid var(--sky)}
+.pl-item strong{font-family:var(--f-display);font-weight:400;font-size:19px}.pl-item span{font-size:16px;color:var(--mute)}}
+[data-f]{opacity:0}
+</style>
+
+<canvas id="film" aria-hidden="true"></canvas>
+<div class="portrait" id="portrait" aria-hidden="true"><img src="portrait.webp" alt=""></div>
+
+<div id="enter" role="status">
+  <div class="brand-big">АРХИТЕКТОР</div>
+  <div class="line"><i id="enterBar"></i></div>
+  <div class="pct" id="enterPct">00</div>
+</div>
+
+<header class="top">
+  <a class="brand" href="#top">АРХИТЕКТОР</a>
+  <div class="chap" id="chap"><b>01</b> / 10 · Вход</div>
+  <a class="cta-top" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Получить стратегию</a>
+  <div class="bar" id="bar"></div>
+</header>
+<nav class="ticks" id="ticks" aria-label="Главы"></nav>
+<main id="scroll"></main>
+
+<section class="ch left-bottom layer scrimL" data-scrim="0,24" aria-label="Вход">
+  <div class="eyebrow glow" data-f="0,20" data-fx="up">Александр Комлев · система продаж</div>
+  <h1 class="h1 glow" data-f="0,20" data-fx="scr">Собираю систему<br>продаж для экспертов</h1>
+  <p class="lead glow" data-f="0,20" data-fx="up">Чтобы доход был управляемым, а не случайным.</p>
+  <div class="hint" data-f="0,8" data-fx="fade">Листайте вниз</div>
+</section>
+
+<section class="ch top-left layer" aria-label="Вам сюда, если">
+  <div class="eyebrow glow" data-f="62,84" data-fx="up">Вам сюда, если</div>
+  <h2 class="h3 glow pane-intro" data-f="64,84" data-fx="scr">Есть амбиции. Пора переводить их в результат.</h2>
+</section>
+<div class="layer pane-list" aria-label="Три точки (телефон)">
+  <div class="pl-item glow" data-f="66,84" data-fx="up"><strong>Продажи нестабильны</strong><span>Есть результат, но нет управляемости</span></div>
+  <div class="pl-item glow" data-f="68,84" data-fx="up"><strong>Созвоны не конвертируются</strong><span>Интерес есть, сделки нет</span></div>
+  <div class="pl-item glow" data-f="70,84" data-fx="up"><strong>Чек не растёт</strong><span>Страшно пересобрать цену</span></div>
+</div>
+<div class="layer pane-wrap" aria-label="Три точки">
+  <div class="pane-label glow" data-f="66,84" data-fx="up" data-pane="0"><strong>Продажи нестабильны</strong><span>Есть результат, но нет управляемости</span></div>
+  <div class="pane-label glow" data-f="68,84" data-fx="up" data-pane="1"><strong>Созвоны не конвертируются</strong><span>Интерес есть, сделки нет</span></div>
+  <div class="pane-label glow" data-f="70,84" data-fx="up" data-pane="2"><strong>Чек не растёт</strong><span>Страшно пересобрать цену</span></div>
+</div>
+
+<section class="ch center layer scrim" data-scrim="88,118" aria-label="Система">
+  <h2 class="h2 glow" data-f="90,116" data-fx="wide">Система не&nbsp;собрана</h2>
+  <p class="lead glow" data-f="94,116" data-fx="up" style="text-align:center">Инструменты меняются. Система — нет.</p>
+</section>
+<section class="ch center layer scrim" data-scrim="128,162" aria-label="Подход">
+  <div class="eyebrow glow" data-f="130,160" data-fx="up">Подход</div>
+  <h2 class="h2 glow" data-f="132,160" data-fx="scr">Я не чиню отдельные точки.<br>Я собираю систему.</h2>
+  <p class="lead glow" data-f="136,160" data-fx="up" style="text-align:center;max-width:40ch">Меняется архитектура решений, ощущение себя в продаже и фактический результат.</p>
+</section>
+
+<section class="ch top-left layer" aria-label="Как собирается система">
+  <div class="eyebrow glow" data-f="172,298" data-fx="up">Как собирается система · 4 этапа</div>
+</section>
+<div class="layer scrimL" data-scrim="174,298" aria-label="Этапы">
+  <div class="gate glow" data-f="176,206"><div class="num">01</div><h3 class="h3">Диагностика</h3><p>Смотрим не только на воронку, а на всю систему: позиционирование, продукт, продажи, мышление, состояние и логику решений.</p></div>
+  <div class="gate glow" data-f="208,238"><div class="num">02</div><h3 class="h3">Пересборка</h3><p>Собираем связку: что вы продаёте, кому, как это звучит, как это продаётся и на чём держится стабильно.</p></div>
+  <div class="gate glow" data-f="240,268"><div class="num">03</div><h3 class="h3">Внедрение</h3><p>Не теория ради теории. Всё превращается в конкретные действия, опоры, сценарии, тексты и управляемую систему.</p></div>
+  <div class="gate glow" data-f="270,298"><div class="num">04</div><h3 class="h3">Закрепление</h3><p>Чтобы система не распалась через неделю. Нужна не вспышка мотивации, а рабочая конструкция, которая выдержит рост.</p></div>
+</div>
+
+<section class="ch left-mid layer author scrimL" data-scrim="302,330" aria-label="Кто я">
+  <div class="eyebrow glow" data-f="303,330" data-fx="up">Кто я</div>
+  <h2 class="h2 glow" data-f="304,330" data-fx="scr">Александр<br>Комлев</h2>
+  <p class="lead glow" data-f="306,330" data-fx="up">Мой путь — от нестабильных продаж к системе, которая даёт результат.</p>
+  <p class="lead glow" data-f="308,330" data-fx="up">Обучался у сильных экспертов в маркетинге, продажах и мышлении и свёл подходы в одну рабочую систему.</p>
+</section>
+
+<section class="ch center layer scrim" data-scrim="348,384" aria-label="Цифры">
+  <div class="stats">
+    <div class="stat glow" data-f="350,382" data-fx="up"><div class="n" data-count="100" data-suf=" млн+">0</div><div class="l">заработали клиенты</div></div>
+    <div class="stat glow" data-f="352,382" data-fx="up"><div class="n" data-count="12" data-suf=" лет">0</div><div class="l">в продажах</div></div>
+    <div class="stat glow" data-f="354,382" data-fx="up"><div class="n">2 → <span data-count="4" data-suf=" млн">0</span></div><div class="l">без рекламы</div></div>
+  </div>
+</section>
+
+<div class="spiral" id="spiral" aria-label="Кейсы клиентов" style="z-index:3"></div>
+<section class="ch top-left layer scrimL" data-scrim="386,432" aria-label="Трансформации" style="z-index:4">
+  <div class="eyebrow glow" data-f="388,430" data-fx="up">Что меняется у клиентов</div>
+  <h2 class="h3 glow" data-f="389,430" data-fx="scr" style="max-width:20ch">Трансформации, которые уже случились</h2>
+  <p class="lead glow" data-f="391,430" data-fx="up">Разные ниши и точки старта. Один итог — управляемые продажи.</p>
+</section>
+
+<section class="ch left-mid layer scrimL became-wrap" data-scrim="448,482" aria-label="Стало">
+  <div class="eyebrow glow" data-f="450,480" data-fx="up">Стало</div>
+  <ul class="became glow">
+    <li data-f="451,480" data-fx="up">Понятная стратегия</li>
+    <li data-f="453,480" data-fx="up">Стабильные продажи</li>
+    <li data-f="455,480" data-fx="up">Уверенная позиция на встречах</li>
+    <li data-f="457,480" data-fx="up">Деньги как результат решений, а не удачи</li>
+    <li data-f="459,480" data-fx="up">Ясное понимание своей ценности</li>
+    <li data-f="461,480" data-fx="up">Рост среднего чека</li>
+  </ul>
+</section>
+
+<section class="ch center layer scrim" data-scrim="484,522" aria-label="Формат">
+  <h2 class="h2 glow" data-f="486,520" data-fx="scr">Не курсы. Не марафоны.<br>Не на поболтать.</h2>
+  <p class="lead glow" data-f="489,520" data-fx="up" style="text-align:center;max-width:40ch">Точечная и глубокая работа по пересборке системы продаж.</p>
+  <div class="formats" data-f="492,520" data-fx="up"><span>Индивидуальная работа</span><span>Пересборка продаж и продуктов</span><span>Сопровождение системы</span></div>
+</section>
+
+<section class="ch center layer final scrim" data-scrim="530,700" aria-label="Получить стратегию" style="align-content:start;padding-top:14vh">
+  <p class="word" data-f="530,700" data-fx="wide">АРХИТЕКТОР</p>
+  <h2 class="h3 glow" data-f="536,700" data-fx="scr">Получить понятную стратегию</h2>
+  <p class="lead glow" data-f="540,700" data-fx="up" style="text-align:center;max-width:36ch">Встреча 30–40 минут. Без презентаций и прогревов.</p>
+  <a class="final-cta" data-f="543,700" data-fx="up" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать в Telegram <span aria-hidden="true">→</span></a>
+</section>
+
+<script>
+(() => {
+'use strict';
+// ---------- фильм: 7 нейро-роликов, склеенных в один пролёт (кадры 0…560) ----------
+const N = 561;
+// главы: [название, кадр начала, кадр конца, вес прокрутки]
+const CH = [['Вход',0,22,1.3],['Точки',22,84,1.9],['Сборка',84,162,1.9],['Путь',162,300,3.0],['Автор',300,332,1.5],
+  ['Масштаб',332,384,1.3],['Кейсы',384,432,2.8],['Рост',432,482,1.8],['Формат',482,524,1.4],['Решение',524,560,1.5]];
+// где на кадре стоят объекты (доли кадра) — для подписей и портрета
+const PANES = [[.295,.70],[.498,.70],[.700,.70]], ECL = {x:.497, y:.50, r:.146};
+const MOBILE = () => innerHeight > innerWidth;
+const SET = { d:{dir:'d', w:1280, h:720}, m:{dir:'m', w:960, h:540} };
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const easeOut=t=>1-Math.pow(1-t,3);
+const sm=t=>t*t*(3-2*t);
+
+// ---------- прокрутка → кадр ----------
+const scrollEl=document.getElementById('scroll'); const totalW=CH.reduce((s,c)=>s+c[3],0);
+scrollEl.style.height=(totalW*100+100)+'vh';
+function scrollToF(){ const max=document.documentElement.scrollHeight-innerHeight; const s=max>0?clamp(scrollY/max):0;
+  let acc=0; for(const c of CH){ const f=c[3]/totalW; if(s<=acc+f||c===CH[CH.length-1]) return c[1]+(c[2]-c[1])*clamp((s-acc)/f); acc+=f; } return N-1; }
+function chapterStart(k){ const max=document.documentElement.scrollHeight-innerHeight; let acc=0; for(let i=0;i<k;i++) acc+=CH[i][3]/totalW; return acc*max+(k?innerHeight*.04:0); }
+
+// ---------- кадры: сначала грубо, потом всё ----------
+let set=MOBILE()?SET.m:SET.d; const frames={d:[],m:[]};
+function loadSet(s,onFirst){ const arr=frames[s.dir]; if(arr.started) return; arr.started=true;
+  const order=[],seen=new Set(); for(const st of [40,20,10,5,2,1]) for(let i=0;i<N;i+=st) if(!seen.has(i)){seen.add(i);order.push(i);}
+  const first=Math.ceil(N/20)+1; let done=0,fired=false,q=0;
+  const next=()=>{ if(q>=order.length) return; const i=order[q++]; const im=new Image(); im.decoding='async';
+    im.onload=()=>{ arr[i]=im; done++; if(!fired&&done>=first){fired=true;onFirst&&onFirst();} progress(done,first); next(); };
+    im.onerror=()=>{ done++; next(); }; im.src=`${s.dir}/f${String(i).padStart(4,'0')}.webp`; };
+  for(let k=0;k<6;k++) next(); }
+const nearest=(arr,i)=>{ for(let d=0;d<N;d++){ if(arr[i-d]) return arr[i-d]; if(arr[i+d]) return arr[i+d]; } return null; };
+
+// ---------- холст: на компьютере кадр во весь экран, на телефоне — с подъездом к сценам, где важны края ----------
+const cv=document.getElementById('film'), cx=cv.getContext('2d'); let rect={x:0,y:0,w:1,h:1}, drawnKey=-1;
+function mobileZoom(F){ // 0 — во весь экран, 1 — виден широкий план (три окна, монолит)
+  const a=sm(clamp((F-50)/14))*(1-sm(clamp((F-150)/14))); return a; }
+function computeRect(F){ const W=innerWidth,H=innerHeight;
+  if(!MOBILE()){ const sc=Math.max(W/set.w,H/set.h); return {w:set.w*sc,h:set.h*sc,x:(W-set.w*sc)/2,y:(H-set.h*sc)/2}; }
+  const cover=H/set.h, wide=W*1.75/set.w, z=mobileZoom(F), sc=cover+(wide-cover)*z;
+  const pz=sm(clamp((F-50)/14))*(1-sm(clamp((F-86)/8)));
+  const w=set.w*sc,h=set.h*sc; return {w,h,x:(W-w)/2,y:(H-h)/2 - pz*H*.16}; }
+function resize(){ const dpr=Math.min(devicePixelRatio||1,2); cv.width=Math.round(innerWidth*dpr); cv.height=Math.round(innerHeight*dpr);
+  const ns=MOBILE()?SET.m:SET.d; if(ns!==set){ set=ns; loadSet(set); } drawnKey=-1; }
+function draw(F){ rect=computeRect(F); const key=Math.round(F*50)+'|'+Math.round(rect.w); if(key===drawnKey) return; drawnKey=key;
+  const arr=frames[set.dir], dpr=cv.width/innerWidth; const i0=Math.floor(F), i1=Math.min(N-1,i0+1), a=F-i0;
+  const A=arr[i0]||nearest(arr,i0); if(!A) return;
+  cx.fillStyle='#03050d'; cx.fillRect(0,0,cv.width,cv.height);
+  const r=[rect.x*dpr,rect.y*dpr,rect.w*dpr,rect.h*dpr];
+  cx.globalAlpha=1; cx.drawImage(A,...r); const B=arr[i1]; if(B&&B!==A&&a>.02){ cx.globalAlpha=a; cx.drawImage(B,...r); cx.globalAlpha=1; }
+  if(rect.h<innerHeight-2){ // мягкие края кадра на телефоне
+    const fade=60*dpr; let g=cx.createLinearGradient(0,r[1],0,r[1]+fade); g.addColorStop(0,'#03050d'); g.addColorStop(1,'rgba(3,5,13,0)'); cx.fillStyle=g; cx.fillRect(0,r[1],cv.width,fade);
+    g=cx.createLinearGradient(0,r[1]+r[3]-fade,0,r[1]+r[3]); g.addColorStop(0,'rgba(3,5,13,0)'); g.addColorStop(1,'#03050d'); cx.fillStyle=g; cx.fillRect(0,r[1]+r[3]-fade,cv.width,fade); }
+}
+
+// ---------- текст ----------
+const GLY='АРХИТЕКТОРСИСТЕМА#/<>=+*01';
+const els=[...document.querySelectorAll('[data-f]')].map(el=>{ const [a,b]=el.dataset.f.split(',').map(Number); return {el,a,b,fx:el.dataset.fx||'gate',state:0,text:el.innerHTML}; });
+function scramble(o){ const el=o.el, html=o.text, tmp=document.createElement('div'); tmp.innerHTML=html; const parts=[];
+  tmp.childNodes.forEach(n=>parts.push(n.nodeType===3?{t:n.textContent}:{br:true})); const total=parts.reduce((s,x)=>s+(x.t?x.t.length:0),0);
+  const t0=performance.now(); cancelAnimationFrame(o.raf);
+  const tick=now=>{ const k=clamp((now-t0)/900); let shown=Math.floor(easeOut(k)*total), out='';
+    for(const x of parts){ if(x.br){out+='<br>';continue;} for(const ch of x.t){ if(shown>0||ch===' '){out+=ch;shown--;} else out+=GLY[(Math.random()*GLY.length)|0]; } }
+    el.innerHTML=out; if(k<1) o.raf=requestAnimationFrame(tick); else el.innerHTML=html; }; o.raf=requestAnimationFrame(tick); }
+const FW=3; const vis=(F,a,b)=>Math.min(clamp((F-a)/FW), clamp((b-F)/FW));
+function applyFx(o,v){ const el=o.el, e=easeOut(v); el.style.opacity=v.toFixed(3);
+  const pre=el.dataset.pane!==undefined?'translate(-50%,0) ':'';
+  if(o.fx==='gate'){ el.style.transform=`translate3d(${(1-e)*-30}px,0,0)`; el.style.filter=`blur(${(1-e)*8}px)`; return; }
+  if(o.fx==='up'||o.fx==='scr') el.style.transform=pre+`translate3d(0,${(1-e)*26}px,0)`;
+  if(o.fx==='wide'){ el.style.letterSpacing=(0.42*(1-e)-0.03)+'em'; el.style.filter=`blur(${(1-e)*10}px)`; }
+  if(o.fx==='scr'){ if(v>.6&&!o.state){o.state=1;scramble(o);} if(v<.05) o.state=0; } }
+const scrims=[...document.querySelectorAll('[data-scrim]')].map(el=>{const[a,b]=el.dataset.scrim.split(',').map(Number);return{el,a,b};});
+const panes=[...document.querySelectorAll('[data-pane]')];
+function placePanes(){ const m=MOBILE(); panes.forEach((el,i)=>{ const [px,py]=PANES[i];
+  el.style.left=(rect.x+rect.w*px)+'px'; el.style.top=(rect.y+rect.h*(m?.62:py))+'px'; el.style.width=Math.max(m?100:180,rect.w*.165)+'px'; }); }
+const portrait=document.getElementById('portrait');
+function placePortrait(F){ const r=rect.h*ECL.r, v=clamp((F-304)/6)*(1-clamp((F-326)/6));
+  Object.assign(portrait.style,{width:2*r+'px',height:2*r+'px',left:(rect.x+rect.w*ECL.x-r)+'px',top:(rect.y+rect.h*ECL.y-r)+'px',opacity:v.toFixed(3)}); }
+const counts=[...document.querySelectorAll('[data-count]')];
+function placeCounts(F){ const t=easeOut(clamp((F-350)/14)); counts.forEach(el=>{ el.textContent=Math.round(+el.dataset.count*t)+el.dataset.suf; }); }
+const spiral=document.getElementById('spiral'), NC=18, cards=[];
+for(let k=0;k<NC;k++){ const c=document.createElement('div'); c.className='card'; const im=document.createElement('img'); im.alt='Кейс клиента'; im.loading='lazy';
+  im.src=`cases/c${String(k).padStart(2,'0')}.webp`; c.appendChild(im); spiral.appendChild(c); cards.push(c); }
+function placeSpiral(F){ const on=F>384&&F<436; spiral.style.visibility=on?'visible':'hidden'; if(!on) return;
+  const lt=clamp((F-386)/44), m=MOBILE(), RX=innerWidth*(m?.18:.22), RY=innerHeight*.16;
+  cards.forEach((c,k)=>{ const u=lt*(NC+2.2)-k*.92+.2, z=-1900+u*900, ang=u*1.05+k*.4;
+    const x=Math.cos(ang)*RX, y=Math.sin(ang)*RY+innerHeight*.05, op=Math.min(clamp((u+.4)/.9),clamp((2.55-u)/.45));
+    c.style.opacity=op.toFixed(3); c.style.transform=`translate3d(${x}px,${y}px,${z}px) rotateY(${Math.sin(ang)*-14}deg)`; c.style.zIndex=String(1000+Math.round(z)); }); }
+
+// ---------- навигация ----------
+const chapEl=document.getElementById('chap'), bar=document.getElementById('bar'), ticks=document.getElementById('ticks');
+CH.forEach((c,k)=>{ const b=document.createElement('button'); b.type='button'; b.innerHTML=`${c[0]}<i></i>`; b.setAttribute('aria-label',`Глава ${k+1}: ${c[0]}`);
+  b.addEventListener('click',()=>scrollTo({top:chapterStart(k),behavior:'smooth'})); ticks.appendChild(b); });
+const tickBtns=[...ticks.children]; let lastCh=-1;
+function nav(F){ const k=Math.max(0,CH.findIndex(c=>F>=c[1]&&F<=c[2]));
+  if(k!==lastCh){ lastCh=k; chapEl.innerHTML=`<b>${String(k+1).padStart(2,'0')}</b> / 10 · ${CH[k][0]}`; tickBtns.forEach((b,i)=>b.classList.toggle('on',i===k)); }
+  bar.style.width=(F/(N-1)*100).toFixed(2)+'%'; }
+
+// ---------- цикл ----------
+let cur=0,last=performance.now(); const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function frame(now){ const dt=Math.min(64,now-last); last=now; const target=scrollToF();
+  const k=reduce?1:1-Math.pow(1-.09,dt/16.7); cur+=(target-cur)*k; if(Math.abs(target-cur)<.01) cur=target;
+  draw(cur); for(const o of els) applyFx(o,vis(cur,o.a,o.b)); scrims.forEach(s=>s.el.style.setProperty('--sv',vis(cur,s.a,s.b).toFixed(3)));
+  placePanes(); placePortrait(cur); placeCounts(cur); placeSpiral(cur); nav(cur); requestAnimationFrame(frame); }
+
+// ---------- вход ----------
+const enter=document.getElementById('enter'), ePct=document.getElementById('enterPct'), eBar=document.getElementById('enterBar');
+function progress(done,first){ const v=clamp(done/first); ePct.textContent=String(Math.round(v*100)).padStart(2,'0'); eBar.style.width=(v*100)+'%'; }
+const t0=performance.now(); function open(){ setTimeout(()=>enter.classList.add('gone'),Math.max(0,1400-(performance.now()-t0))); }
+addEventListener('resize',resize); resize(); loadSet(set,open); setTimeout(open,9000); requestAnimationFrame(frame);
+})();
+</script>
