@@ -6,7 +6,8 @@
 
 | Папка | Что это | Живая ссылка |
 |---|---|---|
-| steklo | Сайт-фильм v4 18.10: небо → соты → тоннель из световых плиток → под воду → лучи → лотос → космос; шрифт SF Pro/Inter; кадры 1920 с нейро-увеличением; карточки на слайде 2. Конвейер: steklo/neuro/PIPELINE.md | https://p93fd.github.io/sites/steklo/ |
+| steklo | Сайт-фильм v5 18.10: 9 сцен, свайп = сцена (8 свайпов), пролёт между сценами, 3D-иконки, кольцо кейсов. Конвейер: steklo/neuro/PIPELINE.md | https://p93fd.github.io/sites/steklo/ |
+| steklo-v4 | v4 (прокрутка 22 экрана) + все кадры и ролики в neuro/ | https://p93fd.github.io/sites/steklo-v4/ |
 | steklo-v3 | Версия v3 (шар в тоннеле, Unbounded) | https://p93fd.github.io/sites/steklo-v3/ |
 | steklo-v2 | Прошлая нейро-версия (кольцо, кристаллы) | https://p93fd.github.io/sites/steklo-v2/ |
 | steklo-3d | Первая версия steklo на своём 3D-движке (Three.js), студия рендера в steklo-3d/studio | https://p93fd.github.io/sites/steklo-3d/ |
@@ -47,7 +48,7 @@
 <!-- auto:files -->
 | Папка | Файлов | Вес | Текстовые файлы (строк) |
 |---|---|---|---|
-| . | 4 | 20 КБ | CLAUDE.md (16), INDEX.md (65), MAP.md (162), README.md (1) |
+| . | 4 | 20 КБ | CLAUDE.md (16), INDEX.md (67), MAP.md (163), README.md (1) |
 | .claude | 7 | 106 КБ | .claude/settings.json (8), .claude/skills/my-voice/SKILL.md (571), .claude/skills/particle-scene/SKILL.md (89), .claude/skills/ru-typography/SKILL.md (60), .claude/skills/site-10k/SKILL.md (94), .claude/skills/studio-layout/SKILL.md (98), .claude/skills/volumetric-web/SKILL.md (43) |
 | anna | 1 | 1.7 МБ | anna/index.html (591) |
 | architektor | 51 | 22.3 МБ | architektor/fx/post.js (894), architektor/index.html (1825) |
@@ -57,9 +58,10 @@
 | kino | 34 | 32.7 МБ | kino/app.js (276), kino/index.html (62), kino/style.css (62) |
 | research | 15 | 963 КБ | research/README.md (153), research/activetheory-ref.md (405), research/studios-ref.md (356), research/video-ref.md (310), research/voice-aleksandr.md (587), research/wave1-eu-creative-dev.md (340), research/wave1-premium-anatomy.md (345), research/wave1-us-visual.md (421), research/wave2-asia.md (269), research/wave2-cyrillic.md (475), research/wave2-deep.md (356) |
 | sistema | 27 | 1.3 МБ | sistema/app.js (706), sistema/index.html (656), sistema/legal.html (98) |
-| steklo | 1817 | 104.0 МБ | steklo/index.html (352), steklo/neuro/PIPELINE.md (29) |
+| steklo | 1818 | 86.4 МБ | steklo/index.html (355), steklo/neuro/PIPELINE.md (35), steklo/studio/icons.html (4), steklo/studio/icons.js (81), steklo/studio/render_icons.mjs (9) |
 | steklo-3d | 487 | 26.0 МБ | steklo-3d/index.html (385), steklo-3d/studio/qa.mjs (23), steklo-3d/studio/render.mjs (20), steklo-3d/studio/scene.html (4), steklo-3d/studio/scene.js (393), steklo-3d/studio/serve.mjs (7), steklo-3d/studio/timeline.js (12) |
 | steklo-v2 | 1158 | 110.3 МБ | steklo-v2/index.html (364), steklo-v2/neuro/PIPELINE.md (16) |
 | steklo-v3 | 1413 | 120.0 МБ | steklo-v3/index.html (380), steklo-v3/neuro/PIPELINE.md (22) |
+| steklo-v4 | 1817 | 104.0 МБ | steklo-v4/index.html (352), steklo-v4/neuro/PIPELINE.md (29) |
 | tools | 5 | 12 КБ | tools/gen-map.mjs (71), tools/kino-scenes.txt (13), tools/shots.mjs (36), tools/typograf.mjs (25) |
 <!-- /auto:files -->
