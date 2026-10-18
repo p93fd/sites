@@ -44,7 +44,10 @@ main,footer,header{position:relative;z-index:5}
 .lg:after{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;background:radial-gradient(42% 38% at var(--mx,22%) var(--my,10%),rgba(255,255,255,.9),transparent 70%)}
 
 /* ---------- chrome ---------- */
-header{position:fixed;inset:0 0 auto 0;padding:calc(14px + env(safe-area-inset-top,0px)) var(--gut) 14px;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:none}
+header{position:fixed;inset:0 0 auto 0;padding:calc(10px + env(safe-area-inset-top,0px)) var(--gut) 10px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--paper);border-bottom:1px solid var(--ink4);transition:transform .6s var(--ep)}
+header{z-index:30}header.hid{transform:translateY(-101%)}
+header .lg{background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}header .lg:before,header .lg:after{display:none}
+header .logo{padding:0}
 header>*{pointer-events:auto}
 .logo{display:flex;align-items:center;gap:14px;padding:8px 20px 8px 12px;border-radius:999px}
 .logo img{height:46px;width:auto}
@@ -137,7 +140,7 @@ h2{font-size:clamp(44px,5.8vw,92px)}
 .three{margin-top:60px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--ink);}
 .three div{padding:28px 30px 10px 0}.three div+div{padding-left:30px;border-left:1px solid var(--ink4)}
 .three dt{font:500 44px/1 var(--serif)}.three dd{margin-top:14px;color:var(--ink2);font-size:17px}
-.turn{margin-top:46px;font:italic 500 clamp(28px,3vw,46px)/1.15 var(--serif);color:var(--blue);max-width:22em}
+.turn{margin-top:46px;font:italic 500 clamp(26px,2.6vw,40px)/1.2 var(--serif);color:var(--blue);max-width:24em}
 
 /* steps */
 .steps .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:72px;align-items:start}
@@ -219,8 +222,9 @@ footer .lnks{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end}
 @media (max-width:900px){
   body{font-size:17px}
   header nav,#chap{display:none}
-  header{padding:calc(8px + env(safe-area-inset-top,0px)) 16px 8px;background:rgba(247,242,234,.95);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--ink4)}
-  .logo{padding:0}.logo.lg{background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}.logo.lg:before,.logo.lg:after{display:none}.logo img{height:38px}.logo span{font-size:17px}
+  header{padding:calc(8px + env(safe-area-inset-top,0px)) 16px 8px}
+  .lg{-webkit-backdrop-filter:none;backdrop-filter:none}#dock.lg{background:rgba(255,255,255,.96)}
+  .logo img{height:38px}.logo span{font-size:17px}
   #mark{width:120vw;right:-50vw;opacity:.06}
   .hero .wrap{grid-template-columns:minmax(0,1fr);gap:0}
   .port{order:-1;height:54svh;margin-top:78px;max-width:none;justify-self:stretch}.port .shot{border-radius:26px}.port img{object-position:40% 30%}
@@ -268,7 +272,7 @@ footer .lnks{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end}
       <p class="mono">Анна Шкрябина · врач-остеопат, натуропат</p>
       <h1 data-lines>Вы получите <em>энергию на&nbsp;всё,</em> что для вас важно</h1>
       <p class="lead" data-up>Сил хватает на&nbsp;развитие и&nbsp;учёбу, на&nbsp;ребёнка, на&nbsp;спорт, на&nbsp;досуг и&nbsp;отпуск. В&nbsp;зеркале&nbsp;— красивое подтянутое и&nbsp;здоровое тело. Питание&nbsp;— без надрыва и&nbsp;жёстких ограничений.</p>
-      <div class="acts" data-up><a class="btn fill mag" href="https://t.me/annashkryabina" target="_blank" rel="noopener">Найти причину упадка сил&nbsp;— бесплатно <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a></div>
+      <div class="acts" data-up><a class="btn fill mag" href="https://t.me/annashkryabina" target="_blank" rel="noopener">Первичная диагностика <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a></div>
       <div class="calm" data-up><span>Без оплаты</span><span>Онлайн</span><span>Есть рассрочка</span></div>
       <p class="legal" data-up>Нажимая кнопку, вы соглашаетесь с&nbsp;<button type="button" class="lnk" data-doc="policy">политикой</button> и&nbsp;даёте <button type="button" class="lnk" data-doc="consent">согласие на&nbsp;обработку данных</button>.</p>
       <div class="nums" data-up>
@@ -309,11 +313,11 @@ footer .lnks{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end}
     <p class="label mono"><span>02</span><i></i><span>Что уже пробовали</span></p>
     <h2 data-lines>Почему лечение по&nbsp;отдельности <em>помогает на&nbsp;время</em></h2>
     <dl class="three">
-      <div data-up><dt>Лечение по&nbsp;органам</dt><dd>Обследовались и&nbsp;лечились у&nbsp;разных врачей: каждый смотрит своё. Эффект временный, потом всё возвращается или появляется что-то ещё.</dd></div>
+      <div data-up><dt>Лечение по&nbsp;органам</dt><dd>Обследовались и&nbsp;лечились у&nbsp;разных специалистов: каждый смотрит своё. Эффект временный, потом всё возвращается или появляется что-то ещё.</dd></div>
       <div data-up><dt>БАДы наугад</dt><dd>По&nbsp;рекомендации подруги или интернета&nbsp;— бросила, потому что стало хуже, или пропила без особых изменений.</dd></div>
       <div data-up><dt>Диеты</dt><dd>Дают эффект, но&nbsp;потом всё возвращается.</dd></div>
     </dl>
-    <p class="turn" data-up>Всё это лечит по&nbsp;отдельности. Я&nbsp;врач и&nbsp;смотрю на&nbsp;организм целиком: ищу причину и&nbsp;веду вас от&nbsp;диагностики до&nbsp;результата.</p>
+    <p class="turn" data-up>Время&nbsp;— наш самый ценный ресурс. Состояние&nbsp;— то, как мы&nbsp;его проживаем: когда есть силы, в&nbsp;один день помещается то, на&nbsp;что раньше уходила неделя. Поэтому я&nbsp;не&nbsp;лечу по&nbsp;отдельности, а&nbsp;ищу причину и&nbsp;смотрю на&nbsp;организм целиком&nbsp;— от&nbsp;диагностики до&nbsp;результата.</p>
   </div>
 </section>
 
@@ -425,7 +429,7 @@ footer .lnks{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end}
       <div class="r"><p class="mono">Что вы получите</p><p>Понимание, что на&nbsp;самом деле происходит в&nbsp;теле, что стало причиной этих проблем и&nbsp;какие варианты (пути) решения существуют.</p></div>
       <div class="r"><p class="mono">Результат</p><p>Вы видите путь. Конкретно что, когда, как долго надо делать, чтобы прийти к&nbsp;желаемому результату.</p></div>
       <div class="r"><p class="mono">Стоимость</p><p>Диагностика&nbsp;— без оплаты. Цена сопровождения называется лично, рассрочки есть.</p></div>
-      <a class="btn fill mag" href="https://t.me/annashkryabina" target="_blank" rel="noopener">Найти причину упадка сил&nbsp;— бесплатно <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
+      <a class="btn fill mag" href="https://t.me/annashkryabina" target="_blank" rel="noopener">Первичная диагностика <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
       <div class="calm"><span>Без оплаты</span><span>Онлайн</span><span>Есть рассрочка</span></div>
       <p class="legal">Нажимая кнопку, вы соглашаетесь с&nbsp;<button type="button" class="lnk" data-doc="policy">политикой</button> и&nbsp;даёте <button type="button" class="lnk" data-doc="consent">согласие на&nbsp;обработку данных</button>. Условия&nbsp;— в&nbsp;<button type="button" class="lnk" data-doc="offer">оферте</button>. Telegram: @annashkryabina</p>
     </div>
@@ -527,7 +531,7 @@ var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,manual=/shot/.t
   function size(){k=innerWidth<900?.42:.5;c.width=Math.round(innerWidth*k);c.height=Math.round(innerHeight*k);gl.viewport(0,0,c.width,c.height)}addEventListener('resize',size);size();
   addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=.5-e.clientY/innerHeight},{passive:true});
   function draw(t){cx+=(mx-cx)*.04;cy+=(my-cy)*.04;var s=scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight);gl.uniform2f(uR,c.width,c.height);gl.uniform1f(uT,reduce?0:t);gl.uniform2f(uM,cx,cy);gl.uniform1f(uS,s);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
-  function loop(){if(!document.hidden)draw((performance.now()-t0)/1000);requestAnimationFrame(loop)}
+  var fr=0,slow=innerWidth<900;function loop(){fr++;if(!document.hidden&&(!slow||fr%2))draw((performance.now()-t0)/1000);requestAnimationFrame(loop)}
   manual?draw(4):requestAnimationFrame(loop)})();
 /* ---------- glass sheen + cursor ring + magnetic button + photo tilt ---------- */
 addEventListener('pointermove',function(e){var t=e.target.closest&&e.target.closest('.lg');if(t){var r=t.getBoundingClientRect();t.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');t.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%')}},{passive:true});
@@ -535,6 +539,8 @@ if(fine&&!reduce){var ring=document.getElementById('ring'),rx=innerWidth/2,ry=in
   (function rl(){rx+=(tx-rx)*.18;ry+=(ty-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px)';requestAnimationFrame(rl)})();
   document.querySelectorAll('.mag').forEach(function(b){b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.12)+'px,'+((e.clientY-r.top-r.height/2)*.22)+'px)'});b.addEventListener('pointerleave',function(){b.style.transform=''})});
   document.querySelectorAll('[data-tilt]').forEach(function(p){p.parentNode.addEventListener('pointermove',function(e){var r=p.parentNode.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;p.style.transform='perspective(1200px) rotateY('+(x*10)+'deg) rotateX('+(-y*8)+'deg)'});p.parentNode.addEventListener('pointerleave',function(){p.style.transform=''})});}
+/* ---------- header hides on scroll down, returns on scroll up ---------- */
+(function(){var H=document.querySelector('header'),ly=scrollY;addEventListener('scroll',function(){var y=scrollY,d=y-ly;if(Math.abs(d)<6)return;H.classList.toggle('hid',d>0&&y>140);ly=y},{passive:true})})();
 /* ---------- documents + cookie + zoom ---------- */
 (function(){var D=document.getElementById('docs');function show(id){D.hidden=false;document.body.style.overflow='hidden';D.querySelectorAll('[data-doc-id]').forEach(function(a){a.hidden=a.dataset.docId!==id});D.querySelectorAll('[data-tab]').forEach(function(b){b.setAttribute('aria-selected',b.dataset.tab===id)});D.querySelector('.dbody').scrollTop=0}
  function hide(){D.hidden=true;document.body.style.overflow=''}
@@ -546,11 +552,11 @@ var z=document.getElementById('zoom');document.querySelectorAll('[data-z]').forE
 /* ---------- scroll choreography ---------- */
 if(!window.gsap)return;
 gsap.registerPlugin(ScrollTrigger);
-var lenis=null;if(window.Lenis&&!reduce&&!manual){lenis=new Lenis({lerp:.09,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+var lenis=null;if(window.Lenis&&!reduce&&!manual){lenis=new Lenis({lerp:.065,smoothWheel:true,wheelMultiplier:.9});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
 gsap.to('#bar',{scaleX:1,ease:'none',scrollTrigger:{trigger:'main',start:'top top',end:'bottom bottom',scrub:.4}});
 if(!reduce){gsap.to('#mark',{rotate:10,yPercent:-62,ease:'none',scrollTrigger:{trigger:'main',start:'top top',end:'bottom bottom',scrub:1.2}});
-  gsap.to('#anna',{yPercent:5,scale:1.08,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-  gsap.to('.duo .p1',{yPercent:-4,ease:'none',scrollTrigger:{trigger:'.why',start:'top bottom',end:'bottom top',scrub:true}});
+  gsap.to('#anna',{yPercent:5,scale:1.08,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1.2}});
+  gsap.to('.duo .p1',{yPercent:-4,ease:'none',scrollTrigger:{trigger:'.why',start:'top bottom',end:'bottom top',scrub:1.2}});
 }
 var secs=[].slice.call(document.querySelectorAll('main>section')),chc=document.getElementById('chc'),chn=document.getElementById('chn');
 secs.forEach(function(s,i){ScrollTrigger.create({trigger:s,start:'top 50%',end:'bottom 50%',onToggle:function(st){if(st.isActive){chc.textContent=String(i+1).padStart(2,'0')+' / '+String(secs.length).padStart(2,'0');chn.textContent=s.dataset.ch}}})});
@@ -563,7 +569,7 @@ if(!reduce&&!manual){
     rows.forEach(function(r){r.forEach(function(w){var m=document.createElement('span');m.className='ln';m.style.display='inline-block';m.style.verticalAlign='top';w.parentNode.insertBefore(m,w);m.appendChild(w)})});
     var groups=rows.map(function(r){return r});gsap.set(ws,{yPercent:110});
     ScrollTrigger.create({trigger:h,start:'top 90%',once:true,onEnter:function(){groups.forEach(function(r,i){gsap.to(r,{yPercent:0,duration:1.4,ease:'expo.out',delay:i*.09})})}})});
-  gsap.utils.toArray('[data-up]').forEach(function(e){gsap.set(e,{y:34});ScrollTrigger.create({trigger:e,start:'top 94%',once:true,onEnter:function(){gsap.to(e,{y:0,duration:1.4,ease:'expo.out',clearProps:'transform'})}})});
+  gsap.utils.toArray('[data-up]').forEach(function(e){gsap.set(e,{y:26});ScrollTrigger.create({trigger:e,start:'top 94%',once:true,onEnter:function(){gsap.to(e,{y:0,duration:1.4,ease:'expo.out',clearProps:'transform'})}})});
   gsap.utils.toArray('.label i').forEach(function(l){gsap.from(l,{scaleX:0,duration:1.8,ease:'expo.out',scrollTrigger:{trigger:l,start:'top 92%'}})});
   gsap.utils.toArray('.ph,.doc,.case,.step').forEach(function(e){gsap.from(e,{clipPath:'inset(12% 8% 12% 8% round 30px)',duration:1.4,ease:'expo.out',scrollTrigger:{trigger:e,start:'top 90%'},clearProps:'clipPath'})});
   document.querySelectorAll('[data-count]').forEach(function(b){var n=+b.dataset.count,o={v:0};ScrollTrigger.create({trigger:b,start:'top 96%',once:true,onEnter:function(){gsap.to(o,{v:n,duration:2.2,ease:'power3.out',onUpdate:function(){b.textContent=Math.round(o.v)},onComplete:function(){b.textContent=n}})}})});
