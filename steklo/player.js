@@ -12,7 +12,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const NET=navigator.connection||{}; const FAST=!NET.saveData&&!/2g|3g/.test(NET.effectiveType||'');
 const set=(!MOBILE()||(FAST&&(devicePixelRatio||1)>=2))?'d':'m';
 const EXT=document.createElement('video').canPlayType('video/mp4; codecs="avc1.640028"')?'mp4':'webm';
-window.__idleUrl=k=>`v/${set}i${k}.mp4`;
+window.__idleUrl=k=>`v/${set}i${k}.${EXT}`;
 const url=(k,dir)=>`v/${set}${k}${dir}.${EXT}`, purl=k=>`v/${set}p${k}.webp`;
 
 // ---------- загрузка роликов в память: сначала соседи текущей сцены ----------
