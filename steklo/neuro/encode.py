@@ -1,0 +1,16 @@
+# кадры в три набора: d 1280, m 960, h 1920 (нейро-увеличение FSRCNN x2 + лёгкая резкость)
+import cv2, glob, os, subprocess
+fs = sorted(glob.glob('raw/*.png'))
+for d in ['d','m','h']: os.makedirs(d, exist_ok=True)
+sr = cv2.dnn_superres.DnnSuperResImpl_create(); sr.readModel('FSRCNN_x2.pb'); sr.setModel('fsrcnn', 2)
+for i, f in enumerate(fs):
+    name = os.path.basename(f).replace('.png', '.webp')
+    img = cv2.imread(f)
+    cv2.imwrite('d/'+name, img, [cv2.IMWRITE_WEBP_QUALITY, 80])
+    cv2.imwrite('m/'+name, cv2.resize(img, (960, 540), interpolation=cv2.INTER_AREA), [cv2.IMWRITE_WEBP_QUALITY, 70])
+    up = sr.upsample(img)
+    b = cv2.GaussianBlur(up, (0, 0), 1.0); up = cv2.addWeighted(up, 1.55, b, -0.55, 0)
+    hd = cv2.resize(up, (1920, 1080), interpolation=cv2.INTER_AREA)
+    cv2.imwrite('h/'+name, hd, [cv2.IMWRITE_WEBP_QUALITY, 78])
+    if i % 50 == 0: print(i, flush=True)
+print('DONE')

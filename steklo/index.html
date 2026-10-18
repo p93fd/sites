@@ -3,156 +3,139 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&family=Manrope:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
 <style>
-/* Концепция: один пролёт камеры сквозь стекло и свет; прокрутка = время фильма, текст живёт в том же кадре. */
+/* Один пролёт камеры: небо → соты → тоннель → вода → свет → лотос → космос. Типографика как у Apple: SF Pro на устройствах Apple, Inter на остальных. */
 :root{
-  --ink:#03050d; --ink-2:#070b1d; --royal:#4155e8; --sky:#76b7ff; --ice:#e0e2f2; --white:#f5f7ff;
-  --mute:rgba(224,226,242,.78); --line:rgba(118,183,255,.28);
-  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
-  --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
+  --ink:#03050d; --ink-2:#0a1024; --royal:#4155e8; --sky:#76b7ff; --ice:#e0e2f2; --white:#f5f7ff;
+  --mute:rgba(235,240,255,.74); --line:rgba(150,190,255,.26);
+  --f:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.25,.1,.25,1);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{background:var(--ink)}
-body{margin:0;background:var(--ink);color:var(--white);font-family:var(--f-body);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--ink);color:var(--white);font-family:var(--f);font-size:19px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-feature-settings:"kern","ss01";overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
 #film{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;background:var(--ink)}
-#stage{position:fixed;z-index:2;pointer-events:none}
+#grain{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;mix-blend-mode:screen}
 #scroll{position:relative;z-index:1}
 .layer{position:fixed;inset:0;z-index:3;pointer-events:none;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.layer *{pointer-events:none}
-.layer a,.layer button{pointer-events:auto}
-[data-p]{opacity:0;will-change:opacity,transform}
+.layer *{pointer-events:none}.layer a,.layer button{pointer-events:auto}
+[data-f]{opacity:0;will-change:opacity,transform}
 
 /* шапка */
 .top{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:18px max(20px,env(safe-area-inset-right,0px)) 16px max(20px,env(safe-area-inset-left,0px));
-  background:linear-gradient(var(--ink) 0%,rgba(3,5,13,.6) 60%,rgba(3,5,13,0))}
-.brand{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.32em;color:var(--white);text-decoration:none;white-space:nowrap}
-.chap{font-family:var(--f-display);font-weight:300;font-size:14px;letter-spacing:.14em;color:var(--mute);text-transform:uppercase;font-variant-numeric:tabular-nums}
-.chap b{color:var(--white);font-weight:400}
-.cta-top{font-family:var(--f-body);font-weight:700;font-size:15px;color:var(--ink);background:var(--ice);border-radius:999px;padding:11px 20px;text-decoration:none;white-space:nowrap;transition:background .2s}
-.cta-top:hover,.cta-top:focus-visible{background:#fff;outline:2px solid var(--sky);outline-offset:3px}
-.bar{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--royal),var(--sky),var(--ice));width:0}
+  padding:16px max(22px,env(safe-area-inset-right,0px)) 14px max(22px,env(safe-area-inset-left,0px));
+  background:linear-gradient(rgba(3,5,13,.85),rgba(3,5,13,0));}
+.brand{font-weight:600;font-size:17px;letter-spacing:-.01em;color:var(--white);text-decoration:none}
+.chap{font-weight:500;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.chap b{color:var(--white);font-weight:600}
+.cta-top{font-weight:600;font-size:15px;color:#05070f;background:var(--white);border-radius:999px;padding:10px 20px;text-decoration:none;transition:transform .3s var(--ease),background .3s}
+.cta-top:hover,.cta-top:focus-visible{background:#fff;transform:scale(1.03);outline:2px solid var(--sky);outline-offset:3px}
+.bar{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--royal),var(--sky));width:0}
 .ticks{position:fixed;right:max(18px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:14px}
-.ticks button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;justify-content:flex-end;font-family:var(--f-display);font-size:11px;letter-spacing:.14em;color:transparent;text-transform:uppercase}
-.ticks button i{display:block;width:18px;height:2px;background:rgba(224,226,242,.35);transition:width .3s,background .3s}
-.ticks button.on i{width:36px;background:var(--ice)}
+.ticks button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;justify-content:flex-end;font-size:12px;font-weight:500;color:transparent}
+.ticks button i{display:block;width:18px;height:2px;border-radius:2px;background:rgba(235,240,255,.3);transition:width .4s var(--ease),background .4s}
+.ticks button.on i{width:36px;background:var(--white)}
 .ticks button:hover,.ticks button:focus-visible{color:var(--mute)}
-.ticks button:focus-visible i{background:var(--sky)}
 
 /* типографика */
-.eyebrow{font-family:var(--f-display);font-weight:400;font-size:clamp(13px,1.1vw,16px);letter-spacing:.28em;text-transform:uppercase;color:var(--sky)}
-.h1{font-family:var(--f-display);font-weight:300;font-size:clamp(34px,4.6vw,84px);line-height:.98;letter-spacing:-.02em;margin:0;text-wrap:balance;text-transform:uppercase}
-.h2{font-family:var(--f-display);font-weight:300;font-size:clamp(28px,3.8vw,64px);line-height:1.02;letter-spacing:-.015em;margin:0;text-wrap:balance;text-transform:uppercase}
-.h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,2.2vw,34px);line-height:1.12;margin:0;text-wrap:balance}
-.lead{font-size:clamp(19px,1.6vw,24px);line-height:1.45;color:var(--mute);max-width:34ch;margin:0}
-.scrim::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 45% at 50% 50%,rgba(3,5,13,.72),rgba(3,5,13,0) 75%);opacity:var(--sv,0)}
-.scrimL::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,5,13,.8) 0%,rgba(3,5,13,.45) 34%,rgba(3,5,13,0) 58%);opacity:var(--sv,0)}
-@media (max-width:760px){.scrimL::before{background:linear-gradient(0deg,rgba(3,5,13,.85) 0%,rgba(3,5,13,.4) 40%,rgba(3,5,13,0) 62%)}}
-.glow{text-shadow:0 0 28px rgba(3,5,13,.9),0 2px 12px rgba(3,5,13,.85)}
-.outline{-webkit-text-stroke:1px rgba(224,226,242,.85);color:transparent}
+.eyebrow{font-weight:600;font-size:clamp(15px,1.15vw,19px);letter-spacing:-.005em;color:var(--sky);margin:0}
+.h1{font-weight:700;font-size:clamp(42px,5.8vw,104px);line-height:1.02;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.h2{font-weight:700;font-size:clamp(34px,4.6vw,80px);line-height:1.04;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.h3{font-weight:600;font-size:clamp(24px,2.3vw,40px);line-height:1.12;letter-spacing:-.022em;margin:0;text-wrap:balance}
+.lead{font-weight:400;font-size:clamp(19px,1.55vw,26px);line-height:1.4;letter-spacing:-.01em;color:var(--mute);max-width:32ch;margin:0}
+.grad{background:linear-gradient(180deg,#fff 0%,#dfe8ff 55%,#9fc4ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.shadow{text-shadow:0 2px 24px rgba(3,5,13,.7)}
 
-/* позиционирование глав */
-.ch{position:fixed;inset:0;display:grid;padding-top:96px;padding-bottom:48px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
-.left-bottom{align-content:end;justify-items:start;gap:22px;padding-bottom:9vh;padding-left:max(6vw,24px)}
-.left-mid{align-content:center;justify-items:start;gap:22px;padding-left:max(6vw,24px)}
-.center{align-content:center;justify-items:center;text-align:center;gap:22px}
-.top-left{align-content:start;justify-items:start;gap:16px;padding-top:120px;padding-left:max(6vw,24px)}
+/* раскладка глав */
+.ch{position:fixed;inset:0;display:grid;padding-top:100px;padding-bottom:56px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.left-bottom{align-content:end;justify-items:start;gap:20px;padding-bottom:10vh;padding-left:max(7vw,24px)}
+.left-mid{align-content:center;justify-items:start;gap:20px;padding-left:max(7vw,24px)}
+.center{align-content:center;justify-items:center;text-align:center;gap:20px}
+.top-left{align-content:start;justify-items:start;gap:14px;padding-top:120px;padding-left:max(7vw,24px)}
+.scrim::before,.scrimL::before{content:"";position:fixed;inset:0;z-index:-1;opacity:var(--sv,0)}
+.scrim::before{background:radial-gradient(ellipse 60% 48% at 50% 50%,rgba(3,5,13,.76),rgba(3,5,13,0) 78%)}
+.scrimL::before{background:linear-gradient(90deg,rgba(3,5,13,.78) 0%,rgba(3,5,13,.42) 36%,rgba(3,5,13,0) 60%)}
 
-/* окна-точки (в координатах кадра) */
-.pane-label{position:absolute;transform:translate(-50%,0);text-align:left;display:grid;gap:8px;width:var(--w,18%)}
-.pane-label strong{font-family:var(--f-display);font-weight:400;font-size:clamp(16px,1.45vw,23px);line-height:1.15;color:var(--white)}
-.pane-label span{font-size:clamp(16px,1.3vw,20px);color:var(--mute);line-height:1.35}
+/* стеклянные карточки — общий стиль для «точек», автора и кейсов */
+.glass{border-radius:24px;background:linear-gradient(180deg,rgba(28,40,92,.52),rgba(8,12,30,.78));
+  border:1px solid var(--line);box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);
+  -webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%)}
+.stage3d{position:fixed;inset:0;perspective:1300px;display:grid;align-content:center;justify-content:center;padding-top:80px}
+.pcards{display:grid;grid-template-columns:repeat(3,minmax(0,330px));gap:clamp(16px,2vw,28px)}
+.pcard{padding:28px 28px 30px;display:grid;gap:14px;align-content:start;min-height:300px}
+.pcard svg{width:56px;height:56px;color:var(--sky)}
+.pcard .no{font-weight:600;font-size:15px;color:var(--sky)}
+.pcard strong{font-weight:600;font-size:clamp(22px,1.7vw,28px);line-height:1.15;letter-spacing:-.02em}
+.pcard span{font-size:18px;color:var(--mute);line-height:1.4}
+.pintro{position:fixed;left:0;right:0;top:110px;bottom:auto;text-align:center;display:grid;align-content:start;gap:10px;justify-items:center;padding:0 24px}
 
-/* ворота */
-.gate{position:fixed;left:max(6vw,24px);bottom:10vh;display:grid;gap:14px;max-width:min(560px,86vw)}
-.gate .num{font-family:var(--f-display);font-weight:300;font-size:clamp(64px,9vw,150px);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(224,226,242,.9)}
-.gate p{margin:0;font-size:clamp(18px,1.5vw,22px);color:var(--mute);line-height:1.45}
+.author-wrap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;max-width:1100px}
+.portrait{width:clamp(220px,22vw,340px);aspect-ratio:4/5;overflow:hidden;padding:0}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.8) contrast(1.04)}
+.author-text{display:grid;gap:18px;justify-items:start}
 
-/* цифры */
-.stats{display:grid;grid-template-columns:repeat(3,auto);gap:clamp(24px,6vw,110px);align-items:end;justify-content:center}
-.stat{display:grid;gap:10px;justify-items:center}
-.stat .n{font-family:var(--f-display);font-weight:300;font-size:clamp(44px,4.8vw,92px);line-height:.9;font-variant-numeric:tabular-nums;white-space:nowrap}
-.stat .l{font-size:clamp(16px,1.3vw,20px);color:var(--mute);letter-spacing:.04em}
+.gate{position:fixed;left:max(7vw,24px);bottom:10vh;display:grid;gap:12px;max-width:min(580px,86vw)}
+.gate p{margin:0;font-size:clamp(18px,1.4vw,22px);color:var(--mute);line-height:1.45}
 
-/* спираль кейсов */
-.spiral{position:fixed;inset:0;perspective:1100px;perspective-origin:50% 50%;overflow:hidden}
+.stats{display:grid;grid-template-columns:repeat(3,auto);gap:clamp(28px,7vw,130px);align-items:end;justify-content:center}
+.stat{display:grid;gap:8px;justify-items:center}
+.stat .n{font-weight:700;font-size:clamp(48px,6vw,110px);line-height:.95;letter-spacing:-.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat .l{font-size:clamp(16px,1.25vw,20px);color:var(--mute)}
+
+.spiral{position:fixed;inset:0;perspective:1100px;overflow:hidden;z-index:3}
 .card{position:absolute;left:50%;top:50%;width:min(560px,74vw);aspect-ratio:1474/728;margin-left:calc(min(560px,74vw) / -2);margin-top:calc(min(560px,74vw) * -0.2469);
-  border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(118,183,255,.35);background:var(--ink-2);opacity:0}
+  border-radius:22px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px rgba(150,190,255,.3);background:var(--ink-2);opacity:0}
 .card img{display:block;width:100%;height:100%;object-fit:cover}
 
-/* рост */
-.became{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.became li{font-family:var(--f-display);font-weight:300;font-size:clamp(18px,1.7vw,27px);line-height:1.2;display:flex;gap:14px;align-items:baseline}
-.became li::before{content:"";flex:none;width:22px;height:1px;background:var(--sky);transform:translateY(-6px)}
+.became{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.became li{font-weight:600;font-size:clamp(20px,1.9vw,32px);line-height:1.15;letter-spacing:-.02em;display:flex;gap:16px;align-items:baseline}
+.became li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--sky);transform:translateY(-4px);box-shadow:0 0 12px var(--sky)}
+.formats{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:980px}
+.formats span{font-weight:500;font-size:clamp(17px,1.3vw,20px);padding:12px 22px;border-radius:999px;background:rgba(10,16,36,.85);border:1px solid var(--line)}
+.word{font-weight:800;font-size:clamp(46px,10vw,190px);letter-spacing:-.05em;line-height:.9;margin:0}
+.final-cta{display:inline-flex;align-items:center;gap:12px;font-weight:600;font-size:clamp(17px,1.3vw,20px);color:#05070f;background:var(--white);
+  padding:18px 32px;border-radius:999px;text-decoration:none;box-shadow:0 0 70px rgba(118,183,255,.45);transition:transform .35s var(--ease),box-shadow .35s}
+.final-cta:hover,.final-cta:focus-visible{transform:scale(1.04);box-shadow:0 0 100px rgba(118,183,255,.75);outline:2px solid var(--sky);outline-offset:4px}
 
-/* формат */
-.formats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:980px}
-.formats span{font-size:clamp(17px,1.4vw,21px);padding:12px 22px;border:1px solid var(--line);border-radius:999px;background:var(--ink-2);backdrop-filter:blur(6px)}
-
-/* финал */
-.word{font-family:var(--f-display);font-weight:600;font-size:clamp(34px,8.6vw,170px);letter-spacing:-.02em;line-height:.85;margin:0;
-  background:linear-gradient(180deg,#ffffff 0%,#dfe6ff 45%,rgba(118,183,255,.55) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.final-cta{display:inline-flex;align-items:center;gap:14px;font-family:var(--f-display);font-weight:400;font-size:clamp(16px,1.3vw,20px);letter-spacing:.04em;
-  color:var(--ink);background:var(--white);padding:20px 34px;border-radius:999px;text-decoration:none;box-shadow:0 0 60px rgba(118,183,255,.45)}
-.final-cta:hover,.final-cta:focus-visible{background:#fff;box-shadow:0 0 90px rgba(118,183,255,.75);outline:2px solid var(--sky);outline-offset:4px}
-
-/* вход */
-#enter{position:fixed;inset:0;z-index:100;background:var(--ink);display:grid;place-content:center;justify-items:center;gap:22px;transition:opacity .9s ease,visibility .9s}
+#enter{position:fixed;inset:0;z-index:100;background:var(--ink);display:grid;place-content:center;justify-items:center;gap:20px;transition:opacity 1s var(--ease),visibility 1s}
 #enter.gone{opacity:0;visibility:hidden}
-#enter .brand-big{font-family:var(--f-display);font-weight:300;font-size:clamp(28px,5vw,64px);letter-spacing:.3em;padding-left:.3em}
-#enter .pct{font-family:var(--f-display);font-weight:300;font-size:14px;letter-spacing:.3em;color:var(--mute);font-variant-numeric:tabular-nums}
-#enter .line{width:min(320px,60vw);height:1px;background:rgba(224,226,242,.18);position:relative;overflow:hidden}
-#enter .line i{position:absolute;inset:0 auto 0 0;width:0;background:var(--ice)}
-.hint{font-family:var(--f-display);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute)}
+#enter .w{font-weight:600;font-size:clamp(26px,3vw,40px);letter-spacing:-.02em}
+#enter .line{width:min(260px,60vw);height:2px;border-radius:2px;background:rgba(235,240,255,.15);overflow:hidden}
+#enter .line i{display:block;height:100%;width:0;background:var(--white);transition:width .3s}
+.hint{font-weight:500;font-size:14px;color:var(--mute)}
 
 @media (max-width:760px){
-  .chap{display:none}
-  .brand{font-size:12px;letter-spacing:.22em}
-  .cta-top{font-size:14px;padding:10px 16px}
-  .ticks{display:none}
+  body{font-size:17px}
+  .chap,.ticks{display:none}
   .left-bottom,.left-mid,.top-left{padding-left:max(20px,env(safe-area-inset-left,0px))}
-  .left-bottom{padding-bottom:7vh}
-  .stats{grid-template-columns:1fr;gap:28px}
+  .stats{grid-template-columns:1fr;gap:26px}
   .gate{left:max(20px,env(safe-area-inset-left,0px));bottom:7vh}
-  .pane-label{text-align:center;justify-items:center;gap:4px}
+  .pcards{grid-template-columns:1fr;gap:12px;width:min(92vw,420px)}
+  .pcard{min-height:0;padding:18px 20px;grid-template-columns:44px 1fr;column-gap:16px;row-gap:4px}
+  .pcard svg{width:40px;height:40px;grid-row:span 3}
+  .pcard span{font-size:16px}
+  .pintro{top:96px}
+  .stage3d{padding-top:150px}
+  .author-wrap{grid-template-columns:1fr;justify-items:start;gap:18px}
+  .portrait{width:52vw}
   .author{align-content:end;padding-bottom:6vh}
-  .author .lead:last-child{display:none}
-  .pane-intro{display:none}
+  .scrimL::before{background:linear-gradient(0deg,rgba(3,5,13,.86) 0%,rgba(3,5,13,.4) 45%,rgba(3,5,13,0) 66%)}
   .became-wrap{align-content:start;padding-top:104px}
-  .became-wrap.scrimL::before{background:linear-gradient(180deg,rgba(3,5,13,.85) 0%,rgba(3,5,13,.4) 45%,rgba(3,5,13,0) 65%)}
-  .pane-label strong{font-size:17px}
-  .pane-label span{font-size:15px}
+  .became-wrap.scrimL::before{background:linear-gradient(180deg,rgba(3,5,13,.86) 0%,rgba(3,5,13,.4) 48%,rgba(3,5,13,0) 68%)}
 }
-.author .lead{max-width:30ch}
-.author .h2{max-width:12ch}
-.pane-label{text-align:center;justify-items:center}
-.portrait{position:fixed;z-index:2;border-radius:50%;overflow:hidden;opacity:0;pointer-events:none;
-  box-shadow:0 0 0 1px rgba(224,226,242,.25),0 0 60px rgba(118,183,255,.35);
-  -webkit-mask-image:radial-gradient(circle,#000 60%,transparent 72%);mask-image:radial-gradient(circle,#000 60%,transparent 72%)}
-.portrait img{width:100%;height:100%;object-fit:cover;filter:saturate(.55) contrast(1.05) brightness(.95)}
-.gate{opacity:0}
-.pane-list{display:none}
-@media (max-width:760px){.pane-wrap{display:none}.pane-list{display:grid;align-content:end;gap:18px;padding-bottom:7vh}
-.pl-item{display:grid;gap:4px;position:relative;padding-left:18px;border-left:1px solid var(--sky)}
-.pl-item strong{font-family:var(--f-display);font-weight:400;font-size:19px}.pl-item span{font-size:16px;color:var(--mute)}}
-[data-f]{opacity:0}
 </style>
 
 <canvas id="film" aria-hidden="true"></canvas>
-<canvas id="grain" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:.9"></canvas>
-<div class="portrait" id="portrait" aria-hidden="true"><img src="portrait.webp" alt=""></div>
+<canvas id="grain" aria-hidden="true"></canvas>
 
-<div id="enter" role="status">
-  <div class="brand-big">АРХИТЕКТОР</div>
-  <div class="line"><i id="enterBar"></i></div>
-  <div class="pct" id="enterPct">00</div>
-</div>
+<div id="enter" role="status"><div class="w">Архитектор</div><div class="line"><i id="enterBar"></i></div></div>
 
 <header class="top">
-  <a class="brand" href="#top">АРХИТЕКТОР</a>
+  <a class="brand" href="#top">Архитектор</a>
   <div class="chap" id="chap"><b>01</b> / 10 · Вход</div>
   <a class="cta-top" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Получить стратегию</a>
   <div class="bar" id="bar"></div>
@@ -160,110 +143,114 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <nav class="ticks" id="ticks" aria-label="Главы"></nav>
 <main id="scroll"></main>
 
-<section class="ch left-bottom layer scrimL" data-scrim="0,30" aria-label="Вход">
-  <div class="eyebrow glow" data-f="0,26" data-fx="up">Александр Комлев · система продаж</div>
-  <h1 class="h1 glow" data-f="0,26" data-fx="scr">Собираю систему<br>продаж для экспертов</h1>
-  <p class="lead glow" data-f="0,26" data-fx="up">Чтобы доход был управляемым, а не случайным.</p>
-  <div class="hint" data-f="0,8" data-fx="fade">Листайте вниз</div>
+<section class="ch left-bottom layer scrimL" data-scrim="0,32" aria-label="Вход">
+  <p class="eyebrow" data-f="0,28">Александр Комлев · система продаж</p>
+  <h1 class="h1 shadow" data-f="0,28" data-fx="scr">Собираю систему<br>продаж для экспертов</h1>
+  <p class="lead shadow" data-f="0,28">Чтобы доход был управляемым, а не случайным.</p>
+  <p class="hint" data-f="0,8">Листайте вниз</p>
 </section>
 
-<section class="ch top-left layer" aria-label="Вам сюда, если">
-  <div class="eyebrow glow" data-f="62,86" data-fx="up">Вам сюда, если</div>
-  <h2 class="h3 glow pane-intro" data-f="64,86" data-fx="scr">Есть амбиции. Пора переводить их в результат.</h2>
-</section>
-<div class="layer pane-list" aria-label="Три точки (телефон)">
-  <div class="pl-item glow" data-f="66,86" data-fx="up"><strong>Продажи нестабильны</strong><span>Есть результат, но нет управляемости</span></div>
-  <div class="pl-item glow" data-f="68,86" data-fx="up"><strong>Созвоны не конвертируются</strong><span>Интерес есть, сделки нет</span></div>
-  <div class="pl-item glow" data-f="70,86" data-fx="up"><strong>Чек не растёт</strong><span>Страшно пересобрать цену</span></div>
+<div class="layer pintro" aria-label="Вам сюда, если">
+  <p class="eyebrow" data-f="34,64">Вам сюда, если</p>
+  <h2 class="h3 shadow" data-f="35,64" data-fx="scr">Есть амбиции. Пора переводить их в результат.</h2>
 </div>
-<div class="layer pane-wrap" aria-label="Три точки">
-  <div class="pane-label glow" data-f="66,86" data-fx="up" data-pane="0"><strong>Продажи нестабильны</strong><span>Есть результат, но нет управляемости</span></div>
-  <div class="pane-label glow" data-f="68,86" data-fx="up" data-pane="1"><strong>Созвоны не конвертируются</strong><span>Интерес есть, сделки нет</span></div>
-  <div class="pane-label glow" data-f="70,86" data-fx="up" data-pane="2"><strong>Чек не растёт</strong><span>Страшно пересобрать цену</span></div>
+<div class="layer stage3d" aria-label="Три точки">
+  <div class="pcards">
+    <div class="pcard glass" data-f="37,64" data-fx="card">
+      <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M44 18a18 18 0 1 0 2 14"/></svg>
+      <div class="no">01</div><strong>Продажи нестабильны</strong><span>Есть результат, но нет управляемости</span></div>
+    <div class="pcard glass" data-f="39,64" data-fx="card">
+      <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 34 24 24M32 30l18 10"/></svg>
+      <div class="no">02</div><strong>Созвоны не конвертируются</strong><span>Интерес есть, сделки нет</span></div>
+    <div class="pcard glass" data-f="41,64" data-fx="card">
+      <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10 16v26M22 16v26M34 16v26M46 16v26M6 16h44"/></svg>
+      <div class="no">03</div><strong>Чек не растёт</strong><span>Страшно пересобрать цену</span></div>
+  </div>
 </div>
 
-<section class="ch center layer scrim" data-scrim="94,124" aria-label="Система">
-  <h2 class="h2 glow" data-f="96,122" data-fx="wide">Система не&nbsp;собрана</h2>
-  <p class="lead glow" data-f="100,122" data-fx="up" style="text-align:center">Инструменты меняются. Система — нет.</p>
+<section class="ch center layer scrim" data-scrim="70,102" aria-label="Система">
+  <h2 class="h2 grad" data-f="72,100" data-fx="scr">Система не собрана</h2>
+  <p class="lead shadow" data-f="75,100" style="text-align:center">Инструменты меняются. Система — нет.</p>
 </section>
-<section class="ch center layer scrim" data-scrim="132,166" aria-label="Подход">
-  <div class="eyebrow glow" data-f="134,164" data-fx="up">Подход</div>
-  <h2 class="h2 glow" data-f="136,164" data-fx="scr">Я не чиню отдельные точки.<br>Я собираю систему.</h2>
-  <p class="lead glow" data-f="140,164" data-fx="up" style="text-align:center;max-width:40ch">Меняется архитектура решений, ощущение себя в продаже и фактический результат.</p>
+<section class="ch center layer scrim" data-scrim="104,134" aria-label="Подход">
+  <p class="eyebrow" data-f="106,132">Подход</p>
+  <h2 class="h2 grad" data-f="107,132" data-fx="scr">Я не чиню отдельные точки.<br>Я собираю систему.</h2>
+  <p class="lead shadow" data-f="110,132" style="text-align:center;max-width:40ch">Меняется архитектура решений, ощущение себя в продаже и фактический результат.</p>
 </section>
 
 <section class="ch top-left layer" aria-label="Как собирается система">
-  <div class="eyebrow glow" data-f="176,356" data-fx="up">Как собирается система · 4 этапа</div>
+  <p class="eyebrow" data-f="136,242">Как собирается система · 4 этапа</p>
 </section>
-<div class="layer scrimL" data-scrim="178,356" aria-label="Этапы">
-  <div class="gate glow" data-f="186,222"><div class="num">01</div><h3 class="h3">Диагностика</h3><p>Смотрим не только на воронку, а на всю систему: позиционирование, продукт, продажи, мышление, состояние и логику решений.</p></div>
-  <div class="gate glow" data-f="226,262"><div class="num">02</div><h3 class="h3">Пересборка</h3><p>Собираем связку: что вы продаёте, кому, как это звучит, как это продаётся и на чём держится стабильно.</p></div>
-  <div class="gate glow" data-f="266,302"><div class="num">03</div><h3 class="h3">Внедрение</h3><p>Не теория ради теории. Всё превращается в конкретные действия, опоры, сценарии, тексты и управляемую систему.</p></div>
-  <div class="gate glow" data-f="306,346"><div class="num">04</div><h3 class="h3">Закрепление</h3><p>Чтобы система не распалась через неделю. Нужна не вспышка мотивации, а рабочая конструкция, которая выдержит рост.</p></div>
+<div class="layer scrimL" data-scrim="138,244" aria-label="Этапы">
+  <div class="gate" data-f="140,166"><p class="eyebrow">01</p><h3 class="h3 shadow">Диагностика</h3><p>Смотрим не только на воронку, а на всю систему: позиционирование, продукт, продажи, мышление, состояние и логику решений.</p></div>
+  <div class="gate" data-f="168,194"><p class="eyebrow">02</p><h3 class="h3 shadow">Пересборка</h3><p>Собираем связку: что вы продаёте, кому, как это звучит, как это продаётся и на чём держится стабильно.</p></div>
+  <div class="gate" data-f="196,220"><p class="eyebrow">03</p><h3 class="h3 shadow">Внедрение</h3><p>Не теория ради теории. Всё превращается в конкретные действия, опоры, сценарии, тексты и управляемую систему.</p></div>
+  <div class="gate" data-f="222,246"><p class="eyebrow">04</p><h3 class="h3 shadow">Закрепление</h3><p>Чтобы система не распалась через неделю. Нужна не вспышка мотивации, а рабочая конструкция, которая выдержит рост.</p></div>
 </div>
 
-<section class="ch left-mid layer author scrimL" data-scrim="358,380" aria-label="Кто я">
-  <div class="eyebrow glow" data-f="359,380" data-fx="up">Кто я</div>
-  <h2 class="h2 glow" data-f="360,380" data-fx="scr">Александр<br>Комлев</h2>
-  <p class="lead glow" data-f="362,380" data-fx="up">Мой путь — от нестабильных продаж к системе, которая даёт результат.</p>
-  <p class="lead glow" data-f="364,380" data-fx="up">Обучался у сильных экспертов в маркетинге, продажах и мышлении и свёл подходы в одну рабочую систему.</p>
-</section>
-
-<section class="ch center layer scrim" data-scrim="398,450" aria-label="Цифры">
-  <div class="stats">
-    <div class="stat glow" data-f="402,448" data-fx="up"><div class="n" data-count="100" data-suf=" млн+">0</div><div class="l">заработали клиенты</div></div>
-    <div class="stat glow" data-f="404,448" data-fx="up"><div class="n" data-count="12" data-suf=" лет">0</div><div class="l">в продажах</div></div>
-    <div class="stat glow" data-f="406,448" data-fx="up"><div class="n">2 → <span data-count="4" data-suf=" млн">0</span></div><div class="l">без рекламы</div></div>
+<section class="ch left-mid layer author scrimL" data-scrim="248,300" aria-label="Кто я">
+  <div class="author-wrap">
+    <div class="portrait glass" data-f="250,298" data-fx="card"><img src="portrait.webp" alt="Александр Комлев"></div>
+    <div class="author-text">
+      <p class="eyebrow" data-f="252,298">Кто я</p>
+      <h2 class="h2" data-f="253,298" data-fx="scr">Александр Комлев</h2>
+      <p class="lead shadow" data-f="256,298">Мой путь — от нестабильных продаж к системе, которая даёт результат.</p>
+      <p class="lead shadow" data-f="259,298">Обучался у сильных экспертов в маркетинге, продажах и мышлении и свёл подходы в одну рабочую систему.</p>
+    </div>
   </div>
 </section>
 
-<div class="spiral" id="spiral" aria-label="Кейсы клиентов" style="z-index:3"></div>
-<section class="ch top-left layer scrimL" data-scrim="456,532" aria-label="Трансформации" style="z-index:4">
-  <div class="eyebrow glow" data-f="458,530" data-fx="up">Что меняется у клиентов</div>
-  <h2 class="h3 glow" data-f="459,530" data-fx="scr" style="max-width:20ch">Трансформации, которые уже случились</h2>
-  <p class="lead glow" data-f="461,530" data-fx="up">Разные ниши и точки старта. Один итог — управляемые продажи.</p>
+<section class="ch center layer scrim" data-scrim="302,340" aria-label="Цифры">
+  <div class="stats">
+    <div class="stat" data-f="303,338"><div class="n grad" data-count="100" data-suf=" млн+">0</div><div class="l">заработали клиенты</div></div>
+    <div class="stat" data-f="305,338"><div class="n grad" data-count="12" data-suf=" лет">0</div><div class="l">в продажах</div></div>
+    <div class="stat" data-f="307,338"><div class="n grad">2 → <span data-count="4" data-suf=" млн">0</span></div><div class="l">без рекламы</div></div>
+  </div>
 </section>
 
-<section class="ch left-mid layer scrimL became-wrap" data-scrim="570,612" aria-label="Стало">
-  <div class="eyebrow glow" data-f="572,610" data-fx="up">Стало</div>
-  <ul class="became glow">
-    <li data-f="573,610" data-fx="up">Понятная стратегия</li>
-    <li data-f="575,610" data-fx="up">Стабильные продажи</li>
-    <li data-f="577,610" data-fx="up">Уверенная позиция на встречах</li>
-    <li data-f="579,610" data-fx="up">Деньги как результат решений, а не удачи</li>
-    <li data-f="581,610" data-fx="up">Ясное понимание своей ценности</li>
-    <li data-f="583,610" data-fx="up">Рост среднего чека</li>
+<div class="spiral" id="spiral" aria-label="Кейсы клиентов"></div>
+<section class="ch top-left layer scrimL" data-scrim="342,388" aria-label="Трансформации" style="z-index:4">
+  <p class="eyebrow" data-f="343,386">Что меняется у клиентов</p>
+  <h2 class="h3 shadow" data-f="344,386" data-fx="scr" style="max-width:20ch">Трансформации, которые уже случились</h2>
+  <p class="lead shadow" data-f="346,386">Разные ниши и точки старта. Один итог — управляемые продажи.</p>
+</section>
+
+<section class="ch left-mid layer scrimL became-wrap" data-scrim="418,466" aria-label="Стало">
+  <p class="eyebrow" data-f="420,464">Стало</p>
+  <ul class="became shadow">
+    <li data-f="421,464">Понятная стратегия</li>
+    <li data-f="423,464">Стабильные продажи</li>
+    <li data-f="425,464">Уверенная позиция на встречах</li>
+    <li data-f="427,464">Деньги как результат решений, а не удачи</li>
+    <li data-f="429,464">Ясное понимание своей ценности</li>
+    <li data-f="431,464">Рост среднего чека</li>
   </ul>
 </section>
 
-<section class="ch center layer scrim" data-scrim="612,652" aria-label="Формат">
-  <h2 class="h2 glow" data-f="614,650" data-fx="scr">Не курсы. Не марафоны.<br>Не на поболтать.</h2>
-  <p class="lead glow" data-f="617,650" data-fx="up" style="text-align:center;max-width:40ch">Точечная и глубокая работа по пересборке системы продаж.</p>
-  <div class="formats" data-f="620,650" data-fx="up"><span>Индивидуальная работа</span><span>Пересборка продаж и продуктов</span><span>Сопровождение системы</span></div>
+<section class="ch center layer scrim" data-scrim="468,522" aria-label="Формат">
+  <h2 class="h2 grad" data-f="470,520" data-fx="scr">Не курсы. Не марафоны.<br>Не на поболтать.</h2>
+  <p class="lead shadow" data-f="473,520" style="text-align:center;max-width:40ch">Точечная и глубокая работа по пересборке системы продаж.</p>
+  <div class="formats" data-f="476,520"><span>Индивидуальная работа</span><span>Пересборка продаж и продуктов</span><span>Сопровождение системы</span></div>
 </section>
 
-<section class="ch center layer final scrim" data-scrim="656,800" aria-label="Получить стратегию" style="align-content:start;padding-top:14vh">
-  <p class="word" data-f="656,800" data-fx="wide">АРХИТЕКТОР</p>
-  <h2 class="h3 glow" data-f="662,800" data-fx="scr">Получить понятную стратегию</h2>
-  <p class="lead glow" data-f="666,800" data-fx="up" style="text-align:center;max-width:36ch">Встреча 30–40 минут. Без презентаций и прогревов.</p>
-  <a class="final-cta" data-f="669,800" data-fx="up" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать в Telegram <span aria-hidden="true">→</span></a>
+<section class="ch center layer scrim" data-scrim="560,800" aria-label="Получить стратегию" style="align-content:start;padding-top:14vh">
+  <p class="word grad" data-f="560,800" data-fx="wide">Архитектор</p>
+  <h2 class="h3" data-f="566,800" data-fx="scr">Получить понятную стратегию</h2>
+  <p class="lead shadow" data-f="569,800" style="text-align:center;max-width:36ch">Встреча 30–40 минут. Без презентаций и прогревов.</p>
+  <a class="final-cta" data-f="572,800" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать в Telegram <span aria-hidden="true">→</span></a>
 </section>
 
 <script>
 (() => {
 'use strict';
-// ---------- фильм: 7 нейро-роликов, склеенных в один пролёт (кадры 0…560) ----------
-const N = 689;
-// главы: [название, кадр начала, кадр конца, вес прокрутки]
-const CH = [['Вход',0,28,1.4],['Точки',28,86,1.9],['Сборка',86,164,1.9],['Путь',164,358,3.4],['Автор',358,382,1.5],
-  ['Масштаб',382,452,1.4],['Кейсы',452,530,2.8],['Рост',530,610,1.8],['Формат',610,652,1.4],['Решение',652,688,1.5]];
-// где на кадре стоят объекты (доли кадра) — для подписей и портрета
-const PANES = [[.258,.70],[.469,.70],[.672,.70]], ECL = {x:.495, y:.48, r:.158};
+// ---------- фильм: 7 нейро-роликов одним пролётом, 597 кадров ----------
+const N = 597;
+const CH = [['Вход',0,30,1.4],['Точки',30,64,2.0],['Сборка',64,134,2.0],['Путь',134,246,3.2],['Автор',246,300,1.7],
+  ['Масштаб',300,340,1.3],['Кейсы',340,388,2.6],['Рост',388,466,1.9],['Формат',466,522,1.6],['Решение',522,596,1.9]];
 const MOBILE = () => innerHeight > innerWidth;
-const SET = { d:{dir:'d', w:1280, h:720}, m:{dir:'m', w:960, h:540} };
+const SETS = { d:{dir:'d',w:1280,h:720}, h:{dir:'h',w:1920,h:1080}, m:{dir:'m',w:960,h:540} };
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
-const easeOut=t=>1-Math.pow(1-t,3);
-const sm=t=>t*t*(3-2*t);
+const easeOut=t=>1-Math.pow(1-t,4);
 
 // ---------- прокрутка → кадр ----------
 const scrollEl=document.getElementById('scroll'); const totalW=CH.reduce((s,c)=>s+c[3],0);
@@ -272,69 +259,55 @@ function scrollToF(){ const max=document.documentElement.scrollHeight-innerHeigh
   let acc=0; for(const c of CH){ const f=c[3]/totalW; if(s<=acc+f||c===CH[CH.length-1]) return c[1]+(c[2]-c[1])*clamp((s-acc)/f); acc+=f; } return N-1; }
 function chapterStart(k){ const max=document.documentElement.scrollHeight-innerHeight; let acc=0; for(let i=0;i<k;i++) acc+=CH[i][3]/totalW; return acc*max+(k?innerHeight*.04:0); }
 
-// ---------- кадры: сначала грубо, потом всё ----------
-let set=MOBILE()?SET.m:SET.d; const frames={d:[],m:[]};
-function loadSet(s,onFirst){ const arr=frames[s.dir]; if(arr.started) return; arr.started=true;
+// ---------- кадры: сначала лёгкий набор грубо → весь, потом на компьютере резкий 1920 ----------
+const frames={d:[],h:[],m:[]};
+function loadSet(s,par,onFirst,onDone){ const arr=frames[s.dir]; if(arr.started) return; arr.started=true;
   const order=[],seen=new Set(); for(const st of [40,20,10,5,2,1]) for(let i=0;i<N;i+=st) if(!seen.has(i)){seen.add(i);order.push(i);}
   const first=Math.ceil(N/20)+1; let done=0,fired=false,q=0;
   const next=()=>{ if(q>=order.length) return; const i=order[q++]; const im=new Image(); im.decoding='async';
-    im.onload=()=>{ arr[i]=im; done++; if(!fired&&done>=first){fired=true;onFirst&&onFirst();} progress(done,first); next(); };
+    im.onload=()=>{ arr[i]=im; done++; if(!fired&&done>=first){fired=true;onFirst&&onFirst();} if(s.dir!=='h') progress(done,first); if(done===order.length) onDone&&onDone(); next(); };
     im.onerror=()=>{ done++; next(); }; im.src=`${s.dir}/f${String(i).padStart(4,'0')}.webp`; };
-  for(let k=0;k<6;k++) next(); }
+  for(let k=0;k<par;k++) next(); }
 const nearest=(arr,i)=>{ for(let d=0;d<N;d++){ if(arr[i-d]) return arr[i-d]; if(arr[i+d]) return arr[i+d]; } return null; };
+function pick(i){ if(MOBILE()) return frames.m[i]||frames.d[i]; return frames.h[i]||frames.d[i]; }
+function pickNear(i){ return pick(i)||nearest(MOBILE()?frames.m:frames.d,i); }
 
-// ---------- холст: на компьютере кадр во весь экран, на телефоне — с подъездом к сценам, где важны края ----------
-const cv=document.getElementById('film'), cx=cv.getContext('2d'); let rect={x:0,y:0,w:1,h:1}, drawnKey=-1;
-function mobileZoom(F){ // 0 — во весь экран, 1 — виден широкий план (три окна, монолит)
-  const a=sm(clamp((F-46)/14))*(1-sm(clamp((F-154)/14))); return a; }
-function computeRect(F){ const W=innerWidth,H=innerHeight;
-  if(!MOBILE()){ const sc=Math.max(W/set.w,H/set.h); return {w:set.w*sc,h:set.h*sc,x:(W-set.w*sc)/2,y:(H-set.h*sc)/2}; }
-  const cover=H/set.h, wide=W*1.75/set.w, z=mobileZoom(F), sc=cover+(wide-cover)*z;
-  const pz=sm(clamp((F-46)/14))*(1-sm(clamp((F-88)/8)));
-  const w=set.w*sc,h=set.h*sc; return {w,h,x:(W-w)/2,y:(H-h)/2 - pz*H*.07}; }
+// ---------- холст в разрешении экрана ----------
+const cv=document.getElementById('film'), cx=cv.getContext('2d',{alpha:false}); let drawnKey='';
+cx.imageSmoothingEnabled=true; cx.imageSmoothingQuality='high';
 function resize(){ const dpr=Math.min(devicePixelRatio||1,2); cv.width=Math.round(innerWidth*dpr); cv.height=Math.round(innerHeight*dpr);
-  const ns=MOBILE()?SET.m:SET.d; if(ns!==set){ set=ns; loadSet(set); } drawnKey=-1; }
-function draw(F){ rect=computeRect(F); const key=Math.round(F*50)+'|'+Math.round(rect.w); if(key===drawnKey) return; drawnKey=key;
-  const arr=frames[set.dir], dpr=cv.width/innerWidth; const i0=Math.floor(F), i1=Math.min(N-1,i0+1), a=F-i0;
-  const A=arr[i0]||nearest(arr,i0); if(!A) return;
-  cx.fillStyle='#03050d'; cx.fillRect(0,0,cv.width,cv.height);
-  const r=[rect.x*dpr,rect.y*dpr,rect.w*dpr,rect.h*dpr];
-  cx.globalAlpha=1; cx.drawImage(A,...r); const B=arr[i1]; if(B&&B!==A&&a>.02){ cx.globalAlpha=a; cx.drawImage(B,...r); cx.globalAlpha=1; }
-  if(rect.h<innerHeight-2){ // мягкие края кадра на телефоне
-    const fade=60*dpr; let g=cx.createLinearGradient(0,r[1],0,r[1]+fade); g.addColorStop(0,'#03050d'); g.addColorStop(1,'rgba(3,5,13,0)'); cx.fillStyle=g; cx.fillRect(0,r[1],cv.width,fade);
-    g=cx.createLinearGradient(0,r[1]+r[3]-fade,0,r[1]+r[3]); g.addColorStop(0,'rgba(3,5,13,0)'); g.addColorStop(1,'#03050d'); cx.fillStyle=g; cx.fillRect(0,r[1]+r[3]-fade,cv.width,fade); }
-}
+  cx.imageSmoothingEnabled=true; cx.imageSmoothingQuality='high'; drawnKey=''; }
+function draw(F){ const i0=Math.floor(F), i1=Math.min(N-1,i0+1), a=F-i0; const A=pickNear(i0); if(!A) return;
+  const B=pick(i1); const key=(Math.round(F*60))+'|'+cv.width+'|'+(A.naturalWidth)+'|'+(B?B.naturalWidth:0); if(key===drawnKey) return; drawnKey=key;
+  const W=cv.width,H=cv.height, sc=Math.max(W/A.naturalWidth,H/A.naturalHeight), w=A.naturalWidth*sc, h=A.naturalHeight*sc, x=(W-w)/2, y=(H-h)/2;
+  cx.globalAlpha=1; cx.drawImage(A,x,y,w,h);
+  if(B&&B!==A&&a>.02){ const s2=Math.max(W/B.naturalWidth,H/B.naturalHeight); cx.globalAlpha=a; cx.drawImage(B,(W-B.naturalWidth*s2)/2,(H-B.naturalHeight*s2)/2,B.naturalWidth*s2,B.naturalHeight*s2); cx.globalAlpha=1; } }
 
-// ---------- текст ----------
+// ---------- текст: мягко, как у Apple — прозрачность, подъём, лёгкий масштаб; в покое без трансформаций ----------
 const GLY='АРХИТЕКТОРСИСТЕМА#/<>=+*01';
-const els=[...document.querySelectorAll('[data-f]')].map(el=>{ const [a,b]=el.dataset.f.split(',').map(Number); return {el,a,b,fx:el.dataset.fx||'gate',state:0,text:el.innerHTML}; });
+const els=[...document.querySelectorAll('[data-f]')].map(el=>{ const [a,b]=el.dataset.f.split(',').map(Number); return {el,a,b,fx:el.dataset.fx||'up',state:0,text:el.innerHTML,lastV:-1}; });
 function scramble(o){ const el=o.el, html=o.text, tmp=document.createElement('div'); tmp.innerHTML=html; const parts=[];
   tmp.childNodes.forEach(n=>parts.push(n.nodeType===3?{t:n.textContent}:{br:true})); const total=parts.reduce((s,x)=>s+(x.t?x.t.length:0),0);
   const t0=performance.now(); cancelAnimationFrame(o.raf);
-  const tick=now=>{ const k=clamp((now-t0)/900); let shown=Math.floor(easeOut(k)*total), out='';
+  const tick=now=>{ const k=clamp((now-t0)/850); let shown=Math.floor(easeOut(k)*total), out='';
     for(const x of parts){ if(x.br){out+='<br>';continue;} for(const ch of x.t){ if(shown>0||ch===' '){out+=ch;shown--;} else out+=GLY[(Math.random()*GLY.length)|0]; } }
     el.innerHTML=out; if(k<1) o.raf=requestAnimationFrame(tick); else el.innerHTML=html; }; o.raf=requestAnimationFrame(tick); }
-const FW=3; const vis=(F,a,b)=>Math.min(clamp((F-a)/FW), clamp((b-F)/FW));
-function applyFx(o,v){ const el=o.el, e=easeOut(v); el.style.opacity=v.toFixed(3);
-  const pre=el.dataset.pane!==undefined?'translate(-50%,0) ':'';
-  if(o.fx==='gate'){ el.style.transform=`translate3d(${(1-e)*-30}px,0,0)`; el.style.filter=`blur(${(1-e)*8}px)`; return; }
-  if(o.fx==='up'||o.fx==='scr') el.style.transform=pre+`translate3d(0,${(1-e)*26}px,0)`;
-  if(o.fx==='wide'){ el.style.letterSpacing=(0.42*(1-e)-0.03)+'em'; el.style.filter=`blur(${(1-e)*10}px)`; }
+const FW=5; const vis=(F,a,b)=>Math.min(clamp((F-a)/FW), clamp((b-F)/FW));
+function applyFx(o,v){ if(Math.abs(v-o.lastV)<.001) return; o.lastV=v; const el=o.el, e=easeOut(v);
+  el.style.opacity=e.toFixed(3);
+  if(v>=1){ el.style.transform='none'; el.style.filter='none'; }
+  else if(o.fx==='card'){ el.style.transform=`translate3d(0,${(1-e)*70}px,${(1-e)*-520}px) rotateX(${(1-e)*14}deg)`; }
+  else if(o.fx==='wide'){ el.style.transform=`scale(${.94+.06*e})`; el.style.filter=`blur(${(1-e)*8}px)`; }
+  else { el.style.transform=`translate3d(0,${(1-e)*28}px,0) scale(${.985+.015*e})`; }
   if(o.fx==='scr'){ if(v>.6&&!o.state){o.state=1;scramble(o);} if(v<.05) o.state=0; } }
 const scrims=[...document.querySelectorAll('[data-scrim]')].map(el=>{const[a,b]=el.dataset.scrim.split(',').map(Number);return{el,a,b};});
-const panes=[...document.querySelectorAll('[data-pane]')];
-function placePanes(){ const m=MOBILE(); panes.forEach((el,i)=>{ const [px,py]=PANES[i];
-  el.style.left=(rect.x+rect.w*px)+'px'; el.style.top=(rect.y+rect.h*(m?.62:py))+'px'; el.style.width=Math.max(m?100:180,rect.w*.165)+'px'; }); }
-const portrait=document.getElementById('portrait');
-function placePortrait(F){ const r=rect.h*ECL.r, v=clamp((F-356)/5)*(1-clamp((F-372)/4));
-  Object.assign(portrait.style,{width:2*r+'px',height:2*r+'px',left:(rect.x+rect.w*ECL.x-r)+'px',top:(rect.y+rect.h*ECL.y-r)+'px',opacity:v.toFixed(3)}); }
 const counts=[...document.querySelectorAll('[data-count]')];
-function placeCounts(F){ const t=easeOut(clamp((F-400)/16)); counts.forEach(el=>{ el.textContent=Math.round(+el.dataset.count*t)+el.dataset.suf; }); }
+function placeCounts(F){ const t=easeOut(clamp((F-304)/14)); counts.forEach(el=>{ el.textContent=Math.round(+el.dataset.count*t)+el.dataset.suf; }); }
 const spiral=document.getElementById('spiral'), NC=18, cards=[];
 for(let k=0;k<NC;k++){ const c=document.createElement('div'); c.className='card'; const im=document.createElement('img'); im.alt='Кейс клиента'; im.loading='lazy';
   im.src=`cases/c${String(k).padStart(2,'0')}.webp`; c.appendChild(im); spiral.appendChild(c); cards.push(c); }
-function placeSpiral(F){ const on=F>452&&F<534; spiral.style.visibility=on?'visible':'hidden'; if(!on) return;
-  const lt=clamp((F-456)/72), m=MOBILE(), RX=innerWidth*(m?.18:.22), RY=innerHeight*.16;
+function placeSpiral(F){ const on=F>340&&F<392; spiral.style.visibility=on?'visible':'hidden'; if(!on) return;
+  const lt=clamp((F-344)/44), m=MOBILE(), RX=innerWidth*(m?.18:.22), RY=innerHeight*.16;
   cards.forEach((c,k)=>{ const u=lt*(NC+2.2)-k*.92+.2, z=-1900+u*900, ang=u*1.05+k*.4;
     const x=Math.cos(ang)*RX, y=Math.sin(ang)*RY+innerHeight*.05, op=Math.min(clamp((u+.4)/.9),clamp((2.55-u)/.45));
     c.style.opacity=op.toFixed(3); c.style.transform=`translate3d(${x}px,${y}px,${z}px) rotateY(${Math.sin(ang)*-14}deg)`; c.style.zIndex=String(1000+Math.round(z)); }); }
@@ -348,32 +321,31 @@ function nav(F){ const k=Math.max(0,CH.findIndex(c=>F>=c[1]&&F<=c[2]));
   if(k!==lastCh){ lastCh=k; chapEl.innerHTML=`<b>${String(k+1).padStart(2,'0')}</b> / 10 · ${CH[k][0]}`; tickBtns.forEach((b,i)=>b.classList.toggle('on',i===k)); }
   bar.style.width=(F/(N-1)*100).toFixed(2)+'%'; }
 
-// ---------- цикл ----------
+// ---------- плёнка: зерно и пыль ----------
+const gc=document.getElementById('grain'), gx=gc.getContext('2d'); const dust=[];
+function gsize(){ gc.width=Math.round(innerWidth/2); gc.height=Math.round(innerHeight/2); } gsize();
+for(let i=0;i<60;i++) dust.push({x:Math.random(),y:Math.random(),r:.4+Math.random()*1.4,s:.00004+Math.random()*.0001,a:.12+Math.random()*.4,p:Math.random()*6});
+const noise=document.createElement('canvas'); noise.width=noise.height=128; { const nx=noise.getContext('2d'), d=nx.createImageData(128,128);
+  for(let i=0;i<d.data.length;i+=4){ const v=Math.random()*255; d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=11; } nx.putImageData(d,0,0); }
+const pat=gx.createPattern(noise,'repeat');
+
+// ---------- один цикл на всё: инерция прокрутки как у Apple ----------
 let cur=0,last=performance.now(); const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function frame(now){ const dt=Math.min(64,now-last); last=now; const target=scrollToF();
-  const k=reduce?1:1-Math.pow(1-.09,dt/16.7); cur+=(target-cur)*k; if(Math.abs(target-cur)<.01) cur=target;
+  const k=reduce?1:1-Math.pow(1-.075,dt/16.7); cur+=(target-cur)*k; if(Math.abs(target-cur)<.01) cur=target;
   draw(cur); for(const o of els) applyFx(o,vis(cur,o.a,o.b)); scrims.forEach(s=>s.el.style.setProperty('--sv',vis(cur,s.a,s.b).toFixed(3)));
-  placePanes(); placePortrait(cur); placeCounts(cur); placeSpiral(cur); nav(cur); requestAnimationFrame(frame); }
-
-
-// ---------- плёнка: зерно и пыль поверх всего фильма — как в образце ----------
-const gc=document.getElementById('grain'), gx=gc.getContext('2d'); const dust=[];
-function gsize(){ gc.width=Math.round(innerWidth/2); gc.height=Math.round(innerHeight/2); }
-gsize(); addEventListener('resize',gsize);
-for(let i=0;i<70;i++) dust.push({x:Math.random(),y:Math.random(),r:.4+Math.random()*1.6,s:.00004+Math.random()*.00012,a:.15+Math.random()*.45,p:Math.random()*6});
-const noise=document.createElement('canvas'); noise.width=noise.height=128; { const nx=noise.getContext('2d'), d=nx.createImageData(128,128);
-  for(let i=0;i<d.data.length;i+=4){ const v=Math.random()*255; d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=14; } nx.putImageData(d,0,0); }
-let gt=0; function film(now){ gt=now; gx.clearRect(0,0,gc.width,gc.height);
-  const pat=gx.createPattern(noise,'repeat'); gx.save(); gx.translate(-(Math.random()*128)|0,-(Math.random()*128)|0); gx.fillStyle=pat; gx.fillRect(0,0,gc.width+128,gc.height+128); gx.restore();
-  for(const p of dust){ p.y-=p.s*16; if(p.y<-.02){p.y=1.02;p.x=Math.random();} const tw=.6+.4*Math.sin(now*.001+p.p);
-    gx.beginPath(); gx.arc(p.x*gc.width+Math.sin(now*.0003+p.p)*6,p.y*gc.height,p.r,0,6.283); gx.fillStyle=`rgba(190,215,255,${(p.a*tw).toFixed(3)})`; gx.fill(); }
-  requestAnimationFrame(film); }
-if(!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(film);
+  placeCounts(cur); placeSpiral(cur); nav(cur);
+  if(!reduce){ gx.clearRect(0,0,gc.width,gc.height); gx.save(); gx.translate(-(Math.random()*128)|0,-(Math.random()*128)|0); gx.fillStyle=pat; gx.fillRect(0,0,gc.width+128,gc.height+128); gx.restore();
+    for(const p of dust){ p.y-=p.s*dt; if(p.y<-.02){p.y=1.02;p.x=Math.random();} const tw=.6+.4*Math.sin(now*.001+p.p);
+      gx.beginPath(); gx.arc(p.x*gc.width+Math.sin(now*.0003+p.p)*6,p.y*gc.height,p.r,0,6.283); gx.fillStyle=`rgba(190,215,255,${(p.a*tw).toFixed(3)})`; gx.fill(); } }
+  requestAnimationFrame(frame); }
 
 // ---------- вход ----------
-const enter=document.getElementById('enter'), ePct=document.getElementById('enterPct'), eBar=document.getElementById('enterBar');
-function progress(done,first){ const v=clamp(done/first); ePct.textContent=String(Math.round(v*100)).padStart(2,'0'); eBar.style.width=(v*100)+'%'; }
-const t0=performance.now(); function open(){ setTimeout(()=>enter.classList.add('gone'),Math.max(0,1400-(performance.now()-t0))); }
-addEventListener('resize',resize); resize(); loadSet(set,open); setTimeout(open,9000); requestAnimationFrame(frame);
+const enter=document.getElementById('enter'), eBar=document.getElementById('enterBar');
+function progress(done,first){ eBar.style.width=(clamp(done/first)*100)+'%'; }
+const t0=performance.now(); function open(){ setTimeout(()=>enter.classList.add('gone'),Math.max(0,1200-(performance.now()-t0))); }
+addEventListener('resize',()=>{ resize(); gsize(); if(MOBILE()) loadSet(SETS.m,6); else loadSet(SETS.d,6,null,()=>loadSet(SETS.h,4)); }); resize();
+if(MOBILE()) loadSet(SETS.m,6,open); else loadSet(SETS.d,6,open,()=>loadSet(SETS.h,4));
+setTimeout(open,9000); requestAnimationFrame(frame);
 })();
 </script>
