@@ -46,7 +46,7 @@
 <!-- auto:files -->
 | Папка | Файлов | Вес | Текстовые файлы (строк) |
 |---|---|---|---|
-| . | 4 | 19 КБ | CLAUDE.md (16), INDEX.md (63), MAP.md (161), README.md (1) |
+| . | 4 | 19 КБ | CLAUDE.md (16), INDEX.md (64), MAP.md (161), README.md (1) |
 | .claude | 7 | 106 КБ | .claude/settings.json (8), .claude/skills/my-voice/SKILL.md (571), .claude/skills/particle-scene/SKILL.md (89), .claude/skills/ru-typography/SKILL.md (60), .claude/skills/site-10k/SKILL.md (94), .claude/skills/studio-layout/SKILL.md (98), .claude/skills/volumetric-web/SKILL.md (43) |
 | anna | 1 | 1.7 МБ | anna/index.html (591) |
 | architektor | 51 | 22.3 МБ | architektor/fx/post.js (894), architektor/index.html (1825) |
@@ -54,7 +54,7 @@
 | bezlishnego | 46 | 22.7 МБ | bezlishnego/index.html (1488), bezlishnego/legal.html (157), bezlishnego/satin.html (1494), bezlishnego/tilda-1-oformlenie.txt (2), bezlishnego/tilda-2-stranica.txt (133) |
 | dengi | 21 | 13.4 МБ | dengi/app.js (888), dengi/fonts/OFL.txt (94), dengi/index.html (199), dengi/style.css (203), dengi/sw.js (28), dengi/vendor/tesseract-core-lstm.wasm.js (283), dengi/vendor/tesseract-core-simd-lstm.wasm.js (283) |
 | kino | 34 | 32.7 МБ | kino/app.js (276), kino/index.html (62), kino/style.css (62) |
-| research | 14 | 713 КБ | research/README.md (153), research/activetheory-ref.md (405), research/studios-ref.md (356), research/video-ref.md (310), research/voice-aleksandr.md (587), research/wave1-eu-creative-dev.md (340), research/wave1-premium-anatomy.md (345), research/wave1-us-visual.md (421), research/wave2-asia.md (269), research/wave2-cyrillic.md (475), research/wave2-deep.md (356) |
+| research | 15 | 963 КБ | research/README.md (153), research/activetheory-ref.md (405), research/studios-ref.md (356), research/video-ref.md (310), research/voice-aleksandr.md (587), research/wave1-eu-creative-dev.md (340), research/wave1-premium-anatomy.md (345), research/wave1-us-visual.md (421), research/wave2-asia.md (269), research/wave2-cyrillic.md (475), research/wave2-deep.md (356) |
 | sistema | 27 | 1.3 МБ | sistema/app.js (706), sistema/index.html (656), sistema/legal.html (98) |
 | steklo | 1413 | 120.0 МБ | steklo/index.html (380), steklo/neuro/PIPELINE.md (22) |
 | steklo-3d | 487 | 26.0 МБ | steklo-3d/index.html (385), steklo-3d/studio/qa.mjs (23), steklo-3d/studio/render.mjs (20), steklo-3d/studio/scene.html (4), steklo-3d/studio/scene.js (393), steklo-3d/studio/serve.mjs (7), steklo-3d/studio/timeline.js (12) |
