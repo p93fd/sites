@@ -8,7 +8,7 @@
 /* Сайт-фильм из 9 сцен: один свайп = одна сцена. Камера проигрывает пролёт до следующей сцены, текст проявляется, когда кадр останавливается. */
 :root{
   --ink:#03050d; --ink-2:#0a1024; --royal:#4155e8; --sky:#76b7ff; --white:#f5f7ff;
-  --mute:rgba(235,240,255,.76); --line:rgba(150,190,255,.26);
+  --mute:rgba(240,244,255,.88); --line:rgba(150,190,255,.34);
   --f:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
   --out:cubic-bezier(.22,1,.36,1);
   color-scheme:dark;
@@ -20,9 +20,11 @@ body{margin:0;background:var(--ink);color:var(--white);font-family:var(--f);font
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
 #stage{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--ink)}
-#stage .layer{position:absolute;inset:0;will-change:transform}
+#stage .layer{position:absolute;inset:0;will-change:transform;filter:contrast(1.14) saturate(1.12) brightness(1.03)}
+#stage #still{transition:filter .38s ease}
+#stage.deep #still{filter:blur(5px) brightness(.5);transition:filter 1.6s cubic-bezier(.22,1,.36,1)}
 #stage img,#stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-#stage video{opacity:0;transition:opacity .25s linear}
+#stage video{opacity:0;transition:opacity .35s cubic-bezier(.4,0,.2,1)}
 #stage video.show{opacity:1;transition:none}
 #grain{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;mix-blend-mode:screen}
 #touch{position:fixed;inset:0;z-index:2;touch-action:none}
@@ -55,10 +57,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .s-left::before{background:linear-gradient(90deg,rgba(3,5,13,.8) 0%,rgba(3,5,13,.42) 38%,rgba(3,5,13,0) 62%)}
 .s-center::before{background:radial-gradient(ellipse 62% 50% at 50% 50%,rgba(3,5,13,.72),rgba(3,5,13,0) 78%)}
 .s-top::before{background:linear-gradient(180deg,rgba(3,5,13,.78) 0%,rgba(3,5,13,.25) 40%,rgba(3,5,13,0) 60%)}
-.rv{opacity:0;transform:translate3d(0,24px,0) scale(.985);transition:opacity .45s ease,transform .45s ease}
-.on .rv{opacity:1;transform:none;transition:opacity 1.1s var(--out) var(--d,0s),transform 1.4s var(--out) var(--d,0s)}
-.c3d{opacity:0;transform:translate3d(0,60px,-420px) rotateX(16deg);transition:opacity .45s ease,transform .45s ease}
-.on .c3d{opacity:1;transform:none;transition:opacity 1.1s var(--out) var(--d,0s),transform 1.6s var(--out) var(--d,0s)}
+.rv{opacity:0;transform:translate3d(0,24px,0) scale(.985);transition:opacity .3s ease,transform .3s ease}
+.on .rv{opacity:1;transform:none;transition:opacity .85s var(--out) var(--d,0s),transform 1.1s var(--out) var(--d,0s)}
+.c3d{opacity:0;transform:translate3d(0,60px,-420px) rotateX(16deg);transition:opacity .3s ease,transform .3s ease}
+.on .c3d{opacity:1;transform:none;transition:opacity .85s var(--out) var(--d,0s),transform 1.2s var(--out) var(--d,0s)}
 
 .eyebrow{font-weight:600;font-size:clamp(15px,1.15vw,19px);color:var(--sky);margin:0}
 .h1{font-weight:700;font-size:clamp(42px,5.8vw,104px);line-height:1.02;letter-spacing:-.035em;margin:0;text-wrap:balance}
@@ -258,3 +260,4 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </section>
 
 <script src="player.js"></script>
+<script src="particles.js"></script>

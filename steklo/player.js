@@ -1,5 +1,6 @@
 (() => {
 'use strict';
+// v7: плавная остановка, ускоренная прокрутка, 1080p на плотных экранах, живые частицы сцены 8.
 // v6: переходы между сценами — готовые ролики 60 fps с вшитой кривой скорости и моушн-блюром.
 // Свайп = проигрывание ролика аппаратным декодером (как у Apple), а не перебор картинок.
 const MOBILE = () => innerHeight > innerWidth || innerWidth < 760;
@@ -8,7 +9,8 @@ const easeOut=t=>1-Math.pow(1-t,4);
 const stops=[...document.querySelectorAll('.stop')].map((el,i)=>({el,i,name:el.dataset.name}));
 const S=stops.length;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const set=MOBILE()?'m':'d';
+const NET=navigator.connection||{}; const FAST=!NET.saveData&&!/2g|3g/.test(NET.effectiveType||'');
+const set=(!MOBILE()||(FAST&&(devicePixelRatio||1)>=2))?'d':'m';
 const EXT=document.createElement('video').canPlayType('video/mp4; codecs="avc1.640028"')?'mp4':'webm';
 const url=(k,dir)=>`v/${set}${k}${dir}.${EXT}`, purl=k=>`v/${set}p${k}.webp`;
 
@@ -24,13 +26,13 @@ function poster(k){ if(!posters[k]){ const im=new Image(); im.decoding='async'; 
 
 // ---------- сцена ----------
 const still=document.getElementById('still'), vids=[document.getElementById('vA'),document.getElementById('vB')], zoomEl=document.getElementById('zoom');
-let vi=0, idx=0, playing=null, queue=null, restSince=performance.now();
+let vi=0, idx=0, playing=null, queue=null, restSince=performance.now(), cur=null, zNow=1.012;
 const chapEl=document.getElementById('chap'), bar=document.getElementById('bar'), dotsEl=document.getElementById('dots');
 stops.forEach((s,k)=>{ const b=document.createElement('button'); b.type='button'; b.innerHTML=`${s.name}<i></i>`; b.setAttribute('aria-label',`Сцена ${k+1}: ${s.name}`); b.addEventListener('click',()=>goTo(k)); dotsEl.appendChild(b); });
 const dots=[...dotsEl.children];
 function ui(k){ chapEl.innerHTML=`<b>${String(k+1).padStart(2,'0')}</b> / ${String(S).padStart(2,'0')} · ${stops[k].name}`; dots.forEach((b,i)=>b.classList.toggle('on',i===k));
   bar.style.width=(k/(S-1)*100)+'%'; document.getElementById('next').style.opacity=k===S-1?0:1; }
-function activate(k){ stops.forEach((s,i)=>s.el.classList.toggle('on',i===k)); ring.classList.toggle('on',k===5); if(k===5){ countUp(); spiralStart=performance.now(); } }
+function activate(k){ dispatchEvent(new CustomEvent('scene',{detail:k})); stops.forEach((s,i)=>s.el.classList.toggle('on',i===k)); ring.classList.toggle('on',k===5); if(k===5){ countUp(); spiralStart=performance.now(); } }
 
 async function setStill(k){ const im=await poster(k); still.src=im.src; try{ await still.decode(); }catch(e){} }
 
@@ -38,19 +40,20 @@ async function setStill(k){ const im=await poster(k); still.src=im.src; try{ awa
 function step(from,to,rate,isLast){ return new Promise(res=>{
   const seg=Math.min(from,to), dir=to>from?'f':'r', v=vids[vi]; vi^=1;
   poster(to);
-  v.playbackRate=rate; v.src=blobs[seg+dir]||url(seg,dir); v.currentTime=0;
+  cur=v; v.playbackRate=isLast?rate:Math.max(rate,2.2); v.src=blobs[seg+dir]||url(seg,dir); v.currentTime=0;
   let shown=false, done=false;
-  const watch=()=>{ if(done) return; if(v.duration&&isLast&&!shown&&v.currentTime/v.duration>.62){ shown=true; activate(to); } if(!v.paused||v.readyState<2) requestAnimationFrame(watch); };
+  const watch=()=>{ if(done) return; if(v.duration&&isLast&&!shown&&v.currentTime/v.duration>.55){ shown=true; activate(to); } if(!v.paused||v.readyState<2) requestAnimationFrame(watch); };
   v.onplaying=()=>{ v.classList.add('show'); requestAnimationFrame(watch); };
   v.onended=async()=>{ done=true; await setStill(to); requestAnimationFrame(()=>{ v.classList.remove('show'); }); if(isLast&&!shown) activate(to); res(); };
   v.onerror=async()=>{ done=true; await setStill(to); activate(to); res(); };
   const p=v.play(); if(p&&p.catch) p.catch(async()=>{ done=true; await setStill(to); activate(to); res(); });
 }); }
 
-async function goTo(k){ k=clamp(k,0,S-1); if(playing){ queue=k; return; } if(k===idx) return;
-  activate(-1); const from=idx; idx=k; ui(k);
+async function goTo(k){ k=clamp(k,0,S-1); if(playing){ queue=k; if(cur&&k!==idx) cur.playbackRate=Math.max(cur.playbackRate,2); return; } if(k===idx) return;
+  const from=idx; activate(-1); idx=k; ui(k);
+  if(from===7&&!reduce){ playing=true; await new Promise(r=>setTimeout(r,380)); }
   if(reduce){ await setStill(k); activate(k); restSince=performance.now(); return; }
-  playing=true; const dist=Math.abs(k-from), sgn=Math.sign(k-from), rate=dist===1?1:Math.min(3,1.4+dist*.3);
+  playing=true; const dist=Math.abs(k-from), sgn=Math.sign(k-from), rate=dist===1?1.3:Math.min(3.2,1.7+dist*.3);
   for(let s=from; s!==k; s+=sgn) await step(s,s+sgn,rate,s+sgn===k);
   playing=null; restSince=performance.now(); preloadAround(k);
   if(queue!==null){ const q=queue; queue=null; if(q!==idx) goTo(q); } }
@@ -90,15 +93,16 @@ const gc=document.getElementById('grain'), gx=gc.getContext('2d'); const dust=[]
 function gsize(){ gc.width=Math.round(innerWidth/2); gc.height=Math.round(innerHeight/2); } gsize();
 for(let i=0;i<60;i++) dust.push({x:Math.random(),y:Math.random(),r:.4+Math.random()*1.4,s:.00004+Math.random()*.0001,a:.12+Math.random()*.4,p:Math.random()*6});
 const noise=document.createElement('canvas'); noise.width=noise.height=128; { const nx=noise.getContext('2d'), d=nx.createImageData(128,128);
-  for(let i=0;i<d.data.length;i+=4){ const v=Math.random()*255; d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=10; } nx.putImageData(d,0,0); }
+  for(let i=0;i<d.data.length;i+=4){ const v=Math.random()*255; d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=5; } nx.putImageData(d,0,0); }
 const pat=gx.createPattern(noise,'repeat');
 
 // ---------- один цикл ----------
 let last=performance.now();
 function frame(now){ const dt=Math.min(64,now-last); last=now;
   // дыхание кадра в покое; во время ролика — плавно к 1
-  const z=playing?1.012:1.012+.012*Math.sin((now-restSince)*.00035-1.57);
-  if(!reduce) zoomEl.style.transform=`scale(${z.toFixed(5)})`;
+  const zT=playing?1.012:1.012+.01*Math.sin((now-restSince)*.00032);
+  zNow+=(zT-zNow)*Math.min(1,dt*.004);
+  if(!reduce) zoomEl.style.transform=`scale(${zNow.toFixed(5)})`;
   tickCounts(now); tickSpiral(now);
   if(!reduce){ gx.clearRect(0,0,gc.width,gc.height); gx.save(); gx.translate(-(Math.random()*128)|0,-(Math.random()*128)|0); gx.fillStyle=pat; gx.fillRect(0,0,gc.width+128,gc.height+128); gx.restore();
     for(const p of dust){ p.y-=p.s*dt; if(p.y<-.02){p.y=1.02;p.x=Math.random();} const tw2=.6+.4*Math.sin(now*.001+p.p);
