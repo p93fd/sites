@@ -38,14 +38,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .chap b{color:var(--white);font-weight:600}
 .cta-top{font-weight:600;font-size:15px;color:#05070f;background:var(--white);border-radius:999px;padding:10px 20px;text-decoration:none;transition:transform .35s var(--out)}
 .cta-top:hover,.cta-top:focus-visible{transform:scale(1.04);outline:2px solid var(--sky);outline-offset:3px}
-.bar{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--royal),var(--sky));width:0;transition:width 1.6s var(--out)}
+.bar{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--royal),var(--sky));width:100%;transform-origin:left;transform:scaleX(0)}
 .dots{position:fixed;right:max(18px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:12px}
 .dots button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;justify-content:flex-end;font-size:12px;font-weight:500;color:transparent;transition:color .3s}
 .dots button i{display:block;width:6px;height:6px;border-radius:50%;background:rgba(235,240,255,.35);transition:transform .5s var(--out),background .5s}
 .dots button.on i{background:var(--white);transform:scale(1.6)}
 .dots button:hover,.dots button:focus-visible{color:var(--mute)}
 .next{all:unset;position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;cursor:pointer;box-sizing:border-box;
-  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(10,16,36,.55);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:opacity .5s}
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(10,16,36,.55);border:1px solid var(--line);transition:opacity .5s}
 .next svg{width:18px;height:18px;animation:nudge 2.4s var(--out) infinite}
 .next:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
 @keyframes nudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
@@ -72,7 +72,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .shadow{text-shadow:0 2px 24px rgba(3,5,13,.7)}
 
 .glass{border-radius:26px;background:linear-gradient(180deg,rgba(30,44,100,.5),rgba(8,12,30,.8));border:1px solid var(--line);
-  box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);-webkit-backdrop-filter:blur(24px) saturate(150%);backdrop-filter:blur(24px) saturate(150%)}
+  box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);}
 
 /* 1 вход */
 .s1{align-content:end;justify-items:start;gap:20px;padding-bottom:13vh;padding-left:max(7vw,24px)}
@@ -93,7 +93,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .s3 .eyebrow{font-size:clamp(18px,1.5vw,24px)}
 .s3 .split{display:grid;gap:10px}
 /* 4 путь */
-.s4 .eyebrow{background:rgba(3,5,13,.72);padding:7px 14px;border-radius:999px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.s4 .eyebrow{background:rgba(3,5,13,.72);padding:7px 14px;border-radius:999px;}
 .s4{align-content:end;justify-items:start;gap:22px;padding-left:max(7vw,24px);padding-bottom:12vh}
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,280px));gap:14px}
 .step{padding:20px 20px 22px;display:grid;gap:8px;align-content:start}
@@ -169,15 +169,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* v10: золото, карточки, текст мимо главного объекта сцены */
 :root{--gold:#e9c97e;--gold-hi:#fff1c9;--gold-lo:#b0823a;--warm:rgba(250,244,230,.92);
-  --gline:linear-gradient(135deg,#f7e3a8 0%,#b0823a 38%,#f3d58a 62%,#8a6428 100%);--gfill:rgba(6,8,18,.6)}
+  --gline:linear-gradient(135deg,#f7e3a8 0%,#b0823a 38%,#f3d58a 62%,#8a6428 100%);--gfill:rgba(6,8,18,.74)}
 #stage img,#stage video{transition:opacity .5s cubic-bezier(.4,0,.2,1)}
-#film{opacity:0}#film.ready{opacity:1}
+#stage canvas#seq{position:absolute;inset:0;width:100%;height:100%;display:block}
 #idle{opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1)}#idle.show{opacity:1;transition:opacity .9s cubic-bezier(.4,0,.2,1)}
 #gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0}
 .stop::before{display:none}
 .gcard,.glass{position:relative;background:var(--gfill);border:0;border-radius:24px;
   box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 46px rgba(233,201,126,.12),inset 0 1px 0 rgba(255,241,201,.12);
-  -webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+}
 .gcard::after,.glass::after,.formats span::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--gline);pointer-events:none;
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .portrait.glass::after{z-index:2}
@@ -210,8 +210,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   .s5 .author .t{padding:16px}
 }
 </style>
-<script>document.documentElement.dataset.assets="v";document.documentElement.dataset.cases="cases";document.documentElement.dataset.film="v";</script>
-<div id="stage" aria-hidden="true"><div class="layer" id="zoom"><img id="still" alt=""><video id="film" muted playsinline preload="auto"></video><video id="idle" muted playsinline loop preload="auto"></video></div></div>
+<script>document.documentElement.dataset.assets="v";document.documentElement.dataset.cases="cases";document.documentElement.dataset.frames="f";</script>
+<div id="stage" aria-hidden="true"><div class="layer" id="zoom"><img id="still" alt=""><canvas id="seq"></canvas><video id="idle" muted playsinline loop preload="auto"></video></div></div>
 <canvas id="gl" aria-hidden="true"></canvas>
 <div id="touch" aria-hidden="true"></div>
 <div id="enter" role="status"><div class="w">Архитектор</div><div class="line"><i id="enterBar"></i></div></div>
@@ -316,5 +316,5 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </div>
 </section>
 
-<script src="swipe.js"></script>
-<script src="lotus.js"></script>
+<script src="swipe.js?v=12"></script>
+<script src="lotus.js?v=12"></script>

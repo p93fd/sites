@@ -9,11 +9,13 @@ const gl = cv && cv.getContext('webgl', { alpha: false, antialias: false, premul
 if (!gl || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 const st = () => (window.__state ? window.__state() : { pos: 0 });
 const MOB = innerHeight > innerWidth || innerWidth < 760;
-const GW = MOB ? 220 : 340, GH = Math.round(GW * 9 / 16);
+// на телефоне видна только середина широкого кадра — частицы берём только оттуда, иначе они крупные
+const SPAN = Math.min(1, (innerWidth / innerHeight) / (16 / 9)), U0 = .5 - SPAN / 2;
+const GW = MOB ? 200 : 340, GH = Math.round(GW / SPAN * 9 / 16);
 
 const VS = `precision highp float;
 attribute vec2 aUV; attribute vec3 aCol; attribute vec3 aS;
-uniform float uP, uT, uDpr; uniform vec2 uR, uSc;
+uniform float uP, uT, uDpr, uSpan; uniform vec2 uR, uSc;
 varying vec3 vCol; varying float vA, vD, vB;
 float sm(float a,float b,float x){ float t=clamp((x-a)/(b-a),0.,1.); return t*t*t*(t*(t*6.-15.)+10.); }
 void main(){
@@ -34,7 +36,7 @@ void main(){
   float D = 3.2, f = D/(D-P.z);
   vec2 sp = P.xy*f;
   gl_Position = vec4(sp.x, sp.y, 0., 1.);
-  float cell = 2.*uSc.x/${GW}.*uR.x*.5;
+  float cell = 2.*uSc.x*uSpan/${GW}.*uR.x*.5;
   float bok = step(.94, aS.y);
   float sz = mix(cell*1.55, (1.2+2.6*aS.z)*uDpr*(1.+bok*5.), d) * f;
   gl_PointSize = max(sz, 1.);
@@ -58,7 +60,7 @@ let prog;
 try { prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog); }
 catch (e) { console.warn(e); return; }
 gl.useProgram(prog);
-const U = {}; for (const k of ['uP', 'uT', 'uDpr', 'uR', 'uSc']) U[k] = gl.getUniformLocation(prog, k);
+const U = {}; for (const k of ['uP', 'uT', 'uDpr', 'uSpan', 'uR', 'uSc']) U[k] = gl.getUniformLocation(prog, k);
 let N = 0, bg = [0.01, 0.02, 0.05], ready = false;
 
 // частицы из кадра лотоса
@@ -66,7 +68,7 @@ const img = new Image(); img.crossOrigin = 'anonymous';
 img.src = `${document.documentElement.dataset.assets || 'v'}/dp6.webp`;
 img.decode().then(() => {
   const c = document.createElement('canvas'); c.width = GW; c.height = GH; const x = c.getContext('2d');
-  x.drawImage(img, 0, 0, GW, GH); const px = x.getImageData(0, 0, GW, GH).data;
+  x.drawImage(img, U0 * img.naturalWidth, 0, SPAN * img.naturalWidth, img.naturalHeight, 0, 0, GW, GH); const px = x.getImageData(0, 0, GW, GH).data;
   // цвет фона — средний по краям кадра
   let br = 0, bgc = 0, bb = 0, n = 0;
   for (let i = 0; i < GW; i++) for (const j of [0, GH - 1]) { const o = (j * GW + i) * 4; br += px[o]; bgc += px[o + 1]; bb += px[o + 2]; n++; }
@@ -76,7 +78,7 @@ img.decode().then(() => {
     const o = (j * GW + i) * 4, r = px[o] / 255, g = px[o + 1] / 255, b = px[o + 2] / 255;
     const l = .3 * r + .59 * g + .11 * b, dl = l - (.3 * bg[0] + .59 * bg[1] + .11 * bg[2]);
     if (dl < .045 && Math.random() > .06) continue;           // фон почти не берём — он остаётся цветом холста
-    uv.push((i + .5) / GW, (j + .5) / GH); col.push(r, g, b); sd.push(Math.random(), Math.random(), Math.random());
+    uv.push(U0 + SPAN * (i + .5) / GW, (j + .5) / GH); col.push(r, g, b); sd.push(Math.random(), Math.random(), Math.random());
   }
   N = uv.length / 2;
   for (const [name, arr, size] of [['aUV', uv, 2], ['aCol', col, 3], ['aS', sd, 3]]) {
@@ -104,7 +106,7 @@ function frame(now) {
   if (op > 0) {
     gl.clearColor(bg[0], bg[1], bg[2], 1); gl.clear(gl.COLOR_BUFFER_BIT);
     const A = W / H, R = 16 / 9;
-    gl.uniform1f(U.uP, P); gl.uniform1f(U.uT, now / 1000); gl.uniform1f(U.uDpr, DPR);
+    gl.uniform1f(U.uP, P); gl.uniform1f(U.uT, now / 1000); gl.uniform1f(U.uDpr, DPR); gl.uniform1f(U.uSpan, SPAN);
     gl.uniform2f(U.uR, W, H); gl.uniform2f(U.uSc, Math.max(1, R / A), Math.max(1, A / R));
     gl.drawArrays(gl.POINTS, 0, N);
   }
