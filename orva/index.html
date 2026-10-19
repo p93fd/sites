@@ -28,7 +28,7 @@
   --bg:#0a0807;--ink:#efe6dc;--ink2:rgba(239,230,220,.74);--ink3:rgba(239,230,220,.52);--ink4:rgba(239,230,220,.16);
   --cu:#d9a27c;--cu2:#f0c9a6;--cu-dim:rgba(217,162,124,.35);
   --serif:"Corm","Cormorant Garamond",Georgia,serif;--mono:"Mono","IBM Plex Mono",ui-monospace,monospace;
-  --ease:cubic-bezier(.16,1,.3,1);--g:clamp(16px,4vw,64px);
+  --ease:cubic-bezier(.22,1,.36,1);--g:clamp(16px,4vw,64px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:clip;background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%;scrollbar-width:none}
@@ -90,12 +90,15 @@ h1{font-size:clamp(52px,7.4vw,128px)}
 h2{font-size:clamp(44px,5.8vw,100px)}
 h1 em,h2 em{font-style:italic;color:var(--cu2)}
 .ln{display:block;overflow:hidden;padding-bottom:.06em}
-.ln>span{display:inline-block;transform:translateY(105%);transition:transform 1.4s var(--ease)}
-.on .ln>span{transform:none}
+.ln>span{display:inline}
+.wd{display:inline-block;white-space:nowrap}
+.lt{display:inline-block;opacity:0;transform:translateY(45%);filter:blur(7px)}
+.on .lt{animation:arrive .7s cubic-bezier(.22,.61,.36,1) calc(.15s + var(--i) * 17ms) both}
+@keyframes arrive{0%{opacity:0;transform:translateY(45%);filter:blur(7px)}100%{opacity:1;transform:none;filter:blur(0)}}
 .lead{font-size:clamp(21px,1.75vw,28px);line-height:1.32;color:var(--ink2);margin-top:30px;max-width:30ch}
 .ch.C .lead{margin-left:auto;margin-right:auto}
-.fade{opacity:0;transform:translateY(18px);transition:opacity .4s linear,transform 1.4s var(--ease)}
-.on .fade{opacity:1;transform:none}
+.fade{opacity:0;transform:translateY(22px);filter:blur(5px);transition:opacity .8s linear,transform 1.2s var(--ease),filter .8s linear}
+.on .fade{opacity:1;transform:none;filter:blur(0)}
 .d1{transition-delay:.18s}.d2{transition-delay:.32s}.d3{transition-delay:.46s}.d4{transition-delay:.6s}.d5{transition-delay:.74s}
 
 /* кнопки */
@@ -197,8 +200,9 @@ footer a:hover{color:var(--cu2)}
   .btn{margin-top:26px}
   .corner{font-size:11px;bottom:14px}
   .ch7 .pin{justify-content:flex-end;padding-top:80px}
+  #c10 .box{width:100%}
 }
-@media (prefers-reduced-motion:reduce){.ln>span,.fade{transition-duration:.01s}}
+@media (prefers-reduced-motion:reduce){.fade{transition-duration:.01s}.on .lt{animation-duration:.01s;animation-delay:0s}}
 .skip{position:absolute;left:-999px}.skip:focus{left:16px;top:16px;z-index:99;background:var(--bg);padding:10px}
 </style>
 <link rel="stylesheet" href="./lib/lenis.css">
