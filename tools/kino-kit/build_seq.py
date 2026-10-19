@@ -12,7 +12,8 @@ def dur(p): return float(subprocess.run(['ffprobe','-v','error','-show_entries',
 stops, t = [0], 0.0
 for s in segs: t += dur(s); stops.append(round(t * FPS))
 lst = f'{OUT}/.list.txt'; os.makedirs(OUT, exist_ok=True); open(lst,'w').write(''.join(f"file '{os.path.abspath(s)}'\n" for s in segs))
-for sub, vf, q in (('d', f'fps={FPS},scale=1280:720:flags=lanczos', 72), ('p', f'fps={FPS},crop=540:1080:690:0,unsharp=3:3:0.4', 70)):
+GRADE = 'eq=contrast=1.13:saturation=1.12:brightness=0.012'  # контраст вшит в кадры (CSS-фильтр на весь экран тормозит)
+for sub, vf, q in (('d', f'fps={FPS},{GRADE},scale=1280:720:flags=lanczos', 74), ('p', f'fps={FPS},{GRADE},crop=540:1080:690:0,unsharp=3:3:0.4', 72)):
     d = f'{OUT}/{sub}'; os.makedirs(d, exist_ok=True)
     for f in glob.glob(f'{d}/*.webp'): os.remove(f)
     subprocess.run(['ffmpeg','-v','error','-y','-f','concat','-safe','0','-i',lst,'-vf',vf,'-c:v','libwebp','-quality',str(q),'-compression_level','5',f'{d}/%04d.webp'], check=True)

@@ -1,6 +1,6 @@
 (() => {
 'use strict';
-// steklo v11. Как у Apple: фильм — кадры-картинки на холсте, кадр едет за пальцем в обе стороны,
+// steklo v12. Как у Apple: фильм — кадры-картинки на холсте, кадр едет за пальцем в обе стороны,
 // между соседними кадрами — плавный наплыв (движение непрерывное при любой скорости пальца).
 // Грузится сначала то, что рядом с текущей сценой; сайт открывается через 1–2 МБ.
 // В покое сцена живёт: петля проигрывается видеоплеером браузера (аппаратно) поверх кадра остановки.
@@ -38,24 +38,31 @@ function pump() {
   }
 }
 // разжатыми держим только кадры рядом (±36), остальные — сжатыми
+let dir = 1;                                    // куда едем: разжимаем кадры заранее по ходу
+const inWin = i => { const c = Math.floor(curF), a = dir > 0 ? 14 : 56, b = dir > 0 ? 56 : 14; return i >= c - a && i <= c + b; };
 function want() {
-  const c = Math.round(curF);
-  for (const [i, b] of bmp) if (Math.abs(i - c) > 40) { b.close && b.close(); bmp.delete(i); }
-  for (let d = 0; d <= 36; d++) for (const i of [c + d, c - d]) {
-    if (i < 0 || i >= meta.n || bmp.has(i) || decoding.has(i) || !blobs[i]) continue;
-    if (decoding.size >= 4) return;
+  const c = Math.floor(curF);
+  for (const [i, b] of bmp) if (!inWin(i)) { b.close && b.close(); bmp.delete(i); }
+  for (let d = 0; d <= 56; d++) for (const i of [c + d * dir, c - d * dir]) {
+    if (i < 0 || i >= meta.n || !inWin(i) || bmp.has(i) || decoding.has(i) || !blobs[i]) continue;
+    if (decoding.size >= 6) return;
     decoding.add(i);
-    createImageBitmap(blobs[i]).then(b => { decoding.delete(i); if (Math.abs(i - Math.round(curF)) <= 40) { bmp.set(i, b); dirty = true; } else b.close && b.close(); want(); })
+    createImageBitmap(blobs[i]).then(b => { decoding.delete(i); if (inWin(i)) { bmp.set(i, b); dirty = true; } else b.close && b.close(); want(); })
       .catch(() => decoding.delete(i));
   }
 }
-function nearest(i) { if (bmp.has(i)) return [i, bmp.get(i)]; for (let d = 1; d < 12; d++) for (const j of [i - d, i + d]) if (bmp.has(j)) return [j, bmp.get(j)]; return null; }
-function cover(b, a) { const s = Math.max(W / b.width, H / b.height), w = b.width * s, h = b.height * s; cx.globalAlpha = a; cx.drawImage(b, (W - w) / 2, (H - h) / 2, w, h); }
-function draw(f) {
-  if (!dirty && Math.abs(f - drawnF) < .01) return;
-  const i0 = Math.floor(f), a = f - i0, n0 = nearest(i0); if (!n0) return;
-  cover(n0[1], 1);
-  if (a > .02 && n0[0] === i0) { const b1 = bmp.get(i0 + 1); if (b1) cover(b1, a); }
+// позиция по номеру кадра (обратная к frameAt)
+function posAt(f) { for (let k = 0; k < S - 1; k++) { const a = meta.stops[k], b = meta.stops[k + 1]; if (f <= b) return k + (b > a ? (f - a) / (b - a) : 0); } return S - 1; }
+// докуда кадры готовы подряд от кадра i в сторону d
+function ready(i, d) { let j = i; while (j + d >= 0 && j + d < meta.n && bmp.has(j + d)) j += d; return j; }
+// z — лёгкое «дыхание» кадра в покое (масштаб и сдвиг), чтобы ничего не стояло
+let zs = 1, zx = 0, zy = 0;
+function cover(b, a) { const s = Math.max(W / b.width, H / b.height) * zs, w = b.width * s, h = b.height * s; cx.globalAlpha = a; cx.drawImage(b, (W - w) / 2 + zx * W, (H - h) / 2 + zy * H, w, h); }
+function draw(f, force) {
+  if (!force && !dirty && Math.abs(f - drawnF) < .01) return;
+  const i0 = Math.floor(f), a = f - i0, b0 = bmp.get(i0); if (!b0) return;
+  cover(b0, 1);
+  if (a > .02) { const b1 = bmp.get(i0 + 1); if (b1) cover(b1, a); }
   cx.globalAlpha = 1; drawnF = f; dirty = false;
 }
 
@@ -118,7 +125,7 @@ function tickSpiral(now) { if (!ring.classList.contains('on')) return; const RX 
     c.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,${z.toFixed(1)}px) rotateY(${(Math.sin(ang) * -14).toFixed(2)}deg)`; c.style.zIndex = String(1000 + Math.round(z)); }); }
 
 // ---------- один цикл ----------
-let last = performance.now(), wantTick = 0;
+let last = performance.now(), wantTick = 0, breath = 0, restT = 0;
 function frame(now) {
   const dt = Math.min(64, now - last); last = now;
   if (!touching && now - lastInput > 220 && !Number.isInteger(target)) { const d = target - restK;
@@ -131,15 +138,23 @@ function frame(now) {
     const tmp = (pv + w * c) * h; pv = (pv - w * tmp) * e; let np = tg + (c + tmp) * e;
     if ((target - pos > 0) === (np > target)) { np = target; pv = 0; } pos = np; }
   if (Math.abs(target - pos) < 1e-3 && Math.abs(pv) < .02) { pos = target; pv = 0; }
+  // кадр не обгоняет готовые кадры: камера чуть ждёт, но никогда не прыгает и не стоит на чужом кадре
+  if (meta.n > 1) { const f0 = Math.floor(drawnF < 0 ? 0 : drawnF), fn = frameAt(pos), d = fn >= f0 ? 1 : -1; dir = d;
+    const lim = ready(f0, d), fl = d > 0 ? lim + .999 : lim;
+    if (bmp.has(f0) && (d > 0 ? fn > fl : fn < fl)) { pos = posAt(Math.max(0, Math.min(meta.n - 1, fl))); pv *= .5; } }
   const atRest = !touching && pos === target && Number.isInteger(target);
   const near = Math.round(pos);
   ui(near); bar.style.transform = `scaleX(${(pos / (S - 1)).toFixed(4)})`;
   activate(Math.abs(pos - near) < .12 ? near : -1);
   curF = frameAt(pos);
-  if (now - wantTick > 120) { wantTick = now; want(); pump(); }
-  draw(curF);
+  want(); if (now - wantTick > 200) { wantTick = now; pump(); }
+  // дыхание: нарастает за 1,5 с покоя, гаснет за 0,4 с при движении
+  breath += ((atRest && !reduce ? 1 : 0) - breath) * Math.min(1, dt / (atRest ? 1500 : 400) * 3);
+  const ph = (now - restT) / 1000;
+  zs = 1 + breath * .022 * (.5 - .5 * Math.cos(ph * .45)); zx = breath * .006 * Math.sin(ph * .31); zy = breath * .004 * Math.sin(ph * .23 + 1);
+  draw(curF, breath > .001 && !idle.classList.contains('show'));   // петля сверху — холст не трогаем
   if (!atRest) { if (!moving) { moving = true; settled = false; stopIdle(); } }
-  else if (!settled) { settled = true; moving = false; restK = target; startIdle(restK); for (const j of [restK + 1, restK - 1]) preIdle(j); }
+  else if (!settled) { settled = true; moving = false; restK = target; restT = now; startIdle(restK); for (const j of [restK + 1, restK - 1]) preIdle(j); }
   tickCounts(now); tickSpiral(now);
   requestAnimationFrame(frame);
 }
