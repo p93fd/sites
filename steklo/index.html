@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Архитектор · Александр Комлев</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,8 +25,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 #stage #still,#stage #live{transition:filter .38s ease}
 #stage.deep #still,#stage.deep #live{filter:blur(5px) brightness(.5);transition:filter 1.6s cubic-bezier(.22,1,.36,1)}
 #stage img,#stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-#stage video{opacity:0;transition:opacity .35s cubic-bezier(.4,0,.2,1)}
-#stage video.show{opacity:1;transition:opacity .3s cubic-bezier(.4,0,.2,1)}
+#stage video{opacity:0;transition:opacity .45s cubic-bezier(.4,0,.2,1)}
+#stage video.show{opacity:1;transition:opacity .22s cubic-bezier(.4,0,.2,1)}
 #grain{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;mix-blend-mode:screen}
 #touch{position:fixed;inset:0;z-index:2;touch-action:none}
 
@@ -165,10 +166,53 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   .next{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 }
 @media (prefers-reduced-motion:reduce){.rv,.c3d,.on .rv,.on .c3d{transition-duration:.01s!important}}
-</style>
 
-<div id="stage" aria-hidden="true"><div class="layer" id="zoom"><img id="still" alt=""><video id="vA" muted playsinline preload="auto"></video><video id="vB" muted playsinline preload="auto"></video></div></div>
-<canvas id="grain" aria-hidden="true"></canvas>
+/* v10: золото, карточки, текст мимо главного объекта сцены */
+:root{--gold:#e9c97e;--gold-hi:#fff1c9;--gold-lo:#b0823a;--warm:rgba(250,244,230,.92);
+  --gline:linear-gradient(135deg,#f7e3a8 0%,#b0823a 38%,#f3d58a 62%,#8a6428 100%);--gfill:rgba(6,8,18,.6)}
+#stage img,#stage video{transition:opacity .5s cubic-bezier(.4,0,.2,1)}
+#film{opacity:0}#film.ready{opacity:1}
+#idle{opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1)}#idle.show{opacity:1;transition:opacity .9s cubic-bezier(.4,0,.2,1)}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0}
+.stop::before{display:none}
+.gcard,.glass{position:relative;background:var(--gfill);border:0;border-radius:24px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 46px rgba(233,201,126,.12),inset 0 1px 0 rgba(255,241,201,.12);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+.gcard::after,.glass::after,.formats span::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--gline);pointer-events:none;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.portrait.glass::after{z-index:2}
+.gcard{padding:clamp(22px,2.4vw,40px) clamp(24px,2.8vw,46px);display:grid;gap:16px;justify-items:start;max-width:min(720px,92vw)}
+.gcard.c{justify-items:center;text-align:center}
+.eyebrow{color:var(--gold)!important;letter-spacing:.04em}
+.grad,.h1,.h2,.word,.stat .n{background:linear-gradient(180deg,var(--gold-hi) 0%,var(--gold) 52%,var(--gold-lo) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.h3,.pcard strong,.step strong,.became li{color:#fff4d6}
+.lead,.pcard span,.step span,.stat .l{color:var(--warm)}
+.pcard .no,.step b{color:var(--gold)}
+.pcard .ic{background:linear-gradient(160deg,rgba(233,201,126,.25),rgba(176,130,58,.1) 55%,rgba(10,12,24,.4));border-color:rgba(233,201,126,.45);box-shadow:inset 0 1px 0 rgba(255,241,201,.3),0 10px 30px rgba(176,130,58,.3)}
+.became li::before{background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.formats span{position:relative;background:var(--gfill);border:0;color:#fff4d6}
+.final-cta,.cta-top{background:linear-gradient(135deg,#f7e3a8,#d9ae5c 55%,#b0823a);color:#1a1205;box-shadow:0 0 60px rgba(233,201,126,.35)}
+.bar{background:linear-gradient(90deg,var(--gold-lo),var(--gold))}
+.dots button.on i{background:var(--gold)}
+.shadow{text-shadow:none}
+.s1 .gcard{max-width:min(640px,92vw)}
+.s2{align-content:space-between;padding-top:92px;padding-bottom:86px}
+.s3 .gcard{max-width:min(860px,92vw)}
+.s5 .author .t{padding:clamp(22px,2.4vw,40px)}
+.s6{padding-top:96px}.s6 .gcard{padding:20px 40px;max-width:none;width:min(1000px,94vw)}
+.s7{justify-items:end;padding-right:max(3vw,16px)}.s7 .gcard{max-width:min(440px,92vw)}
+.s8 .gcard{max-width:min(820px,92vw)}
+.s9{padding-top:11vh}.s9 .gcard{padding:28px 48px 34px}
+@media (max-width:760px){
+  .gcard{padding:18px 18px 20px;gap:10px;border-radius:20px}
+  .s1{padding-bottom:7vh}.s2{padding-top:82px;padding-bottom:70px}
+  .s7{justify-items:stretch;align-content:end;padding:0 14px 9vh}.s7 .gcard{max-width:none}
+  .s5 .author .t{padding:16px}
+}
+</style>
+<script>document.documentElement.dataset.assets="v";document.documentElement.dataset.cases="cases";document.documentElement.dataset.film="v";</script>
+<div id="stage" aria-hidden="true"><div class="layer" id="zoom"><img id="still" alt=""><video id="film" muted playsinline preload="auto"></video><video id="idle" muted playsinline loop preload="auto"></video></div></div>
+<canvas id="gl" aria-hidden="true"></canvas>
 <div id="touch" aria-hidden="true"></div>
 <div id="enter" role="status"><div class="w">Архитектор</div><div class="line"><i id="enterBar"></i></div></div>
 
@@ -179,31 +223,36 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="bar" id="bar"></div>
 </header>
 <nav class="dots" id="dots" aria-label="Сцены"></nav>
-<button class="next" id="next" type="button" aria-label="Следующая сцена"><svg viewBox="0 0 18 18" fill="none" stroke="#f5f7ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l5 5 5-5"/></svg></button>
+<button class="next" id="next" type="button" aria-label="Следующая сцена"><svg viewBox="0 0 18 18" fill="none" stroke="#e9c97e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l5 5 5-5"/></svg></button>
 
-<section class="stop s1 s-left" data-f="8" data-name="Вход">
-  <p class="eyebrow rv">Александр Комлев · система продаж</p>
-  <h1 class="h1 shadow rv" style="--d:.08s">Собираю систему<br>продаж для экспертов</h1>
-  <p class="lead shadow rv" style="--d:.2s">Чтобы доход был управляемым, а не случайным.</p>
-</section>
-
-<section class="stop s2 s-center" data-f="50" data-name="Точки">
-  <div class="rv" style="display:grid;gap:10px;justify-items:center"><p class="eyebrow">Вам сюда, если</p><h2 class="h3 shadow">Есть амбиции. Пора переводить их в результат.</h2></div>
-  <div class="pcards">
-    <div class="pcard glass c3d" style="--d:.12s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="url(#gi0)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gi0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#8fb6ff"/></linearGradient></defs><path d="M3 20.5h18" opacity=".3"/><path d="M3 16l4.5-6 4 3.5L16 5l2.5 5.5L21 8.5"/></svg></div><div class="no">01</div><strong>Продажи нестабильны</strong><span>Есть результат, но нет управляемости</span></div>
-    <div class="pcard glass c3d" style="--d:.24s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="url(#gi1)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gi1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#8fb6ff"/></linearGradient></defs><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><path d="M22.5 1.5l-5 5M17.5 1.5l5 5"/></svg></div><div class="no">02</div><strong>Созвоны не конвертируются</strong><span>Интерес есть, сделки нет</span></div>
-    <div class="pcard glass c3d" style="--d:.36s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="url(#gi2)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gi2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#8fb6ff"/></linearGradient></defs><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.3" fill="#fff" stroke="none"/></svg></div><div class="no">03</div><strong>Чек не растёт</strong><span>Страшно пересобрать цену</span></div>
+<section class="stop s1" data-name="Вход">
+  <div class="gcard rv">
+    <p class="eyebrow">Александр Комлев · система продаж</p>
+    <h1 class="h1">Собираю систему<br>продаж для экспертов</h1>
+    <p class="lead">Чтобы доход был управляемым, а не случайным.</p>
   </div>
 </section>
 
-<section class="stop s3 s-center" data-f="118" data-name="Система">
-  <div class="split rv"><p class="eyebrow">Система не собрана</p><p class="lead shadow" style="max-width:none">Инструменты меняются. Система — нет.</p></div>
-  <h2 class="h2 grad rv" style="--d:.14s">Я не чиню отдельные точки.<br>Я собираю систему.</h2>
-  <p class="lead shadow rv" style="--d:.26s;text-align:center;max-width:40ch">Меняется архитектура решений, ощущение себя в продаже и фактический результат.</p>
+<section class="stop s2" data-name="Точки">
+  <div class="gcard c rv"><p class="eyebrow">Вам сюда, если</p><h2 class="h3">Есть амбиции. Пора переводить их в результат.</h2></div>
+  <div class="pcards">
+    <div class="pcard glass c3d" style="--d:.12s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#f3d58a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20.5h18" opacity=".3"/><path d="M3 16l4.5-6 4 3.5L16 5l2.5 5.5L21 8.5"/></svg></div><div class="no">01</div><strong>Продажи нестабильны</strong><span>Есть результат, но нет управляемости</span></div>
+    <div class="pcard glass c3d" style="--d:.24s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#f3d58a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><path d="M22.5 1.5l-5 5M17.5 1.5l5 5"/></svg></div><div class="no">02</div><strong>Созвоны не конвертируются</strong><span>Интерес есть, сделки нет</span></div>
+    <div class="pcard glass c3d" style="--d:.36s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#f3d58a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.3" fill="#f3d58a" stroke="none"/></svg></div><div class="no">03</div><strong>Чек не растёт</strong><span>Страшно пересобрать цену</span></div>
+  </div>
 </section>
 
-<section class="stop s4 s-left" data-f="196" data-name="Путь">
-  <p class="eyebrow rv">Как собирается система · 4 этапа</p>
+<section class="stop s3 s-center" data-name="Система">
+  <div class="gcard c rv">
+    <p class="eyebrow">Система не собрана</p>
+    <p class="lead" style="max-width:none">Инструменты меняются. Система — нет.</p>
+    <h2 class="h2">Я не чиню отдельные точки.<br>Я собираю систему.</h2>
+    <p class="lead" style="max-width:40ch">Меняется архитектура решений, ощущение себя в продаже и фактический результат.</p>
+  </div>
+</section>
+
+<section class="stop s4" data-name="Путь">
+  <p class="eyebrow rv gcard" style="padding:9px 18px;border-radius:999px">Как собирается система · 4 этапа</p>
   <div class="steps">
     <div class="step glass c3d" style="--d:.1s"><b>01</b><strong>Диагностика</strong><span>Смотрим не только на воронку, а на всю систему: позиционирование, продукт, продажи, мышление, состояние и логику решений.</span></div>
     <div class="step glass c3d" style="--d:.2s"><b>02</b><strong>Пересборка</strong><span>Собираем связку: что вы продаёте, кому, как это звучит, как это продаётся и на чём держится стабильно.</span></div>
@@ -212,53 +261,60 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </div>
 </section>
 
-<section class="stop s5 s-left" data-f="290" data-name="Автор">
+<section class="stop s5" data-name="Автор">
   <div class="author">
     <div class="portrait glass c3d"><img src="portrait.webp" alt="Александр Комлев"></div>
-    <div class="t">
-      <p class="eyebrow rv" style="--d:.1s">Кто я</p>
-      <h2 class="h2 rv" style="--d:.16s">Александр Комлев</h2>
-      <p class="lead shadow rv" style="--d:.26s">Мой путь — от нестабильных продаж к системе, которая даёт результат.</p>
-      <p class="lead shadow rv" style="--d:.34s">Обучался у сильных экспертов в маркетинге, продажах и мышлении и свёл подходы в одну рабочую систему.</p>
+    <div class="t gcard rv" style="--d:.12s">
+      <p class="eyebrow">Кто я</p>
+      <h2 class="h2">Александр Комлев</h2>
+      <p class="lead">Мой путь — от нестабильных продаж к системе, которая даёт результат.</p>
+      <p class="lead">Обучался у сильных экспертов в маркетинге, продажах и мышлении и свёл подходы в одну рабочую систему.</p>
     </div>
   </div>
 </section>
 
-<section class="stop s6 s-top" data-f="360" data-name="Результаты">
-  <p class="eyebrow rv">Что меняется у клиентов</p>
-  <div class="stats">
-    <div class="stat rv" style="--d:.08s"><div class="n grad" data-count="100" data-suf=" млн+">0</div><div class="l">заработали клиенты</div></div>
-    <div class="stat rv" style="--d:.16s"><div class="n grad" data-count="12" data-suf=" лет">0</div><div class="l">в продажах</div></div>
-    <div class="stat rv" style="--d:.24s"><div class="n grad">2 → <span data-count="4" data-suf=" млн">0</span></div><div class="l">без рекламы</div></div>
+<section class="stop s6" data-name="Результаты">
+  <div class="gcard c rv">
+    <p class="eyebrow">Что меняется у клиентов</p>
+    <div class="stats">
+      <div class="stat"><div class="n" data-count="100" data-suf=" млн+">0</div><div class="l">заработали клиенты</div></div>
+      <div class="stat"><div class="n" data-count="12" data-suf=" лет">0</div><div class="l">в продажах</div></div>
+      <div class="stat"><div class="n">2 → <span data-count="4" data-suf=" млн">0</span></div><div class="l">без рекламы</div></div>
+    </div>
   </div>
 </section>
 <div class="ring" id="ring" aria-label="Кейсы клиентов"></div>
 
-<section class="stop s7 s-right" data-f="452" data-name="Стало">
-  <p class="eyebrow rv">Стало</p>
-  <ul class="became shadow">
-    <li class="rv" style="--d:.06s">Понятная стратегия</li>
-    <li class="rv" style="--d:.12s">Стабильные продажи</li>
-    <li class="rv" style="--d:.18s">Уверенная позиция на встречах</li>
-    <li class="rv" style="--d:.24s">Деньги как результат решений, а не удачи</li>
-    <li class="rv" style="--d:.3s">Ясное понимание своей ценности</li>
-    <li class="rv" style="--d:.36s">Рост среднего чека</li>
-  </ul>
+<section class="stop s7" data-name="Стало">
+  <div class="gcard rv">
+    <p class="eyebrow">Стало</p>
+    <ul class="became">
+      <li>Понятная стратегия</li>
+      <li>Стабильные продажи</li>
+      <li>Уверенная позиция на встречах</li>
+      <li>Деньги как результат решений, а не удачи</li>
+      <li>Ясное понимание своей ценности</li>
+      <li>Рост среднего чека</li>
+    </ul>
+  </div>
 </section>
 
-<section class="stop s8 s-center" data-f="500" data-name="Формат">
-  <h2 class="h2 grad rv">Не курсы. Не марафоны.<br>Не на поболтать.</h2>
-  <p class="lead shadow rv" style="--d:.14s;text-align:center;max-width:40ch">Точечная и глубокая работа по пересборке системы продаж.</p>
-  <div class="formats rv" style="--d:.24s"><span>Индивидуальная работа</span><span>Пересборка продаж и продуктов</span><span>Сопровождение системы</span></div>
+<section class="stop s8 s-center" data-name="Формат">
+  <div class="gcard c rv">
+    <h2 class="h2">Не курсы. Не марафоны.<br>Не на поболтать.</h2>
+    <p class="lead" style="max-width:40ch">Точечная и глубокая работа по пересборке системы продаж.</p>
+    <div class="formats"><span>Индивидуальная работа</span><span>Пересборка продаж и продуктов</span><span>Сопровождение системы</span></div>
+  </div>
 </section>
 
-<section class="stop s9 s-center" data-f="596" data-name="Решение">
-  <p class="word grad rv">Архитектор</p>
-  <h2 class="h3 rv" style="--d:.14s">Получить понятную стратегию</h2>
-  <p class="lead shadow rv" style="--d:.22s;text-align:center;max-width:36ch">Встреча 30–40 минут. Без презентаций и прогревов.</p>
-  <a class="final-cta rv" style="--d:.3s" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать в Telegram <span aria-hidden="true">→</span></a>
+<section class="stop s9 s-center" data-name="Решение">
+  <div class="gcard c rv">
+    <p class="word">Архитектор</p>
+    <h2 class="h3">Получить понятную стратегию</h2>
+    <p class="lead" style="max-width:36ch">Встреча 30–40 минут. Без презентаций и прогревов.</p>
+    <a class="final-cta" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать в Telegram <span aria-hidden="true">→</span></a>
+  </div>
 </section>
 
-<script src="player.js"></script>
-<script src="live.js"></script>
-<script src="particles.js"></script>
+<script src="swipe.js"></script>
+<script src="lotus.js"></script>
