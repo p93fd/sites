@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Сезон роста — Александр Комлев</title>
+<meta name="description" content="16 недель. Стратегия, продажи и ИИ-команда. Система продаж, которая остаётся у вас. 6 мест в сезоне.">
+<meta name="theme-color" content="#0a0807">
+<meta property="og:title" content="Сезон роста — Александр Комлев">
+<meta property="og:description" content="16 недель. Система продаж, которая остаётся у вас. 6 мест.">
+<meta property="og:image" content="./og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0807'/%3E%3Cpath d='M22 10c14 10 6 34 20 44M42 10c-14 10-6 34-20 44' fill='none' stroke='%23d9a27c' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="./fonts/cormorant-garamond-cyrillic-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./fonts/ibm-plex-mono-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Александр Комлев","jobTitle":"Эксперт в области продаж","url":"https://www.architektorlife.ru","sameAs":["https://t.me/coachkomlevaleks"]}</script>
+<style>
+@font-face{font-family:"Corm";src:url("./fonts/cormorant-garamond-cyrillic-300-normal.woff2") format("woff2");font-weight:300;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Corm";src:url("./fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2");font-weight:300;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:"Corm";src:url("./fonts/cormorant-garamond-cyrillic-400-normal.woff2") format("woff2");font-weight:400;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Corm";src:url("./fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:"Corm";src:url("./fonts/cormorant-garamond-cyrillic-500-normal.woff2") format("woff2");font-weight:500;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Corm";src:url("./fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2");font-weight:500;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:"Corm";src:url("./fonts/cormorant-garamond-cyrillic-300-italic.woff2") format("woff2");font-weight:300;font-style:italic;font-display:swap;unicode-range:U+0400-045F}
+@font-face{font-family:"Mono";src:url("./fonts/ibm-plex-mono-cyrillic-400-normal.woff2") format("woff2");font-weight:400;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Mono";src:url("./fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+
+:root{
+  --bg:#0a0807;--ink:#efe6dc;--ink2:rgba(239,230,220,.74);--ink3:rgba(239,230,220,.52);--ink4:rgba(239,230,220,.16);
+  --cu:#d9a27c;--cu2:#f0c9a6;--cu-dim:rgba(217,162,124,.35);
+  --serif:"Corm","Cormorant Garamond",Georgia,serif;--mono:"Mono","IBM Plex Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);--g:clamp(16px,4vw,64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:clip;background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%;scrollbar-width:none}
+html::-webkit-scrollbar{display:none}
+body{background:var(--bg);font-family:var(--serif);font-weight:300;overflow-x:clip}
+::selection{background:var(--cu);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--cu);outline-offset:4px}
+img{display:block;max-width:100%}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+
+/* сцена */
+#gl{position:fixed;inset:0;width:100%;height:100lvh;z-index:0;display:block;opacity:0;transition:opacity 2.4s var(--ease)}
+.ready #gl{opacity:1}
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:
+  radial-gradient(120% 90% at 50% 50%,transparent 55%,rgba(10,8,7,.55) 100%)}
+.nogl .veil{background:radial-gradient(60% 50% at 70% 40%,rgba(217,162,124,.16),transparent 70%),radial-gradient(50% 40% at 25% 75%,rgba(217,162,124,.08),transparent 70%)}
+
+/* загрузка */
+#load{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--bg);transition:opacity 1s linear .2s,visibility 0s 1.3s}
+.ready #load{opacity:0;visibility:hidden}
+#load .n{font-family:var(--serif);font-size:clamp(64px,12vw,180px);font-weight:300;font-variant-numeric:tabular-nums;color:var(--cu);line-height:1}
+#load .m{position:absolute;left:var(--g);bottom:var(--g);color:var(--ink3)}
+#load .m2{position:absolute;right:var(--g);bottom:var(--g);color:var(--ink3)}
+
+/* шапка и приборы */
+header{position:fixed;z-index:20;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;padding:22px var(--g);pointer-events:none}
+header>*{pointer-events:auto}
+.brand{display:flex;flex-direction:column;gap:4px}
+.brand b{font-family:var(--serif);font-weight:400;font-size:20px;letter-spacing:.02em}
+.brand span{color:var(--ink3);font-size:11px}
+.chap{display:flex;gap:14px;align-items:baseline;color:var(--ink3)}
+.chap i{font-style:normal;color:var(--cu)}
+.hbtn{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--cu-dim);padding:12px 18px;border-radius:2px;transition:border-color .3s,background .3s,color .3s}
+.hbtn:hover{border-color:var(--cu);background:var(--cu);color:var(--bg)}
+.prog{position:fixed;z-index:20;left:0;top:0;height:1px;width:100%;transform-origin:0 0;transform:scaleX(0);background:var(--cu)}
+.rail{position:fixed;z-index:20;right:calc(var(--g) - 2px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px}
+.rail a{display:block;width:18px;height:1px;background:var(--ink4);transition:width .4s var(--ease),background .4s}
+.rail a.on{width:34px;background:var(--cu)}
+.corner{position:fixed;z-index:20;left:var(--g);bottom:20px;color:var(--ink3);display:flex;gap:22px}
+.corner2{position:fixed;z-index:20;right:var(--g);bottom:20px;color:var(--ink3)}
+@media (max-width:860px){.rail,.corner2{display:none}.chap .nm{display:none}.brand span{display:none}.hbtn{padding:10px 12px;font-size:11px}}
+
+/* главы */
+main{position:relative;z-index:5}
+.ch{position:relative;height:170vh}
+.ch.tall{height:300vh}
+.ch.xtall{height:380vh}
+.pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;padding:96px var(--g) 72px}
+.box{width:min(46vw,640px)}
+.ch.R .pin{justify-content:flex-end}
+.ch.C .pin{justify-content:center;text-align:center}
+.ch.C .box{width:min(80vw,980px)}
+.lab{display:flex;gap:16px;align-items:center;color:var(--cu);margin-bottom:28px}
+.lab::before{content:"";width:36px;height:1px;background:var(--cu)}
+.ch.C .lab{justify-content:center}
+h1,h2{font-weight:300;line-height:.94;letter-spacing:-.01em}
+h1{font-size:clamp(52px,7.4vw,128px)}
+h2{font-size:clamp(44px,5.8vw,100px)}
+h1 em,h2 em{font-style:italic;color:var(--cu2)}
+.ln{display:block;overflow:hidden;padding-bottom:.06em}
+.ln>span{display:inline-block;transform:translateY(105%);transition:transform 1.4s var(--ease)}
+.on .ln>span{transform:none}
+.lead{font-size:clamp(21px,1.75vw,28px);line-height:1.32;color:var(--ink2);margin-top:30px;max-width:30ch}
+.ch.C .lead{margin-left:auto;margin-right:auto}
+.fade{opacity:0;transform:translateY(18px);transition:opacity .4s linear,transform 1.4s var(--ease)}
+.on .fade{opacity:1;transform:none}
+.d1{transition-delay:.18s}.d2{transition-delay:.32s}.d3{transition-delay:.46s}.d4{transition-delay:.6s}.d5{transition-delay:.74s}
+
+/* кнопки */
+.btn{display:inline-flex;align-items:center;gap:16px;margin-top:40px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;padding:20px 28px;border:1px solid var(--cu);color:var(--ink);border-radius:2px;position:relative;overflow:hidden;transition:color .3s;will-change:transform}
+.btn::before{content:"";position:absolute;inset:0;background:var(--cu);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s var(--ease);z-index:-1}
+.btn:hover{color:var(--bg)}.btn:hover::before{transform:scaleY(1)}
+.btn .ar{transition:transform .5s var(--ease)}.btn:hover .ar{transform:translateX(6px)}
+.btn.big{font-size:14px;padding:24px 36px}
+.quiet{display:inline-flex;gap:12px;margin-top:36px;color:var(--ink2);border-bottom:1px solid var(--cu-dim);padding-bottom:6px;transition:color .3s,border-color .3s}
+.quiet:hover{color:var(--cu2);border-color:var(--cu)}
+
+/* списки-строки */
+.rows{margin-top:40px;border-top:1px solid var(--ink4)}
+.rows li{list-style:none;display:grid;grid-template-columns:56px 1fr;gap:12px;padding:18px 0;border-bottom:1px solid var(--ink4);font-size:clamp(20px,1.6vw,26px);line-height:1.25;color:var(--ink2)}
+.rows li b{font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.16em;color:var(--cu);padding-top:7px}
+
+/* три пути */
+.paths{position:absolute;right:var(--g);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:clamp(28px,6vh,72px);width:min(26vw,340px)}
+.paths div{border-left:1px solid var(--cu);padding-left:18px}
+.paths .mono{color:var(--cu);display:block;margin-bottom:10px}
+.paths p{font-size:clamp(19px,1.45vw,24px);line-height:1.3;color:var(--ink2)}
+
+/* недели */
+.weeks{margin-top:34px;position:relative}
+.wk{display:grid;grid-template-columns:132px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--ink4);opacity:.3;transition:opacity .6s linear}
+.wk.act{opacity:1}
+.wk .mono{color:var(--cu);padding-top:8px}
+.wk h3{font-weight:400;font-size:clamp(26px,2.3vw,38px);line-height:1.05}
+.wk p{font-size:clamp(18px,1.3vw,22px);line-height:1.3;color:var(--ink2);margin-top:6px;max-height:0;overflow:hidden;transition:max-height 1s var(--ease)}
+.wk.act p{max-height:200px}
+
+/* кейсы */
+.cases{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px);margin-top:34px;width:min(70vw,980px)}
+.case{display:flex;flex-direction:column;gap:12px}
+.case .ph{aspect-ratio:4/5;max-height:34vh;overflow:hidden;background:#141110}
+.case img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) sepia(.35) contrast(1.05) brightness(.9);transition:filter .8s,transform 1.4s var(--ease)}
+.case:hover img{filter:none;transform:scale(1.03)}
+.case .num{font-size:clamp(34px,3.4vw,56px);line-height:1;color:var(--ink)}
+.case .was{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);line-height:1.6}
+.case .who{font-size:21px;color:var(--ink2);line-height:1.15}
+.case .who small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cu);margin-top:6px}
+.strip{position:absolute;left:0;top:50%;margin-top:-6vh;display:flex;gap:18px;padding-left:var(--g);will-change:transform}
+.strip img{height:clamp(180px,30vh,300px);width:auto;filter:grayscale(1) sepia(.5) brightness(.8);opacity:.75;transition:filter .5s,opacity .5s}
+.strip img:hover{filter:none;opacity:1}
+.ch7 .pin{flex-direction:column;justify-content:center;align-items:flex-start;overflow:hidden}
+.ch7 .cwrap{transition:opacity .5s linear,transform 1s var(--ease)}
+.ch7.ph2 .cwrap{opacity:0;transform:translateY(-40px);pointer-events:none}
+.strip{opacity:0;transition:opacity .6s linear}.ch7.ph2 .strip{opacity:1}
+.slab{position:absolute;left:var(--g);top:calc(50% - 6vh - 44px);color:var(--cu);opacity:0;transition:opacity .6s linear}.ch7.ph2 .slab{opacity:1}
+
+/* кто ведёт */
+.me{position:absolute;right:calc(var(--g) + 2vw);bottom:0;width:min(34vw,520px);aspect-ratio:1;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to top,transparent 0%,#000 35%),linear-gradient(to left,transparent,#000 22%);mask-image:radial-gradient(closest-side,#000 55%,transparent);-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent);bottom:6vh}
+.me img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) sepia(.25) contrast(1.05)}
+.facts{display:flex;gap:clamp(24px,4vw,64px);margin-top:36px}
+.facts div{display:flex;flex-direction:column;gap:8px}
+.facts b{font-weight:300;font-size:clamp(46px,4.6vw,76px);line-height:.9;color:var(--cu2)}
+.facts span{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);max-width:16ch;line-height:1.5}
+
+/* отбор */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,48px);margin-top:36px;text-align:left}
+.two h4{font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--cu);margin-bottom:12px}
+.two li{list-style:none;font-size:clamp(19px,1.4vw,23px);line-height:1.3;color:var(--ink2);padding:10px 0;border-top:1px solid var(--ink4)}
+.guar{margin-top:30px;font-size:clamp(21px,1.7vw,28px);line-height:1.3;color:var(--ink);border:1px solid var(--cu-dim);padding:20px 24px;text-align:left}
+.guar .mono{display:block;color:var(--cu);margin-bottom:8px}
+
+/* финал */
+#c10 .box{width:min(58vw,860px)}
+.fin small{display:block;margin-top:22px;color:var(--ink3)}
+footer{position:relative;z-index:5;padding:64px var(--g) 92px;display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;color:var(--ink3);font-family:var(--mono);font-size:12px;letter-spacing:.08em;border-top:1px solid var(--ink4);background:linear-gradient(transparent,var(--bg) 40%)}
+footer a:hover{color:var(--cu2)}
+
+/* курсор */
+.cur{position:fixed;z-index:60;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid var(--cu);border-radius:50%;pointer-events:none;opacity:0;transition:width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),opacity .3s}
+.cur.hot{width:64px;height:64px;margin:-32px 0 0 -32px}
+@media (hover:hover) and (pointer:fine){.cur{opacity:.8}}
+
+/* телефон */
+@media (max-width:860px){
+  .ch{height:150vh}.ch.tall{height:260vh}.ch.xtall{height:320vh}
+  .pin{align-items:flex-end;padding:88px var(--g) 68px}
+  .box,.ch.C .box{width:100%}
+  .ch.R .pin{justify-content:flex-start}
+  h1{font-size:clamp(46px,13vw,72px)}h2{font-size:clamp(40px,11.4vw,64px)}
+  .lead{font-size:19px;margin-top:20px}
+  .paths{position:static;transform:none;width:auto;flex-direction:column;gap:10px;margin-top:22px}
+  .paths div{padding-left:12px}.paths p{font-size:17px}.paths .mono{font-size:11px;margin-bottom:4px}
+  #c4 .lead{display:none}
+  .veil{background:linear-gradient(to top,rgba(10,8,7,.92) 0%,rgba(10,8,7,.7) 42%,transparent 66%)}
+  .wk{grid-template-columns:86px 1fr}.wk h3{font-size:22px}.wk p{font-size:16px}.wk .mono{font-size:11px}
+  .cases{grid-template-columns:1fr 1fr;width:100%;gap:14px 12px;margin-top:22px}
+  .case .ph{aspect-ratio:3/2}.case .num{font-size:26px}.case .who{font-size:16px}.case{gap:6px}.ch7 .lab{display:none}
+  .strip{display:none}
+  .me{position:absolute;top:84px;bottom:auto;right:0;width:62vw}
+  .facts{gap:22px;margin-top:22px}.facts b{font-size:40px}
+  .two{grid-template-columns:1fr;gap:14px;margin-top:20px}.two li{font-size:17px;padding:7px 0}
+  .guar{font-size:18px;padding:14px 16px;margin-top:16px}
+  .rows li{font-size:18px;grid-template-columns:40px 1fr;padding:12px 0}
+  .btn{margin-top:26px}
+  .corner{font-size:11px;bottom:14px}
+  .ch7 .pin{justify-content:flex-end;padding-top:80px}
+}
+@media (prefers-reduced-motion:reduce){.ln>span,.fade{transition-duration:.01s}}
+.skip{position:absolute;left:-999px}.skip:focus{left:16px;top:16px;z-index:99;background:var(--bg);padding:10px}
+</style>
+<link rel="stylesheet" href="./lib/lenis.css">
+<script type="importmap">{"imports":{"three":"./lib/three.module.min.js","three/addons/":"./lib/jsm/"}}</script>
+</head>
+<body>
+<a class="skip" href="#c10">К&nbsp;записи на&nbsp;разговор</a>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="veil"></div>
+
+<div id="load" aria-hidden="true"><div class="n" id="ln">000</div><div class="m mono">Александр Комлев</div><div class="m2 mono">Сезон роста</div></div>
+
+<div class="prog" id="prog"></div>
+<header>
+  <a class="brand" href="#c1"><b>Александр Комлев</b><span class="mono">Сезон роста</span></a>
+  <div class="chap mono"><i id="cn">01</i><span>/ 10</span><span class="nm" id="cl">Система</span></div>
+  <a class="hbtn mag" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Разговор</a>
+</header>
+<nav class="rail" id="rail" aria-label="Главы"></nav>
+<div class="corner mono"><span id="clock">МСК&nbsp;—</span><span id="pts">—&nbsp;точек</span></div>
+<div class="corner2 mono">Листайте</div>
+<div class="cur" id="cur"></div>
+
+<main>
+<!-- 01 -->
+<section class="ch" id="c1" data-name="Система" data-shape="0" data-side="L">
+  <div class="pin"><div class="box">
+    <div class="lab mono fade">Эксперт в&nbsp;области продаж · 12&nbsp;лет</div>
+    <h1><span class="ln"><span>Я&nbsp;не&nbsp;чиню</span></span><span class="ln"><span>отдельные&nbsp;точки.</span></span><span class="ln"><span><em>Я&nbsp;собираю систему.</em></span></span></h1>
+    <p class="lead fade d3">Сезон роста. 16&nbsp;недель&nbsp;рядом. Чтобы доход был&nbsp;управляемым, а&nbsp;не&nbsp;случайным.</p>
+    <a class="quiet mono fade d4" href="#c10">Записаться на&nbsp;разговор <span>→</span></a>
+  </div></div>
+</section>
+
+<!-- 02 -->
+<section class="ch" id="c2" data-name="Сейчас" data-shape="1" data-side="L">
+  <div class="pin"><div class="box">
+    <div class="lab mono fade">02 · Где&nbsp;вы&nbsp;сейчас</div>
+    <h2><span class="ln"><span>Клиенты&nbsp;есть.</span></span><span class="ln"><span><em>Потока&nbsp;нет.</em></span></span></h2>
+    <p class="lead fade d2">Действий много, а&nbsp;продажи идут от&nbsp;случая к&nbsp;случаю.</p>
+    <ul class="rows">
+      <li class="fade d3"><b>01</b>Клиенты приходят по&nbsp;рекомендациям. Откуда возьмутся следующие&nbsp;— непонятно.</li>
+      <li class="fade d4"><b>02</b>Вы&nbsp;сами на&nbsp;всех&nbsp;ролях. Привычный сценарий: больше работать&nbsp;— якобы больше зарабатывать.</li>
+      <li class="fade d5"><b>03</b>Продажника нанимать страшно: оклад получать будет, а&nbsp;продаж&nbsp;нет.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- 03 -->
+<section class="ch R" id="c3" data-name="Цена" data-shape="2" data-side="R">
+  <div class="pin"><div class="box">
+    <div class="lab mono fade">03 · Сколько это&nbsp;стоит</div>
+    <h2><span class="ln"><span>Было двести,</span></span><span class="ln"><span>стало четыреста.</span></span><span class="ln"><span><em>Денег всё&nbsp;равно не&nbsp;хватает.</em></span></span></h2>
+    <ul class="rows">
+      <li class="fade d2"><b>—</b>Заявки, на&nbsp;которые ответили на&nbsp;следующий&nbsp;день.</li>
+      <li class="fade d3"><b>—</b>Чек&nbsp;ниже, чем&nbsp;стоит ваша работа.</li>
+      <li class="fade d4"><b>—</b>Люди, которые сказали «подумаю» и&nbsp;пропали.</li>
+      <li class="fade d5"><b>—</b>Часы, которые уходят на&nbsp;то, что&nbsp;можно не&nbsp;делать.</li>
+    </ul>
+    <p class="lead fade d5">На&nbsp;разговоре считаем это&nbsp;в&nbsp;ваших цифрах. Цифры не&nbsp;врут никогда.</p>
+  </div></div>
+</section>
+
+<!-- 04 -->
+<section class="ch" id="c4" data-name="Три пути" data-shape="3" data-side="C">
+  <div class="pin"><div class="box">
+    <div class="lab mono fade">04 · Как&nbsp;это&nbsp;устроено</div>
+    <h2><span class="ln"><span>Три</span></span><span class="ln"><span><em>пути.</em></span></span></h2>
+    <p class="lead fade d2">Бизнес&nbsp;— простая штука: делаешь то, что&nbsp;работает, и&nbsp;не&nbsp;делаешь того, что&nbsp;не&nbsp;работает.</p>
+  </div>
+  <div class="paths">
+    <div class="fade d3"><span class="mono">Стратегия</span><p>Кто&nbsp;вы. Какие задачи решаете. За&nbsp;счёт&nbsp;чего.</p></div>
+    <div class="fade d4"><span class="mono">Продажи</span><p>От&nbsp;первого касания до&nbsp;оплаты. Без&nbsp;дожима.</p></div>
+    <div class="fade d5"><span class="mono">ИИ-команда</span><p>Тексты, сайт, монтаж, цифры. Без&nbsp;найма.</p></div>
+  </div></div>
+</section>
+
+<!-- 05 -->
+<section class="ch tall" id="c5" data-name="Путь" data-shape="4" data-side="L" data-weeks="5">
+  <div class="pin"><div class="box">
+    <div class="lab mono fade">05 · Путь клиента</div>
+    <h2><span class="ln"><span>16&nbsp;недель.</span></span><span class="ln"><span><em>Шаг&nbsp;за&nbsp;шагом.</em></span></span></h2>
+    <div class="weeks fade d2">
+      <div class="wk"><span class="mono">Неделя&nbsp;1</span><div><h3>Стратегия</h3><p>Кто&nbsp;вы, что&nbsp;продаёте, за&nbsp;сколько. Ваши цифры: где&nbsp;вы&nbsp;сейчас и&nbsp;куда&nbsp;идём.</p></div></div>
+      <div class="wk"><span class="mono">Неделя&nbsp;2</span><div><h3>Первые деньги</h3><p>Новая цена и&nbsp;разговор с&nbsp;теми, кто&nbsp;вас&nbsp;уже&nbsp;знает. Мы&nbsp;сначала делаем деньги, тестируем, докручиваем.</p></div></div>
+      <div class="wk"><span class="mono">Недели 3–4</span><div><h3>Упаковка</h3><p>Продукт, профиль, сайт-презентация. Клиент сам&nbsp;понимает, за&nbsp;что&nbsp;платит, и&nbsp;платит дороже.</p></div></div>
+      <div class="wk"><span class="mono">Недели 5–12</span><div><h3>Продажи и&nbsp;чек</h3><p>Каждую неделю&nbsp;цифры. Видим узкое горлышко&nbsp;— влияем. Разбор ваших разговоров, рост чека, второй продукт.</p></div></div>
+      <div class="wk"><span class="mono">Недели 13–16</span><div><h3>Система без&nbsp;меня</h3><p>Цифры на&nbsp;одном экране, правила для&nbsp;ИИ-команды, день результатов.</p></div></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- 06 -->
+<section class="ch R" id="c6" data-name="Что остаётся" data-shape="4" data-side="R" data-pulse="1">
+  <div class="pin"><div class="box">
+    <div class="lab mono fade">06 · Что&nbsp;остаётся у&nbsp;вас</div>
+    <h2><span class="ln"><span>Отдел&nbsp;роста.</span></span><span class="ln"><span><em>Без&nbsp;зарплаты.</em></span></span></h2>
+    <p class="lead fade d2">Продюсер уходит и&nbsp;забирает команду. Курс заканчивается конспектом. Здесь остаётся система под&nbsp;ваш&nbsp;голос, вашу нишу и&nbsp;ваши&nbsp;цифры.</p>
+    <ul class="rows">
+      <li class="fade d3"><b>01</b>Это&nbsp;ваше, а&nbsp;не&nbsp;аренда.</li>
+      <li class="fade d4"><b>02</b>Решения принимаете&nbsp;вы. Работу делает ИИ-команда.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- 07 -->
+<section class="ch xtall ch7" id="c7" data-name="Результаты" data-shape="5" data-side="C" data-strip="1">
+  <div class="pin">
+    <div class="lab mono fade">07 · Результаты</div>
+    <div class="cwrap"><h2><span class="ln"><span>Разные&nbsp;ниши.</span></span><span class="ln"><span><em>Один&nbsp;итог.</em></span></span></h2>
+    <div class="cases">
+      <div class="case fade d1"><div class="ph"><img src="./img/milky.webp" alt="Настя Milky" loading="lazy" decoding="async"></div><div class="num">3,3&nbsp;млн&nbsp;₽</div><div class="was">было 500&nbsp;000&nbsp;₽ · за&nbsp;8&nbsp;недель</div><div class="who">Настя Milky<small>Наставник бьюти-экспертов</small></div></div>
+      <div class="case fade d2"><div class="ph"><img src="./img/zelinskaya.webp" alt="Ирина Зелинская" loading="lazy" decoding="async"></div><div class="num">4,9&nbsp;млн&nbsp;₽</div><div class="was">было 250&nbsp;000&nbsp;₽ · продажи каждый месяц</div><div class="who">Ирина Зелинская<small>Наставник, коуч</small></div></div>
+      <div class="case fade d3"><div class="ph"><img src="./img/emelyanova.webp" alt="Ира Емельянова" loading="lazy" decoding="async"></div><div class="num">4,2&nbsp;млн&nbsp;₽</div><div class="was">был&nbsp;низкий чек&nbsp;· за&nbsp;10&nbsp;недель</div><div class="who">Ира&nbsp;Емельянова<small>Бизнес-коуч</small></div></div>
+      <div class="case fade d4"><div class="ph"><img src="./img/kuznetsova-s.webp" alt="Серафима Кузнецова" loading="lazy" decoding="async"></div><div class="num">11&nbsp;млн&nbsp;₽</div><div class="was">было 100&nbsp;000&nbsp;₽ · чек&nbsp;вырос в&nbsp;10&nbsp;раз</div><div class="who">Серафима Кузнецова<small>Бизнес-наставник, коуч</small></div></div>
+    </div>
+    <a class="quiet mono fade d5" href="#c10">Следующий&nbsp;— ваш <span>→</span></a></div>
+    <div class="slab mono">Ещё 18&nbsp;кейсов · листайте</div>
+    <div class="strip" id="strip"></div>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="ch" id="c8" data-name="Кто ведёт" data-shape="6" data-side="L">
+  <div class="pin">
+    <div class="me fade d2"><img src="./img/me.webp" alt="Александр Комлев" loading="lazy" decoding="async"></div>
+    <div class="box">
+    <div class="lab mono fade">08 · Кто&nbsp;ведёт</div>
+    <h2><span class="ln"><span>Из&nbsp;−2&nbsp;млн&nbsp;₽</span></span><span class="ln"><span>в&nbsp;+4&nbsp;млн&nbsp;₽.</span></span><span class="ln"><span><em>Без&nbsp;рекламы.</em></span></span></h2>
+    <p class="lead fade d2">Ушёл из&nbsp;недвижки, потому что&nbsp;захотелось создавать&nbsp;своё. Веду турагентство: пять сотрудников, из&nbsp;десяти месяцев восемь закрыли рекордами.</p>
+    <div class="facts fade d3"><div><b>12</b><span>лет&nbsp;в&nbsp;продажах</span></div><div><b>100+</b><span>млн&nbsp;₽ заработали клиенты</span></div></div>
+  </div></div>
+</section>
+
+<!-- 09 -->
+<section class="ch C" id="c9" data-name="Отбор" data-shape="7" data-side="C">
+  <div class="pin"><div class="box">
+    <div class="lab mono fade">09 · Шесть мест</div>
+    <h2><span class="ln"><span>6&nbsp;мест.</span></span><span class="ln"><span><em>Отбор на&nbsp;разговоре.</em></span></span></h2>
+    <div class="two">
+      <div class="fade d2"><h4>Подойдёт</h4><ul><li>Продукт уже&nbsp;покупают, есть результаты клиентов.</li><li>Готовы раз&nbsp;в&nbsp;неделю созвон и&nbsp;отчёты.</li><li>Принимаете решения и&nbsp;выдерживаете&nbsp;их.</li></ul></div>
+      <div class="fade d3"><h4>Не&nbsp;подойдёт</h4><ul><li>Нужен ещё&nbsp;один&nbsp;курс.</li><li>Продукта пока&nbsp;нет.</li><li>Хочется, чтобы сделали за&nbsp;вас, без&nbsp;вас.</li></ul></div>
+    </div>
+    <div class="guar fade d4"><span class="mono">Гарантия</span>Не&nbsp;заработали вдвое больше, чем&nbsp;вложили,&nbsp;— работаю дальше бесплатно, до&nbsp;8&nbsp;недель. Набор раз&nbsp;в&nbsp;4&nbsp;месяца.</div>
+  </div></div>
+</section>
+
+<!-- 10 -->
+<section class="ch" id="c10" data-name="Разговор" data-shape="8" data-side="L">
+  <div class="pin"><div class="box fin">
+    <div class="lab mono fade">10 · Разговор</div>
+    <h2><span class="ln"><span>Можно ещё&nbsp;полгода</span></span><span class="ln"><span>делать то&nbsp;же самое.</span></span><span class="ln"><span><em>А&nbsp;можно написать.</em></span></span></h2>
+    <p class="lead fade d2">Разговор 30–40&nbsp;минут. Считаем ваши&nbsp;цифры. Вы&nbsp;уходите с&nbsp;пониманием, как&nbsp;сделать продажи в&nbsp;ближайшие две&nbsp;недели.</p>
+    <a class="btn big mag fade d3" href="https://t.me/coachkomlevaleks" target="_blank" rel="noopener">Написать в&nbsp;Telegram <span class="ar">→</span></a>
+    <small class="mono fade d4">Без&nbsp;презентаций · без&nbsp;прогревов · без&nbsp;дожима</small>
+  </div></div>
+</section>
+</main>
+
+<footer>
+  <span>Александр Комлев · Сезон роста</span>
+  <span><a href="mailto:komlevalexander@yahoo.com">komlevalexander@yahoo.com</a> · <a href="tel:+79019783894">+7&nbsp;901&nbsp;978-38-94</a></span>
+  <span><a href="../sistema/legal.html#details">Политика</a> · <a href="../sistema/legal.html#consent">Согласие</a> · <a href="../sistema/legal.html#cookie">Cookie</a></span>
+  <span>ИП&nbsp;Комлев Александр Евгеньевич · ИНН&nbsp;782003396570</span>
+</footer>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
