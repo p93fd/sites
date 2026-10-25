@@ -124,7 +124,7 @@ function boxTex() {
 
 export function createWorld(canvas, { mobile = false } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: "high-performance", alpha: false });
-  let DPR = Math.min(window.devicePixelRatio || 1, mobile ? 1.3 : 1.6);
+  let DPR = Math.min(window.devicePixelRatio || 1, 2);
   renderer.setPixelRatio(DPR);
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08;
   renderer.outputColorSpace = THREE.SRGBColorSpace;

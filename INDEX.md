@@ -58,7 +58,7 @@
 | bezlishnego | 46 | 22.7 МБ | bezlishnego/index.html (1488), bezlishnego/legal.html (157), bezlishnego/satin.html (1494), bezlishnego/tilda-1-oformlenie.txt (2), bezlishnego/tilda-2-stranica.txt (133) |
 | dengi | 21 | 13.4 МБ | dengi/app.js (888), dengi/fonts/OFL.txt (94), dengi/index.html (199), dengi/style.css (203), dengi/sw.js (28), dengi/vendor/tesseract-core-lstm.wasm.js (283), dengi/vendor/tesseract-core-simd-lstm.wasm.js (283) |
 | kino | 34 | 32.7 МБ | kino/app.js (276), kino/index.html (62), kino/style.css (62) |
-| mbsea | 34 | 1.1 МБ | mbsea/app.js (137), mbsea/index.html (393), mbsea/world.js (560) |
+| mbsea | 34 | 1.1 МБ | mbsea/app.js (146), mbsea/index.html (393), mbsea/world.js (560) |
 | orva | 49 | 1.7 МБ | orva/app.js (170), orva/film.js (173), orva/index.html (375) |
 | orva-v3 | 53 | 1.7 МБ | orva-v3/app.js (136), orva-v3/index.html (381), orva-v3/world.js (532) |
 | research | 15 | 963 КБ | research/README.md (153), research/activetheory-ref.md (405), research/studios-ref.md (356), research/video-ref.md (310), research/voice-aleksandr.md (587), research/wave1-eu-creative-dev.md (340), research/wave1-premium-anatomy.md (345), research/wave1-us-visual.md (421), research/wave2-asia.md (269), research/wave2-cyrillic.md (475), research/wave2-deep.md (356) |

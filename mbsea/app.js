@@ -52,8 +52,17 @@ function coordAt(y) { const mid = y + VH / 2; for (let i = 0; i < N; i++) if (mi
 function yAt(c) { const i = Math.min(N - 1, Math.floor(c)), f = c - i; const span = i === N - 1 ? Math.max(1, root.scrollHeight - VH / 2 - tops[i]) : hs[i]; return tops[i] + f * span - VH / 2; }
 
 // ── прокрутка ──
-const lenis = REDUCED ? null : new Lenis({ lerp: 0.075, wheelMultiplier: 0.85, smoothWheel: true });
-function goTo(i) { const y = Math.max(0, yAt(i + 0.5)); lenis ? lenis.scrollTo(y, { duration: 2.4 }) : scrollTo({ top: y, behavior: "smooth" }); }
+const lenis = new Lenis({ lerp: 0.075, wheelMultiplier: 0, touchMultiplier: 0, smoothWheel: true });
+// слайды: один жест = один слайд
+let busy = false;
+function step(d) { if (busy) return; const cur = cl(Math.floor(coordAt(lenis.scroll)), 0, N - 1); const i = cl(cur + d, 0, N - 1); if (i === cur) return; busy = true; goTo(i); setTimeout(() => (busy = false), 1700); }
+const inDlg = (e) => document.getElementById("doc").open;
+addEventListener("wheel", (e) => { if (inDlg()) return; e.preventDefault(); if (Math.abs(e.deltaY) > 6) step(e.deltaY > 0 ? 1 : -1); }, { passive: false });
+let ty = null; addEventListener("touchstart", (e) => (ty = e.touches[0].clientY), { passive: true });
+addEventListener("touchmove", (e) => { if (!inDlg() && !e.target.closest("input,select")) e.preventDefault(); }, { passive: false });
+addEventListener("touchend", (e) => { if (ty === null) return; const dy = ty - e.changedTouches[0].clientY; ty = null; if (Math.abs(dy) > 40) step(dy > 0 ? 1 : -1); });
+addEventListener("keydown", (e) => { if (e.target.closest("input,select")) return; if (["ArrowDown", "PageDown", " "].includes(e.key)) { e.preventDefault(); step(1); } if (["ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); step(-1); } });
+function goTo(i) { const y = Math.max(0, yAt(i + 0.5)); lenis.scrollTo(y, { duration: 1.6 }); }
 document.querySelectorAll('a[href^="#c"]').forEach((a) => { if (a.parentElement === rail) return; a.addEventListener("click", (e) => { const i = chapters.findIndex((c) => "#" + c.id === a.getAttribute("href")); if (i >= 0) { e.preventDefault(); goTo(i); } }); });
 
 // ── протокол крупно ──
