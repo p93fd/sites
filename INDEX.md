@@ -6,6 +6,7 @@
 
 | Папка | Что это | Живая ссылка |
 |---|---|---|
+| mbsea | Сайт-фильм Arti made by sea (водоросли, опт для мастеров) 25.10: подводный 3D-мир, 11 глав — лес ламинарии → лист срезан руками → цех → гель → банка 1 кг → протокол → отзывы WB → набор мастера → опт → вопросы → выход на поверхность и заявка на прайс | https://p93fd.github.io/sites/mbsea/ |
 | steklo | Сайт-фильм v5 18.10: 9 сцен, свайп = сцена (8 свайпов), пролёт между сценами, 3D-иконки, кольцо кейсов. Конвейер: steklo/neuro/PIPELINE.md | https://p93fd.github.io/sites/steklo/ |
 | steklo-v4 | v4 (прокрутка 22 экрана) + все кадры и ролики в neuro/ | https://p93fd.github.io/sites/steklo-v4/ |
 | steklo-v3 | Версия v3 (шар в тоннеле, Unbounded) | https://p93fd.github.io/sites/steklo-v3/ |
@@ -48,7 +49,7 @@
 <!-- auto:files -->
 | Папка | Файлов | Вес | Текстовые файлы (строк) |
 |---|---|---|---|
-| . | 4 | 25 КБ | CLAUDE.md (16), INDEX.md (69), MAP.md (171), README.md (1) |
+| . | 4 | 27 КБ | CLAUDE.md (16), INDEX.md (74), MAP.md (172), README.md (1) |
 | .claude | 8 | 110 КБ | .claude/settings.json (8), .claude/skills/kino-sayt/SKILL.md (42), .claude/skills/my-voice/SKILL.md (571), .claude/skills/particle-scene/SKILL.md (89), .claude/skills/ru-typography/SKILL.md (60), .claude/skills/site-10k/SKILL.md (94), .claude/skills/studio-layout/SKILL.md (98), .claude/skills/volumetric-web/SKILL.md (43) |
 | .memory | 5 | 11 КБ | .memory/INDEX.md (11), .memory/conventions.md (10), .memory/dead-ends.md (44), .memory/decisions.md (36), .memory/state.md (9) |
 | anna | 1 | 2.0 МБ | anna/index.html (578) |
@@ -57,6 +58,7 @@
 | bezlishnego | 46 | 22.7 МБ | bezlishnego/index.html (1488), bezlishnego/legal.html (157), bezlishnego/satin.html (1494), bezlishnego/tilda-1-oformlenie.txt (2), bezlishnego/tilda-2-stranica.txt (133) |
 | dengi | 21 | 13.4 МБ | dengi/app.js (888), dengi/fonts/OFL.txt (94), dengi/index.html (199), dengi/style.css (203), dengi/sw.js (28), dengi/vendor/tesseract-core-lstm.wasm.js (283), dengi/vendor/tesseract-core-simd-lstm.wasm.js (283) |
 | kino | 34 | 32.7 МБ | kino/app.js (276), kino/index.html (62), kino/style.css (62) |
+| mbsea | 34 | 1.1 МБ | mbsea/app.js (137), mbsea/index.html (393), mbsea/world.js (560) |
 | orva | 49 | 1.7 МБ | orva/app.js (170), orva/film.js (173), orva/index.html (375) |
 | orva-v3 | 53 | 1.7 МБ | orva-v3/app.js (136), orva-v3/index.html (381), orva-v3/world.js (532) |
 | research | 15 | 963 КБ | research/README.md (153), research/activetheory-ref.md (405), research/studios-ref.md (356), research/video-ref.md (310), research/voice-aleksandr.md (587), research/wave1-eu-creative-dev.md (340), research/wave1-premium-anatomy.md (345), research/wave1-us-visual.md (421), research/wave2-asia.md (269), research/wave2-cyrillic.md (475), research/wave2-deep.md (356) |
