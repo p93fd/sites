@@ -457,14 +457,14 @@ export function createWorld(canvas, { mobile = false } = {}) {
   resize();
 
   // ── кадр ──
-  let cs = 0, vel = 0, side = 0;
+  let cs = 0, vel = 0, side = 0, jump = false;
   const P = new THREE.Vector3(), L = new THREE.Vector3(), dm = new THREE.Object3D(), v3 = new THREE.Vector3(), tmpC = new THREE.Color();
   const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
   function update(cTarget, dt, t, sideTarget) {
     U.time.value = t; fin.uniforms.uTime.value = t;
     const prev = cs; const k = 1 - Math.exp(-dt * 2.6); let step = (cTarget - cs) * k; step = cl(step, -dt * 1.4, dt * 1.4); cs += step;
     vel += ((cs - prev) / Math.max(dt, 1e-3) - vel) * 0.1;
-    side += (sideTarget - side) * (1 - Math.exp(-dt * 2.2));
+    side += (sideTarget - side) * (1 - Math.exp(-dt * 2.2)); if (jump) { side = sideTarget; jump = false; }
     mouse.sx += (mouse.x - mouse.sx) * 0.04; mouse.sy += (mouse.y - mouse.sy) * 0.04;
     const c = cs;
 
@@ -555,5 +555,5 @@ export function createWorld(canvas, { mobile = false } = {}) {
     cs = 0;
   }
 
-  return { update, resize, mouse, warm, snap(c) { cs = c; }, get c() { return cs; }, setDPR(d) { DPR = d; renderer.setPixelRatio(d); resize(); }, lowPower() { bloom.strength = 0.65; }, renderer };
+  return { update, resize, mouse, warm, snap(c) { cs = c; jump = true; }, get c() { return cs; }, setDPR(d) { DPR = d; renderer.setPixelRatio(d); resize(); }, lowPower() { bloom.strength = 0.65; }, renderer };
 }

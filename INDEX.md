@@ -49,7 +49,7 @@
 <!-- auto:files -->
 | Папка | Файлов | Вес | Текстовые файлы (строк) |
 |---|---|---|---|
-| . | 4 | 27 КБ | CLAUDE.md (16), INDEX.md (74), MAP.md (172), README.md (1) |
+| . | 4 | 27 КБ | CLAUDE.md (16), INDEX.md (75), MAP.md (172), README.md (1) |
 | .claude | 8 | 110 КБ | .claude/settings.json (8), .claude/skills/kino-sayt/SKILL.md (42), .claude/skills/my-voice/SKILL.md (571), .claude/skills/particle-scene/SKILL.md (89), .claude/skills/ru-typography/SKILL.md (60), .claude/skills/site-10k/SKILL.md (94), .claude/skills/studio-layout/SKILL.md (98), .claude/skills/volumetric-web/SKILL.md (43) |
 | .memory | 5 | 11 КБ | .memory/INDEX.md (11), .memory/conventions.md (10), .memory/dead-ends.md (44), .memory/decisions.md (36), .memory/state.md (9) |
 | anna | 1 | 2.0 МБ | anna/index.html (578) |
