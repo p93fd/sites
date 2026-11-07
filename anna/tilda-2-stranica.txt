@@ -1,0 +1,307 @@
+<!-- Анна Шкрябина, блок 2 из 2: страница. Вставить во второй блок T123, сразу под первым -->
+<div id="anw">
+<div id="load" aria-hidden="true"><img src="https://p93fd.github.io/sites/anna/a01.png" alt=""><b>Анна Шкрябина</b><i></i><span class="mono" id="lp">00</span></div>
+<canvas id="silk" aria-hidden="true"></canvas><img id="mark" src="https://p93fd.github.io/sites/anna/a01.png" alt="" aria-hidden="true"><div id="bar"></div><div id="ring" aria-hidden="true"></div>
+<div id="chap" aria-hidden="true"><span class="mono" id="chn">Энергия</span><b id="chc">01 / 10</b></div>
+<header>
+  <a class="logo lg" href="#top" aria-label="Здоровье внутри нас, наверх"><img src="https://p93fd.github.io/sites/anna/a02.png" alt="Здоровье внутри нас"><span>Анна Шкрябина<small>врач-остеопат, натуропат</small></span></a>
+  <nav class="lg"><a class="t" href="#why">Почему я</a><a class="t" href="#steps">Как проходит</a><a class="t" href="#cases">Результаты</a><a class="btn fill sm" href="https://t.me/annashkryabina" target="_blank" rel="noopener">Записаться бесплатно</a></nav>
+</header>
+<main id="top">
+<section class="hero" data-ch="Энергия">
+  <div class="wrap">
+    <div class="txt">
+      <p class="mono">Анна Шкрябина · врач-остеопат, натуропат</p>
+      <h1 data-lines>Вы получите <em>энергию на&nbsp;всё,</em> что для вас важно</h1>
+      <p class="lead" data-up>Сил хватает на&nbsp;развитие и&nbsp;учёбу, на&nbsp;ребёнка, на&nbsp;спорт, на&nbsp;досуг и&nbsp;отпуск. В&nbsp;зеркале&nbsp;— красивое подтянутое и&nbsp;здоровое тело. Питание&nbsp;— без надрыва и&nbsp;жёстких ограничений.</p>
+      <div class="acts" data-up><a class="btn fill mag" href="https://t.me/annashkryabina" target="_blank" rel="noopener">Первичная диагностика <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a></div>
+      <p class="legal" data-up>Нажимая кнопку, вы соглашаетесь с&nbsp;<button type="button" class="lnk" data-doc="policy">политикой</button> и&nbsp;даёте <button type="button" class="lnk" data-doc="consent">согласие на&nbsp;обработку данных</button>.</p>
+      <div class="nums" data-up>
+        <div><b data-count="18">18</b><span>лет в&nbsp;медицине</span></div>
+        <div><b data-count="2500">2500</b><span>пациентов</span></div>
+        <div><b>3</b><span>мед. диплома</span></div>
+        <div><b>Каждый</b><span>пациент получает больше энергии и&nbsp;сил</span></div>
+      </div>
+    </div>
+    <div class="port">
+      <div class="shot"><img src="https://p93fd.github.io/sites/anna/a03.jpg" alt="Анна Шкрябина" id="anna"></div>
+      <div class="tagc a lg"><b>с 2008</b><span>врач акушер-гинеколог</span></div>
+      <div class="tagc b lg"><b>с 2020</b><span>остеопат и&nbsp;натуропат</span></div>
+    </div>
+  </div>
+</section>
+<section class="day" data-ch="Ваш день">
+  <div class="wrap">
+    <div class="stick">
+      <p class="label mono"><span>01</span><i></i><span>Состояние</span></p>
+      <h2 data-lines>Узнаёте свой день? <em>Это не&nbsp;норма и&nbsp;не&nbsp;возраст</em></h2>
+      <p class="lead" data-up>Так описывают своё состояние женщины 35–55&nbsp;лет, которые приходят ко&nbsp;мне. У&nbsp;каждого пункта есть причина в&nbsp;теле, и&nbsp;с&nbsp;ней можно работать.</p>
+    </div>
+    <ol class="rows">
+      <li data-up><b>01</b>Только встала, уже устала. Постоянно уставшая, невыспавшаяся. Состояние варёное</li>
+      <li data-up><b>02</b>Прерывистый сон, не&nbsp;могу выспаться за&nbsp;10–12&nbsp;часов</li>
+      <li data-up><b>03</b>Неприятный запах, когда вспотею</li>
+      <li data-up><b>04</b>Дискомфорт в&nbsp;животе, часто урчит, вздутие, тяжесть, огромный живот живёт отдельной жизнью</li>
+      <li data-up><b>05</b>Частая головная боль, туман в&nbsp;голове</li>
+      <li data-up><b>06</b>Сухая кожа, волосы сыплются, жировики, папилломы, угри постоянно появляются</li>
+    </ol>
+  </div>
+</section>
+<section class="tried" data-ch="Почему временно">
+  <div class="wrap">
+    <p class="label mono"><span>02</span><i></i><span>Что уже пробовали</span></p>
+    <h2 data-lines>Почему всё помогает <em>только на&nbsp;время</em></h2>
+    <dl class="three">
+      <div data-up><dt>Разные специалисты</dt><dd>Ходили к&nbsp;разным специалистам: каждый смотрит своё. Эффект временный, потом всё возвращается или появляется что-то ещё.</dd></div>
+      <div data-up><dt>БАДы наугад</dt><dd>По&nbsp;рекомендации подруги или интернета&nbsp;— бросила, потому что стало хуже, или пропила без особых изменений.</dd></div>
+      <div data-up><dt>Диеты</dt><dd>Дают эффект, но&nbsp;потом всё возвращается.</dd></div>
+    </dl>
+    <p class="turn" data-up>Время&nbsp;— наш самый ценный ресурс. Состояние&nbsp;— то, как мы&nbsp;его проживаем: когда есть силы, в&nbsp;один день помещается то, на&nbsp;что раньше уходила неделя. Для энергии важна комплексная работа на&nbsp;всех уровнях. На&nbsp;первичной встрече показываю, как решается ваша задача по&nbsp;этапам.</p>
+  </div>
+</section>
+<section class="why" id="why" data-ch="Почему я">
+  <div class="wrap">
+    <div class="duo">
+      <div class="ph p1" data-tilt style="background-image:url(https://p93fd.github.io/sites/anna/a04.jpg);background-position:50% 48%" role="img" aria-label="Анна Шкрябина, врач-остеопат, натуропат"></div>
+    </div>
+    <div>
+      <p class="label mono"><span>03</span><i></i><span>Почему я</span></p>
+      <h2 data-lines>Врач, которая <em>сама прошла этот путь</em></h2>
+      <div class="creds" data-up>
+        <div><b>18 лет</b><span>в&nbsp;медицине, врач акушер-гинеколог с&nbsp;2008&nbsp;г.</span></div>
+        <div><b>3 диплома</b><span>остеопат и&nbsp;натуропат с&nbsp;2020&nbsp;года</span></div>
+      </div>
+      <div class="story lg" data-up>
+        <p>Я&nbsp;была очень часто болеющим ребёнком с&nbsp;ожирением, в&nbsp;студенчестве и&nbsp;после часто болела, постоянно ходила с&nbsp;соплями или герпесом, были высыпания на&nbsp;коже, отёки, мало энергии (утром еле вставала, днём всегда хотелось спать), почти постоянно болела шея и&nbsp;плечи.</p>
+        <p>После изменения образа жизни и&nbsp;применения новых знаний я&nbsp;<mark>42-летняя женщина с&nbsp;3&nbsp;детьми, красивым телом, чистой кожей, полна энергии и&nbsp;сил</mark>, занимаюсь спортом, работаю с&nbsp;пациентами, выступаю с&nbsp;лекциями, путешествую, болею редко и&nbsp;каждую болезнь превращаю себе во&nbsp;благо. Бегаю полумарафон 21,1&nbsp;км.</p>
+        <q>Здоровье есть внутри каждого человека, ему просто надо создать условия, чтобы проявиться.</q>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="edu" id="edu" data-ch="Образование">
+  <div class="wrap">
+    <p class="label mono"><span>04</span><i></i><span>Образование</span></p>
+    <h2 data-lines>3&nbsp;медицинских диплома <em>и&nbsp;18 лет практики</em></h2>
+    <div class="fan">
+      <button class="doc lg" type="button" data-z><img src="https://p93fd.github.io/sites/anna/a05.webp" alt="Диплом врача по специальности «Лечебное дело»"><b>Врач, «Лечебное дело»</b><span>Северный государственный медицинский университет, 2007</span></button>
+      <button class="doc lg" type="button" data-z><img src="https://p93fd.github.io/sites/anna/a06.webp" alt="Удостоверение врача акушера-гинеколога"><b>Врач акушер-гинеколог</b><span>Клиническая интернатура, 2008</span></button>
+      <button class="doc lg" type="button" data-z><img src="https://p93fd.github.io/sites/anna/a07.webp" alt="Диплом о переподготовке, остеопатия"><b>Остеопатия</b><span>Институт остеопатии, Санкт-Петербург, 2021</span></button>
+      <button class="doc lg" type="button" data-z><img src="https://p93fd.github.io/sites/anna/a08.webp" alt="Диплом о переподготовке, натуропатия"><b>Натуропатия, 252 часа</b><span>Учебный центр «ПРОФИ», 2026</span></button>
+    </div>
+    <p class="note">Номера документов скрыты · первые два диплома выданы на&nbsp;фамилию Усачёва</p>
+  </div>
+</section>
+<section class="cases" id="cases" data-ch="Результаты">
+  <div class="wrap">
+    <p class="label mono"><span>05</span><i></i><span>Истории пациентов</span></p>
+    <h2 data-lines>Отменённая операция, −9&nbsp;кг, жизнь без гормонов: <em>что меняется у&nbsp;пациентов</em></h2>
+    <article class="case lg"><div data-a><p class="big w">Отменили операцию<small>9 лет жила с каплями в нос</small></p><p class="tag mono">костюмер-оформитель в театре</p><h3>Елена, 47 лет</h3><p class="came">Обратилась с&nbsp;лишним весом, аллергией (больше 10&nbsp;лет на&nbsp;препаратах), затруднение носового дыхания (9&nbsp;лет живёт с&nbsp;каплями в&nbsp;нос каждый день, готовилась к&nbsp;операции), отсутствие энергии и&nbsp;сил, запоры, вздутие живота, проблемы по&nbsp;гинекологии.</p></div><div data-a><ol><li><mark>Отменили операцию</mark>, носовое дыхание восстановилось</li><li>Похудела на&nbsp;5,8&nbsp;кг за&nbsp;месяц, стало гораздо больше энергии, повысили на&nbsp;работе</li><li>Избавилась от&nbsp;аллергии (сезон весна-лето живёт без препаратов)</li><li>Решились проблемы с&nbsp;ЖКТ (ушло вздутие, нет запоров) и&nbsp;по&nbsp;гинекологии (ушли кисты, миома)</li></ol><blockquote>«<mark>Курс перевернул мою жизнь</mark>, такое счастье, что я&nbsp;хожу в&nbsp;туалет каждый день. Далее было волшебное излечение носа. Конечно, <mark>похудеть за&nbsp;месяц на&nbsp;5,8&nbsp;кг</mark>&nbsp;это здорово. Я&nbsp;ощущаю лёгкость. <mark>У&nbsp;меня много сил</mark>, я&nbsp;даже удивляюсь себе, как можно было сделать столько дел. Меня устраивает полезная еда. Я&nbsp;очень благодарна за&nbsp;это. Мне было спокойно с&nbsp;вами.»<cite>Елена</cite></blockquote></div></article>
+<article class="case lg"><div data-a><p class="big">−9 кг<small>за месяц</small></p><p class="tag mono">адвокат</p><h3>Ирина, 44 года</h3><p class="came">Обратилась с&nbsp;лишним весом, боли в&nbsp;спине и&nbsp;коленях, низкий уровень энергии, проблемы с&nbsp;кожей, неприятный запах от&nbsp;тела, вздутие живота, непреодолимое желание есть сладкое.</p><div class="links"><a href="https://youtu.be/bcuPV6jUFkk?si=uHiY04HWJlsL1lxf" target="_blank" rel="noopener">Интервью с Ириной <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a><a href="https://t.me/zdorovie_vnutri_nas/357" target="_blank" rel="noopener">Эссе от Ирины <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></div></div><div data-a><ol><li><mark>Ушёл вес и&nbsp;объёмы (−9&nbsp;кг&nbsp;за&nbsp;месяц)</mark></li><li>Много энергии (работы меньше не&nbsp;стало, выхлопа больше, финансы выросли)</li><li>Питание кардинально изменилось — не&nbsp;хочется мясо, кофе (пила по&nbsp;7&nbsp;чашек в&nbsp;день), сладкое. Наедаюсь полезной едой. Язык по-другому ощущает вкусы</li><li>Нет запаха от&nbsp;тела, можно жить без дезодоранта</li></ol></div></article>
+<article class="case lg"><div data-a><p class="big">0<small>госпитализаций — больше не лежала в больнице</small></p><p class="tag mono">школьница на домашнем обучении из-за постоянных болезней</p><h3>Алиса, 12 лет</h3><p class="came">Обратились: постоянные ОРВИ, обострения бронхита, цистит, слабость, обмороки в&nbsp;душном помещении, несколько раз в&nbsp;год госпитализация, задыхается при быстром шаге, постоянный приём лекарств (антибиотики, гормоны), которые только меняются и&nbsp;добавляются.</p></div><div data-a><ol><li><mark>Живёт без ингаляций и&nbsp;гормонов</mark></li><li>Может бегать, начала заниматься лыжами и&nbsp;ОФП, <mark>перешла на&nbsp;очное обучение в&nbsp;школу</mark></li><li>Стало гораздо реже и&nbsp;легче болеть, больше не&nbsp;лежала в&nbsp;больнице</li><li>Наладилась работа ЖКТ, кожа стала чище</li></ol><blockquote>«Я&nbsp;вообще до&nbsp;последнего не&nbsp;верила в&nbsp;то, что такое было возможно. <mark>Мой ребёнок не&nbsp;болеет и&nbsp;ЭТО ПРЕКРАСНО!!</mark> Тревога стала потихоньку отпускать меня!! А&nbsp;я&nbsp;«отпускать» ребёнка… Огромная благодарность вам.»<cite>Мама Алисы</cite></blockquote></div></article>
+  </div>
+</section>
+<section class="steps" id="steps" data-ch="Шаги к здоровью">
+  <div class="wrap">
+    <div class="stick">
+      <p class="label mono"><span>06</span><i></i><span>Сопровождение</span></p>
+      <h2 data-lines>5&nbsp;шагов от&nbsp;«встала&nbsp;— уже устала» <em>до&nbsp;энергии на&nbsp;весь день</em></h2>
+      <p class="lead" data-up>Сопровождение «Шаги к&nbsp;здоровью». В&nbsp;конце программы <mark>у&nbsp;каждого&nbsp;— больше энергии и&nbsp;сил</mark>, больше бодрости и&nbsp;активности.</p>
+      <div class="meet" data-up><span>Встречи онлайн 3&nbsp;раза обязательно: диагностика, объяснение программы и&nbsp;подведение итогов</span><span>Промежуточные короткие онлайн-встречи по&nbsp;необходимости</span><span>Возможность задать вопрос в&nbsp;чате каждый день</span></div>
+    </div>
+    <div><div class="step lg" data-a><span class="num lg">1</span><h3>Диагностика</h3><div class="cols"><div><b>ЦЕЛЬ ЭТАПА</b><p>Познакомиться, выяснить истинные проблемы со&nbsp;здоровьем, понять их&nbsp;причину и&nbsp;наметить план восстановления здоровья.</p></div><div><b>ЧТО ПОЛУЧИТ КЛИЕНТ</b><p>Понимание, что на&nbsp;самом деле происходит в&nbsp;теле, что стало причиной этих проблем и&nbsp;какие варианты (пути) решения существуют. Крупными пунктами — что конкретно можно сделать, чтобы решить проблему.</p></div><div><b>РЕЗУЛЬТАТ ЭТАПА</b><p>Клиент видит путь. Конкретно что, когда, как долго надо делать, чтобы прийти к&nbsp;желаемому результату.</p></div></div></div>
+<div class="step lg" data-a><span class="num lg">2</span><h3>Анализы, обследования, анкетирование</h3><div class="cols"><div><b>ЦЕЛЬ ЭТАПА</b><p>Максимально дополнить исходные данные для глубокого анализа состояния организма и&nbsp;составления плана действий.</p></div><div><b>ЧТО ПОЛУЧИТ КЛИЕНТ</b><p>Знания о&nbsp;состоянии своего организма, какие реальные проблемы у&nbsp;него есть. Понимание, что будет, если ничего не&nbsp;менять (как будет прогрессировать болезнь) и&nbsp;к&nbsp;чему это может привести.</p></div><div><b>РЕЗУЛЬТАТ ЭТАПА</b><p>Полная, глубокая диагностика состояния организма, на&nbsp;основе которой будет составлен план восстановления здоровья.</p></div></div></div>
+<div class="step lg" data-a><span class="num lg">3</span><h3>Составление плана</h3><div class="cols"><div><b>ЦЕЛЬ ЭТАПА</b><p>Расписать чёткий, понятный план действий, который необходимо будет выполнять шаг за&nbsp;шагом для того, чтобы сделать здоровье образом жизни.</p></div><div><b>ЧТО ПОЛУЧИТ КЛИЕНТ</b><p>Пошаговая инструкция к&nbsp;действиям в&nbsp;отдельном чате, для того, чтобы эта информация осталась навсегда и&nbsp;к&nbsp;ней можно было обратиться в&nbsp;любое время.</p></div><div><b>РЕЗУЛЬТАТ ЭТАПА</b><p>Наличие простроенного маршрута из&nbsp;точки А&nbsp;в&nbsp;точку В.</p></div></div></div>
+<div class="step lg" data-a><span class="num lg">4</span><h3>Ведение</h3><div class="cols"><div><b>ЦЕЛЬ ЭТАПА</b><p>Сопровождение весь период работы. Мотивация, корректировка, поддержка, помощь.</p></div><div><b>ЧТО ПОЛУЧИТ КЛИЕНТ</b><p>Отдельный чат, куда постепенно будет добавляться информация с&nbsp;рекомендациями: коррекции питания, восполнения дефицитов, протоколы очищения и&nbsp;натуропатические протоколы и&nbsp;практики, режима дня, физической активности, дыхательные практики. Контакт со&nbsp;мной на&nbsp;время ведения и&nbsp;возможность в&nbsp;любое время задавать вопросы, делиться ощущениями.</p></div><div><b>РЕЗУЛЬТАТ ЭТАПА</b><p>В&nbsp;конце программы всегда есть какие-то изменения. У&nbsp;каждого&nbsp;— больше энергии и&nbsp;сил, больше бодрости и&nbsp;активности.</p></div></div><p class="res">А&nbsp;дальше индивидуально: отсутствие головной боли, нормализация АД, снижение/набор веса, избавление от&nbsp;аллергии, отмена операции на&nbsp;ЩЖ, уменьшение или исчезновение миомы и&nbsp;кист, отсутствие болей и&nbsp;вздутия в&nbsp;животе, нормализация стула, отсутствие неприятного запаха изо рта и&nbsp;от&nbsp;тела, снижение тяги к&nbsp;сладкому, очищение кожи, восстановление волос и&nbsp;ногтей, улучшение настроения, нормализация показателей крови.</p><p class="bonus">Бонусы — авторская книга рецептов и&nbsp;1&nbsp;сессия с&nbsp;психологом</p></div>
+<div class="step lg" data-a><span class="num lg">5</span><h3>Оценка результатов</h3><div class="cols"><div><b>ЦЕЛЬ ЭТАПА</b><p>Сравнить до&nbsp;и&nbsp;после, оценить объём, количество и&nbsp;качество изменений, наметить дальнейший план действий.</p></div><div><b>ЧТО ПОЛУЧИТ КЛИЕНТ</b><p>Оценка в&nbsp;динамике анализов, замеров, визуальных изменений, субъективных ощущений. Дальнейшие рекомендации по&nbsp;питанию, образу жизни, повторному прохождению очистительных протоколов.</p></div><div><b>РЕЗУЛЬТАТ ЭТАПА</b><p>Ощущение удовлетворения и&nbsp;радости от&nbsp;того, что есть реальные видимые изменения и&nbsp;есть свет в&nbsp;конце тоннеля. Понимание, что делать дальше, чтобы сохранить и&nbsp;улучшить достигнутые результаты. Осознание, что здоровье только в&nbsp;наших руках и&nbsp;мы&nbsp;реально можем им&nbsp;управлять.</p></div></div></div>
+</div>
+  </div>
+</section>
+<section class="wants" data-ch="Ваш новый день">
+  <div class="wrap">
+    <p class="label mono"><span>07</span><i></i><span>Результат</span></p>
+    <h2 data-lines>Каким станет <em>ваш обычный день</em></h2>
+    <div class="want">
+      <p data-up><b>01</b>Хватает сил и&nbsp;жизненной энергии на&nbsp;интересующие вас вещи, на&nbsp;развитие и&nbsp;учёбу, на&nbsp;ребёнка, на&nbsp;спорт, на&nbsp;досуг и&nbsp;отпуск</p>
+      <p data-up><b>02</b>В&nbsp;зеркале красивое подтянутое и&nbsp;здоровое тело</p>
+      <p data-up><b>03</b>Правильное питание без надрыва и&nbsp;жёстких ограничений</p>
+      <p data-up><b>04</b>Радость каждому дню: тело больше не&nbsp;отвлекает от&nbsp;жизни</p>
+      <p data-up><b>05</b>Забота о&nbsp;качестве дальнейшей жизни, чтобы не&nbsp;допустить развития серьёзных заболеваний</p>
+      <p data-up><b>06</b>Меньше боли в&nbsp;суставах и&nbsp;спине&nbsp;— движение снова в&nbsp;удовольствие</p>
+      <p data-up><b>07</b>Уверенность в&nbsp;себе</p>
+    </div>
+  </div>
+</section>
+<section class="fit" data-ch="Для кого">
+  <div class="wrap">
+    <div data-up><p class="label mono"><span>08</span><i></i><span>Удобно</span></p><h3>Вам не&nbsp;придётся</h3><ul>
+      <li>Всё держать в&nbsp;голове&nbsp;— программа выдаётся этапами, небольшими конкретными понятными шагами</li>
+      <li>Думать, где купить и&nbsp;как приготовить&nbsp;— даю ссылки, рецепты, лайфхаки, все действия встраиваем в&nbsp;вашу жизнь</li>
+      <li>Быть в&nbsp;жёстких рамках</li><li>Резко что-то менять</li></ul></div>
+    <div data-up><p class="label mono"><span>&nbsp;</span><i></i><span>Подойдёт</span></p><h3>Кому подойдёт</h3><ul>
+      <li>Для кого здоровье&nbsp;— это истинная ценность</li><li>Кто попробовал разное и&nbsp;не&nbsp;получил результата</li>
+      <li>Кому надоело ходить по&nbsp;кругу: болезнь&nbsp;— лекарство&nbsp;— улучшение&nbsp;— болезнь</li><li>Кто планирует активное долголетие</li>
+      <li>Кто заботится о&nbsp;своём наследии (дети, внуки)</li><li>Кто готов брать на&nbsp;себя всю ответственность за&nbsp;своё здоровье</li></ul></div>
+    <div class="n" data-up><p class="label mono"><span>&nbsp;</span><i></i><span>Не подойдёт</span></p><h3>Кому не&nbsp;подойдёт</h3><ul>
+      <li>Кто не&nbsp;готов взять всю ответственность за&nbsp;своё здоровье на&nbsp;себя</li><li>Кто боится что-то менять и&nbsp;пробовать новое</li>
+      <li>Кто убеждён, что он&nbsp;уже всё знает и&nbsp;сделал всё, что мог, чтобы решить свою проблему</li></ul></div>
+  </div>
+</section>
+<section class="final" data-ch="Начать">
+  <div class="wrap">
+    <div>
+      <p class="label mono"><span>09</span><i></i><span>Начать</span></p>
+      <h2 data-lines>Начните <em>с&nbsp;бесплатной диагностики</em></h2>
+      <p class="lead" data-up>Чем быстрее начать, тем меньше денег и&nbsp;времени потребуется на&nbsp;восстановление.</p>
+      <div class="finph" data-up><img src="https://p93fd.github.io/sites/anna/a09.jpg" alt="Анна Шкрябина"></div>
+    </div>
+    <div class="offer lg" data-up>
+      <div class="r"><p class="mono">Цель</p><p>Познакомиться, выяснить истинные проблемы со&nbsp;здоровьем, понять их&nbsp;причину и&nbsp;наметить план восстановления здоровья.</p></div>
+      <div class="r"><p class="mono">Что вы получите</p><p>Понимание, что на&nbsp;самом деле происходит в&nbsp;теле, что стало причиной этих проблем и&nbsp;какие варианты (пути) решения существуют.</p></div>
+      <div class="r"><p class="mono">Результат</p><p>Вы видите путь. Конкретно что, когда, как долго надо делать, чтобы прийти к&nbsp;желаемому результату.</p></div>
+      <div class="r"><p class="mono">Стоимость</p><p>Диагностика&nbsp;— без оплаты. Цена сопровождения называется лично, рассрочки есть.</p></div>
+      <a class="btn fill mag" href="https://t.me/annashkryabina" target="_blank" rel="noopener">Первичная диагностика <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
+      <p class="legal">Нажимая кнопку, вы соглашаетесь с&nbsp;<button type="button" class="lnk" data-doc="policy">политикой</button> и&nbsp;даёте <button type="button" class="lnk" data-doc="consent">согласие на&nbsp;обработку данных</button>. Условия&nbsp;— в&nbsp;<button type="button" class="lnk" data-doc="offer">оферте</button>. Telegram: @annashkryabina</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer><img class="footlogo" src="https://p93fd.github.io/sites/anna/a02.png" alt="Здоровье внутри нас"><span>ИП Шкрябина Анна Михайловна, ИНН 830000055410<br>Санкт-Петербург, ул.&nbsp;Парашютная, 27-1-128 · Telegram: @annashkryabina</span><nav class="lnks"><button type="button" class="lnk" data-doc="policy">Политика</button><button type="button" class="lnk" data-doc="consent">Согласие</button><button type="button" class="lnk" data-doc="cookie">Cookie</button><button type="button" class="lnk" data-doc="offer">Оферта</button><button type="button" class="lnk" data-doc="publish">Согласие на&nbsp;публикацию</button><button type="button" class="lnk" data-doc="details">Реквизиты</button></nav></footer>
+<div id="dock" class="lg"><small>Диагностика без оплаты</small><a class="btn fill" href="https://t.me/annashkryabina" target="_blank" rel="noopener">Записаться <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a></div>
+<div id="zoom" hidden><img alt=""></div>
+<div id="docs" hidden role="dialog" aria-modal="true" aria-labelledby="docs-h">
+ <div class="dbox lg">
+  <div class="dtop"><b id="docs-h">Документы</b><button type="button" class="dx" data-close aria-label="Закрыть">×</button></div>
+  <div class="dtabs" role="tablist">
+   <button type="button" data-tab="policy">Политика</button><button type="button" data-tab="consent">Согласие</button><button type="button" data-tab="cookie">Cookie</button><button type="button" data-tab="offer">Оферта</button><button type="button" data-tab="publish">Согласие на&nbsp;публикацию</button><button type="button" data-tab="details">Реквизиты</button>
+  </div>
+  <div class="dbody">
+   <article data-doc-id="policy"><h3>Политика обработки персональных данных</h3><p class="ed">Редакция от 13 октября 2026 года</p>
+    <h4>1. Общие положения</h4><p>Настоящая Политика определяет порядок обработки и защиты персональных данных, которые получает индивидуальный предприниматель Шкрябина Анна Михайловна, ИНН 830000055410 (далее — Оператор), в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных». Политика действует в отношении всех персональных данных, которые Оператор получает от посетителей сайта (далее — Сайт) и от клиентов сопровождения «Шаги к здоровью». Политика опубликована в открытом доступе на Сайте.</p>
+    <h4>2. Какие данные обрабатываются</h4><ul><li>имя, фамилия, контакт в мессенджере (имя пользователя, номер телефона), адрес электронной почты;</li><li>сведения, которые вы сообщаете в переписке, анкетах и на встречах для оказания услуг: жалобы и самочувствие, режим дня, питание, результаты анализов и обследований, замеры, фотографии для отслеживания изменений;</li><li>технические данные при посещении Сайта: IP-адрес, сведения о браузере и устройстве, файлы cookie, дата и время посещения.</li></ul>
+    <h4>3. Цели обработки</h4><ul><li>ответ на обращения и запись на диагностику;</li><li>заключение и исполнение договора оказания услуг, составление плана, ведение и оценка результатов;</li><li>обеспечение работы Сайта и его безопасности.</li></ul>
+    <h4>4. Правовые основания</h4><p>Согласие субъекта персональных данных; договор, стороной которого является субъект персональных данных (п. 1 и п. 5 ч. 1 ст. 6 152-ФЗ). Сведения о состоянии здоровья обрабатываются только с письменного согласия (ст. 10 152-ФЗ).</p>
+    <h4>5. Порядок и сроки обработки</h4><p>Оператор выполняет сбор, запись, систематизацию, накопление, хранение, уточнение, использование, удаление и уничтожение персональных данных с использованием средств автоматизации и без них. Запись, систематизация, накопление и хранение данных граждан РФ осуществляются с использованием баз данных, находящихся на территории РФ. Данные хранятся до достижения целей обработки или до отзыва согласия, но не дольше 3 лет после окончания оказания услуг, если иной срок не установлен законом. По истечении срока или при отзыве согласия данные уничтожаются в течение 30 дней.</p>
+    <h4>6. Передача третьим лицам</h4><p>Оператор не продаёт и не передаёт персональные данные третьим лицам, кроме случаев, предусмотренных законом. Для работы Сайта и связи используются сервисы, которые получают технические данные при их использовании: сервис, на котором размещён Сайт, шрифты Google Fonts, сервисы загрузки программных библиотек, мессенджер Telegram, сервисы видеосвязи для онлайн-встреч.</p>
+    <h4>7. Ваши права</h4><p>Вы вправе получить сведения об обработке ваших данных, потребовать их уточнения, блокирования или уничтожения, отозвать согласие. Для этого направьте запрос в Telegram @annashkryabina. Оператор отвечает в течение 10 рабочих дней.</p>
+    <h4>8. Защита данных</h4><p>Оператор принимает правовые, организационные и технические меры для защиты данных от неправомерного доступа, изменения, распространения и уничтожения: ограничивает доступ к данным, использует защищённые пароли и двухфакторную аутентификацию в сервисах, где хранятся данные.</p>
+    <h4>9. Изменение Политики</h4><p>Оператор вправе изменять Политику. Новая редакция вступает в силу с момента публикации на Сайте.</p></article>
+   <article data-doc-id="consent" hidden><h3>Согласие на обработку персональных данных</h3>
+    <p>Нажимая на Сайте кнопку связи и отправляя сообщение, я, действуя свободно, своей волей и в своём интересе, даю согласие индивидуальному предпринимателю Шкрябиной Анне Михайловне (ИНН 830000055410) на обработку моих персональных данных на следующих условиях.</p>
+    <p><b>Перечень данных:</b> имя, фамилия, контакт в мессенджере, номер телефона, адрес электронной почты, сведения, которые я сообщаю в переписке для записи на диагностику.</p>
+    <p><b>Цели:</b> ответ на моё обращение, запись на диагностику, заключение договора оказания услуг.</p>
+    <p><b>Действия:</b> сбор, запись, систематизация, накопление, хранение, уточнение, использование, удаление, уничтожение, с использованием средств автоматизации и без них.</p>
+    <p><b>Срок:</b> до достижения целей обработки или до отзыва согласия.</p>
+    <p><b>Отзыв:</b> согласие можно отозвать в любой момент, написав в Telegram @annashkryabina.</p>
+    <p>Сведения о состоянии здоровья (жалобы, анализы, обследования, замеры, самочувствие) передаются только после начала работы и обрабатываются на основании отдельного письменного согласия.</p>
+    <p>Я ознакомлен(а) с Политикой обработки персональных данных.</p></article>
+   <article data-doc-id="cookie" hidden><h3>Информация о cookie-файлах</h3>
+    <p>Cookie — небольшие файлы, которые сайт сохраняет в вашем браузере. Сайт использует технические cookie и хранилище браузера, без которых страница не работает корректно: они запоминают ваш выбор в уведомлении о cookie. Сайт не использует рекламные cookie и счётчики аналитики.</p>
+    <p>При загрузке страницы сторонние сервисы (сервис, на котором размещён Сайт, Google Fonts, сервисы загрузки программных библиотек) получают технические данные: IP-адрес, сведения о браузере и устройстве. Это нужно, чтобы показать вам страницу, шрифты и анимацию.</p>
+    <p>Продолжая пользоваться Сайтом, вы соглашаетесь с использованием cookie. Отключить cookie можно в настройках браузера, но часть Сайта может перестать работать.</p></article>
+   <article data-doc-id="offer" hidden><h3>Публичная оферта на оказание услуг сопровождения «Шаги к здоровью»</h3><p class="ed">Редакция от 13 октября 2026 года</p>
+    <h4>1. Общие положения</h4><p>1.1. Индивидуальный предприниматель Шкрябина Анна Михайловна, ИНН 830000055410 (далее — Исполнитель), предлагает любому дееспособному лицу (далее — Заказчик) заключить договор на условиях настоящей оферты (ст. 437 ГК РФ).</p><p>1.2. Акцептом оферты является оплата полностью или первого платежа (п. 3 ст. 438 ГК РФ). С момента акцепта договор считается заключённым.</p>
+    <h4>2. Предмет</h4><p>2.1. Исполнитель оказывает информационно-консультационные услуги онлайн-сопровождения «Шаги к здоровью»: диагностика, разбор анализов, обследований и анкет, составление плана, ведение с рекомендациями в отдельном чате и оценка результатов — в объёме, согласованном с Заказчиком.</p><p>2.2. Состав, количество встреч и срок сопровождения указываются на Сайте или в сообщении Исполнителя на момент оплаты.</p><p>2.3. Услуги оказываются онлайн и не заменяют очную медицинскую помощь, в том числе экстренную и неотложную.</p>
+    <h4>3. Стоимость и оплата</h4><p>3.1. Первая диагностика проводится без оплаты. Стоимость сопровождения называется Заказчику лично и подтверждается в сообщении Исполнителя до оплаты.</p><p>3.2. Оплата производится целиком либо частями (рассрочка). График платежей фиксируется в переписке до оплаты.</p><p>3.3. Исполнитель выдаёт Заказчику чек в соответствии с законодательством.</p>
+    <h4>4. Порядок оказания услуг</h4><p>4.1. Онлайн-встречи проводятся по видеосвязи: обязательно 3 встречи (диагностика, объяснение программы и подведение итогов) и промежуточные короткие встречи по необходимости. Даты и время согласуются в переписке.</p><p>4.2. В течение срока ведения Заказчик может задавать вопросы в чате каждый день.</p><p>4.3. Заказчик сообщает Исполнителю о противопоказаниях, принимаемых препаратах и изменениях самочувствия.</p>
+    <h4>5. Результат</h4><p>5.1. Результат зависит от индивидуальных особенностей Заказчика и выполнения рекомендаций. Исполнитель не гарантирует достижение конкретных показателей в определённый срок.</p>
+    <h4>6. Отказ от услуг и возврат</h4><p>6.1. Заказчик вправе отказаться от услуг в любое время, оплатив Исполнителю фактически оказанные услуги (ст. 782 ГК РФ, ст. 32 Закона «О защите прав потребителей»).</p><p>6.2. Остаток оплаты возвращается в течение 10 дней с момента получения письменного заявления Заказчика в Telegram @annashkryabina.</p>
+    <h4>7. Ответственность</h4><p>7.1. Стороны отвечают за неисполнение обязательств в соответствии с законодательством РФ. Стороны освобождаются от ответственности при обстоятельствах непреодолимой силы.</p>
+    <h4>8. Персональные данные</h4><p>8.1. Исполнитель обрабатывает персональные данные Заказчика в соответствии с Политикой обработки персональных данных.</p>
+    <h4>9. Срок действия</h4><p>9.1. Оферта действует до её отзыва Исполнителем. Договор действует до полного исполнения обязательств сторонами.</p></article>
+   <article data-doc-id="publish" hidden><h3>Согласие на публикацию (распространение) персональных данных</h3>
+    <p>Форма для клиентов, чьи истории и фото размещены на Сайте. Подписывается каждым клиентом отдельно, за несовершеннолетнего — законным представителем. Подписанный экземпляр хранится у Оператора (ст. 10.1 152-ФЗ).</p>
+    <p>Я, ____________________________ (ФИО), контакт для связи ____________________, даю согласие индивидуальному предпринимателю Шкрябиной Анне Михайловне (ИНН 830000055410) на распространение моих персональных данных на следующих условиях.</p>
+    <p><b>Какие данные:</b> имя, возраст, род занятий, описание моего обращения, результатов и изменений, мой отзыв, фотографии.</p>
+    <p><b>Где публикуются:</b> на Сайте и в социальных сетях Оператора.</p>
+    <p><b>Цель:</b> демонстрация результатов сопровождения «Шаги к здоровью».</p>
+    <p><b>Условия и запреты:</b> ☐ запретов нет ☐ публиковать без фамилии ☐ публиковать фото без лица ☐ другое: ____________________.</p>
+    <p><b>Срок:</b> до отзыва согласия. Отзыв — сообщением в Telegram @annashkryabina; публикация удаляется в течение 3 рабочих дней.</p>
+    <p>Дата ____________ Подпись ____________</p></article>
+   <article data-doc-id="details" hidden><h3>Реквизиты</h3>
+    <p>Индивидуальный предприниматель Шкрябина Анна Михайловна</p><p>ИНН 830000055410</p><p>Адрес: Санкт-Петербург, ул. Парашютная, 27-1-128</p><p>Telegram: @annashkryabina</p></article>
+  </div>
+ </div>
+</div>
+<div id="cookie" class="lg" hidden><p>Сайт использует cookie и сервисы для шрифтов и анимации. <button type="button" class="lnk" data-doc="cookie">Подробнее</button></p><button type="button" class="btn fill sm" id="cookie-ok">Понятно</button></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,manual=/shot/.test(location.search),fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+/* ---------- loader: counts real assets (fonts + images) ---------- */
+(function(){var L=document.getElementById('load'),lp=document.getElementById('lp'),imgs=[].slice.call(document.images),n=imgs.length+1,d=0;
+  function tick(){d++;var p=Math.min(1,d/n);L.style.setProperty('--p',p);L.querySelector('i').style.setProperty('--p',p);lp.textContent=String(Math.round(p*100)).padStart(2,'0');if(d>=n)setTimeout(function(){L.classList.add('done')},manual?0:350)}
+  imgs.forEach(function(im){im.complete?tick():(im.addEventListener('load',tick),im.addEventListener('error',tick))});
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(tick);
+  setTimeout(function(){L.classList.add('done')},manual?0:4000)})();
+/* ---------- silk: soft folds of light fabric, WebGL fragment shader ---------- */
+(function(){var c=document.getElementById('silk'),gl=c.getContext('webgl',{antialias:false,alpha:false});if(!gl){document.documentElement.classList.add('nogl');return}
+  var fs='precision highp float;uniform vec2 R;uniform float T;uniform vec2 M;uniform float S;'+
+  'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}'+
+  'float fb(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*n(p);p=p*2.02+3.1;a*=.5;}return s;}'+
+  'float fb3(vec2 p){float s=0.,a=.5;for(int i=0;i<3;i++){s+=a*n(p);p=p*2.03+1.7;a*=.5;}return s;}'+
+  'float field(vec2 p){float w=fb3(p*.55+vec2(T*.018,-T*.012));return sin((p.x*1.15+p.y*.7)*2.4+w*5.2+T*.12)*.5+.5;}'+
+  'void main(){vec2 uv=gl_FragCoord.xy/R;vec2 p=vec2(uv.x*R.x/R.y,uv.y)+vec2(0.,S*.6)+M*.05;'+
+  'float f=field(p);float e=.003;float fx=field(p+vec2(e,0.))-f,fy=field(p+vec2(0.,e))-f;vec3 nr=normalize(vec3(-fx*9.,-fy*9.,1.));'+
+  'float l=clamp(dot(nr,normalize(vec3(-.45,.55,.7))),0.,1.);float sp=pow(clamp(dot(nr,normalize(vec3(-.3,.4,1.))),0.,1.),40.);'+
+  'vec3 paper=vec3(.972,.953,.925),blue=vec3(.84,.885,.925),sand=vec3(.94,.895,.82);'+
+  'vec3 col=mix(paper,blue,f*.6*(.45+.55*uv.y));col=mix(col,sand,smoothstep(.3,.9,fb3(p*.4+T*.01))*.35*(1.-uv.y*.5));'+
+'col*=.93+.12*l;col+=sp*.14;float g=h(gl_FragCoord.xy+fract(T))*.012;gl_FragColor=vec4(col+g-.006,1.);}';
+  function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o}
+  var P=gl.createProgram();gl.attachShader(P,sh(gl.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'));gl.attachShader(P,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(P);
+  if(!gl.getProgramParameter(P,gl.LINK_STATUS)){document.documentElement.classList.add('nogl');return}gl.useProgram(P);
+  var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);var a=gl.getAttribLocation(P,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+  var uR=gl.getUniformLocation(P,'R'),uT=gl.getUniformLocation(P,'T'),uM=gl.getUniformLocation(P,'M'),uS=gl.getUniformLocation(P,'S');
+  var k=.5,mx=0,my=0,cx=0,cy=0,t0=performance.now();
+  function size(){k=innerWidth<900?.42:.5;c.width=Math.round(innerWidth*k);c.height=Math.round(innerHeight*k);gl.viewport(0,0,c.width,c.height)}addEventListener('resize',size);size();
+  addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=.5-e.clientY/innerHeight},{passive:true});
+  function draw(t){cx+=(mx-cx)*.04;cy+=(my-cy)*.04;var s=scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight);gl.uniform2f(uR,c.width,c.height);gl.uniform1f(uT,reduce?0:t);gl.uniform2f(uM,cx,cy);gl.uniform1f(uS,s);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+  var fr=0,slow=innerWidth<900;function loop(){fr++;if(!document.hidden&&(!slow||fr%2))draw((performance.now()-t0)/1000);requestAnimationFrame(loop)}
+  manual?draw(4):requestAnimationFrame(loop)})();
+/* ---------- glass sheen + cursor ring + magnetic button + photo tilt ---------- */
+addEventListener('pointermove',function(e){var t=e.target.closest&&e.target.closest('.lg');if(t){var r=t.getBoundingClientRect();t.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');t.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%')}},{passive:true});
+if(fine&&!reduce){var ring=document.getElementById('ring'),rx=innerWidth/2,ry=innerHeight/2,tx=rx,ty=ry;addEventListener('pointermove',function(e){tx=e.clientX;ty=e.clientY;ring.style.opacity=1;ring.classList.toggle('on',!!(e.target.closest&&e.target.closest('a,button')))},{passive:true});
+  (function rl(){rx+=(tx-rx)*.18;ry+=(ty-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px)';requestAnimationFrame(rl)})();
+  document.querySelectorAll('.mag').forEach(function(b){b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.12)+'px,'+((e.clientY-r.top-r.height/2)*.22)+'px)'});b.addEventListener('pointerleave',function(){b.style.transform=''})});
+  document.querySelectorAll('[data-tilt]').forEach(function(p){p.parentNode.addEventListener('pointermove',function(e){var r=p.parentNode.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;p.style.transform='perspective(1200px) rotateY('+(x*10)+'deg) rotateX('+(-y*8)+'deg)'});p.parentNode.addEventListener('pointerleave',function(){p.style.transform=''})});}
+/* ---------- header hides on scroll down, returns on scroll up ---------- */
+(function(){var H=document.querySelector('#anw header'),ly=scrollY;addEventListener('scroll',function(){var y=scrollY,d=y-ly;if(Math.abs(d)<6)return;H.classList.toggle('hid',d>0&&y>140);ly=y},{passive:true})})();
+/* ---------- documents + cookie + zoom ---------- */
+(function(){var D=document.getElementById('docs');function show(id){D.hidden=false;document.body.style.overflow='hidden';D.querySelectorAll('[data-doc-id]').forEach(function(a){a.hidden=a.dataset.docId!==id});D.querySelectorAll('[data-tab]').forEach(function(b){b.setAttribute('aria-selected',b.dataset.tab===id)});D.querySelector('.dbody').scrollTop=0}
+ function hide(){D.hidden=true;document.body.style.overflow=''}
+ document.addEventListener('click',function(e){var t=e.target.closest('[data-doc]');if(t){e.preventDefault();show(t.dataset.doc);return}var b=e.target.closest('[data-tab]');if(b){show(b.dataset.tab);return}if(e.target===D||e.target.closest('[data-close]'))hide()});
+ addEventListener('keydown',function(e){if(e.key==='Escape'&&!D.hidden)hide()});
+ var C=document.getElementById('cookie'),ok=false;try{ok=localStorage.getItem('aw-cookie')==='1'}catch(e){}
+ if(!ok&&!manual)setTimeout(function(){C.hidden=false},2500);document.getElementById('cookie-ok').addEventListener('click',function(){C.hidden=true;try{localStorage.setItem('aw-cookie','1')}catch(e){}})})();
+var z=document.getElementById('zoom');document.querySelectorAll('[data-z]').forEach(function(d){d.addEventListener('click',function(){z.querySelector('img').src=d.querySelector('img').src;z.hidden=false})});z.addEventListener('click',function(){z.hidden=true});
+/* ---------- scroll choreography ---------- */
+if(!window.gsap)return;
+gsap.registerPlugin(ScrollTrigger);
+var lenis=null;if(window.Lenis&&!reduce&&!manual){lenis=new Lenis({lerp:.065,smoothWheel:true,wheelMultiplier:.9});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+gsap.to('#bar',{scaleX:1,ease:'none',scrollTrigger:{trigger:'main',start:'top top',end:'bottom bottom',scrub:.4}});
+if(!reduce){gsap.to('#mark',{rotate:10,yPercent:-62,ease:'none',scrollTrigger:{trigger:'main',start:'top top',end:'bottom bottom',scrub:1.2}});
+  gsap.to('#anna',{yPercent:5,scale:1.08,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1.2}});
+  gsap.to('.duo .p1',{yPercent:-4,ease:'none',scrollTrigger:{trigger:'.why',start:'top bottom',end:'bottom top',scrub:1.2}});
+}
+var secs=[].slice.call(document.querySelectorAll('main>section')),chc=document.getElementById('chc'),chn=document.getElementById('chn');
+secs.forEach(function(s,i){ScrollTrigger.create({trigger:s,start:'top 50%',end:'bottom 50%',onToggle:function(st){if(st.isActive){chc.textContent=String(i+1).padStart(2,'0')+' / '+String(secs.length).padStart(2,'0');chn.textContent=s.dataset.ch}}})});
+/* headlines rise line by line from a mask; words grouped into visual lines after layout */
+function lines(h){var txt=h.innerHTML,ws=[];h.setAttribute('aria-label',h.textContent);
+  (function walk(n){[].slice.call(n.childNodes).forEach(function(c){if(c.nodeType===3){var f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(function(w){if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(' '));return}var s=document.createElement('span');s.className='w';s.style.display='inline-block';s.textContent=w;f.appendChild(s);ws.push(s)});n.replaceChild(f,c)}else if(c.nodeType===1)walk(c)})})(h);
+  return ws}
+if(!reduce&&!manual){
+  document.querySelectorAll('[data-lines]').forEach(function(h){var ws=lines(h),rows=[],top=null;ws.forEach(function(w){var t=w.offsetTop;if(top===null||Math.abs(t-top)>4){rows.push([]);top=t}rows[rows.length-1].push(w)});
+    rows.forEach(function(r){r.forEach(function(w){var m=document.createElement('span');m.className='ln';m.style.display='inline-block';m.style.verticalAlign='top';w.parentNode.insertBefore(m,w);m.appendChild(w)})});
+    var groups=rows.map(function(r){return r});gsap.set(ws,{yPercent:110});
+    ScrollTrigger.create({trigger:h,start:'top 90%',once:true,onEnter:function(){groups.forEach(function(r,i){gsap.to(r,{yPercent:0,duration:1.4,ease:'expo.out',delay:i*.09})})}})});
+  gsap.utils.toArray('[data-up]').forEach(function(e){gsap.set(e,{y:26});ScrollTrigger.create({trigger:e,start:'top 94%',once:true,onEnter:function(){gsap.to(e,{y:0,duration:1.4,ease:'expo.out',clearProps:'transform'})}})});
+  gsap.utils.toArray('.label i').forEach(function(l){gsap.from(l,{scaleX:0,duration:1.8,ease:'expo.out',scrollTrigger:{trigger:l,start:'top 92%'}})});
+  gsap.utils.toArray('.ph,.doc,.case,.step').forEach(function(e){gsap.from(e,{clipPath:'inset(12% 8% 12% 8% round 30px)',duration:1.4,ease:'expo.out',scrollTrigger:{trigger:e,start:'top 90%'},clearProps:'clipPath'})});
+  document.querySelectorAll('[data-count]').forEach(function(b){var n=+b.dataset.count,o={v:0};ScrollTrigger.create({trigger:b,start:'top 96%',once:true,onEnter:function(){gsap.to(o,{v:n,duration:2.2,ease:'power3.out',onUpdate:function(){b.textContent=Math.round(o.v)},onComplete:function(){b.textContent=n}})}})});
+}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(!t)return;e.preventDefault();lenis?lenis.scrollTo(t,{offset:-60,duration:1.6}):t.scrollIntoView({behavior:'smooth'})})});
+})();
+</script>
+</div>
