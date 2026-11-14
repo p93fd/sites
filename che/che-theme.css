@@ -632,3 +632,11 @@ input, select, textarea, .field input, .field select, .search-input, .budgetitem
   background: linear-gradient(115deg, transparent 38%, rgba(255, 236, 255, .07) 47%, rgba(255, 236, 255, .02) 52%, transparent 60%);
   transform: translate3d(calc(var(--lx) * 18vw), calc(var(--ly) * 4vh), 0); }
 @media (prefers-reduced-motion: reduce) { .che-liquid .lq, .che-liquid .lq-sheen { transform: none; } }
+
+/* 10.8 — soft swipe: the new tab glides in slowly, no jolt. */
+body[data-swipe="left"] .page.active { animation: che-soft-right .52s cubic-bezier(.22,1,.36,1) both; }
+body[data-swipe="right"] .page.active { animation: che-soft-left .52s cubic-bezier(.22,1,.36,1) both; }
+@keyframes che-soft-right { from { opacity: 0; transform: translate3d(48px,0,0) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes che-soft-left { from { opacity: 0; transform: translate3d(-48px,0,0) scale(.985); } to { opacity: 1; transform: none; } }
+.review-strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+.review-strip img { flex: 0 0 auto; height: 180px; width: auto; border-radius: 16px; scroll-snap-align: start; border: 1px solid rgba(197,160,119,.3); }

@@ -57,7 +57,7 @@
 | architektor | 51 | 22.3 МБ | architektor/fx/post.js (894), architektor/index.html (1825) |
 | architektor-v2 | 340 | 10.8 МБ | architektor-v2/app.js (71), architektor-v2/index.html (285) |
 | bezlishnego | 46 | 22.7 МБ | bezlishnego/index.html (1488), bezlishnego/legal.html (157), bezlishnego/satin.html (1494), bezlishnego/tilda-1-oformlenie.txt (2), bezlishnego/tilda-2-stranica.txt (133) |
-| che | 43 | 49.0 МБ | che/app-version.json (3), che/auth.js (144), che/che-motion.js (50), che/che-theme.css (635), che/design-v5.css (51), che/design-v6.css (11), che/design-v7.css (30), che/design-v8.css (16), che/index.html (407), che/reference-design.css (184), che/refresh.html (3), che/refresh.js (3), che/secure-vault.js (39), che/sw.js (77) … ещё 14 |
+| che | 43 | 49.0 МБ | che/app-version.json (3), che/auth.js (144), che/che-motion.js (50), che/che-theme.css (643), che/design-v5.css (51), che/design-v6.css (11), che/design-v7.css (30), che/design-v8.css (16), che/index.html (468), che/reference-design.css (184), che/refresh.html (3), che/refresh.js (3), che/secure-vault.js (39), che/sw.js (77) … ещё 14 |
 | dengi | 21 | 13.4 МБ | dengi/app.js (888), dengi/fonts/OFL.txt (94), dengi/index.html (199), dengi/style.css (203), dengi/sw.js (28), dengi/vendor/tesseract-core-lstm.wasm.js (283), dengi/vendor/tesseract-core-simd-lstm.wasm.js (283) |
 | kino | 34 | 32.7 МБ | kino/app.js (276), kino/index.html (62), kino/style.css (62) |
 | mbsea | 34 | 1.1 МБ | mbsea/app.js (146), mbsea/index.html (393), mbsea/world.js (560) |

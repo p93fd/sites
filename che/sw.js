@@ -1,6 +1,6 @@
 const BASE=new URL('./',self.location).pathname;
 const VERSION='10.6';
-const CACHE='che-interface-approved-theme-20261113-v107';
+const CACHE='che-interface-approved-theme-20261113-v108';
 const OCR_CACHE='che-ocr-v7';
 const OCR_PATH=BASE+'vendor/ocr/';
 const SHELL=new Set([
