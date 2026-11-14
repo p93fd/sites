@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="silk" x1="0" y1="1" x2=".65" y2="0">
+      <stop stop-color="#080412"/>
+      <stop offset=".52" stop-color="#200a39"/>
+      <stop offset=".85" stop-color="#6720b3"/>
+      <stop offset="1" stop-color="#e390ff"/>
+    </linearGradient>
+    <linearGradient id="edge">
+      <stop stop-color="#7c2ad0" stop-opacity=".1"/>
+      <stop offset=".26" stop-color="#ffa9ff"/>
+      <stop offset=".52" stop-color="#7c23de"/>
+      <stop offset=".84" stop-color="#eb9dff"/>
+      <stop offset="1" stop-color="#9a30fe"/>
+    </linearGradient>
+    <filter id="bloom" x="-40%" y="-50%" width="180%" height="200%">
+      <feGaussianBlur stdDeviation="11"/>
+    </filter>
+  </defs>
+  <path fill="#09050f" d="M0 0h390v844H0z"/>
+  <path fill="url(#silk)" d="M-30 376C58 356 102 294 153 214S287 137 416 43v234C286 289 280 347 226 409S55 420-30 523Z"/>
+  <path fill="none" stroke="url(#edge)" stroke-width="22" opacity=".65" filter="url(#bloom)" d="M-30 523C55 420 166 476 226 409S286 289 416 277"/>
+  <path fill="none" stroke="url(#edge)" stroke-width="3" d="M-30 523C55 420 166 476 226 409S286 289 416 277"/>
+  <path fill="url(#silk)" d="M-25 811c121-12 132-92 242-101 110-9 125-54 193-129v263H-25Z"/>
+  <path fill="none" stroke="url(#edge)" stroke-width="19" opacity=".7" filter="url(#bloom)" d="M-25 811c121-12 132-92 242-101 110-9 125-54 193-129"/>
+  <path fill="none" stroke="url(#edge)" stroke-width="3" d="M-25 811c121-12 132-92 242-101 110-9 125-54 193-129"/>
+</svg>
+

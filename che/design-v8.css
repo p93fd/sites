@@ -1,0 +1,15 @@
+/* Only interaction/accessibility. Original approved v5/v6/v7 CSS is unchanged. */
+.che-vault-gate{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 32%,#361353 0,#140d20 36%,#08060e 75%);color:#fff;font-family:inherit}
+.che-vault-gate[hidden]{display:none}
+.che-vault-box{width:min(420px,100%);border:1px solid #dfb98b80;border-radius:26px;background:linear-gradient(145deg,#241333f5,#0b0913f5);box-shadow:0 20px 80px #000a,inset 0 1px #d6a5ff2e;padding:30px;text-align:center}
+.che-vault-box h2{font-size:26px;margin:12px 0 8px}
+.che-vault-box p{font-size:13px;color:#cbbcd5;line-height:1.55}
+.che-vault-box input{width:100%;font-size:16px;border:1px solid #9870ba80;border-radius:12px;background:#130b22;padding:15px;color:white;margin:8px 0}
+.che-vault-box input:focus-visible{outline:2px solid #d6acff;outline-offset:2px}
+.che-vault-box button{width:100%;padding:14px;margin-top:12px;border-radius:14px;border:1px solid #e4b3ebcc;background:linear-gradient(125deg,#9f40e7,#6e239f);color:#fff;font-weight:700}
+.che-vault-box button.secondary{background:transparent;border-color:#755583;color:#d0bedd;font-weight:500}
+.che-vault-error{color:#ffafbb!important;min-height:1em}
+.che-vault-note{font-size:11px!important}
+.che-orb-identity{font-size:12px;font-weight:800;letter-spacing:4px;color:#f8e9ff;margin-top:-7px;margin-bottom:12px}
+@media(prefers-reduced-motion:reduce){.puls-orb{animation:none!important}}
+

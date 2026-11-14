@@ -1,0 +1,634 @@
+/* ЧЕ — approved personal-finance UI, 13 Nov 2026.
+   Visual layer only. Never change the calculation, storage or routing model.
+   Reference: image(20261113-104448).png; original 14-screen montage.
+   Loaded AFTER the historical v5–v8 and reference-design styles. */
+
+:root {
+  color-scheme: dark;
+  --che-bg: #0b0710;
+  --che-card: #17101f;
+  --che-card-raised: #24172e;
+  --che-card-deep: #120c19;
+  --che-violet: #7b2cff;
+  --che-lilac: #c24dff;
+  --che-text: #fffaff;
+  --che-muted: #a79bb8;
+  --che-gold: #c5a077;
+  --che-stroke: rgba(190, 144, 106, .53);
+  --che-soft-stroke: rgba(188, 118, 231, .24);
+  --che-gradient: linear-gradient(110deg, var(--che-violet), var(--che-lilac));
+  --che-card-gradient: linear-gradient(145deg, #25182d 0%, #17101f 54%, #120c19 100%);
+  --che-radius: 18px;
+  --bg: var(--che-bg);
+  --surface: var(--che-card);
+  --surface2: var(--che-card-raised);
+  --text: var(--che-text);
+  --muted: var(--che-muted);
+  --stroke: var(--che-stroke);
+  --mint: var(--che-lilac);
+  --radius: var(--che-radius);
+}
+
+html, body { background: var(--che-bg); color: var(--che-text); }
+html { overscroll-behavior-y: none; }
+body { min-height: 100dvh; -webkit-tap-highlight-color: transparent; }
+body::before {
+  background:
+    radial-gradient(ellipse 68% 32% at 110% 6%, rgba(115, 23, 153, .19), transparent 76%),
+    linear-gradient(180deg, #110916 0%, var(--che-bg) 25%, #09060d 90%);
+}
+.shell { width: 100%; max-width: 430px; padding: calc(18px + env(safe-area-inset-top)) 17px calc(100px + env(safe-area-inset-bottom)); }
+.page { color: var(--che-text); }
+.page.active { animation: che-fade-in .15s ease-out; }
+@keyframes che-fade-in { from { opacity: .75; } to { opacity: 1; } }
+.topbar { min-height: 35px; margin-bottom: 20px; }
+.reference-heading, .reference-heading #screenTitle { font-size: 20px; font-weight: 650; letter-spacing: -.55px; }
+.reference-heading>button { font-size: 28px; color: var(--che-text); }
+body[data-screen="home"] .reference-heading .month { font-size: 19px; font-weight: 650; }
+.circle-btn { color: #e2c28d; }
+.circle-btn svg { stroke-width: 1.6; }
+.che-build-badge { opacity: .5; font-size: 8px; border-color: transparent; }
+
+/* Shared: the restrained glass, soft warm outline and single violet accent. */
+.card, .reference-category-row, .reference-settings-list>button, .reference-security-row,
+.review-shell, .review-row, .reminder, .budgetitem, .reference-insight,
+.comparison-card, #calendarTransactions {
+  background: var(--che-card-gradient);
+  border: 1px solid var(--che-stroke);
+  border-radius: var(--che-radius);
+  box-shadow: inset 0 1px rgba(255, 235, 250, .08), 0 7px 25px rgba(0, 0, 0, .12);
+}
+.card { padding: 15px; }
+.card h2, .card h3, .section-head h2 { color: var(--che-text); }
+.notice, .hint, .eyebrow, .tx-meta, .reference-settings-list small,
+.reference-security-row small, .reference-insight p { color: var(--che-muted); }
+.btn, .chip, .field input, .field select, .search-input {
+  border: 1px solid var(--che-stroke);
+  background: linear-gradient(145deg, #2b1b34, #1a1022);
+  color: var(--che-text);
+  border-radius: 12px;
+}
+.btn { min-height: 41px; }
+.btn.primary, .reference-period button.active {
+  background: linear-gradient(180deg, #c24dff 0%, #7b2cff 70%, #4b168c 100%);
+  border: 1px solid rgba(219, 171, 118, .88);
+  color: #fff;
+  box-shadow: inset 0 1px rgba(255,255,255,.38), 0 4px 15px rgba(121, 44, 255, .16);
+}
+.btn.primary:hover, .btn.primary:focus-visible { background: var(--che-gradient); }
+.btn:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 2px solid #dc9cff; outline-offset: 3px;
+}
+.number, .hero-amount, .analytic-amount, .product-total,
+.reference-budget-plan, .review-footer strong { font-variant-numeric: tabular-nums; }
+.track, .hero-progress, .reference-budget-track { background: #30213a; border-radius: 999px; overflow: hidden; }
+.fill, .hero-progress-fill, .reference-budget-track span {
+  background: var(--che-gradient) !important;
+  border-radius: inherit;
+}
+
+/* 01 — Face ID splash / the existing password-vault gate remains functional. */
+.lock-screen, .che-vault-gate {
+  background:
+    url('assets/finance-ribbons.svg') center / cover no-repeat,
+    radial-gradient(ellipse 49% 22% at 93% 21%, rgba(176, 28, 239, .55), transparent 70%),
+    radial-gradient(ellipse 55% 27% at -14% 85%, rgba(146, 20, 224, .50), transparent 75%),
+    #09050d;
+  overflow: auto;
+}
+/* The existing reference layer disables these pseudoelements. The original
+   ribbon SVG above is the approved art, so do not re-enable extra waves. */
+.lock-screen::before, .lock-screen::after { z-index: -1; pointer-events: none; }
+.lock-screen::before {
+  width: 160%; height: 41%; top: 16%; left: -31%; transform: rotate(-38deg);
+  background: linear-gradient(180deg, transparent 4%, #260632 18%, #6e129e 37%, #d34eff 47%, #ffc3ff 49%, #9823d3 53%, #320a4b 71%, transparent 87%);
+  filter: blur(2px); box-shadow: 0 0 43px #aa21d829;
+}
+.lock-screen::after {
+  width: 159%; height: 34%; bottom: -2%; left: -14%; transform: rotate(-27deg);
+  background: linear-gradient(180deg, transparent 8%, #2c073c 25%, #9f27dc 43%, #e87dff 49%, #f8beff 50%, #64128f 58%, transparent 82%);
+}
+.lock-screen h1 { font-size: 34px; font-weight: 700; }
+.lock-screen .lock-tagline { font-size: 13px; color: #ede2f4; }
+.face-glyph { color: #f5e9fa; }
+.che-vault-gate::before, .che-vault-gate::after { display: none; }
+.che-vault-box {
+  position: relative; z-index: 1;
+  background: linear-gradient(155deg, rgba(32, 15, 44, .93), rgba(10, 6, 18, .91));
+  border: 1px solid rgba(201, 157, 118, .70);
+  border-radius: 20px; padding: 23px 20px;
+  box-shadow: 0 18px 68px #05020baf, inset 0 1px rgba(255, 206, 255, .13);
+}
+.che-vault-box h2 { font-size: 29px; letter-spacing: -.8px; }
+.che-vault-box p { color: var(--che-muted); }
+.che-vault-box input { background: #140a1d; border: 1px solid var(--che-soft-stroke); color: white; }
+.che-vault-box button { background: var(--che-gradient); border-color: var(--che-gold); }
+.che-vault-box button.secondary { background: #160d20; border-color: var(--che-stroke); }
+
+/* 02 — Home: compact budget, four equal actions, category donut. */
+.hero-balance { margin-bottom: 0; }
+.hero-topline { font-size: 13px; color: #f3e7f8; }
+.hero-amount { font-size: clamp(37px, 10.2vw, 44px); font-weight: 730; letter-spacing: -1.5px; margin: 4px 0 12px; }
+.hero-progress { height: 8px; box-shadow: inset 0 1px #ffffff18; }
+.hero-progress-fill { box-shadow: 0 0 8px rgba(191, 68, 255, .50); }
+.hero-foot { display: flex; justify-content: space-between; color: #d7c6dc; }
+.hero-foot>div { gap: 4px; }
+.hero-foot small, .hero-foot strong { font-size: 12px; color: #d7c6dc; }
+.quick-actions { gap: 9px; margin: 23px 0 18px; }
+.quick-action {
+  min-height: 83px; padding: 10px 3px 8px; gap: 6px;
+  background: linear-gradient(155deg, #2d2032, #17101d 78%);
+  border: 1px solid rgba(190, 146, 106, .66); border-radius: 13px;
+  box-shadow: inset 0 1px #ffddff18;
+}
+.quick-action>span:last-child { color: #fff; font-size: 12px; }
+.quick-ico { color: #f3ce8e !important; }
+.quick-ico svg { stroke: #f3ce8e; }
+.category-card { padding: 13px 11px 16px; border-radius: 17px; }
+.category-card .section-head h2 { font-size: 15px; font-weight: 550; }
+.center-donut { gap: 11px; }
+.category-card .donut { width: clamp(132px, 37vw, 170px); height: clamp(132px, 37vw, 170px); }
+.category-card .donut::after { inset: 23px; background: #120b18; }
+.donut-inner strong { font-size: 21px; font-weight: 700; }
+.donut-inner small { color: #d5b9dc; }
+.legenditem { color: var(--che-text); font-size: 11px; }
+.legenditem strong { font-size: 11px; }
+
+/* All screens keep the five-item iPhone dock shown in the approved reference. */
+.footer-mobile {
+  left: max(11px, calc((100% - 430px)/2 + 11px)); right: max(11px, calc((100% - 430px)/2 + 11px));
+  width: auto; bottom: calc(7px + env(safe-area-inset-bottom));
+  height: 65px; padding: 6px 4px; z-index: 50;
+  border: 1px solid rgba(201, 157, 117, .65); border-radius: 18px;
+  background: linear-gradient(180deg, rgba(38, 25, 46, .96), rgba(17, 12, 23, .97));
+  box-shadow: 0 9px 25px #0009, inset 0 1px #ffddff20;
+}
+.footer-mobile button { font-size: 9px; color: #c6b8cb; gap: 3px; min-width: 0; }
+.footer-mobile button.active { color: #f1cf8f; }
+.footer-mobile .dock-symbol svg { width: 20px; height: 20px; }
+.footer-mobile button.addbtn { flex: 0 0 45px; width: 45px; height: 45px; margin: 0 6px; border-radius: 50%; }
+.footer-mobile .puls-orb { width: 100%; height: 100%; }
+.puls-orb {
+  border: 1px solid #f5acff;
+  background: radial-gradient(circle at 58% 66%, #170522 8%, #280b3f 35%, #7b20af 70%, #e15bff 89%, #25032c 100%);
+  box-shadow: inset 0 0 12px #de73ffc7, 0 0 11px #ba36fbc9, 0 0 22px #9426cf6b;
+}
+.puls-orb::before { background: radial-gradient(ellipse at 35% 10%, #ffc4ff80, transparent 46%); }
+.che-sphere-wave path { stroke: #f0b8ff; }
+
+/* 03 — Analytics: period segmented control, large sum, violet curve. */
+.reference-period {
+  border-radius: 12px; border: 1px solid rgba(187, 142, 115, .52);
+  background: #221728; padding: 3px; gap: 3px; margin-bottom: 15px;
+}
+.reference-period button { color: #e6d9ed; border-radius: 9px; font-size: 12px; min-height: 31px; }
+.analytic-amount { margin: 10px 0 5px; font-size: clamp(37px, 10vw, 42px); font-weight: 720; }
+.chart-svg { height: 186px; margin-top: 13px; }
+.chart-svg svg { filter: drop-shadow(0 0 8px rgba(184, 57, 255, .39)); }
+.graph-labels { color: #a99bb5; font-size: 10px; }
+.comparison-card { padding: 13px; gap: 6px; }
+.comparison-card strong { color: #e7c9ff; }
+.analytic-cat { margin-top: 20px; }
+.analytic-row, .analytic-category { border-bottom-color: #b18d7940; }
+.analytic-track { background: #352039; border-radius: 99px; }
+.analytic-money { font-weight: 650; }
+
+/* 04 — Budget: pronounced violet plan, dense category limits. */
+#page-budgets>.split { gap: 15px; }
+#page-budgets>.split>.card:first-child {
+  border: 1px solid rgba(214, 169, 117, .76); border-radius: 17px;
+  background: linear-gradient(160deg, #8d32b7 0%, #4e1b70 52%, #21102d 100%);
+  box-shadow: inset 0 1px #f4b8ff40;
+}
+#page-budgets>.split>.card:first-child>h3 { font-size: 13px; }
+.reference-budget-plan { margin: 8px 0 12px; font-size: 32px; font-weight: 700; }
+.reference-budget-track { height: 7px; background: #351247; }
+.budgetitem { border-radius: 13px; padding: 11px 12px; gap: 10px; margin-bottom: 8px; }
+.budgetitem label { font-size: 14px; }
+.budgetitem small { color: #bbaabe; }
+.budgetitem .track { height: 5px; }
+.budgetitem input { background: #1c1224; border-color: #9b6a935c; }
+
+/* 05 — Operations: three-way filter, day separators, square icons. */
+.transaction-tabs { margin-bottom: 12px; }
+.tx { min-height: 57px; padding: 10px 0; border-bottom: 1px solid rgba(190, 145, 106, .21); }
+.tx-icon, .reference-category-row .tx-icon, .reference-insight .tx-icon {
+  width: 38px; height: 38px; border: 1px solid rgba(204, 157, 126, .42);
+  border-radius: 11px; background: linear-gradient(145deg, #563061, #23132f);
+  color: #f5d8ff; box-shadow: inset 0 1px rgba(255,255,255,.17);
+}
+.tx-icon svg { width: 23px; height: 23px; stroke-width: 1.6; }
+.tx-title { font-size: 13px; font-weight: 600; }
+.tx-meta { font-size: 10px; }
+.tx-amount { font-size: 14px; font-weight: 670; }
+.reference-date-group { border-bottom: 1px solid rgba(196, 151, 108, .24); }
+
+/* 06 — Receipt scan: preserve the real file picker and camera semantics. */
+.modalback { background: #07020ad9; backdrop-filter: blur(7px); }
+.modal { background: linear-gradient(145deg, #281833, #100b18); border: 1px solid var(--che-gold); border-radius: 19px; }
+.modalhead h2 { font-size: 18px; }
+#photoArea, .review-image {
+  border-radius: 14px; overflow: hidden;
+  background: radial-gradient(ellipse at center, #291633, #100b18 78%);
+}
+#uploadReceipt { background: var(--che-gradient); }
+#ocrStatus { color: #d5c0dd; }
+
+/* 07 — Import and recognition: two choices, recognized-source card. */
+.import-hero {
+  border-radius: 17px; border: 1px solid var(--che-stroke);
+  background: linear-gradient(155deg, #351942, #17101f 62%, #0e0a15);
+  padding: 17px 14px;
+}
+.import-hero h2 { font-size: 20px; }
+.import-hero p { color: var(--che-muted); font-size: 12px; }
+.import-actions { gap: 9px; }
+.import-actions .btn { min-height: 46px; }
+.import-formats { color: var(--che-muted); }
+.import-explainer { border: 1px solid var(--che-stroke); background: var(--che-card); border-radius: 13px; }
+.demo-import-card { border-color: rgba(194, 77, 255, .33); }
+
+/* 08 — Day distribution / post-OCR review: huge verified total and rows. */
+.review-shell { padding: 14px; }
+.review-heading h2 { font-size: 17px; }
+.review-alert { border-color: var(--che-stroke); border-radius: 12px; }
+.review-row { padding: 12px; margin-bottom: 9px; border-radius: 12px; }
+.review-fields input, .review-fields select { background: #1a1022; border-color: rgba(185, 137, 113, .38); color: white; }
+.review-footer strong { color: #fff; font-weight: 740; font-size: 28px; }
+.review-image img { border-radius: 12px; }
+.ocr-details { color: var(--che-muted); }
+
+/* 09 — Categories: one calm row per direction. */
+.reference-category-row { min-height: 54px; margin-bottom: 8px; padding: 9px 12px; border-radius: 13px; }
+.reference-category-row strong { font-size: 14px; font-weight: 550; }
+.reference-category-row .tx-icon { width: 35px; height: 35px; }
+#page-categories>.btn.primary { width: 100%; margin-top: 17px; }
+
+/* 10 — Reminders: payment rows and tactile violet switches. */
+.reminder { border-radius: 13px; padding: 11px 12px; margin-bottom: 8px; }
+.reminder b { color: #fff; font-size: 14px; font-weight: 600; }
+.reminder p { color: #bcaac4; }
+#page-reminders #reminderList { display: grid; gap: 8px; }
+#page-reminders #addReminderBtn { border-radius: 12px; }
+input[type="checkbox"] { accent-color: var(--che-violet); }
+
+/* 11 — Calendar: compact grid, selected day, transaction list. */
+.calendar-month { font-size: 20px; font-weight: 610; margin: 17px 0 23px; }
+.calendar-grid { gap: 6px; }
+.calendar-grid small { color: #c6b5d0; }
+.calendar-grid button { font-size: 14px; }
+.calendar-grid button.selected { background: var(--che-gradient); border: 1px solid var(--che-gold); }
+.calendar-grid .has-expense:after { background: #d763ff; }
+#calendarTransactions { border-radius: 14px; padding: 13px; margin-top: 24px; }
+
+/* 12 — Insights: the reference violet sphere is the visual focus. */
+.voice-panel { background: none; border: none; }
+.voice-panel .puls-orb-main { width: 123px; height: 123px; margin: 14px auto 15px; }
+.voice-panel h2 { font-size: 27px; font-weight: 720; }
+.voice-panel .reference-assistant-subtitle { font-size: 15px; color: #fff; }
+.reference-insights { gap: 9px; }
+.reference-insight { border-radius: 12px; padding: 12px; }
+.reference-insight strong { color: white; font-size: 13px; }
+.voice-controls { background: var(--che-card); border-color: var(--che-stroke); }
+.voice-controls summary { color: #dbc1e8; }
+
+/* 13 — Settings: icon, label, subtitle, chevron aligned. */
+.reference-settings-list>button { min-height: 60px; margin-bottom: 9px; border-radius: 13px; padding: 9px 10px; }
+.reference-settings-list>button>span { width: 36px; height: 36px; flex-shrink: 0; border-radius: 10px; }
+.reference-settings-list strong { font-size: 14px; font-weight: 580; }
+.reference-settings-list small { font-size: 10px; margin-top: 3px; }
+.reference-settings-list b { color: #ebd7f2; }
+.reference-settings-tools { border: 1px solid rgba(186, 139, 109, .36); background: #160d1d; }
+
+/* 14 — Security: illuminated shield, rows and real passkey actions. */
+.security-emblem {
+  width: 124px; height: 144px; margin: 28px auto 22px;
+  background: radial-gradient(ellipse at 50% 42%, #59225e, #1b0d29 68%);
+  border: 1px solid rgba(234, 183, 134, .82);
+  filter: drop-shadow(0 0 13px rgba(194, 77, 255, .45));
+}
+.security-emblem svg { stroke: #f0cdeb; filter: drop-shadow(0 0 6px rgba(202, 92, 255, .57)); }
+.security-title { font-size: 19px; font-weight: 650; text-align: center; }
+#authSettings { padding: 13px; }
+#authSettings .section-head h2 { font-size: 14px; }
+.reference-security-row { min-height: 61px; border-radius: 12px; padding: 12px; margin-top: 9px; }
+.reference-security-row strong { font-weight: 560; }
+.reference-security-row b { font-weight: 600; color: #e3c593; }
+
+@media (max-width: 360px) {
+  .shell { padding-left: 13px; padding-right: 13px; }
+  .quick-actions { gap: 6px; }
+  .quick-action>span:last-child { font-size: 11px; }
+  .center-donut { gap: 8px; }
+  .category-card .donut { width: 125px; height: 125px; }
+  .category-card .donut::after { inset: 18px; }
+  .legenditem { font-size: 10px; }
+  .footer-mobile button { font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page.active, .che-sphere-wave, .puls-orb { animation: none !important; }
+}
+
+/* ===== 10.6.1 — Liquid glass layer (13 Nov 2026) =====
+   Same palette. Glass only on the control layer (dock, tabs, sheets, vault card);
+   content sits on dense cards with a light rim. Bigger, softer radii. */
+:root {
+  --che-radius: 24px;
+  --radius: 24px;
+  --che-glass: linear-gradient(160deg, rgba(58, 34, 78, .52), rgba(23, 16, 31, .42) 55%, rgba(18, 12, 25, .56));
+  --che-rim: linear-gradient(160deg, rgba(255, 228, 255, .55), rgba(194, 77, 255, .18) 30%, rgba(197, 160, 119, .10) 62%, rgba(255, 214, 170, .38));
+  --che-glass-shadow: 0 18px 40px rgba(4, 1, 9, .55), 0 2px 6px rgba(4, 1, 9, .35);
+}
+body::before {
+  background:
+    radial-gradient(ellipse 70% 34% at 105% 4%, rgba(123, 44, 255, .24), transparent 72%),
+    radial-gradient(ellipse 60% 30% at -10% 62%, rgba(194, 77, 255, .13), transparent 74%),
+    radial-gradient(ellipse 80% 26% at 50% 112%, rgba(123, 44, 255, .16), transparent 70%),
+    linear-gradient(180deg, #110916 0%, var(--che-bg) 25%, #09060d 90%);
+}
+.hero-amount, .analytic-amount, .reference-budget-plan, .donut-inner strong,
+.tx-amount, .budgetitem small, .hero-foot strong { font-variant-numeric: tabular-nums; }
+
+/* Content cards: dense substrate, soft light along the edge, deep quiet shadow. */
+.card, .reference-category-row, .reference-settings-list>button, .reference-security-row,
+.review-shell, .review-row, .reminder, .budgetitem, .reference-insight,
+.comparison-card, #calendarTransactions, .category-card {
+  border-radius: 24px;
+  border: 1px solid rgba(197, 160, 119, .26);
+  background:
+    linear-gradient(180deg, rgba(255, 236, 255, .055), transparent 38%),
+    var(--che-card-gradient);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 236, 255, .14),
+    inset 0 -1px 0 rgba(123, 44, 255, .10),
+    0 14px 34px rgba(4, 1, 9, .42);
+}
+.reference-category-row, .reference-settings-list>button, .reference-security-row,
+.budgetitem, .review-row, .reminder { border-radius: 20px; }
+.reference-category-row .tx-icon, .reference-insight .tx-icon, .tx-icon { border-radius: 14px; }
+
+/* Liquid glass recipe for floating controls. */
+.footer-mobile, .reference-period, .modal, .che-vault-box, .quick-action {
+  position: relative;
+  background: var(--che-glass);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
+  border: 1px solid transparent;
+  box-shadow: var(--che-glass-shadow), inset 0 1px 0 rgba(255, 240, 255, .22), inset 0 -10px 24px rgba(123, 44, 255, .10);
+}
+.footer-mobile::before, .reference-period::before, .modal::before, .che-vault-box::before, .quick-action::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: var(--che-rim);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.footer-mobile::after, .che-vault-box::after, .modal::after {
+  content: ""; position: absolute; left: 12%; right: 12%; top: 0; height: 42%;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 240, 255, .10), transparent);
+}
+.footer-mobile { border-radius: 30px; height: 68px; background: linear-gradient(160deg, rgba(48, 28, 64, .62), rgba(17, 12, 23, .58)); }
+.footer-mobile button { position: relative; z-index: 1; }
+.footer-mobile button.active { color: #f1cf8f; text-shadow: 0 0 12px rgba(241, 207, 143, .35); }
+.footer-mobile button.addbtn { flex-basis: 52px; width: 52px; height: 52px; margin-top: -14px; box-shadow: 0 8px 24px rgba(123, 44, 255, .45); }
+.reference-period { border-radius: 999px; padding: 4px; }
+.reference-period button { border-radius: 999px; position: relative; z-index: 1; }
+.modal { border-radius: 30px; background: linear-gradient(160deg, rgba(52, 30, 70, .82), rgba(16, 11, 24, .86)); }
+.modal > * { position: relative; z-index: 1; }
+.che-vault-box { border-radius: 30px; background: linear-gradient(160deg, rgba(52, 26, 72, .55), rgba(12, 7, 20, .60)); }
+.che-vault-box > * { position: relative; z-index: 1; }
+.quick-action { border-radius: 22px; background: linear-gradient(160deg, rgba(58, 34, 78, .50), rgba(23, 16, 31, .62)); }
+.quick-action > * { position: relative; z-index: 1; }
+
+/* Capsule buttons and soft fields. */
+.btn, .chip { border-radius: 999px; }
+.field input, .field select, .search-input, .budgetitem input, .che-vault-box input { border-radius: 16px; }
+.che-vault-box button { border-radius: 999px; }
+.btn.primary, .che-vault-box button:not(.secondary) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .26), rgba(255, 255, 255, 0) 48%),
+    linear-gradient(110deg, var(--che-violet), var(--che-lilac));
+  border: 1px solid rgba(255, 220, 255, .38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), 0 10px 26px rgba(123, 44, 255, .38);
+}
+.btn, .chip, .quick-action, .footer-mobile button, .che-vault-box button, .reference-period button {
+  transition: transform .16s cubic-bezier(.23, 1, .32, 1), box-shadow .2s cubic-bezier(.23, 1, .32, 1);
+}
+.btn:active, .chip:active, .quick-action:active, .footer-mobile button:active, .che-vault-box button:active { transform: scale(.97); }
+.hero-progress, .reference-budget-track, .budgetitem .track { border-radius: 999px; }
+.hero-progress-fill, .reference-budget-track span, .budgetitem .fill { border-radius: 999px; }
+.reference-budget-plan, .hero-balance.card { border-radius: 26px; }
+
+@media (prefers-reduced-transparency: reduce) {
+  .footer-mobile, .reference-period, .modal, .che-vault-box, .quick-action {
+    -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--che-card-gradient);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .chip, .quick-action, .footer-mobile button, .che-vault-box button { transition: none; }
+}
+
+/* ===== 10.6.2 — Premium edging & softer radii ===== */
+:root {
+  --che-radius: 28px; --radius: 28px;
+  --che-edge: linear-gradient(150deg, rgba(255, 226, 190, .85) 0%, rgba(194, 77, 255, .55) 24%, rgba(123, 44, 255, .22) 52%, rgba(197, 160, 119, .28) 78%, rgba(255, 214, 170, .70) 100%);
+}
+/* Two-tone edge: gold light on the top-left, violet fading, warm glint bottom-right. */
+.card, .reference-category-row, .reference-settings-list>button, .reference-security-row,
+.review-shell, .review-row, .reminder, .budgetitem, .reference-insight,
+.comparison-card, #calendarTransactions, .category-card {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(180deg, rgba(255, 236, 255, .06), rgba(255, 236, 255, 0) 34%) padding-box,
+    var(--che-card-gradient) padding-box,
+    var(--che-edge) border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 255, .16),
+    inset 0 0 0 1px rgba(11, 7, 16, .35),
+    0 1px 0 rgba(255, 214, 170, .05),
+    0 18px 40px rgba(4, 1, 9, .48);
+}
+.card, .category-card, .review-shell, #calendarTransactions, .comparison-card { border-radius: 28px; }
+.reference-category-row, .reference-settings-list>button, .reference-security-row,
+.budgetitem, .review-row, .reminder, .reference-insight { border-radius: 24px; }
+.reference-budget-plan, .hero-balance.card { border-radius: 30px; }
+.reference-category-row .tx-icon, .reference-insight .tx-icon, .tx-icon, .quick-ico {
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255, 240, 255, .22), 0 4px 12px rgba(4, 1, 9, .35);
+}
+.footer-mobile { border-radius: 34px; }
+.modal, .che-vault-box { border-radius: 34px; }
+.quick-action { border-radius: 26px; }
+.field input, .field select, .search-input, .budgetitem input, .che-vault-box input { border-radius: 18px; }
+.calendar-grid button { border-radius: 14px; }
+.calendar-grid button.selected { border-radius: 50%; }
+
+/* ===== 10.6.3 — Fits the iPhone screen, pace chart, rich budget, swipe ===== */
+html, body { height: 100%; overflow: hidden; }
+body { position: fixed; inset: 0; width: 100%; }
+.shell {
+  height: 100dvh; overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+  margin: 0 auto;
+}
+/* Swipe between tabs: the new screen slides in from the side of the finger. */
+body[data-swipe="left"] .page.active { animation: che-in-right .34s cubic-bezier(.23,1,.32,1); }
+body[data-swipe="right"] .page.active { animation: che-in-left .34s cubic-bezier(.23,1,.32,1); }
+@keyframes che-in-right { from { opacity: 0; transform: translateX(34px); } to { opacity: 1; transform: none; } }
+@keyframes che-in-left { from { opacity: 0; transform: translateX(-34px); } to { opacity: 1; transform: none; } }
+
+/* Budget cards: saturated violet background from the same palette. */
+#page-budgets>.split>.card:first-child, .hero-balance {
+  border: 1px solid transparent;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(194, 77, 255, .75) 0%, rgba(194, 77, 255, 0) 55%) padding-box,
+    radial-gradient(110% 120% at 0% 100%, rgba(123, 44, 255, .85) 0%, rgba(123, 44, 255, 0) 60%) padding-box,
+    linear-gradient(150deg, #4a1a8f 0%, #2c0f57 48%, #1a0a33 100%) padding-box,
+    var(--che-edge) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 240, 255, .30), inset 0 -24px 48px rgba(11, 7, 16, .35), 0 20px 46px rgba(80, 20, 160, .38);
+}
+.hero-balance { border-radius: 30px; padding: 18px 18px 16px; margin-top: 4px; position: relative; overflow: hidden; }
+.hero-balance .hero-progress { background: rgba(11, 7, 16, .45); }
+.hero-balance .hero-progress-fill { background: linear-gradient(90deg, #fff 0%, #f0d2ff 40%, #c24dff 100%); box-shadow: 0 0 12px rgba(255, 220, 255, .6); }
+.hero-balance .hero-foot small, .hero-balance .hero-foot strong, .hero-balance .hero-topline { color: #fbefff; }
+.hero-balance .hero-ribbon { opacity: .55; }
+#page-budgets>.split>.card:first-child .reference-budget-plan { background: none; border: 0; box-shadow: none; padding: 0; }
+#page-budgets>.split>.card:first-child .notice, #page-budgets>.split>.card:first-child h3 { color: #f4e6ff; }
+#page-budgets>.split>.card:first-child .reference-budget-track { background: rgba(11, 7, 16, .45); }
+#page-budgets>.split>.card:first-child .reference-budget-track span { background: linear-gradient(90deg, #fff, #c24dff); }
+
+/* Insights: the pace ring replaces the decorative sphere. */
+#page-assistant .puls-orb-main { display: none; }
+.che-pace { display: grid; gap: 14px; margin-bottom: 14px; }
+.pace-ring { position: relative; width: min(72vw, 250px); aspect-ratio: 1; margin: 2px auto 0; }
+.pace-ring::before { content: ""; position: absolute; inset: 18%; border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, rgba(194, 77, 255, .35), rgba(123, 44, 255, .08) 60%, transparent 72%); filter: blur(6px); }
+.pace-ring svg { position: relative; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.pace-track { fill: none; stroke: rgba(255, 236, 255, .07); stroke-width: 14; }
+.pace-track.thin { stroke-width: 5; }
+.pace-arc, .pace-glow { fill: none; stroke-width: 14; stroke-linecap: round; animation: pace-draw 1.1s cubic-bezier(.23,1,.32,1) both; }
+.pace-glow { opacity: .55; }
+.pace-time { fill: none; stroke: #e2c28d; stroke-width: 5; stroke-linecap: round; animation: pace-draw 1.3s .1s cubic-bezier(.23,1,.32,1) both; }
+@keyframes pace-draw { from { stroke-dashoffset: 578; } }
+.pace-center { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 4px; }
+.pace-center small { color: var(--che-muted); font-size: 12px; }
+.pace-center strong { font-size: clamp(28px, 8.4vw, 36px); font-weight: 750; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.pace-center span { color: #e2c28d; font-size: 12px; }
+.pace-legend { display: flex; justify-content: center; gap: 18px; color: var(--che-muted); font-size: 12px; }
+.pace-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+.lg-violet { background: linear-gradient(135deg, #c24dff, #7b2cff); }
+.lg-gold { background: #e2c28d; }
+.pace-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pace-stats>div { padding: 11px 10px; border-radius: 20px; border: 1px solid transparent;
+  background: var(--che-card-gradient) padding-box, var(--che-edge) border-box; box-shadow: inset 0 1px 0 rgba(255,240,255,.12); }
+.pace-stats small { display: block; color: var(--che-muted); font-size: 11px; margin-bottom: 4px; }
+.pace-stats b { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pace-chart { padding: 12px 12px 8px; border-radius: 24px; border: 1px solid transparent;
+  background: var(--che-card-gradient) padding-box, var(--che-edge) border-box; }
+.pace-chart svg { width: 100%; height: 92px; display: block; overflow: visible; }
+.pace-line { fill: none; stroke: #d48bff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.pace-forecast { fill: none; stroke: #d48bff; stroke-width: 2; stroke-dasharray: 4 5; opacity: .75; vector-effect: non-scaling-stroke; }
+.pace-budget { stroke: #e2c28d; stroke-width: 1.4; stroke-dasharray: 2 4; opacity: .8; vector-effect: non-scaling-stroke; }
+.pace-dot { fill: #fff; stroke: #c24dff; stroke-width: 2; }
+.pace-axis { display: flex; justify-content: space-between; color: var(--che-muted); font-size: 10px; margin-top: 4px; }
+.pace-status { margin: 0; text-align: center; color: #f3e7f8; font-size: 14px; line-height: 1.4; }
+.pace-status.is-over { color: #ffc4e6; }
+
+/* Face ID offer sheet after password login. */
+.che-face-offer { text-align: center; }
+.che-face-offer .offer-glyph { width: 64px; height: 64px; margin: 4px auto 10px; color: #e2c28d; }
+.che-face-offer .offer-glyph svg { width: 64px; height: 64px; }
+.che-face-offer .section-cta { justify-content: center; }
+#lockGate .face-glyph { cursor: pointer; }
+@media (prefers-reduced-motion: reduce) {
+  body[data-swipe] .page.active, .pace-arc, .pace-glow, .pace-time { animation: none; }
+}
+#page-assistant .voice-panel>h2, #page-assistant .reference-assistant-subtitle { display: none; }
+
+/* Tabs fit the screen: the page stands still, only long lists scroll inside their card. */
+.shell { display: flex; flex-direction: column; }
+.shell>.topbar { flex: 0 0 auto; }
+.page.active { flex: 1 0 auto; }
+body[data-screen="analytics"] .shell, body[data-screen="budgets"] .shell, body[data-screen="assistant"] .shell { overflow: hidden; }
+body[data-screen="analytics"] .page.active, body[data-screen="budgets"] .page.active, body[data-screen="assistant"] .page.active {
+  flex: 1 1 0; min-height: 0; display: flex; flex-direction: column;
+}
+#page-analytics>.screen-head, #page-assistant>.screen-head, #page-budgets>.section-head { flex: 0 0 auto; }
+#page-analytics .analytic-summary { display: none; }
+#page-analytics .analytic-hero { flex: 0 0 auto; }
+#page-analytics .chart-svg { height: clamp(120px, 18dvh, 186px); }
+#page-analytics .analytic-cat { flex: 1 1 0; min-height: 120px; overflow-y: auto; overscroll-behavior: contain; margin-top: 12px; }
+#page-budgets .split { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+#page-budgets .split>.card:first-child { flex: 0 0 auto; }
+#page-budgets .split>.card:last-child { flex: 1 1 0; min-height: 120px; overflow-y: auto; overscroll-behavior: contain; }
+#page-assistant .voice-panel { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+#page-assistant .che-pace { flex: 0 0 auto; gap: 10px; }
+#page-assistant .pace-ring { width: min(56vw, 30dvh, 236px); }
+#page-assistant #referenceInsights { flex: 1 1 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.analytic-cat::-webkit-scrollbar, #page-budgets .split>.card:last-child::-webkit-scrollbar, #referenceInsights::-webkit-scrollbar { display: none; }
+/* Dock stays pinned to the bottom of the screen. */
+.footer-mobile { position: fixed; }
+.quick-action, .reference-period { position: relative; }
+.pace-center span { line-height: 1.35; }
+/* Lock screen: one touch anywhere starts Face ID. */
+#lockGate { cursor: pointer; -webkit-user-select: none; user-select: none; }
+#lockGate .face-glyph { animation: che-face-breathe 2.4s ease-in-out infinite; }
+@keyframes che-face-breathe { 50% { transform: scale(1.06); filter: drop-shadow(0 0 14px rgba(194, 77, 255, .55)); } }
+@media (prefers-reduced-motion: reduce) { #lockGate .face-glyph { animation: none; } }
+
+/* ===== 10.7 — Apple type, full-screen sheets, living liquid-glass background ===== */
+/* Type: the iPhone system font (SF Pro), denser weights, soft depth on big figures. */
+html, body, button, input, select, textarea {
+  font-family: -apple-system, "SF Pro Display", "SF Pro Text", system-ui, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;
+}
+body { font-weight: 500; letter-spacing: -.01em; }
+p, small, .notice, .hint, label, .field label, .tx-meta, .legenditem, .graph-labels { font-weight: 500; }
+h1, h2, h3, .modalhead h2, .section-head h2, .screen-head h1, #screenTitle, .reference-heading { font-weight: 700; letter-spacing: -.025em; }
+strong, b, .btn, .chip, .quick-action>span:last-child, .footer-mobile button, .reference-period button { font-weight: 600; }
+.btn.primary, .che-vault-box button { font-weight: 700; }
+.hero-amount, .analytic-amount, .reference-budget-plan, .donut-inner strong, .pace-center strong,
+.import-hero h2, .che-vault-box h2, .lock-screen h1, .security-title {
+  font-weight: 750; letter-spacing: -.035em;
+  text-shadow: 0 1px 0 rgba(255, 240, 255, .18), 0 6px 18px rgba(123, 44, 255, .35), 0 2px 3px rgba(4, 1, 9, .55);
+}
+.pace-stats b, .tx-amount, .analytic-money, .budgetitem small { font-weight: 650; }
+/* iPhone zooms into fields with text under 16px — that was the jump. */
+input, select, textarea, .field input, .field select, .search-input, .budgetitem input { font-size: 16px !important; }
+
+/* Expense / income sheet: the whole screen, nothing jumps under it. */
+.modalback { padding: 0; align-items: stretch; background: rgba(5, 2, 9, .72); }
+.modalback .modal {
+  width: 100%; max-width: 480px; height: 100dvh; max-height: none; margin: 0 auto;
+  border-radius: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  padding: calc(16px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));
+  background: linear-gradient(170deg, rgba(48, 22, 82, .94), rgba(16, 10, 26, .97) 46%, rgba(11, 7, 16, .99));
+  -webkit-backdrop-filter: blur(26px) saturate(170%); backdrop-filter: blur(26px) saturate(170%);
+}
+.modalback .modal::before { border-radius: 0; }
+.modalback .modal .modalhead { position: sticky; top: calc(-16px - env(safe-area-inset-top)); z-index: 3; margin: calc(-16px - env(safe-area-inset-top)) -18px 14px; padding: calc(16px + env(safe-area-inset-top)) 18px 12px;
+  background: linear-gradient(180deg, rgba(36, 18, 60, .96), rgba(36, 18, 60, .80)); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+.modalback .modal .modalhead h2 { font-size: 24px; }
+.modalback .modal .formgrid { gap: 14px; }
+.modalback .modal .field label { font-size: 13px; color: #d9c8e6; margin-bottom: 6px; display: block; }
+.modalback .modal .field input, .modalback .modal .field select { min-height: 50px; }
+.modalback .modal button[type="submit"] { min-height: 54px; font-size: 17px; }
+.modalclose { width: 38px; height: 38px; border-radius: 50%; }
+
+/* Living liquid glass behind everything: palette light that flows with the phone tilt. */
+.che-liquid { position: fixed; inset: -12%; z-index: 0; pointer-events: none; overflow: hidden; --lx: 0; --ly: 0; }
+.shell { position: relative; z-index: 1; }
+.che-liquid .lq { position: absolute; border-radius: 50%; will-change: transform; mix-blend-mode: screen; }
+.che-liquid .a { width: 85vmax; height: 85vmax; left: -20%; top: -18%;
+  background: radial-gradient(circle at 50% 50%, rgba(123, 44, 255, .34), rgba(123, 44, 255, 0) 62%);
+  transform: translate3d(calc(var(--lx) * 9vw), calc(var(--ly) * 7vh), 0); }
+.che-liquid .b { width: 70vmax; height: 70vmax; right: -24%; top: 22%;
+  background: radial-gradient(circle at 50% 50%, rgba(194, 77, 255, .26), rgba(194, 77, 255, 0) 60%);
+  transform: translate3d(calc(var(--lx) * -12vw), calc(var(--ly) * -9vh), 0); }
+.che-liquid .c { width: 60vmax; height: 60vmax; left: 8%; bottom: -26%;
+  background: radial-gradient(circle at 50% 50%, rgba(197, 160, 119, .13), rgba(197, 160, 119, 0) 60%);
+  transform: translate3d(calc(var(--lx) * 6vw), calc(var(--ly) * -6vh), 0); }
+.che-liquid .lq-sheen { position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 236, 255, .07) 47%, rgba(255, 236, 255, .02) 52%, transparent 60%);
+  transform: translate3d(calc(var(--lx) * 18vw), calc(var(--ly) * 4vh), 0); }
+@media (prefers-reduced-motion: reduce) { .che-liquid .lq, .che-liquid .lq-sheen { transform: none; } }

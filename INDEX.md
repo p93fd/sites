@@ -50,13 +50,14 @@
 <!-- auto:files -->
 | Папка | Файлов | Вес | Текстовые файлы (строк) |
 |---|---|---|---|
-| . | 4 | 29 КБ | CLAUDE.md (16), INDEX.md (77), MAP.md (175), README.md (1) |
+| . | 4 | 29 КБ | CLAUDE.md (16), INDEX.md (78), MAP.md (175), README.md (1) |
 | .claude | 8 | 110 КБ | .claude/settings.json (8), .claude/skills/kino-sayt/SKILL.md (42), .claude/skills/my-voice/SKILL.md (571), .claude/skills/particle-scene/SKILL.md (89), .claude/skills/ru-typography/SKILL.md (60), .claude/skills/site-10k/SKILL.md (94), .claude/skills/studio-layout/SKILL.md (98), .claude/skills/volumetric-web/SKILL.md (43) |
 | .memory | 5 | 11 КБ | .memory/INDEX.md (11), .memory/conventions.md (10), .memory/dead-ends.md (44), .memory/decisions.md (36), .memory/state.md (9) |
-| anna | 1 | 2.0 МБ | anna/index.html (578) |
+| anna | 12 | 3.4 МБ | anna/index.html (578), anna/tilda-1-oformlenie.txt (4), anna/tilda-2-stranica.txt (308) |
 | architektor | 51 | 22.3 МБ | architektor/fx/post.js (894), architektor/index.html (1825) |
 | architektor-v2 | 340 | 10.8 МБ | architektor-v2/app.js (71), architektor-v2/index.html (285) |
 | bezlishnego | 46 | 22.7 МБ | bezlishnego/index.html (1488), bezlishnego/legal.html (157), bezlishnego/satin.html (1494), bezlishnego/tilda-1-oformlenie.txt (2), bezlishnego/tilda-2-stranica.txt (133) |
+| che | 43 | 49.0 МБ | che/app-version.json (3), che/auth.js (144), che/che-motion.js (50), che/che-theme.css (635), che/design-v5.css (51), che/design-v6.css (11), che/design-v7.css (30), che/design-v8.css (16), che/index.html (407), che/reference-design.css (184), che/refresh.html (3), che/refresh.js (3), che/secure-vault.js (39), che/sw.js (77) … ещё 14 |
 | dengi | 21 | 13.4 МБ | dengi/app.js (888), dengi/fonts/OFL.txt (94), dengi/index.html (199), dengi/style.css (203), dengi/sw.js (28), dengi/vendor/tesseract-core-lstm.wasm.js (283), dengi/vendor/tesseract-core-simd-lstm.wasm.js (283) |
 | kino | 34 | 32.7 МБ | kino/app.js (276), kino/index.html (62), kino/style.css (62) |
 | mbsea | 34 | 1.1 МБ | mbsea/app.js (146), mbsea/index.html (393), mbsea/world.js (560) |
