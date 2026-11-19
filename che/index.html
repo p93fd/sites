@@ -3,35 +3,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<meta name="che-build" content="reference-10.6"/>
-<meta name="theme-color" content="#0b0716"/>
+<meta name="che-build" content="10.8.2"/>
+<meta name="theme-color" content="#0b0710"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="ЧЕ"/>
 <title>Финансы · ЧЕ — личный финансовый помощник</title>
-<style>
-:root{--bg:#080c19;--surface:#11172b;--surface2:#18213a;--stroke:#26314d;--text:#f1f5ff;--muted:#98a6c5;--mint:#baf767;--blue:#8da2ff;--pink:#fa87bf;--amber:#ffc978;--red:#ff847f;--radius:22px;color-scheme:dark;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% -20%,#263561 0,transparent 36%),radial-gradient(circle at -15% 40%,#173337 0,transparent 27%),var(--bg);color:var(--text);min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}h1,h2,h3,p{margin-top:0}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--mint);outline-offset:2px}.shell{max-width:1180px;margin:auto;padding:28px 24px 110px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}.brand{display:flex;align-items:center;gap:12px}.logo{height:45px;width:45px;display:grid;place-items:center;background:linear-gradient(135deg,var(--mint),#6cdbd0);color:#071322;border-radius:15px;font-weight:900;font-size:24px;box-shadow:0 10px 35px #36cdb344}.brand strong{font-size:19px;letter-spacing:-.5px}.brand small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.chip,.btn,.navbtn,.wallet button{border:1px solid var(--stroke);background:#161e33;color:var(--text);border-radius:13px;padding:10px 13px;font-size:13px;font-weight:650}.chip:hover,.btn:hover{border-color:#66807d}.btn.primary{background:var(--mint);color:#091928;border-color:transparent}.btn.primary:hover{background:#9af6dc}.btn.ghost{background:transparent}.btn.tiny{padding:7px 10px;font-size:12px}.header-actions{display:flex;gap:8px;align-items:center}.eyebrow{text-transform:uppercase;letter-spacing:2.6px;font-size:11px;font-weight:800;color:var(--mint)}.hero-title{font-size:clamp(29px,4vw,47px);letter-spacing:-1.5px;line-height:1.1;margin:7px 0 10px}.sub{font-size:14px;color:var(--muted);line-height:1.6;margin:0}.controls{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 21px;flex-wrap:wrap}.wallet{padding:4px;border:1px solid var(--stroke);background:#0f172b;border-radius:14px;display:inline-flex;gap:4px}.wallet button{border:0;background:transparent;padding:9px 15px;color:var(--muted)}.wallet button.active{color:#061b20;background:var(--mint);box-shadow:0 5px 22px #4edbc037}.month{background:#121a30;color:var(--text);border:1px solid var(--stroke);padding:11px 13px;border-radius:13px;font-weight:650}.nav{display:flex;gap:8px;margin-bottom:24px;overflow:auto;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.navbtn{white-space:nowrap;background:#11182d;padding:12px 17px}.navbtn.active{background:#eaf6ff;color:#0d192b;border-color:#eaf6ff}.card{background:linear-gradient(135deg,#171f36,#11182b);border:1px solid #28334f;border-radius:var(--radius);padding:23px;box-shadow:0 16px 35px #03061128}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.metric{min-height:166px;position:relative;overflow:hidden}.metric:after{content:"";width:160px;height:160px;border-radius:100%;position:absolute;right:-70px;top:-86px;background:#ffffff08}.metric.feature{background:linear-gradient(127deg,#274e47 0%,#1b3a38 55%,#17233f 100%);border-color:#5b8970}.metric small{color:#b2c3d9;font-size:13px;display:block;margin-bottom:26px}.metric strong{font-size:clamp(24px,3vw,34px);letter-spacing:-1px;display:block;white-space:nowrap}.metric .hint{font-size:12px;color:#a9c2d1;margin-top:13px}.metric .hint.warn{color:#ffca84}.section-grid{display:grid;grid-template-columns:1.07fr .93fr;gap:14px;margin-top:14px}.section-head{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:18px}.section-head h2{font-size:19px;letter-spacing:-.6px;margin-bottom:4px}.section-head p{color:var(--muted);font-size:12px;margin:0}.center-donut{display:flex;align-items:center;gap:28px}.donut{width:190px;height:190px;flex:none;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(#263550 0 100%)}.donut:after{content:"";position:absolute;inset:23px;border-radius:50%;background:#151c30}.donut-inner{z-index:1;text-align:center}.donut-inner strong{display:block;font-size:25px;letter-spacing:-.8px}.donut-inner small{color:var(--muted);font-size:11px}.legend{flex:1;display:grid;gap:11px}.legenditem{display:flex;align-items:center;gap:10px;font-size:12px}.dot{width:9px;height:9px;border-radius:50%;flex:none}.legenditem span:nth-child(2){flex:1;color:#bec9e0}.legenditem strong{font-weight:750}.empty{text-align:center;padding:35px 12px;color:var(--muted);line-height:1.65;font-size:13px}.empty .emoji{font-size:32px;display:block;margin-bottom:11px}.list{display:grid;gap:8px}.tx{display:flex;gap:13px;align-items:center;padding:12px;background:#192239;border-radius:15px;border:1px solid #283450}.tx-icon{width:39px;height:39px;border-radius:13px;background:#273451;display:grid;place-items:center;font-size:19px;flex:none}.tx-title{font-weight:720;font-size:13px}.tx-meta{font-size:11px;color:#99a8c7;margin-top:5px}.tx-main{flex:1;min-width:0}.tx-amount{font-size:14px;font-weight:770;white-space:nowrap}.tx-amount.income{color:var(--mint)}.tx-actions{display:flex;gap:5px}.iconbtn{background:transparent;color:#a8b9d8;border:0;border-radius:9px;padding:6px}.iconbtn:hover{background:#293550}.row-progress{margin:16px 0}.row-progress .name{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px;margin-bottom:9px}.row-progress .name span:last-child{font-size:12px;color:var(--muted)}.track{height:9px;border-radius:30px;background:#263450;overflow:hidden}.fill{height:100%;border-radius:30px;transition:width .35s}.tip{border:1px solid #385c62;background:linear-gradient(120deg,#18373c,#19233b);padding:19px;border-radius:17px;display:flex;gap:14px;align-items:flex-start;margin-top:14px}.tip .star{font-size:20px}.tip strong{font-size:14px}.tip p{margin:5px 0 0;color:#b4c9db;font-size:12px;line-height:1.6}.page{display:none}.page.active{display:block}.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}.notice{font-size:12px;line-height:1.65;color:#acb9d1}.section-cta{display:flex;gap:9px;flex-wrap:wrap}.budgetitem{display:grid;grid-template-columns:1fr 130px;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid #2b3451}.budgetitem:last-child{border-bottom:0}.budgetitem label{font-size:13px;font-weight:650}.budgetitem small{font-size:11px;color:var(--muted)}.budgetitem input{width:100%;background:#10172b;border:1px solid #384564;border-radius:12px;padding:11px;color:#fff;text-align:right}.field{display:grid;gap:7px;min-width:0}.field label{font-size:12px;color:#bac5db;font-weight:620}.field input,.field select{width:100%;background:#11192d;border:1px solid #354260;border-radius:12px;padding:12px 13px;color:#f4f7ff;min-height:45px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.formgrid .wide{grid-column:1/-1}.modalback{position:fixed;inset:0;z-index:100;background:#020717d9;display:none;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(8px)}.modalback.open{display:flex}.modal{max-width:545px;width:100%;max-height:92vh;overflow:auto;background:#151c30;border:1px solid #3c4b68;border-radius:23px;padding:24px;box-shadow:0 30px 90px #0009}.modalhead{display:flex;justify-content:space-between;align-items:start;gap:10px;margin-bottom:17px}.modalhead h2{margin:0;font-size:21px}.modalclose{border:0;color:#fff;background:#26334e;border-radius:10px;padding:8px}.photoarea{display:flex;gap:13px;align-items:center;border:1px dashed #4a6181;border-radius:14px;background:#101c2f;padding:11px;margin-bottom:13px}.photoarea img{width:70px;height:82px;object-fit:cover;border-radius:8px}.photoarea p{color:#b7c4dd;font-size:12px;line-height:1.6;margin:0}.status{font-size:12px;color:var(--mint);margin-bottom:12px;min-height:16px}.banner{padding:12px 16px;background:#272139;border:1px solid #685170;border-radius:13px;color:#ebc7e3;font-size:12px;margin:14px 0}.banner strong{color:#fff}.datepair{display:flex;gap:10px}.datepair>*{flex:1}.reminder{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #2b3653;background:#192239;border-radius:15px;margin:8px 0}.reminder .body{flex:1}.reminder b{font-size:13px}.reminder p{color:#aab7ce;font-size:11px;margin:5px 0 0}.reminder.due{border-color:#936c43}.reminder.done{opacity:.57}.alert-pill{font-size:10px;border-radius:30px;padding:5px 8px;background:#54422e;color:#ffd08f}.demo{color:#ffd08f;border:1px solid #82633c;background:#382b18;padding:6px 9px;border-radius:50px;font-size:11px;font-weight:800;display:none}.demo.show{display:inline-block}.foot{font-size:11px;color:#7889ac;line-height:1.7;margin-top:34px}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:#e7fff6;color:#102923;border-radius:14px;padding:13px 18px;font-size:12px;font-weight:750;opacity:0;z-index:200;pointer-events:none;transition:.2s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.photo-view{max-width:100%;max-height:70vh;object-fit:contain;border-radius:12px}.footer-mobile{display:none}.quick{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.number{font-variant-numeric:tabular-nums}.hint-key{display:inline-block;border:1px solid #384965;border-radius:8px;padding:2px 6px;font-size:10px;color:#98aaca}
-@media(max-width:780px){.shell{padding:19px 13px 115px}.topbar{margin-bottom:21px}.brand strong{font-size:17px}.brand small{font-size:11px}.header-actions .hide-mobile{display:none}.hero-title{font-size:32px}.controls{margin:22px 0 18px}.metrics{grid-template-columns:1fr 1fr;gap:10px}.metric{min-height:145px;padding:16px}.metric.feature{grid-column:1/-1;min-height:140px}.metric small{margin-bottom:21px}.metric strong{font-size:26px}.section-grid,.split{grid-template-columns:1fr}.card{padding:18px}.center-donut{gap:16px}.donut{width:145px;height:145px}.donut:after{inset:19px}.donut-inner strong{font-size:19px}.legend{gap:9px}.nav{display:none}.footer-mobile{position:fixed;display:flex;justify-content:space-around;align-items:center;bottom:0;left:0;right:0;z-index:50;background:#121a2ff4;border-top:1px solid #2b3d5a;padding:11px 6px calc(11px + env(safe-area-inset-bottom));backdrop-filter:blur(12px)}.footer-mobile button{border:0;background:none;color:#9dadcd;display:grid;gap:4px;justify-items:center;font-size:10px;min-width:53px}.footer-mobile button.active{color:var(--mint)}.footer-mobile button span{font-size:22px}.footer-mobile button.addbtn{margin-top:-40px;background:var(--mint);border:5px solid #11182c;border-radius:22px;width:62px;height:62px;display:grid;place-items:center;color:#092526;font-size:29px;box-shadow:0 8px 24px #65f5c555}.footer-mobile button.addbtn span{font-size:27px}.modal{padding:17px}.budgetitem{grid-template-columns:1fr 105px}.formgrid{gap:9px}}
-@media(max-width:390px){.donut{width:127px;height:127px}.donut:after{inset:16px}.legenditem{font-size:11px}.metric strong{font-size:24px}.wallet button{padding:9px 11px}.month{padding:9px}}
-
-:root{--radius:24px;--bg:#070b16;--surface:#141b2b;--stroke:#28354b}
-body{background:radial-gradient(ellipse at 80% 2%,#24304d 0%,transparent 33%),radial-gradient(ellipse at -10% 46%,#152b30 0%,transparent 26%),#090d18}
-.shell{max-width:1170px}.brand strong{font-size:21px;letter-spacing:-.7px}.brand small{letter-spacing:.2px}.logo{border-radius:15px;transform:rotate(-7deg)}
-.hero-title{font-size:clamp(35px,5vw,59px);letter-spacing:-2.8px;max-width:820px}.eyebrow{letter-spacing:2.3px}.sub{max-width:520px}
-.card{box-shadow:0 18px 54px #02050e30;border-color:#2c3650}.navbtn.active{background:var(--mint);border-color:var(--mint);color:#142017}
-.metric.feature{background:linear-gradient(125deg,#1e4e42,#213f48 55%,#1e2b42)}
-.metric.feature strong{color:#d0ff9f}.metric .hint{font-weight:550}
-.btn.primary{background:var(--mint);font-weight:800}.btn.primary:hover{background:#d8ff9d}
-.logo{box-shadow:0 12px 40px #caff7755}
-.pulse-strip{display:grid;grid-template-columns:180px minmax(140px,1fr) 280px;gap:20px;align-items:center;margin-top:15px;padding:17px 23px;border:1px solid #2e3b4e;border-radius:20px;background:linear-gradient(105deg,#152c2e 0%,#17213a 85%)}
-.pulse-indicator{font-size:10px;font-weight:850;letter-spacing:1.2px;color:#e0ffad;display:flex;gap:8px;align-items:center}.live-dot{width:8px;height:8px;border-radius:50%;background:#c9ff88;box-shadow:0 0 0 4px #8cee7d20;animation:breathe 2s infinite}.pulse-caption{font-size:12px;color:#c1cde0}.week-bars{height:60px;display:flex;align-items:end;gap:9px}.week-bars .bar{background:linear-gradient(180deg,#c7ff7e,#4d8d77);border-radius:7px 7px 3px 3px;min-height:4px;flex:1;position:relative;transition:height .2s}.week-bars .bar.current{background:linear-gradient(180deg,#ffe2aa,#b58c73)}.week-bars .bar:after{content:attr(data-day);position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);font-size:9px;color:#8295b5}
-.settings-trigger{font-size:20px;min-width:38px;min-height:38px;display:grid;place-items:center}.search-input{background:#11192d;border:1px solid #354260;padding:12px 13px;border-radius:12px;color:white;flex:1;min-width:170px}
-.checkline{display:flex!important;align-items:center;gap:10px;color:#d7e3f1!important}.checkline input{width:18px;height:18px;min-height:18px;accent-color:var(--mint)}
-.auth-mark{color:var(--mint);border:1px solid #55715c;padding:8px 12px;border-radius:13px;font-size:28px}
-.lock-screen{position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 41%,#23433c 0%,#111e2d 29%,#090d18 67%);padding:30px;color:white}.lock-screen[hidden]{display:none}.lock-screen .lock-logo{font-size:42px;background:var(--mint);width:76px;height:76px;border-radius:23px;color:#11261a;display:grid;place-items:center;margin-bottom:25px}.lock-kicker{font-size:11px;letter-spacing:3px;color:var(--mint);font-weight:800}.lock-screen h1{font-size:clamp(37px,6vw,58px);line-height:1.07;letter-spacing:-1.7px;margin:16px 0}.lock-screen h1 em{color:var(--mint);font-style:normal}.lock-orbit{width:136px;height:136px;border:1px solid #658d71;border-radius:50%;padding:18px;display:grid;place-items:center;margin:18px 0 16px;box-shadow:0 0 0 15px #badf8a0c,0 0 0 32px #badf8a09}.face-glyph{font-size:63px;color:var(--mint)}.lock-screen p{color:#afc0d0;max-width:365px;font-size:13px;line-height:1.6}.lock-screen .btn{margin-top:12px;min-width:245px;padding:15px}.lock-screen small{max-width:330px;line-height:1.5;color:#72829c;font-size:10px;margin-top:20px}
-@keyframes breathe{50%{box-shadow:0 0 0 7px #8cee7d10}}
-@media(max-width:780px){.hero-title{font-size:42px;letter-spacing:-1.8px}.pulse-strip{grid-template-columns:1fr 1fr;padding:17px}.pulse-caption{grid-column:1/-1;grid-row:2}.week-bars{height:57px}.pulse-indicator{align-self:start}.metric strong{font-size:25px}}
-@media(max-width:390px){.hero-title{font-size:36px}.pulse-strip{gap:12px}.pulse-indicator{font-size:9px}}
-</style>
-<link rel="stylesheet" href="design-v5.css"/><link rel="stylesheet" href="design-v6.css"/><link rel="stylesheet" href="design-v7.css"/><link rel="stylesheet" href="design-v8.css"/><link rel="stylesheet" href="reference-design.css?v=10.6"/><link rel="stylesheet" href="che-theme.css?v=approved-20261113"/><link rel="icon" href="assets/icon-192.png"/><link rel="manifest" href="manifest.webmanifest"/></head>
+<link rel="stylesheet" href="che-tokens.css?v=10.8.2"/><link rel="stylesheet" href="che-ui.css?v=10.8.2"/><link rel="icon" href="assets/icon-192.png"/><link rel="manifest" href="manifest.webmanifest"/></head>
 <body data-screen="home">
 <div id="cheVaultGate" class="che-vault-gate" role="dialog" aria-modal="true" aria-label="Зашифрованное хранилище ЧЕ">
  <div class="che-vault-box">
@@ -47,7 +25,7 @@ body{background:radial-gradient(ellipse at 80% 2%,#24304d 0%,transparent 33%),ra
 <div class="shell">
 <header class="topbar"><div class="reference-heading"><label class="month-control"><span id="monthLabel"></span><span aria-hidden="true">⌄</span><input type="month" class="month" id="monthPicker" aria-label="Выбрать месяц"/></label><button type="button" data-go="home" aria-label="На главную">‹</button><span id="screenTitle">Финансы</span></div>
  <div class="brand"><div class="logo" aria-hidden="true"><i></i><i></i><i></i></div><div><strong>финансы<span class="trademark">.</span></strong><small>финансы под контролем</small></div><span id="demoBadge" class="demo">ДЕМО</span></div>
- <span class="che-build-badge">10.6</span><div class="header-actions"><button class="btn tiny hide-mobile" id="demoBtn">Демо-данные</button><button class="btn tiny hide-mobile" id="exportBtn">Экспорт</button><button type="button" class="circle-btn reference-reminders" data-go="reminders" aria-label="Напоминания"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0v5l2 3H4l2-3zm4 11h4"/></svg></button><button class="circle-btn" id="settingsTop" data-go="settings" aria-label="Настройки"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M20 12a8 8 0 0 0-.2-1.8l1.4-1.1-1.7-3-1.7.7a8 8 0 0 0-3.1-1.8L14.4 3h-3.5l-.3 1.8a8 8 0 0 0-3.1 1.8l-1.7-.7-1.8 3 1.5 1.1a8 8 0 0 0 0 3.6l-1.5 1.1 1.8 3 1.7-.7a8 8 0 0 0 3.1 1.8l.3 1.8h3.5l.3-1.8a8 8 0 0 0 3.1-1.8l1.7.7 1.7-3-1.4-1.1A8 8 0 0 0 20 12Z"/></svg></button><button class="btn primary header-add" id="addTopBtn">+ Добавить</button></div>
+ <span class="che-build-badge">10.8.2</span><div class="header-actions"><button class="btn tiny hide-mobile" id="demoBtn">Демо-данные</button><button class="btn tiny hide-mobile" id="exportBtn">Экспорт</button><button type="button" class="circle-btn reference-reminders" data-go="reminders" aria-label="Напоминания"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0v5l2 3H4l2-3zm4 11h4"/></svg></button><button class="circle-btn" id="settingsTop" data-go="settings" aria-label="Настройки"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M20 12a8 8 0 0 0-.2-1.8l1.4-1.1-1.7-3-1.7.7a8 8 0 0 0-3.1-1.8L14.4 3h-3.5l-.3 1.8a8 8 0 0 0-3.1 1.8l-1.7-.7-1.8 3 1.5 1.1a8 8 0 0 0 0 3.6l-1.5 1.1 1.8 3 1.7-.7a8 8 0 0 0 3.1 1.8l.3 1.8h3.5l.3-1.8a8 8 0 0 0 3.1-1.8l1.7.7 1.7-3-1.4-1.1A8 8 0 0 0 20 12Z"/></svg></button><button class="btn primary header-add" id="addTopBtn">+ Добавить</button></div>
 </header>
 <nav class="nav" id="nav"><button class="navbtn active" data-page="home">Главная</button><button class="navbtn" data-page="analytics">Аналитика</button><button class="navbtn" data-page="transactions">Операции</button><button class="navbtn" data-page="budgets">Бюджет</button><button class="navbtn" data-page="reminders">Платежи</button>  <button class="navbtn" data-page="import">Импорт скрина</button>
 <button class="navbtn" data-page="products">Продукты</button><button class="navbtn" data-page="assistant">Инсайты</button><button class="navbtn" data-page="settings">Настройки</button></nav>
@@ -62,11 +40,13 @@ body{background:radial-gradient(ellipse at 80% 2%,#24304d 0%,transparent 33%),ra
 <div class="v6-launchers"><button class="v6-launch v6-launch-product" data-go="products"><span class="v6-launch-icon">▦</span><span><small>МОИ ПОКУПКИ</small><strong>Аналитика по каждому продукту</strong><em>Сколько в месяц уходит на молоко, мясо, яйца</em></span><span class="v6-arrow">↗</span></button><button class="v6-launch v6-launch-voice" data-go="assistant"><span class="v6-launch-icon">◉</span><span><small>АНАЛИТИКА · ЧЕ</small><strong>Находи закономерности расходов</strong><em>Подсказки для твоего бюджета</em></span><span class="v6-arrow">↗</span></button></div>
 <div class="metrics"><article class="card metric"><div class="metric-label"><span class="mini-icon">↗</span><small>Потрачено за месяц</small></div><strong class="number" id="expense">0 ₽</strong><div class="hint" id="countHint">Операций пока нет</div></article><article class="card metric"><div class="metric-label"><span class="mini-icon purple">◉</span><small>Можно тратить в день</small></div><strong class="number" id="dailySafe">—</strong><div class="hint" id="dailySafeHint">После настройки бюджета</div></article></div>
  <div class="pulse-strip"><div class="pulse-top"><div><span class="eyebrow">ДИНАМИКА</span><h2>Твой финансовый ритм</h2></div><span class="pulse-legend">ПОСЛЕДНИЕ 7 ДНЕЙ</span></div><div class="week-bars" id="weekBars" aria-label="Расходы за последние 7 дней"></div><div class="pulse-caption" id="paceText">Запланируй месяц — и увидишь свой темп расходов</div></div>
+ <button type="button" class="essentials-card" id="essentialsCard" data-go="budgets"><div class="essentials-copy"><span class="essentials-kicker">ОБЯЗАТЕЛЬНЫЕ ПЛАТЕЖИ</span><div><strong id="essentialTotal">0 ₽</strong><small id="essentialRatio">0% всех расходов</small></div></div><div class="essentials-viz"><div class="essentials-spark" id="essentialSpark" aria-hidden="true"></div><div class="essentials-track"><span id="essentialProgress"></span></div></div></button>
+ <button type="button" class="konstantin-home" data-go="transactions" aria-label="Посмотреть переводы от Константина"><span><small>ОТ КОНСТАНТИНА</small><strong id="konstantinHomeTotal">0 ₽</strong></span><span class="konstantin-mini-chart" id="konstantinMiniChart" aria-hidden="true"></span><span class="konstantin-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5M8 5h11v11"/></svg></span></button>
  <div class="section-grid"><article class="card category-card"><div class="section-head"><div><span class="eyebrow">СТРУКТУРА</span><h2>Расходы по категориям</h2><p>Все категории за этот месяц</p></div><button class="btn tiny ghost" data-go="analytics">Подробно ↗</button></div><div id="donutContent"></div></article><article class="card recent-card"><div class="section-head"><div><span class="eyebrow">ИСТОРИЯ</span><h2>Последние операции</h2><p>Покупки и поступления</p></div><button class="btn tiny ghost" data-go="transactions">Все ↗</button></div><div id="recentTx"></div></article></div>
  <div id="insight" class="tip"><span class="star">✦</span><div><strong>Контроль, который работает</strong><p>Вся картина расходов — в одном месте.</p></div></div>
 </section>
 <section class="page" id="page-analytics"><div class="screen-head"><span class="eyebrow">ЧИСЛА И СМЫСЛЫ</span><h1>Аналитика<span class="trademark">.</span></h1><p>Понимать, а не просто считать.</p></div><article class="card analytic-hero"><span class="eyebrow">РАСХОДЫ ЗА МЕСЯЦ</span><div class="reference-period" aria-label="Период аналитики"><button data-analytics-period="month" class="active">Месяц</button><button data-analytics-period="quarter">Квартал</button><button data-analytics-period="year">Год</button></div><div class="analytic-amount" id="analyticTotal">—</div><div class="chart-svg" id="analyticSvg"></div><div class="graph-labels"><span>Начало месяца</span><span>Сегодня</span></div></article><article class="card comparison-card"><span>Сравнение с прошлым периодом</span><strong id="comparisonValue">—</strong></article><article class="card analytic-cat"><div class="section-head"><div><h2>Топ категорий</h2><p>Что забирает больше денег</p></div></div><div id="analyticCategories"></div></article><article class="card analytic-summary" id="analyticSummary"></article></section>
-<section class="page" id="page-transactions"><div class="section-head"><div><span class="eyebrow">ЛЕНТА ДВИЖЕНИЙ</span><h2>Операции<span class="trademark">.</span></h2><p>Расходы и доходы — с фотографиями чеков и категориями</p></div><button class="btn primary" id="addTxBtn">＋ Операция</button></div><div class="card"><div class="reference-period transaction-tabs" aria-label="Тип операции"><button type="button" data-tx-type="all" aria-pressed="true" class="active">Все</button><button type="button" data-tx-type="expense" aria-pressed="false">Расходы</button><button type="button" data-tx-type="income" aria-pressed="false">Доходы</button></div><div class="quick" style="margin-bottom:16px"><input class="search-input" id="txSearch" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Поиск операций" placeholder="Поиск по названию или категории"/><select class="month" id="txFilter" aria-label="Тип операции" hidden><option value="all">Все операции</option><option value="expense">Только расходы</option><option value="income">Только доходы</option></select><span class="notice" id="txTotal"></span></div><div id="allTx"></div></div></section>
+<section class="page" id="page-transactions"><div class="section-head"><div><span class="eyebrow">ЛЕНТА ДВИЖЕНИЙ</span><h2>Операции<span class="trademark">.</span></h2><p>Расходы, доходы и переводы между своими счетами</p></div><button class="btn primary" id="addTxBtn">＋ Операция</button></div><div class="card"><div class="reference-period transaction-tabs" aria-label="Тип операции"><button type="button" data-tx-type="all" aria-pressed="true" class="active">Все</button><button type="button" data-tx-type="expense" aria-pressed="false">Расходы</button><button type="button" data-tx-type="income" aria-pressed="false">Доходы</button></div><div class="quick" style="margin-bottom:16px"><input class="search-input" id="txSearch" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Поиск операций" placeholder="Поиск по названию или категории"/><select class="month" id="txFilter" aria-label="Тип операции" hidden><option value="all">Все операции</option><option value="expense">Только расходы</option><option value="income">Только доходы</option></select><span class="notice" id="txTotal"></span></div><div id="allTx"></div></div></section>
 <section class="page" id="page-budgets"><div class="section-head"><div><span class="eyebrow">ТВОИ ПРАВИЛА</span><h2>Бюджет<span class="trademark">.</span></h2><p>Лимит на месяц и план по категориям</p></div></div><div class="split"><article class="card"><h3 style="margin-bottom:7px">План на месяц</h3><div class="reference-budget-plan"><span id="budgetPlanDisplay">—</span><button type="button" id="editBudgetToggle" aria-label="Изменить бюджет">✎</button></div><div class="reference-budget-track"><span id="budgetPlanProgress"></span></div><p class="notice">Сколько денег планируешь потратить в этом месяце? Доход в лимит автоматически не добавляется.</p><div class="field"><label for="totalBudget">Бюджет, ₽</label><input id="totalBudget" type="number" inputmode="decimal" min="0" step="100" placeholder="Например, 120000"/></div><button class="btn primary" id="saveBudget" style="margin-top:15px">Сохранить бюджет</button><div id="budgetSummary" class="notice" style="margin-top:17px"></div></article><article class="card"><h3 style="margin-bottom:7px">Лимиты по категориям</h3><p class="notice">Необязательно, но полезно: сможешь увидеть, где именно начинается перерасход.</p><div id="categoryBudgets"></div><button class="btn primary" id="saveCats" style="margin-top:13px">Сохранить категории</button></article></div></section>
 <section class="page" id="page-reminders"><div class="section-head"><div><span class="eyebrow">НИЧЕГО НЕ ЗАБЫТЬ</span><h2>Напоминания<span class="trademark">.</span></h2><p>Не пропусти аренду, подписку, кредит или другой регулярный расход</p></div><button class="btn primary" id="addReminderBtn">＋ Напомнить</button></div><div class="split"><article class="card"><h3>Предстоящие платежи</h3><div id="reminderList"></div></article><article class="card"><h3>Как работают напоминания</h3><p class="notice">Здесь показываются сроки платежей и просрочки. В этом локальном прототипе уведомления видны при открытии приложения. Push-уведомления в закрытом приложении потребуют серверных push-подписок, HTTPS и разрешения устройства.</p><div class="tip"><span class="star">◷</span><div><strong>Цель финальной версии</strong><p>«Завтра аренда — 35 000 ₽. В бюджете на обязательные платежи осталось 42 000 ₽».</p></div></div></article></div></section>
 <section class="page" id="page-products">
@@ -80,22 +60,22 @@ body{background:radial-gradient(ellipse at 80% 2%,#24304d 0%,transparent 33%),ra
 </section>
 <section class="page" id="page-import">
 <div class="screen-head"><span class="eyebrow">УМНОЕ РАСПОЗНАВАНИЕ · 01 / 03</span><h1>Импорт и распознавание</h1><p>Фото чека или скрин из Сбера, Яндекса и других приложений. Сначала проверка — потом запись.</p></div>
-<article class="import-hero"><div class="import-orb">✦</div><span class="eyebrow">РАСПОЗНАВАНИЕ РАСХОДОВ</span><h2>Загрузи изображение</h2><p>Сделай скрин истории операций или сфотографируй чек. Мы покажем, что распознали и какие категории предлагаем.</p>
-<div class="import-actions"><button id="pickScreenshot" class="btn primary" type="button">▧ Скриншот из приложения</button><button id="pickReceipt" class="btn" type="button">⌑ Чек / фото чека</button></div><input id="screenshotFile" type="file" accept="image/*,.heic,.heif" multiple hidden><input id="cameraFile" type="file" accept="image/*,.heic,.heif" multiple hidden>
+<article class="import-hero"><div class="import-orb">✦</div><span class="eyebrow">РАСПОЗНАВАНИЕ РАСХОДОВ</span><h2>Загрузи изображение</h2><p>Загрузи скрин операции, фото чека или QR-кода. Проверь предложенные данные и дополни их перед сохранением.</p>
+<div class="import-actions"><button id="pickScreenshot" class="btn primary" type="button">▧ Скриншот из банка</button><button id="pickReceipt" class="btn" type="button">⌑ Чек или QR-код</button></div><input id="screenshotFile" type="file" accept="image/*,.heic,.heif" multiple hidden><input id="cameraFile" type="file" accept="image/*,.heic,.heif" multiple hidden>
 <div class="import-formats">PNG · JPG · HEIC* &nbsp; • &nbsp; изображение не отправляется в облако приложения</div></article>
 <div class="review-shell" id="importReview" hidden><div class="review-heading"><div><span class="eyebrow">02 / 03 · ПРОВЕРКА</span><h2>Что получилось распознать</h2></div><span id="reviewSource" class="source-tag">Источник не определён</span></div>
-<div id="reviewImage" class="review-image"></div><div class="review-alert" id="reviewNotice" role="status" aria-live="polite"></div><div id="reviewRows" class="review-rows"></div><div id="receiptLineReview" class="receipt-line-review" hidden></div><div class="review-footer"><div><small>Выбрано к записи</small><strong id="reviewTotal">0 ₽</strong></div><button class="btn primary" id="confirmImport" type="button" disabled>Записать расходы</button></div>
+<div id="reviewImage" class="review-image"></div><div class="review-quality" id="reviewQuality" aria-label="Качество распознавания"></div><div class="review-alert" id="reviewNotice" role="status" aria-live="polite"></div><div id="reviewRows" class="review-rows"></div><button class="btn tiny review-manual" id="addReviewRow" type="button">＋ Добавить операцию вручную</button><div id="receiptLineReview" class="receipt-line-review" hidden></div><div class="review-footer"><div><small>Выбрано к записи</small><strong id="reviewTotal">0 ₽</strong></div><button class="btn primary" id="confirmImport" type="button" disabled>Записать расходы</button></div>
 <details class="ocr-details"><summary>Посмотреть распознанный текст</summary><pre id="ocrRaw"></pre></details></div>
 <article class="import-explainer"><div class="explain-icon">◇</div><div><strong>Важное правило: никаких выдуманных расходов</strong><p>Если на скрине видна только общая сумма за день, а операций нет, мы не будем придумывать магазины или направления. Для точного распределения нужен скрин с детализацией.</p></div></article>
 <article class="card demo-import-card"><div><strong>Хочешь посмотреть без настоящего чека?</strong><p class="notice">Открой демонстрационный разбор с несколькими операциями, категориями и внутренним переводом.</p></div><button class="btn" id="sampleImport" type="button">Пример распознавания</button></article>
 </section>
-<section class="page" id="page-settings"><div class="section-head"><div><span class="eyebrow">ЛИЧНОЕ ПРОСТРАНСТВО</span><h2>Настройки<span class="trademark">.</span></h2><p>Управление информацией этого прототипа</p></div></div><p class="che-version-label" id="aboutChe" tabindex="-1">ЧЕ · версия 10.6 <a href="./refresh.html">Обновить приложение</a></p><div class="reference-settings-list">
+<section class="page" id="page-settings"><div class="section-head"><div><span class="eyebrow">ЛИЧНОЕ ПРОСТРАНСТВО</span><h2>Настройки<span class="trademark">.</span></h2><p>Хранилище, резервные копии и настройки</p></div></div><p class="che-version-label" id="aboutChe" tabindex="-1">ЧЕ · версия 10.8.2 <a href="./refresh.html">Обновить приложение</a></p><div class="reference-settings-list">
 <button type="button" data-go="security"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 3v6c0 5-5 8-8 9-3-1-8-4-8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Безопасность</strong><small>Face ID, вход и защита данных</small></div><b aria-hidden="true">›</b></button>
 <button type="button" data-go="budgets"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M21 10h-6v5h6m-4-2.5h.01"/></svg></span><div><strong>Бюджет и лимиты</strong><small>План и категории расходов</small></div><b aria-hidden="true">›</b></button>
 <button type="button" data-go="import"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5zm-9 9 9 5 9-5M3 16l9 5 9-5"/></svg></span><div><strong>Распознавание расходов</strong><small>Чеки, скриншоты и категории</small></div><b aria-hidden="true">›</b></button>
 <button type="button" data-open-tools="csvBtn"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 15v5h16v-5"/></svg></span><div><strong>Экспорт данных</strong><small>CSV и сохранение копии</small></div><b aria-hidden="true">›</b></button>
 <button type="button" data-open-tools="backupBtn"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19h11a4 4 0 0 0 0-8 6 6 0 0 0-11-3 5.5 5.5 0 0 0 0 11z"/></svg></span><div><strong>Резервная копия</strong><small>Шифрованная копия на устройстве</small></div><b aria-hidden="true">›</b></button>
-<button type="button" data-open-tools="aboutChe"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></span><div><strong>О приложении</strong><small>ЧЕ · версия 10.6</small></div><b aria-hidden="true">›</b></button></div><details class="reference-settings-tools reference-extra-menu"><summary>Другие разделы</summary><div class="reference-settings-list"><button data-go="categories"><span>▱</span><div><strong>Категории</strong><small>Все направления расходов</small></div><b>›</b></button>
+<button type="button" data-open-tools="aboutChe"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></span><div><strong>О приложении</strong><small>ЧЕ · версия 10.8.2</small></div><b aria-hidden="true">›</b></button></div><details class="reference-settings-tools reference-extra-menu"><summary>Другие разделы</summary><div class="reference-settings-list"><button data-go="categories"><span>▱</span><div><strong>Категории</strong><small>Все направления расходов</small></div><b>›</b></button>
 <button data-go="products"><span>▦</span><div><strong>Товары из чеков</strong><small>Количество, вес и стоимость</small></div><b>›</b></button>
 <button data-go="reminders"><span>▧</span><div><strong>Напоминания</strong><small>Предстоящие платежи</small></div><b>›</b></button>
 <button data-go="calendar"><span>▦</span><div><strong>Календарь расходов</strong><small>Операции по дням</small></div><b>›</b></button>
@@ -108,18 +88,50 @@ body{background:radial-gradient(ellipse at 80% 2%,#24304d 0%,transparent 33%),ra
 <section class="page" id="page-calendar"><div id="referenceCalendar"></div><div id="calendarTransactions"></div></section>
 <footer class="foot">ЧЕ · Тестовая версия · Данные шифруются на устройстве</footer>
 </div>
-<div class="footer-mobile" id="bottomNav"><button data-page="home" class="active"><span class="dock-symbol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10h-6v-6H9v6H3z"/></svg></span>Главная</button><button data-page="analytics"><span class="dock-symbol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19v-6m5 6V8m5 11V4m5 15v-9"/></svg></span>Аналитика</button><button class="addbtn" id="fab" data-page="assistant" aria-label="Открыть инсайты"><span class="puls-orb puls-orb-dock" aria-hidden="true"><span class="puls-orb-light"></span><span class="puls-orb-current"></span><svg class="che-sphere-wave" viewBox="0 0 100 100" aria-hidden="true"><path class="sphere-wave-glow" d="M-10 76C20 104 30 36 56 39S92 78 112 18"/><path d="M-10 76C20 104 30 36 56 39S92 78 112 18"/><path class="sphere-wave-fine" d="M-9 83C20 106 31 43 55 46S92 83 111 26"/></svg></span></button><button data-page="budgets"><span class="dock-symbol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h12l2 14H4z"/><path d="M9 8V5a3 3 0 0 1 6 0v3m-5 7 2 2 3-4"/></svg></span>Бюджет</button><button data-page="settings"><span class="dock-symbol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h.01m4 0h.01m4 0h.01" stroke-width="2.7"/></svg></span>Ещё</button></div>
-<div class="modalback" id="txModal"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="txModalTitle"><div class="modalhead"><h2 id="txModalTitle">Новая операция</h2><button class="modalclose" data-close="txModal">✕</button></div><div class="section-cta" style="margin-bottom:13px"><button id="uploadReceipt" class="btn primary">▧ Загрузить чек / скрин</button><button id="manualTx" class="btn">Вручную</button><input type="file" id="receiptInput" multiple accept="image/*" hidden/></div><div id="photoArea"></div><div id="ocrStatus" class="status" aria-live="polite"></div><form id="txForm" class="formgrid"><div class="field wide"><label>Название / магазин</label><input name="che-tx-title" id="txName" required maxlength="100" placeholder="Например, Пятёрочка" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" enterkeyhint="next"/></div><div class="field"><label>Сумма, ₽</label><input name="amount" id="txAmount" required type="number" step="0.01" min="0.01" inputmode="decimal" placeholder="0"/></div><div class="field"><label>Тип</label><select name="type" id="txType"><option value="expense">Расход</option><option value="income">Доход</option></select></div><div class="field"><label>Категория</label><select name="category" id="txCategory"></select></div><div class="field"><label>Дата</label><input name="date" id="txDate" type="date" required/></div><div class="wide notice" id="ocrNote">При загрузке фото данные будут распознаны автоматически. Перед сохранением обязательно проверь сумму и категорию.</div><button type="submit" class="btn primary wide" style="padding:14px">Проверить и сохранить операцию</button></form></div></div>
+<div class="footer-mobile" id="bottomNav"><button data-page="home" class="active"><span class="dock-symbol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10h-6v-6H9v6H3z"/></svg></span>Главная</button><button data-page="analytics"><span class="dock-symbol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19v-6m5 6V8m5 11V4m5 15v-9"/></svg></span>Аналитика</button><button class="addbtn" id="fab" type="button" aria-label="Добавить расход"><span class="puls-orb puls-orb-dock" aria-hidden="true"></span><span class="fab-monogram" aria-hidden="true">Ч</span></button><button data-page="budgets"><span class="dock-symbol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h12l2 14H4z"/><path d="M9 8V5a3 3 0 0 1 6 0v3m-5 7 2 2 3-4"/></svg></span>Бюджет</button><button data-page="settings"><span class="dock-symbol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h.01m4 0h.01m4 0h.01" stroke-width="2.7"/></svg></span>Ещё</button></div>
+<div class="modalback" id="txModal"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="txModalTitle"><div class="modalhead"><h2 id="txModalTitle">Новая операция</h2><button class="modalclose" data-close="txModal">✕</button></div><div class="section-cta" style="margin-bottom:13px"><button id="uploadReceipt" class="btn primary">▧ Загрузить чек / скрин</button><button id="manualTx" class="btn">Вручную</button><input type="file" id="receiptInput" accept="image/*,.heic,.heif" hidden/></div><div id="photoArea"></div><div id="ocrStatus" class="status" aria-live="polite"></div><form id="txForm" class="formgrid"><div class="field wide"><label for="txName">Название операции</label><input name="che-tx-title" id="txName" required maxlength="100" placeholder="Например, Пятёрочка" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" enterkeyhint="next"/></div><div class="field"><label>Сумма, ₽</label><input name="amount" id="txAmount" required type="number" step="0.01" min="0.01" inputmode="decimal" placeholder="0"/></div><div class="field"><label>Тип</label><select name="type" id="txType"><option value="expense">Расход</option><option value="income">Доход</option></select></div><div class="field"><label>Категория</label><select name="category" id="txCategory"></select></div><div class="field"><label>Дата</label><input name="date" id="txDate" type="date" required/></div><div class="field wide"><label for="txDescription">Описание операции</label><textarea id="txDescription" maxlength="500" rows="2" placeholder="Например, Сбер → Яндекс Банк"></textarea></div><div class="wide notice" id="ocrNote">Проверь название, сумму и тип операции перед сохранением.</div><button type="submit" class="btn primary wide" style="padding:14px">Проверить и сохранить операцию</button></form></div></div>
 <div class="modalback" id="remModal"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="remModalTitle"><div class="modalhead"><h2 id="remModalTitle">Новое напоминание</h2><button class="modalclose" data-close="remModal">✕</button></div><form id="remForm" class="formgrid"><div class="field wide"><label>Что нужно оплатить</label><input id="remTitle" name="che-rem-title" autocomplete="off" autocorrect="off" spellcheck="false" required maxlength="100" placeholder="Аренда, интернет, подписка"/></div><div class="field"><label>Сумма, ₽</label><input id="remAmount" type="number" step="0.01" min="0" placeholder="0"/></div><div class="field"><label>Дата платежа</label><input id="remDate" type="date" required/></div><div class="field wide"><label class="checkline"><input id="remRepeat" type="checkbox"/> Повторять каждый месяц</label></div><button type="submit" class="btn primary wide">Добавить напоминание</button></form></div></div>
 <div class="modalback" id="photoModal"><div class="modal" role="dialog" aria-modal="true"><div class="modalhead"><h2>Фото чека</h2><button class="modalclose" data-close="photoModal">✕</button></div><div style="text-align:center" id="photoView"></div></div></div>
 <div class="lock-screen" id="lockGate" hidden>
  <div class="lock-logo"><i></i><i></i><i></i></div><div class="lock-kicker">ФИНАНСЫ / ЧЕ</div><h1>Финансы</h1><p class="lock-tagline">Личный контроль расходов</p><div class="lock-orbit"><div class="face-glyph"><svg viewBox="0 0 100 100" width="74" height="74" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 34V23a7 7 0 0 1 7-7h11M66 16h11a7 7 0 0 1 7 7v11M84 66v11a7 7 0 0 1-7 7H66M34 84H23a7 7 0 0 1-7-7V66M35 46v4M65 46v4M50 44v15l-5 1M38 67c6 7 18 7 24 0"/></svg></div></div><p id="lockMessage">Войди с помощью Face ID, Touch ID или другого способа проверки устройства.</p><button class="btn primary" id="unlockFace">◉ Разблокировать</button><button class="btn ghost" id="previewUnlock">Войти по парольной фразе</button><small>Парольная фраза остаётся резервным способом входа.</small>
 </div><div class="toast" id="toast" aria-live="polite"></div>
 <script src="secure-vault.js"></script>
+<script src="che-recognition.js?v=10.8.2"></script>
+<script src="vendor/qr/jsQR.js"></script>
 <script>
 (()=>{'use strict';
 let analyticsPeriod='month',calendarDay='';
 const CATS=[['Продукты','<svg viewBox="0 0 24 24"><path d="M5 8h14l-1.5 11h-11L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>','#b746ef'],['Кафе','<svg viewBox="0 0 24 24"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2M3 21h16"/></svg>','#d7a7ff'],['Транспорт','<svg viewBox="0 0 24 24"><path d="M4 11l2-6h12l2 6v7H4v-7ZM4 13h16M8 18v2M16 18v2M7 14h2M15 14h2"/></svg>','#716db5'],['Дом','<svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10H3V11Z"/><path d="M9 21v-7h6v7"/></svg>','#9159c6'],['Здоровье','<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></svg>','#f3bcdf'],['Авто','<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M3 12h7m4 0h7M12 14v7"/></svg>','#7b43b3'],['Подписки','<svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></svg>','#ca7af0'],['Покупки','<svg viewBox="0 0 24 24"><path d="M4 8h16l-1 13H5L4 8ZM9 9V6a3 3 0 0 1 6 0v3"/></svg>','#8133bf'],['Тренировки','<svg viewBox="0 0 24 24"><path d="M3 9v6m3-9v12m3-6h6m3-6v12m3-9v6M1 12h22"/></svg>','#c88dff'],['Репетиторы','<svg viewBox="0 0 24 24"><path d="M3 5c4-2 7-2 9 0 2-2 5-2 9 0v14c-4-2-7-2-9 0-2-2-5-2-9 0V5Zm9 0v14"/></svg>','#eec57c'],['Другое','<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h.01M12 12h.01M16 12h.01" stroke-width="3"/></svg>','#9aabc6']];
+// Дополнительные категории не меняют старые записи «Дом»: существующие данные остаются как были.
+const iconPath=d=>`<svg viewBox="0 0 24 24"><path d="${d}"/></svg>`;
+const addedCategories=[
+ ['Еда',iconPath('M4 3v8a4 4 0 0 0 8 0V3m-4 0v18m9-18v18m0-18c5 3 4 10 0 11'),'#e8b8c2'],
+ ['Квартплата и ЖКХ',iconPath('M3 11 12 4l9 7v10H3V11Zm5 4h8M8 18h8'),'#ba91fa'],
+ ['Электричество и вода',iconPath('M12 2c-3 5-7 9-7 13a7 7 0 0 0 14 0c0-4-4-8-7-13Zm-1 8-3 6h4l-1 5 5-8h-4l1-3'),'#8da4fa'],
+ ['Интернет',iconPath('M2 9c6-6 14-6 20 0M5 12c4-4 10-4 14 0M8 15c2-2 6-2 8 0M12 20h.01'),'#c9a3ff'],
+ ['Мобильная связь',iconPath('M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm2 16h4'),'#9974db'],
+ ['Аренда и ипотека',iconPath('m3 11 9-8 9 8v10H3V11Zm6 10v-8h6v8'),'#d5adff'],
+ ['Страхование',iconPath('m12 2 8 4v6c0 5-3 8-8 10-5-2-8-5-8-10V6l8-4Zm-4 10 3 3 5-6'),'#e3b0d7'],
+ ['Налоги и штрафы',iconPath('M5 3h14v18H5V3Zm4 5h6m-6 5h6m-6 4h4'),'#dca58f'],
+ ['Банковские комиссии',iconPath('m3 9 9-6 9 6M4 10h16M6 10v9m4-9v9m4-9v9m4-9v9M3 21h18'),'#b7a0d9'],
+ ['Такси',iconPath('M5 10 7 6h10l2 4M4 10h16v8H4v-8Zm3 4h2m6 0h2M7 18v2m10-2v2'),'#a78ad7'],
+ ['Одежда и обувь',iconPath('m8 3 4 3 4-3 5 5-4 3v10H7V11L3 8l5-5'),'#f0b4c7'],
+ ['Дом и ремонт',iconPath('M4 13 12 5l8 8M6 11v10h12V11M9 17h6'),'#a880d6'],
+ ['Дети и школа',iconPath('M3 5c4-2 7-2 9 0 2-2 5-2 9 0v14c-4-2-7-2-9 0-2-2-5-2-9 0V5Zm9 0v14'),'#eac09f'],
+ ['Животные',iconPath('M7 10h.01M17 10h.01M12 8h.01M6 17c0-3 4-5 6-5s6 2 6 5c0 4-12 4-12 0Z'),'#d4a4c3'],
+ ['Красота',iconPath('M12 2c2 5 4 7 9 10-5 3-7 5-9 10-2-5-4-7-9-10 5-3 7-5 9-10Z'),'#f1b4eb'],
+ ['Развлечения',iconPath('M3 5h18v14H3V5Zm4 4h.01M17 9h.01M8 14c2 3 6 3 8 0'),'#c08cf1'],
+ ['Путешествия',iconPath('m2 15 20-6-8-2-3-5-2 1 1 7-7 3-2-2-1 1 2 3Z'),'#c7b0f9'],
+ ['Подарки',iconPath('M3 10h18v11H3V10Zm-1-4h20v4H2V6Zm10 0v15M12 6C4 6 4 1 8 2c2 0 3 2 4 4Zm0 0c8 0 8-5 4-4-2 0-3 2-4 4Z'),'#e8b6bf'],
+ ['Благотворительность',iconPath('M12 21s-9-5-9-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 11-9 11Z'),'#c9a0eb']
+];
+CATS.splice(CATS.length-1,0,...addedCategories);
+// «Константин» — не категория расходов и не обычный доход.
+CATS.push(['Переводы от Константина',iconPath('M4 12h16m-6-6 6 6-6 6'),'#ebc58d']);
+const CAT_GROUPS=CheRecognition.CATEGORY_GROUPS;
+const CAT_ORDER=CAT_GROUPS.flatMap(([,names])=>names);
+CATS.sort((a,b)=>CAT_ORDER.indexOf(a[0])-CAT_ORDER.indexOf(b[0]));
+const categoryOptions=selected=>CAT_GROUPS.map(([group,names])=>`<optgroup label="${esc(group)}">${names.filter(n=>CATS.some(c=>c[0]===n)).map(n=>`<option value="${esc(n)}" ${n===selected?'selected':''}>${esc(n)}</option>`).join('')}</optgroup>`).join('')+`<optgroup label="Отдельный учёт"><option value="Переводы от Константина" ${selected==='Переводы от Константина'?'selected':''}>Переводы от Константина</option></optgroup>`;
 const catMap=Object.fromEntries(CATS.map(c=>[c[0],{icon:c[1],color:c[2]}]));
 const STORE='puls_personal_v02';const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}; const nowMonth=()=>today().slice(0,7); const rubles=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2});const money=n=>rubles.format(Number(n)||0)+' ₽';
 const esc=x=>String(x??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -131,9 +143,10 @@ function loadOcr(){
  if(!ocrLibrary){
   ocrLibrary=new Promise((resolve,reject)=>{
    const script=document.createElement('script');
+   const timer=setTimeout(()=>{script.remove();reject(Error('Модуль OCR загружается слишком долго'))},15000);
    script.src='./vendor/ocr/tesseract.min.js';
-   script.onload=()=>window.Tesseract?resolve(window.Tesseract):reject(Error('OCR недоступен'));
-   script.onerror=()=>{script.remove();reject(Error('Модуль OCR недоступен. Подключись к интернету для первой загрузки.'))};
+   script.onload=()=>{clearTimeout(timer);window.Tesseract?resolve(window.Tesseract):reject(Error('OCR недоступен'))};
+   script.onerror=()=>{clearTimeout(timer);script.remove();reject(Error('Модуль OCR недоступен. Подключись к интернету для первой загрузки.'))};
    document.head.append(script);
   }).catch(error=>{ocrLibrary=null;throw error});
  }
@@ -142,6 +155,17 @@ function loadOcr(){
 let data=fresh();let vaultReady=false,demoOnly=false,vaultInstance=null;
 let month=nowMonth(),page='home',imageData='',activePhoto='',editTxId=null;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+// Отдельная колонка переводов; список и фильтр не смешиваем с расходами.
+$('#page-transactions>.card').insertAdjacentHTML('beforebegin','<article class="konstantin-column" id="konstantinColumn" aria-label="Переводы от Константина"></article>');
+$('.transaction-tabs').insertAdjacentHTML('beforeend','<button type="button" data-tx-type="konstantin" aria-pressed="false">Константин</button>');
+$('#txFilter').insertAdjacentHTML('beforeend','<option value="konstantin">От Константина</option>');
+const OWN_TRANSFER = 'Перевод себе';
+const OPERATION_LABELS = { expense:'Расход', income:'Доход', internal:OWN_TRANSFER, konstantin:'От Константина' };
+const operationCategory = (type,category) => type==='internal'?OWN_TRANSFER:type==='konstantin'?'Переводы от Константина':category||'Другое';
+$('.transaction-tabs').insertAdjacentHTML('beforeend','<button type="button" data-tx-type="internal" aria-pressed="false">Переводы себе</button>');
+$('#txFilter').insertAdjacentHTML('beforeend','<option value="internal">Переводы себе</option>');
+$('#txType').insertAdjacentHTML('beforeend','<option value="internal">Перевод себе</option><option value="konstantin">От Константина (отдельно)</option>');
+$('.comparison-card').insertAdjacentHTML('beforebegin','<article class="konstantin-analytics" id="konstantinAnalytics" aria-label="Переводы от Константина"></article>');
 function notify(msg){let t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.classList.remove('show'),3200)}
 let pendingSave=0;
 async function persist(){if(demoOnly)return true;if(!vaultReady||!vaultInstance)return false;pendingSave++;try{await vaultInstance.save(data);return true}catch{notify('Данные не сохранились. Проверь свободное место и сделай резервную копию.');return false}finally{pendingSave--}}
@@ -150,9 +174,9 @@ window.addEventListener('beforeunload',e=>{if(pendingSave){e.preventDefault();e.
 const key=()=>month;
 function txList(){return data.transactions.filter(t=>t.date.slice(0,7)===month).sort((a,b)=>b.date.localeCompare(a.date))}
 function figures(entries=txList()){
- const totals={expense:0,income:0,count:entries.length};
+ const totals={expense:0,income:0,konstantin:0,count:entries.length};
  for(const entry of entries){
-  if(entry.type==='expense'||entry.type==='income')totals[entry.type]+=Number(entry.amount);
+  if(entry.type==='expense'||entry.type==='income'||entry.type==='konstantin')totals[entry.type]+=Number(entry.amount);
  }
  return totals;
 }
@@ -171,7 +195,7 @@ function render(){
  $('#monthLabel').textContent=monthName.charAt(0).toUpperCase()+monthName.slice(1)+(selectedMonth.getFullYear()===new Date().getFullYear()?'':' '+selectedMonth.getFullYear());
  switch(page){
   case 'home':renderHome();break;
-  case 'analytics':renderAnalytics();break;
+  case 'analytics':renderAnalytics();renderKonstantinAnalytics();break;
   case 'transactions':renderAll();break;
   case 'budgets':renderBudget();break;
   case 'reminders':renderReminders();break;
@@ -189,13 +213,37 @@ function renderHome(){
  $('#remain').textContent=b?money(b-expense):'—';
  $('#heroPercent').textContent=b?Math.round(expense/b*100)+'%':'0%';
  $('#heroProgress').style.width=(b?Math.max(0,Math.min(100,expense/b*100)):0)+'%';
+ const mandatory=new Set(CAT_GROUPS.find(([group])=>group==='Обязательные платежи')[1]);
+ const costs=entries.filter(t=>t.type==='expense'&&mandatory.has(t.category));
+ const essential=costs.reduce((s,t)=>s+Number(t.amount),0),pct=expense?Math.round(100*essential/expense):0;
+ $('#essentialsCard').hidden=essential<=0;
+ $('#essentialTotal').textContent=money(essential);$('#essentialRatio').textContent=pct+'% всех расходов';
+ $('#essentialProgress').style.width=pct+'%';
+ const bars=Array.from({length:9},(_,i)=>costs.filter(t=>Math.min(8,Math.floor((Number(t.date.slice(8,10))-1)*9/31))===i).reduce((s,t)=>s+Number(t.amount),0));
+ const peak=Math.max(1,...bars);
+ $('#essentialSpark').innerHTML=bars.map((v,i)=>`<span style="height:${Math.max(8,Math.round(v/peak*100))}%" class="${v?'filled':'quiet'}"></span>`).join('');
+ const kEntries=entries.filter(t=>t.type==='konstantin');
+ $('.konstantin-home').hidden=kEntries.length===0;
+ $('#konstantinHomeTotal').textContent=money(kEntries.reduce((sum,t)=>sum+Number(t.amount),0));
+ const kBars=Array.from({length:8},(_,i)=>kEntries.filter(t=>Math.min(7,Math.floor((Number(t.date.slice(8,10))-1)*8/31))===i).reduce((sum,t)=>sum+Number(t.amount),0));
+ const kMax=Math.max(1,...kBars);
+ $('#konstantinMiniChart').innerHTML=kBars.map(v=>`<i style="height:${Math.max(7,Math.round(v/kMax*100))}%" class="${v?'filled':''}"></i>`).join('');
  renderChart(entries);
+}
+function renderKonstantinAnalytics(){
+ const m=new Date(month+'-01T12:00:00');
+ const startMonth=analyticsPeriod==='year'?0:analyticsPeriod==='quarter'?Math.floor(m.getMonth()/3)*3:m.getMonth();
+ const start=new Date(m.getFullYear(),startMonth,1,12),end=new Date(start.getFullYear(),start.getMonth()+(analyticsPeriod==='year'?12:analyticsPeriod==='quarter'?3:1),1,12);
+ const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+ const found=data.transactions.filter(t=>t.type==='konstantin'&&t.date>=iso(start)&&t.date<iso(end));
+ const total=found.reduce((sum,t)=>sum+Number(t.amount),0);
+ $('#konstantinAnalytics').innerHTML=`<div><small>ОТ КОНСТАНТИНА · ОТДЕЛЬНО</small><strong>${money(total)}</strong><span>${found.length} ${found.length===1?'перевод':found.length<5?'перевода':'переводов'} · не входит в доходы и расходы</span></div><div class="konstantin-analytics-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5M8 5h11v11"/></svg></div>`;
 }
 function renderAnalytics(){const m=new Date(month+'-01T12:00:00');const start=new Date(m.getFullYear(),analyticsPeriod==='year'?0:analyticsPeriod==='quarter'?Math.floor(m.getMonth()/3)*3:m.getMonth(),1,12);const end=new Date(start.getFullYear(),start.getMonth()+(analyticsPeriod==='year'?12:analyticsPeriod==='quarter'?3:1),1,12);const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;const startISO=iso(start),endISO=iso(end);const before=new Date(start);before.setMonth(before.getMonth()-(analyticsPeriod==='year'?12:analyticsPeriod==='quarter'?3:1));const previous=data.transactions.filter(t=>t.type==='expense'&&t.date>=iso(before)&&t.date<startISO).reduce((s,t)=>s+Number(t.amount),0);let entries=data.transactions.filter(t=>t.type==='expense'&&t.date>=startISO&&t.date<endISO),total=entries.reduce((s,t)=>s+t.amount,0);$('#analyticTotal').textContent=money(total);$('#comparisonValue').textContent=previous?((total-previous)/previous>=0?'+':'')+Math.round((total-previous)/previous*100)+'% · '+money(Math.abs(total-previous)):'Нет данных за прошлый период';let days=Math.round((end-start)/86400000),arr=Array.from({length:days},()=>0);entries.forEach(t=>{let d=Math.round((new Date(t.date+'T12:00:00')-start)/86400000)+1;if(d>=1&&d<=days)arr[d-1]+=Number(t.amount)});let cumulative=[],sum=0;arr.forEach(n=>{sum+=n;cumulative.push(sum)});let top=Math.max(1,sum*1.12),points=cumulative.map((n,i)=>[i*320/Math.max(1,days-1),128-n/top*112]);let path=points.map((p,i)=>(i?'L':'M')+p[0].toFixed(2)+','+p[1].toFixed(2)).join(' ');let area=path+'L320,128L0,128Z';$('#analyticSvg').innerHTML=`<svg viewBox="0 0 320 140" preserveAspectRatio="none" role="img" aria-label="Накопленные расходы за месяц"><defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9e7aff" stop-opacity=".38"/><stop offset="1" stop-color="#9e7aff" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="40" x2="320" y2="40" stroke="#ffffff12" stroke-dasharray="3 5"/><line x1="0" y1="83" x2="320" y2="83" stroke="#ffffff12" stroke-dasharray="3 5"/><path d="${area}" fill="url(#area)"/><path d="${path}" fill="none" stroke="#b091ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;let totals={};entries.forEach(t=>totals[t.category]=(totals[t.category]||0)+t.amount);let sorted=Object.entries(totals).sort((a,b)=>b[1]-a[1]);$('#analyticCategories').innerHTML=sorted.length?sorted.map(([k,v])=>{let cat=catMap[k]||catMap['Другое'],pct=Math.round(100*v/total);return `<div class="analytic-row"><div class="analytic-row-top"><span class="tx-icon" data-category="${esc(k)}">${cat.icon}</span><span class="analytic-name">${esc(k)}</span><span class="analytic-money">${money(v)}</span></div><div class="analytic-track"><div style="background:${cat.color};width:${pct}%"></div></div><small>${pct}% расходов</small></div>`}).join(''):'<div class="empty">Добавь первую операцию — и здесь появится детальная аналитика.</div>';$('#analyticSummary').innerHTML=`<div class="insight-badge">✦ ФИНАНСОВАЯ КАРТИНА</div><h3>${sorted.length?'Больше всего — '+esc(sorted[0][0].toLowerCase()):'Первый шаг — добавить расход'}</h3><p>${sorted.length?'На эту категорию приходится '+Math.round(sorted[0][1]/total*100)+'% всех расходов. Следи за динамикой, чтобы оставаться в своём плане.':'Можешь сфотографировать чек или внести покупку вручную.'}</p>`;}
 
 function renderReferenceCategories(){
- const order=['Продукты','Дом','Транспорт','Тренировки','Репетиторы','Кафе','Здоровье','Покупки','Подписки','Авто','Другое'];
- const categoryRows=order.map(name=>{const c=catMap[name];return `<button class="reference-category-row" data-go="budgets"><span class="tx-icon" data-category="${esc(name)}">${c.icon}</span><strong>${esc(name==='Дом'?'Дом и ЖКХ':name)}</strong><b>›</b></button>`}).join('');$('#referenceCategories').innerHTML=categoryRows;
+ const totals={};txList().filter(t=>t.type==='expense').forEach(t=>totals[t.category]=(totals[t.category]||0)+Number(t.amount));
+ $('#referenceCategories').innerHTML=CAT_GROUPS.map(([group,names])=>`<div class="category-group"><div class="category-group-header"><span>${esc(group)}</span><small>${money(names.reduce((s,n)=>s+(totals[n]||0),0))}</small></div>${names.map(name=>{const c=catMap[name];return c?`<button class="reference-category-row" data-go="budgets"><span class="tx-icon" data-category="${esc(name)}">${c.icon}</span><strong>${esc(name)}</strong><small>${totals[name]?money(totals[name]):''}</small><b>›</b></button>`:''}).join('')}</div>`).join('');
 }
 function renderPaceGauge(){
  const root=$('#chePace');if(!root)return;
@@ -232,37 +280,110 @@ function renderCalendar(){
  $('#referenceCalendar').innerHTML=`<div class="calendar-month">${esc(first.toLocaleDateString('ru-RU',{month:'long',year:'numeric'}))}</div><div class="calendar-grid">${['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(x=>`<small>${x}</small>`).join('')}${Array.from({length:offset},()=>'<span></span>').join('')}${Array.from({length:days},(_,i)=>{const date=month+'-'+String(i+1).padStart(2,'0');const has=expenseDates.has(date);return `<button class="${date===selected?'selected':''} ${has?'has-expense':''}" data-calendar-day="${date}">${i+1}</button>`}).join('')}</div>`;
  const dayTx=txs.filter(t=>t.date===selected);$('#calendarTransactions').innerHTML=`<h3>${esc(new Date(selected+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'}))}</h3>`+(dayTx.length?dayTx.map(item).join(''):'<p class="notice">Нет операций за этот день.</p>');
 }
-document.addEventListener('click',e=>{if(e.target.closest('#editBudgetToggle')){$('#editBudgetToggle').closest('.card').classList.toggle('editing');$('#totalBudget').focus()}const period=e.target.closest('[data-analytics-period]');if(period){analyticsPeriod=period.dataset.analyticsPeriod;renderAnalytics();$$('[data-analytics-period]').forEach(b=>b.classList.toggle('active',b===period))}const day=e.target.closest('[data-calendar-day]');if(day){calendarDay=day.dataset.calendarDay;renderCalendar()}});
+document.addEventListener('click',e=>{if(e.target.closest('#editBudgetToggle')){$('#editBudgetToggle').closest('.card').classList.toggle('editing');$('#totalBudget').focus()}const period=e.target.closest('[data-analytics-period]');if(period){analyticsPeriod=period.dataset.analyticsPeriod;renderAnalytics();renderKonstantinAnalytics();$$('[data-analytics-period]').forEach(b=>b.classList.toggle('active',b===period))}const day=e.target.closest('[data-calendar-day]');if(day){calendarDay=day.dataset.calendarDay;renderCalendar()}});
 
 function renderChart(entries){let a=entries.filter(t=>t.type==='expense');let totals={};a.forEach(t=>totals[t.category]=(totals[t.category]||0)+Number(t.amount));let sorted=Object.entries(totals).sort((x,y)=>y[1]-x[1]);let root=$('#donutContent');if(!sorted.length){root.innerHTML='<div class="empty"><span class="emoji">◎</span>Здесь появится распределение расходов,<br/>когда добавишь первую покупку.</div>';return;}let sum=sorted.reduce((a,x)=>a+x[1],0),deg=0,segments=[];sorted.forEach(([name,v])=>{let next=deg+v/sum*360;segments.push(`${catMap[name]?.color||'#9aabc6'} ${deg}deg ${next}deg`);deg=next});let legend=sorted.slice(0,6).map(([name,v])=>`<div class="legenditem"><span class="dot" style="background:${catMap[name]?.color}"></span><span>${esc(name)}</span><strong>${Math.round(v/sum*100)}%</strong></div>`).join('');root.innerHTML=`<div class="center-donut"><div class="donut" style="background:conic-gradient(${segments.join(',')})"><div class="donut-inner"><strong>${money(sum)}</strong><small>всего расходов</small></div></div><div class="legend">${legend}</div></div>`}
-function item(t){let c=catMap[t.category]||catMap['Другое'];return `<div class="tx"><div class="tx-icon" data-category="${esc(t.category)}">${c.icon}</div><div class="tx-main"><div class="tx-title">${esc(t.name)}${t.demo?' <span style="color:#ffc978;font-size:10px">демо</span>':''}</div><div class="tx-meta">${esc(t.category)} · ${esc(new Date(t.date+'T12:00:00').toLocaleDateString('ru-RU'))}${t.photo?' · 📷 чек':''}</div></div><div class="tx-amount ${t.type==='income'?'income':''}">${t.type==='income'?'+':'−'}${money(t.amount)}</div><div class="tx-actions"><button class="iconbtn" title="Изменить операцию" data-edit-tx="${esc(t.id)}">✎</button>${t.photo?`<button class="iconbtn" title="Посмотреть чек" data-photo="${esc(t.id)}">▧</button>`:''}<button class="iconbtn" title="Удалить операцию" data-del-tx="${esc(t.id)}">✕</button></div></div>`}
-function renderAll(){let f=$('#txFilter').value,q=$('#txSearch').value.trim().toLowerCase(),x=txList().filter(t=>(f==='all'||t.type===f)&&(!q||(t.name+' '+t.category).toLowerCase().includes(q)));$('#txTotal').textContent=`Найдено: ${x.length}`;const byDate=new Map();for(const t of x){if(!byDate.has(t.date))byDate.set(t.date,[]);byDate.get(t.date).push(t)}const currentDate=today();$('#allTx').innerHTML=x.length?Array.from(byDate,([date,rows])=>{return `<div class="reference-date-group"><span>${date===currentDate?'Сегодня':esc(new Date(date+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'}))}</span><strong>−${money(rows.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0))}</strong></div><div class="list">${rows.map(item).join('')}</div>`}).join(''):'<div class="empty"><span class="emoji">🔎</span>Операций с такими условиями пока нет.</div>'}
+function item(t){let c=catMap[t.category]||catMap['Другое'];return `<div class="tx"><div class="tx-icon" data-category="${esc(t.category)}">${t.type==='internal'?'⇄':c.icon}</div><div class="tx-main"><div class="tx-title">${esc(t.name)}${t.demo?' <span style="color:#ffc978;font-size:10px">демо</span>':''}</div><div class="tx-meta">${esc(t.category)} · ${esc(new Date(t.date+'T12:00:00').toLocaleDateString('ru-RU'))}${t.paymentMethod==='qr'?' · QR-платёж':''}${t.photo?' · 📷 чек':''}</div>${t.description?`<div class="tx-description">${esc(t.description)}</div>`:''}</div><div class="tx-amount ${t.type==='konstantin'?'konstantin-amount':t.type==='income'?'income':''}">${t.type==='expense'?'−':t.type==='internal'?'':'+'}${money(t.amount)}</div><div class="tx-actions"><button class="iconbtn" title="Изменить операцию" data-edit-tx="${esc(t.id)}">✎</button>${t.photo?`<button class="iconbtn" title="Посмотреть чек" data-photo="${esc(t.id)}">▧</button>`:''}<button class="iconbtn" title="Удалить операцию" data-del-tx="${esc(t.id)}">✕</button></div></div>`}
+function renderKonstantinColumn(){
+ const rows=txList().filter(t=>t.type==='konstantin');
+ const sum=rows.reduce((s,t)=>s+Number(t.amount),0);
+ $('#konstantinColumn').innerHTML=`<div><small>ОТ КОНСТАНТИНА</small><strong>${money(sum)}</strong><span>${rows.length} ${rows.length===1?'перевод':rows.length<5?'перевода':'переводов'} · отдельный учёт</span></div><button type="button" data-konstantin-filter="true" aria-label="Показать переводы Константина">↗</button>`;
+}
+function renderAll(){renderKonstantinColumn();let f=$('#txFilter').value,q=$('#txSearch').value.trim().toLowerCase(),x=txList().filter(t=>(f==='all'||t.type===f)&&(!q||[t.name,t.category,t.description,t.paymentMethod==='qr'?'QR-платёж':''].join(' ').toLowerCase().includes(q)));$('#txTotal').textContent=`Найдено: ${x.length}`;const byDate=new Map();for(const t of x){if(!byDate.has(t.date))byDate.set(t.date,[]);byDate.get(t.date).push(t)}const currentDate=today();$('#allTx').innerHTML=x.length?Array.from(byDate,([date,rows])=>{return `<div class="reference-date-group"><span>${date===currentDate?'Сегодня':esc(new Date(date+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'}))}</span><strong>${rows.some(t=>t.type==='expense')?'−'+money(rows.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0)):rows.some(t=>t.type==='income'||t.type==='konstantin')?'Поступления':'Переводы себе'}</strong></div><div class="list">${rows.map(item).join('')}</div>`}).join(''):'<div class="empty"><span class="emoji">🔎</span>Операций с такими условиями пока нет.</div>'}
 function renderBudget(){let entries=txList(),f=figures(entries),b=budget(),cats=data.categoryBudgets[key()]||{};
  $('#budgetPlanDisplay').textContent=b?money(b):'Не задан';
  $('#budgetPlanProgress').style.width=(b?Math.min(100,f.expense/b*100):0)+'%';
-$('#totalBudget').value=b||'';$('#budgetSummary').textContent=b?`Потрачено ${money(f.expense)} из ${money(b)}. Осталось ${money(b-f.expense)}.`:'Общий бюджет ещё не установлен.';let spent={};entries.filter(t=>t.type==='expense').forEach(t=>spent[t.category]=(spent[t.category]||0)+Number(t.amount));$('#categoryBudgets').innerHTML=CATS.slice().sort((a,b)=>['Продукты','Дом','Тренировки','Репетиторы','Транспорт','Кафе','Здоровье','Покупки','Подписки','Авто','Другое'].indexOf(a[0])-['Продукты','Дом','Тренировки','Репетиторы','Транспорт','Кафе','Здоровье','Покупки','Подписки','Авто','Другое'].indexOf(b[0])).map(([name,icon,color])=>{let lim=Number(cats[name]||0),v=spent[name]||0;return `<div class="budgetitem"><div><label><span class="tx-icon" data-category="${esc(name)}">${icon}</span>${esc(name)}</label><div><small>${money(v)} потрачено${lim?' из '+money(lim):''}</small></div>${lim?`<div class="track" style="margin-top:7px"><div class="fill" style="background:${color};width:${Math.min(100,v/lim*100)}%"></div></div>`:''}</div><input class="catbudget" data-cat="${esc(name)}" type="number" min="0" step="100" inputmode="decimal" placeholder="Лимит, ₽" value="${lim||''}"/></div>`}).join('')}
+$('#totalBudget').value=b||'';$('#budgetSummary').textContent=b?`Потрачено ${money(f.expense)} из ${money(b)}. Осталось ${money(b-f.expense)}.`:'Общий бюджет ещё не установлен.';let spent={};entries.filter(t=>t.type==='expense').forEach(t=>spent[t.category]=(spent[t.category]||0)+Number(t.amount));$('#categoryBudgets').innerHTML=CAT_GROUPS.map(([group,names])=>`<details class="budget-group" ${group==='Обязательные платежи'||group==='Каждый день'?'open':''}><summary>${esc(group)}<small>${money(names.reduce((s,n)=>s+(spent[n]||0),0))}</small></summary>${names.map(name=>{let c=catMap[name];if(!c)return '';let lim=Number(cats[name]||0),v=spent[name]||0;return `<div class="budgetitem"><div><label><span class="tx-icon" data-category="${esc(name)}">${c.icon}</span>${esc(name)}</label><div><small>${money(v)} потрачено${lim?' из '+money(lim):''}</small></div>${lim?`<div class="track" style="margin-top:7px"><div class="fill" style="background:${c.color};width:${Math.min(100,v/lim*100)}%"></div></div>`:''}</div><input class="catbudget" data-cat="${esc(name)}" type="number" min="0" step="100" inputmode="decimal" placeholder="Лимит, ₽" value="${lim||''}"/></div>`}).join('')}</details>`).join('')}
 function daysUntil(d){let a=new Date(today()+'T12:00:00'),b=new Date(d+'T12:00:00');return Math.round((b-a)/86400000)}
 function renderReminders(){let x=data.reminders.sort((a,b)=>Number(a.done)-Number(b.done)||a.date.localeCompare(b.date));$('#reminderList').innerHTML=x.length?x.map(r=>{let days=daysUntil(r.date);return `<div class="reminder ${r.done?'done':days<=2?'due':''}"><button class="iconbtn" title="Отметить оплату" data-done="${esc(r.id)}">${r.done?'✅':'◯'}</button><div class="body"><b>${esc(r.title)}</b><p>${esc(new Date(r.date+'T12:00:00').toLocaleDateString('ru-RU'))} · ${money(r.amount)} ${r.repeat?'· каждый месяц':''}</p></div>${!r.done&&days<=2?`<span class="alert-pill">${days<0?'Просрочено':days===0?'Сегодня':'Скоро'}</span>`:''}<button class="iconbtn" data-del-rem="${esc(r.id)}" title="Удалить">✕</button></div>`}).join(''):'<div class="empty"><span class="emoji">📅</span>Добавь обязательный платёж.<br/>Он появится здесь до срока оплаты.</div>'}
-function closeModal(which){$('#'+which).classList.remove('open')}
-function openTx(kind){editTxId=null;$('#txModalTitle').textContent=kind==='income'?'Новый доход':kind==='expense'?'Новый расход':'Новая операция';imageData='';$('#txForm').reset();$('#txDate').value=today();$('#photoArea').innerHTML='';$('#ocrStatus').textContent='';$('#txCategory').value='Другое';$('#txModal').classList.add('open')}
-function editTx(txid){let t=data.transactions.find(x=>x.id===txid);if(!t)return;openTx();editTxId=txid;imageData=t.photo||'';$('#txModalTitle').textContent='Изменить операцию';$('#txName').value=t.name;$('#txAmount').value=t.amount;$('#txType').value=t.type;$('#txCategory').value=t.category;$('#txDate').value=t.date;$('#photoArea').innerHTML=t.photo?`<div class="photoarea"><img alt="Чек" src="${esc(t.photo)}"/><p>Фото сохранится после изменения.</p></div>`:''}
+function closeModal(which){if(which==='txModal')modalScan++;$('#'+which).classList.remove('open')}
+let modalScan = 0;
+let modalPaymentMethod = '';
+function syncTxType(){
+ const type=$('#txType').value;
+ const category=$('#txCategory');
+ category.disabled=type==='internal'||type==='konstantin';
+ category.closest('.field').hidden=type==='internal';
+ if(type==='konstantin')category.value='Переводы от Константина';
+ else if(!category.value||category.value==='Переводы от Константина')category.value='Другое';
+ if(!editTxId)$('#txModalTitle').textContent=({expense:'Новый расход',income:'Новый доход',internal:OWN_TRANSFER,konstantin:'Перевод от Константина'})[type];
+}
+function openTx(kind='expense',{focusAmount=false}={}){
+ modalScan++; editTxId=null; imageData=''; modalPaymentMethod='';
+ $('#txForm').reset(); $('#txType').value=kind; $('#txDate').value=today();
+ $('#photoArea').innerHTML=''; $('#ocrStatus').textContent=''; $('#txCategory').value='Другое';
+ syncTxType();
+ $('#txModal').classList.add('open');
+ if(focusAmount){$('#txAmount').focus({preventScroll:true})}
+}
+function editTx(txid){
+ const t=data.transactions.find(x=>x.id===txid);
+ if(!t)return;
+ openTx(t.type);
+ editTxId=txid; imageData=t.photo||''; modalPaymentMethod=t.paymentMethod||'';
+ $('#txModalTitle').textContent='Изменить операцию'; $('#txName').value=t.name;
+ $('#txAmount').value=t.amount; $('#txDate').value=t.date; $('#txDescription').value=t.description||'';
+ $('#txCategory').value=t.category; syncTxType();
+ $('#photoArea').innerHTML=t.photo?`<div class="photoarea"><img alt="Чек" src="${esc(t.photo)}"/></div>`:'';
+}
 function openReminder(){$('#remForm').reset();$('#remDate').value=today();$('#remModal').classList.add('open')}
-function classify(str){let t=str.toLowerCase();let match=[['Тренировки',/трениров|фитнес|тренер|спортзал|fitness|gym|fitlab/],['Репетиторы',/репетитор|обучени|уроки английск|занятия по|english tutor|tutoring/],['Авто',/азс|бензин|дизель|запчаст|масло|лукойл|газпромнефт|роснефт|шин/],['Здоровье',/аптек|медиц|клиник|здоров|врач|витамин|таблет|ригла|горздрав|36,6|эаптека|стоматолог|анализ|инвитро|гемотест|оптик/],['Кафе',/кофе|кофейн|бургер|ресторан|кафе|пицц|суши|роллы|макдоналд|вкусно и точка|шоколадниц|starbucks|cofix|кофикс|теремок|kfc|rostic|ростикс|додо|бар |пекарн|столовая|шаурм|доставка еды|delivery club|яндекс еда|самокат еда|cofe|coffee|cafe/],['Транспорт',/такси|яндекс го|яндекс такси|uber|ситимобил|metro|метро|автобус|проезд|билет|ржд|аэрофлот|победа|тройка|каршеринг|делимобиль|ситидрайв|белка|парковк|whoosh|юрент|самокат/],['Подписки',/подписк|subscription|netflix|яндекс плюс|apple\.com\/bill|spotify|icloud|кинопоиск|okko|иви|ivi|youtube|chatgpt|openai|anthropic|claude|telegram premium|vk музыка|звук|литрес/],['Дом',/жкх|квартир|электричеств|аренда|коммунальн|мебел|леруа|leroy|оби|икеа|ikea|hoff|хофф|домовой|мосэнерго|водоканал|интернет|ростелеком|мтс|билайн|мегафон|теле2|tele2|связь/],['Покупки',/wildberries|ozon|озон|вайлдберриз|ламода|lamoda|магазин одежд|м\.видео|мвидео|днс|dns|эльдорадо|золотое яблоко|летуаль|спортмастер|детский мир|aliexpress|алиэкспресс|яндекс маркет|market|zara|uniqlo|h&m|gloria|ситилинк/],['Продукты',/пятероч|пятёроч|магнит|перекрёсток|перекресток|лента|вкусвилл|ашан|дикси|азбука вкуса|metro c&c|окей|о'кей|globus|глобус|spar|спар|бристоль|красное и белое|верный|светофор|fix price|фикс прайс|самокат|яндекс лавка|супермаркет|продукт|молоко|хлеб|сыр|мясо|фрукт|овощ/]];return (match.find(([cat,re])=>re.test(t))||['Другое'])[0]}
-function parseOcr(text){text=fixOcrNumbers(text);let lines=text.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);let name=lines.slice(0,7).find(s=>s.length>=3&&s.length<55&&!/чек|касса|фн|фд|фп|инн|дата|время|тел|сайт|www|http|№|^\d|итог|сумма/i.test(s))||'Покупка по чеку';let amounts=[];const pattern=/(?:\d{1,3}(?:[ \u00a0]\d{3})+|\d{1,7})(?:[.,]\d{2})?/g;lines.forEach((line,i)=>{let matches=[...line.matchAll(pattern)];for(let m of matches){let v=Number(m[0].replace(/[\s\u00a0]/g,'').replace(',','.'));if(v>0&&v<1e8){let priority=/итого|к оплате|всего|сумма чека|оплачено|total|amount due/i.test(line)?10:0;if(/скидка|сдача|налог|ндс|кассир|терминал|инн|фн|фд|фп|дата/i.test(line))priority-=5;if(m[0].includes('.')||m[0].includes(','))priority+=2;amounts.push({v,priority,i})}}});amounts.sort((a,b)=>b.priority-a.priority||b.v-a.v);let date=(text.match(/\b(\d{2})[./-](\d{2})[./-](20\d{2})\b/)||[]);let valDate=date.length?`${date[3]}-${date[2]}-${date[1]}`:'';return {name:name.slice(0,100),amount:amounts.find(x=>x.priority>=10)?.v||'',date:valDate,category:classify(text)}}
-function compressPhoto(file){return new Promise((resolve,reject)=>{let im=new Image(),url=URL.createObjectURL(file);im.onload=()=>{let c=document.createElement('canvas'),ratio=Math.min(1,840/im.width);c.width=Math.max(1,Math.round(im.width*ratio));c.height=Math.max(1,Math.round(im.height*ratio));c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(url);resolve(c.toDataURL('image/jpeg',.62))};im.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('Не удалось открыть фото'))};im.src=url})}
-async function handleReceipt(file){if(!file)return;if(!file.type.startsWith('image/'))return notify('Выбери файл изображения');$('#ocrStatus').textContent='Открываю фото…';try{imageData=await compressPhoto(file);$('#photoArea').innerHTML=`<div class="photoarea"><img src="${imageData}" alt="Чек"/><p>Чек добавлен. Можно исправить всё, что распозналось неверно. Фото сохранится вместе с операцией.</p></div>`;const Tesseract=await loadOcr();$('#ocrStatus').textContent='Распознаю текст на фото…';let worker=await Tesseract.createWorker('rus+eng',1,{...ocrOptions,logger:m=>{if(m.status==='recognizing text')$('#ocrStatus').textContent=`Читаю чек: ${Math.round((m.progress||0)*100)}%`}});let result;try{result=await worker.recognize(file)}finally{await worker.terminate()}let parsed=parseOcr(result.data.text||'');$('#txName').value=parsed.name;$('#txAmount').value=parsed.amount;$('#txCategory').value=categoryFor(parsed.name+' '+(result.data.text||''));if(parsed.date&&!Number.isNaN(Date.parse(parsed.date)))$('#txDate').value=parsed.date;$('#ocrStatus').textContent=parsed.amount?'Готово. Проверь сумму и категорию перед сохранением.':'Текст прочитан, но сумму не удалось уверенно найти. Введи её вручную.'}catch(e){console.error(e);$('#ocrStatus').textContent='Не получилось распознать фото. Данные можно ввести вручную.'}}
+function parseOcr(text){
+ const result=CheRecognition.parseReceiptTotal(fixOcrNumbers(text),{merchantRules:data.merchantRules});
+ const match=String(text).match(/\b(\d{1,2})[./-](\d{1,2})[./-](20\d{2})\b/);
+ const date=match?`${match[3]}-${match[2].padStart(2,'0')}-${match[1].padStart(2,'0')}`:'';
+ return {...result,date:validOperationDate(date)?date:''};
+}
+function validOperationDate(date){
+ const time=new Date(date);
+ return /^\d{4}-\d{2}-\d{2}$/.test(date)&&Number.isFinite(+time)&&time.toISOString().slice(0,10)===date;
+}
+async function compressPhoto(file){
+ const canvas=await uploadCanvas(file,840,1);
+ return canvas.toDataURL('image/jpeg',.62);
+}
+
+async function handleReceipt(file){
+ if(!file||!validateUploads([file]))return;
+ const request=++modalScan;
+ const active=()=>request===modalScan&&$('#txModal').classList.contains('open');
+ const fields=['txName','txAmount','txType','txCategory','txDate','txDescription'];
+ const original=Object.fromEntries(fields.map(key=>[key,$('#'+key).value]));
+ imageData=''; modalPaymentMethod=''; $('#photoArea').innerHTML='';
+ $('#ocrStatus').textContent='Читаю изображение. Можно начать заполнять поля вручную.';
+ const photo=await compressPhoto(file).catch(()=>null);
+ if(!active())return;
+ if(photo){
+  imageData=photo;
+  $('#photoArea').innerHTML=`<div class="photoarea"><img src="${photo}" alt="Загруженное изображение"/></div>`;
+ }
+ const result=await recognizeUpload(file,'receipt').catch(()=>({items:[]}));
+ if(!active())return;
+ const parsed=result.items[0];
+ if(parsed){
+  const fill=(field,value)=>{if(value&&$('#'+field).value===original[field])$('#'+field).value=value};
+  fill('txName',parsed.name); fill('txAmount',parsed.amount); fill('txType',parsed.kind);
+  if(parsed.dateDetected)fill('txDate',parsed.date);
+  fill('txCategory',parsed.category);
+  modalPaymentMethod=parsed.paymentMethod||'';
+  syncTxType();
+ }
+ $('#ocrStatus').textContent=parsed?.amount
+  ? (parsed.reason||'Проверь данные операции перед сохранением.')
+  : 'Сумма не прочиталась. Введи её и опиши операцию своими словами.';
+}
+
 function download(filename,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 async function exportJson(){if(demoOnly||!vaultReady)return notify('В демо-режиме нет защищённой резервной копии');try{const content=await vaultInstance.exportEncrypted();download('che-encrypted-backup-'+today()+'.json',content,'application/json;charset=utf-8');notify('Зашифрованная резервная копия создана')}catch(e){notify('Ошибка создания копии: '+e.message)}}
 function cleanCsv(s){let x=String(s??'');if(/^[=+@\-]/.test(x))x="'"+x;return '"'+x.replace(/"/g,'""')+'"'}
-function exportCsv(){if(!confirm('CSV-файл не шифруется и будет содержать названия и суммы операций. Продолжить экспорт?'))return;let rows=[['Дата','Тип','Название','Категория','Сумма'],...data.transactions.map(t=>[t.date,t.type,t.name,t.category,t.amount])];download('che-finances-'+today()+'.csv','\uFEFF'+rows.map(r=>r.map(cleanCsv).join(';')).join('\n'),'text/csv;charset=utf-8');notify('CSV выгружен')}
-async function demo(){let y=month+'-',mk=(day,name,amount,category,type='expense')=>({id:id(),date:y+String(day).padStart(2,'0'),name,amount,category,type,demo:true});let mday=month===nowMonth()?new Date().getDate():new Date(Number(month.slice(0,4)),Number(month.slice(5,7)),0).getDate(),d=n=>Math.max(1,Math.min(n,mday));let x=[mk(d(2),'Продукты для дома',4650,'Продукты'),mk(d(3),'Кофейня',640,'Кафе'),mk(d(4),'Такси',890,'Транспорт'),mk(d(6),'Магазин одежды',6850,'Покупки'),mk(d(7),'Подписка на сервис',799,'Подписки'),mk(d(8),'Аптека',1350,'Здоровье'),mk(d(9),'Покупка продуктов',2680,'Продукты'),mk(d(2),'Поступление',90000,'Другое','income')];data.transactions.push(...x);data.demoIds.push(...x.map(t=>t.id));if(!data.budgets[key()])data.budgets[key()]=60000;if(!await persist()){data.transactions=data.transactions.filter(t=>!x.some(a=>a.id===t.id));return}render();notify('Вымышленные демо-операции добавлены')}
+function exportCsv(){if(!confirm('CSV-файл не шифруется и будет содержать названия и суммы операций. Продолжить экспорт?'))return;let rows=[['Дата','Тип','Название','Категория','Сумма','Описание','Способ оплаты'],...data.transactions.map(t=>[t.date,OPERATION_LABELS[t.type]||t.type,t.name,t.category,t.amount,t.description,t.paymentMethod==='qr'?'QR-платёж':''])];download('che-finances-'+today()+'.csv','\uFEFF'+rows.map(r=>r.map(cleanCsv).join(';')).join('\n'),'text/csv;charset=utf-8');notify('CSV выгружен')}
+async function demo(){let y=month+'-',mk=(day,name,amount,category,type='expense')=>({id:id(),date:y+String(day).padStart(2,'0'),name,amount,category,type,demo:true});let mday=month===nowMonth()?new Date().getDate():new Date(Number(month.slice(0,4)),Number(month.slice(5,7)),0).getDate(),d=n=>Math.max(1,Math.min(n,mday));let x=[mk(d(2),'Продукты для дома',4650,'Продукты'),mk(d(3),'Кофейня',640,'Кафе'),mk(d(4),'Яндекс Такси',890,'Такси'),mk(d(4),'Квартплата ЖКХ',7450,'Квартплата и ЖКХ'),mk(d(5),'Ростелеком',790,'Интернет'),mk(d(5),'Петроэлектросбыт',1820,'Электричество и вода'),mk(d(6),'Магазин одежды',6850,'Одежда и обувь'),mk(d(7),'Подписка на сервис',799,'Подписки'),mk(d(8),'Аптека',1350,'Здоровье'),mk(d(9),'Покупка продуктов',2680,'Продукты'),mk(d(10),'МТС',690,'Мобильная связь'),mk(d(11),'Спортзал',1250,'Тренировки'),mk(d(2),'Поступление',90000,'Другое','income')];data.transactions.push(...x);data.demoIds.push(...x.map(t=>t.id));if(!data.budgets[key()])data.budgets[key()]=60000;if(!await persist()){data.transactions=data.transactions.filter(t=>!x.some(a=>a.id===t.id));return}render();notify('Вымышленные демо-операции добавлены')}
 function loadDemo(){if(data.demoIds.length)return notify('Демо уже добавлено. Можно удалить в настройках.');demo()}
 async function removeDemo(){data.transactions=data.transactions.filter(t=>!data.demoIds.includes(t.id));data.demoIds=[];if(!await persist())return;render();notify('Демо-операции удалены')}
 async function cleanup(){if(!confirm('Удалить все свои операции, бюджеты, чеки и напоминания? Это необратимо.'))return;data=fresh();if(!await persist())return;render();notify('Все данные удалены')}
-async function saveTx(e){e.preventDefault();let name=$('#txName').value.trim(),amount=Number($('#txAmount').value),date=$('#txDate').value,cat=$('#txCategory').value,type=$('#txType').value;if(pendingSave)return notify('Дождись завершения сохранения');if(!name||!Number.isFinite(amount)||amount<=0||!date)return notify('Заполни название, сумму и дату');let t={id:editTxId||id(),name,amount,date,category:cat,type,photo:imageData||null};let oldData=[...data.transactions];if(editTxId){data.transactions=data.transactions.map(x=>x.id===editTxId?t:x)}else{data.transactions.push(t)}if(!await persist()){data.transactions=oldData;return}closeModal('txModal');render();notify(editTxId?'Операция обновлена':'Операция сохранена')}
+async function saveTx(e){e.preventDefault();let name=$('#txName').value.trim(),amount=Number($('#txAmount').value),date=$('#txDate').value,type=$('#txType').value,cat=operationCategory(type,$('#txCategory').value);if(pendingSave)return notify('Дождись завершения сохранения');if(!name||!Number.isFinite(amount)||amount<=0||!date)return notify('Заполни название, сумму и дату');const previous=data.transactions.find(x=>x.id===editTxId);let t={...previous,id:editTxId||id(),name,amount,date,category:cat,type,description:$('#txDescription').value.trim(),paymentMethod:modalPaymentMethod,photo:imageData||null};let oldData=[...data.transactions];if(editTxId){data.transactions=data.transactions.map(x=>x.id===editTxId?t:x)}else{data.transactions.push(t)}if(!await persist()){data.transactions=oldData;return}closeModal('txModal');render();notify('✓ '+(editTxId?'Операция обновлена':'Операция сохранена'));if(typeof navigator.vibrate==='function')navigator.vibrate(10)}
 async function saveReminder(e){e.preventDefault();let title=$('#remTitle').value.trim(),date=$('#remDate').value,amount=Number($('#remAmount').value||0);if(!title||!date)return notify('Заполни название и дату');data.reminders.push({id:id(),title,date,amount,done:false,repeat:$('#remRepeat').checked});if(!await persist()){data.reminders.pop();return}closeModal('remModal');render();notify('Напоминание добавлено')}
 async function interact(e){let el=e.target.closest('button');if(!el)return;let d=el.dataset;if(d.go){setPage(d.go);return}if(d.close){closeModal(d.close);return}if(d.editTx){editTx(d.editTx);return}if(d.delTx){if(!confirm('Удалить эту операцию?'))return;data.transactions=data.transactions.filter(t=>t.id!==d.delTx);data.demoIds=data.demoIds.filter(x=>x!==d.delTx);if(!await persist())return;render();return}if(d.photo){let t=data.transactions.find(x=>x.id===d.photo);if(!t?.photo)return;$('#photoView').innerHTML=`<img class="photo-view" src="${esc(t.photo)}" alt="Фото чека"/>`;$('#photoModal').classList.add('open');return}if(d.done){let r=data.reminders.find(x=>x.id===d.done);if(r){if(r.repeat&&!r.done){const [yy,mm,dd]=r.date.split('-').map(Number);let n=new Date(yy,mm,1);let lastDay=new Date(n.getFullYear(),n.getMonth()+1,0).getDate();r.date=`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(Math.min(dd,lastDay)).padStart(2,'0')}`;notify('Оплата отмечена. Следующая дата создана.')}else{r.done=!r.done}if(!await persist())return;render()}return}if(d.delRem){data.reminders=data.reminders.filter(r=>r.id!==d.delRem);if(!await persist())return;render()}}
-$$('[data-page]:not(#fab)').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));(()=>{const ORDER=['home','analytics','assistant','budgets','settings'];const shell=document.querySelector('.shell');if(!shell)return;
+$$('[data-page]:not(#fab)').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));(()=>{const ORDER=['home','analytics','budgets','settings'];const shell=document.querySelector('.shell');if(!shell)return;
 let sx=0,sy=0,st=0,dx=0,mode='',el=null,busy=false;const ease='cubic-bezier(.22,1,.36,1)';
 const blocked=t=>t.closest('input,select,textarea,.calendar-grid,.reference-period,.analytic-cat,#referenceInsights,.review-strip,dialog');
 const target=d=>{const i=ORDER.indexOf(page);if(i<0)return d>0?'home':null;return ORDER[i+(d<0?1:-1)]||null};
@@ -274,7 +395,7 @@ shell.addEventListener('touchend',()=>{if(mode!=='h'||!el){mode='';return}mode='
   setTimeout(()=>{page0.style.transition=page0.style.transform=page0.style.opacity=page0.style.willChange='';document.body.dataset.swipe=dx<0?'left':'right';setPage(next);setTimeout(()=>{delete document.body.dataset.swipe;busy=false},560)},200)}
  else{page0.style.transition=`transform .42s ${ease},opacity .42s ${ease}`;page0.style.transform='';page0.style.opacity='';setTimeout(()=>{page0.style.transition=page0.style.willChange=''},440)}},{passive:true});
 shell.addEventListener('touchcancel',()=>{if(el){el.style.transition=el.style.transform=el.style.opacity=el.style.willChange=''}mode=''},{passive:true});})();
-$('#monthPicker').value=month;$('#monthPicker').addEventListener('change',e=>{if(e.target.value){month=e.target.value;render()}});$('#txCategory').innerHTML=CATS.map(([n])=>`<option value="${n}">${n}</option>`).join('');$('#txFilter').addEventListener('change',renderAll);
+$('#monthPicker').value=month;$('#monthPicker').addEventListener('change',e=>{if(e.target.value){month=e.target.value;render()}});$('#txCategory').innerHTML=categoryOptions();$('#txFilter').addEventListener('change',renderAll);
 $$('[data-tx-type]').forEach(button=>button.addEventListener('click',()=>{
  $('#txFilter').value=button.dataset.txType;
  $$('[data-tx-type]').forEach(tab=>{
@@ -285,100 +406,336 @@ $$('[data-tx-type]').forEach(button=>button.addEventListener('click',()=>{
  renderAll();
 }));
 $('#txSearch').addEventListener('input',renderAll);
-$('#addTopBtn').onclick=$('#addTxBtn').onclick=openTx;$('#txType').addEventListener('change',e=>{if(!editTxId)$('#txModalTitle').textContent=e.target.value==='income'?'Новый доход':'Новый расход'});$('#quickExpense').onclick=()=>openTx('expense');$('#quickIncome').onclick=()=>{openTx('income');$('#txType').value='income'};$('#quickScan').onclick=()=>{openTx();$('#receiptInput').click()};$('#quickBudget').onclick=()=>setPage('budgets');$('#addReminderBtn').onclick=openReminder;$('#uploadReceipt').onclick=()=>$('#receiptInput').click();$('#receiptInput').addEventListener('change',async e=>{const fs=[...e.target.files];if(fs.length>1){$('#txModal').classList.remove('open');setPage('import');await analyzeUploads(fs,'screenshot');e.target.value='';return}await handleReceipt(fs[0]);e.target.value=''});$('#manualTx').onclick=()=>{$('#ocrStatus').textContent='Внеси данные вручную. Добавленное фото останется прикреплённым.'};$('#txForm').addEventListener('submit',saveTx);$('#remForm').addEventListener('submit',saveReminder);
+document.addEventListener('click',e=>{
+ if(!e.target.closest('[data-konstantin-filter],.konstantin-home'))return;
+ $('#txFilter').value='konstantin';
+ $$('[data-tx-type]').forEach(b=>{const active=b.dataset.txType==='konstantin';b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
+ renderAll();
+});
+$('#addTopBtn').onclick=$('#addTxBtn').onclick=()=>openTx('expense');$('#txType').addEventListener('change',syncTxType);$('#quickExpense').onclick=()=>openTx('expense');$('#quickIncome').onclick=()=>openTx('income');$('#quickScan').onclick=()=>{openTx('expense');$('#receiptInput').click()};$('#quickBudget').onclick=()=>setPage('budgets');$('#addReminderBtn').onclick=openReminder;$('#uploadReceipt').onclick=()=>$('#receiptInput').click();$('#receiptInput').addEventListener('change',e=>{const file=e.target.files[0];e.target.value='';void handleReceipt(file)});$('#manualTx').onclick=()=>{modalScan++;$('#ocrStatus').textContent='Заполни название, сумму и описание.';$('#txName').focus()};$('#txForm').addEventListener('submit',saveTx);$('#remForm').addEventListener('submit',saveReminder);
 $('#saveBudget').onclick=async()=>{let x=Number($('#totalBudget').value||0);if(x<0||!Number.isFinite(x))return notify('Укажи положительную сумму');data.budgets[key()]=x;if(!await persist())return;render();notify('Бюджет сохранён')};$('#saveCats').onclick=async()=>{let a={};$$('.catbudget').forEach(i=>{let v=Number(i.value||0);if(v>0&&Number.isFinite(v))a[i.dataset.cat]=v});data.categoryBudgets[key()]=a;if(!await persist())return;render();notify('Лимиты по категориям сохранены')};
-$('#exportBtn').onclick=$('#backupBtn').onclick=exportJson;$('#csvBtn').onclick=exportCsv;$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').addEventListener('change',async e=>{let f=e.target.files[0];if(!f)return;try{if(f.size>9*1024*1024)throw Error('Файл слишком большой');let input=JSON.parse(await f.text());if(input?.ciphertext&&input?.salt&&input?.v===1){if(!vaultReady||!vaultInstance)throw Error('Для восстановления открой защищённое хранилище');const backupPass=prompt('Введи парольную фразу от этой зашифрованной копии');if(!backupPass)return;input=await vaultInstance.decodeBackup(input,backupPass)}if(!Array.isArray(input.transactions)||!Array.isArray(input.reminders)||typeof input.budgets!=='object')throw Error('Неизвестный формат');if(!confirm('Импорт заменит текущие данные. Сначала сделай резервную копию. Продолжить?'))return;let backup=data;input.transactions=input.transactions.filter(t=>t&&typeof t==='object'&&typeof t.name==='string'&&typeof t.date==='string'&&Number.isFinite(Number(t.amount))&&Number(t.amount)>0).slice(0,15000).map(t=>({...t,id:String(t.id||id()).slice(0,80),name:t.name.slice(0,100),date:t.date.slice(0,10),amount:Number(t.amount),category:CATS.some(c=>c[0]===t.category)?t.category:'Другое',type:t.type==='income'?'income':'expense',photo:typeof t.photo==='string'&&/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/=]{1,7000000}$/i.test(t.photo)?t.photo:null}));input.reminders=input.reminders.filter(r=>r&&typeof r==='object'&&typeof r.title==='string'&&typeof r.date==='string').slice(0,2000).map(r=>({...r,id:String(r.id||id()).slice(0,80),title:r.title.slice(0,100),date:r.date.slice(0,10),amount:Number(r.amount)||0,done:!!r.done,repeat:!!r.repeat}));data={...fresh(),...input};if(!await persist()){data=backup;return}render();notify('Данные восстановлены')}catch(err){notify('Не удалось импортировать JSON: '+err.message)}finally{e.target.value=''}});
+$('#exportBtn').onclick=$('#backupBtn').onclick=exportJson;
+$('#csvBtn').onclick=exportCsv;
+$('#importBtn').onclick=()=>$('#importFile').click();
+$('#importFile').addEventListener('change',async e=>{
+ let f=e.target.files[0];if(!f)return;
+ try{
+  if(f.size>9*1024*1024)throw Error('Файл слишком большой');
+  let input=JSON.parse(await f.text());
+  if(input?.ciphertext&&input?.salt&&input?.v===1){
+   if(!vaultReady||!vaultInstance)throw Error('Для восстановления открой защищённое хранилище');
+   const backupPass=prompt('Введи парольную фразу от этой зашифрованной копии');
+   if(!backupPass)return;input=await vaultInstance.decodeBackup(input,backupPass);
+  }
+  if(!Array.isArray(input.transactions)||!Array.isArray(input.reminders)||typeof input.budgets!=='object')throw Error('Неизвестный формат');
+  if(!confirm('Импорт заменит текущие данные. Сначала сделай резервную копию. Продолжить?'))return;
+  let backup=data;
+  input.transactions=input.transactions.filter(t=>t&&typeof t==='object'&&typeof t.name==='string'&&typeof t.date==='string'&&Number.isFinite(Number(t.amount))&&Number(t.amount)>0).slice(0,15000).map(t=>({
+   ...t,id:String(t.id||id()).slice(0,80),name:t.name.slice(0,100),date:t.date.slice(0,10),amount:Number(t.amount),
+   category:operationCategory(t.type,CATS.some(c=>c[0]===t.category)?t.category:'Другое'),
+   type:Object.hasOwn(OPERATION_LABELS,t.type)?t.type:'expense',
+   description:typeof t.description==='string'?t.description.slice(0,500):'',
+   photo:typeof t.photo==='string'&&/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/=]{1,7000000}$/i.test(t.photo)?t.photo:null
+  }));
+  input.reminders=input.reminders.filter(r=>r&&typeof r==='object'&&typeof r.title==='string'&&typeof r.date==='string').slice(0,2000).map(r=>({...r,id:String(r.id||id()).slice(0,80),title:r.title.slice(0,100),date:r.date.slice(0,10),amount:Number(r.amount)||0,done:!!r.done,repeat:!!r.repeat}));
+  data={...fresh(),...input};if(!await persist()){data=backup;return}render();notify('Данные восстановлены');
+ }catch(err){notify('Не удалось импортировать JSON: '+err.message)}finally{e.target.value=''}
+});
 $('#demoBtn').onclick=$('#loadDemo').onclick=loadDemo;$('#clearDemo').onclick=removeDemo;$('#clearAll').onclick=cleanup;
-document.addEventListener('click',interact);$$('.modalback').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)closeModal(el.id)}));document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modalback.open').forEach(m=>closeModal(m.id))});render();
+document.addEventListener('click',interact);$$('.modalback').forEach(el=>{el.addEventListener('click',e=>{if(e.target===el)closeModal(el.id)});let start=null;el.querySelector('.modalhead')?.addEventListener('touchstart',e=>{if(e.touches.length===1)start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});el.querySelector('.modalhead')?.addEventListener('touchend',e=>{if(!start||e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(dy>80&&Math.abs(dx)<65)closeModal(el.id)},{passive:true})});document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modalback.open').forEach(m=>closeModal(m.id))});render();
 
 /* Edition 05 — screenshot review, safe batch import and explicit payee rules */
-let scannedRows=[], scannedSource='', scannedText='', scannedDate=today(), scanMode='screenshot';
+let scannedRows=[], scannedSource='';
 const numericAmount=s=>{let m=String(s||'').replace(/[\u00a0\u202f]/g,' ').replace(/₽|руб(?:лей|ля)?|р\./gi,'').replace(/\s/g,'').replace(',','.');return /^\d{1,8}(?:\.\d{1,2})?$/.test(m)?Number(m):NaN};const fixOcrNumbers=t=>String(t||'').replace(/(\d)[ ]?([,.])[ ](\d{2})(?!\d)/g,'$1$2$3');
-function categoryFor(name){let value=String(name||'').toLocaleLowerCase('ru-RU').replace(/ё/g,'е').trim();let rules=Array.isArray(data.merchantRules)?data.merchantRules:[];let hit=rules.find(r=>r.name&&value.includes(r.name.toLocaleLowerCase('ru-RU').replace(/ё/g,'е')));return hit?hit.category:classify(name)}
-function reliableDate(text){let d=String(text).match(/\b(\d{1,2})[./-](\d{1,2})[./-](20\d{2})\b/);if(!d)return today();let [,dd,mm,yyyy]=d;let stamp=`${yyyy}-${mm.padStart(2,'0')}-${dd.padStart(2,'0')}`;return new Date(stamp).toISOString().slice(0,10)!==stamp?today():stamp}
-function recognizeSource(text){const s=String(text).toLowerCase();return /сбер|sber|сбербанк|sberbank/.test(s)?'Сбербанк':/яндекс|yandex|пэй|pay/.test(s)?'Яндекс':/т-банк|тинькофф|tinkoff/.test(s)?'Т-Банк':/альфа|alfabank/.test(s)?'Альфа-Банк':'Источник не определён'}
-function isInternalTransfer(name){return /между сво(ими|их)|свою карт|свой сч[её]т|пополнени[ея] (карты|сч[её]та)|перевод на свой|внутренний перевод|самому себе|между счетами/.test(name.toLowerCase())}
+function categoryFor(name){return CheRecognition.classify(name,data.merchantRules)}
 function normalizedName(name){return String(name||'').toLocaleLowerCase('ru-RU').replace(/ё/g,'е').replace(/[^\p{L}\p{N}]+/gu,' ').trim()}
-function duplicateFor(row){return data.transactions.some(t=>t.type==='expense'&&t.date===row.date&&Math.abs(Number(t.amount)-Number(row.amount))<.005&&normalizedName(t.name)===normalizedName(row.name))}
-function parseScreenshotText(text){text=fixOcrNumbers(text);let lines=String(text||'').split(/\r?\n/).map(l=>l.replace(/[  ]/g,' ').replace(/\s+/g,' ').trim().replace(/(\d)[ ]?[,.]?[ ](\d{2})\s*(₽|Р|P|руб|р\.)\s*$/i,(m,a,b,c)=>a+','+b+' '+c)).filter(l=>l&&!/^[|_~.,:;'"`·•\-–—=*#]+$/.test(l)),items=[];let when=reliableDate(text),source=recognizeSource(text);
-const totalPattern=/за день|потрачено|всего|итого|общая сумма|все расход|расходы за|остаток|баланс|доступно|сумма операц|списано за день|кешбэк за|кэшбэк за|лимит|бонус/i;
-const money='(\\d{1,3}(?:[ .]\\d{3})+(?:[.,]\\d{1,2})?|\\d{1,8}(?:[.,]\\d{1,2})?)';
-const signed=new RegExp('(?:^|\\s)[−–—\\-~](?:\\s)?'+money+'\\s*(?:₽|Р|P|р\\.?|руб(?:лей|ля)?\\.?)?\\s*$','i');
-const plus=new RegExp('(?:^|\\s)\\+\\s?'+money);
-const unsigned=new RegExp('(?:^|\\s)'+money+'\\s*(?:₽|Р|P|руб(?:лей|ля)?\\.?|р\\.)\\s*$','i');
-const incomeWords=/пополнени|зачислени|возврат|кешбэк|кэшбэк|поступлени|зарплат|входящ|от кого|получен/i;
-const noiseVendor=v=>!v||v.length<2||v.length>100||totalPattern.test(v)||/^(\d+|\d{1,2}:\d{2}|перевод|операция|списание|покупка|оплата|платеж|платёж|карта|счет|счёт|₽|р)$/i.test(v)||/^\*{0,4}\d{4}$/.test(v);
-function clean(v){return String(v||'').replace(/^\s*[•·▪►>]\s*/,'').replace(/\s+\d{1,2}:\d{2}\s*$/,'').replace(/\s{2,}/g,' ').replace(/[|]+/g,'').trim()}
-function candidate(vendor,catWord,amount,raw,date,sure){vendor=clean(vendor);if(noiseVendor(vendor))return;let amt=numericAmount(String(amount).replace(/ (?=\d{3}\b)/g,'').replace(/\.(?=\d{3}\b)/g,''));if(!Number.isFinite(amt)||amt<=0||amt>5e7)return;
- let isTransfer=isInternalTransfer(vendor+' '+(catWord||''));let cat=categoryFor(vendor);if(cat==='Другое'&&catWord)cat=categoryFor(catWord);
- items.push({id:id(),date,name:vendor,amount:amt,category:cat,selected:sure&&!isTransfer&&cat!=='Другое',reason:isTransfer?'Похоже на перевод между своими счетами — исключён':!sure?'Знак списания не прочитан — проверь, что это расход':cat==='Другое'?'Проверь категорию перед добавлением':'Категория определена по названию',isTransfer,raw});}
-let date=when,used=new Set();
-for(let i=0;i<lines.length;i++){let line=lines[i];let hd=headerDate(line,null);if(hd){date=hd;continue}
- if(totalPattern.test(line)||plus.test(line)||incomeWords.test(line))continue;
- let m=line.match(signed),sure=true;if(!m){m=line.match(unsigned);sure=false}
- if(m){let amount=m[1];let before=clean(line.slice(0,m.index));let vendor=before,catWord='';
-  const prevOk=k=>{let pv=lines[k]||'';return pv&&!used.has(k)&&!totalPattern.test(pv)&&!signed.test(pv)&&!unsigned.test(pv)&&!plus.test(pv)&&!headerDate(pv,null)&&!/^\d{1,2}:\d{2}$/.test(pv)};
-  if(!vendor||BANK_CATEGORY_WORDS.test(vendor)||/^(списан|платёж|платеж|оплата|покупка)/i.test(vendor)){catWord=BANK_CATEGORY_WORDS.test(vendor)?vendor:'';if(prevOk(i-1)){vendor=lines[i-1];used.add(i-1)}}
-  else{let nx=lines[i+1]||'';if(BANK_CATEGORY_WORDS.test(clean(nx)))catWord=clean(nx)}
-  if(!sure&&!vendor)continue;
-  // Following line with a category word belongs to this row; a "+" line right after cancels doubt.
-  candidate(vendor,catWord,amount,line,date,sure);used.add(i);continue}
- let next=lines[i+1]||'',nm=next.match(new RegExp('^\\s*[−–—\\-~]?\\s?'+money+'\\s*(?:₽|Р|P|р\\.?|руб(?:лей)?)?\\s*$','i'));
- if(nm&&!plus.test(next)&&!headerDate(next,null)&&!BANK_CATEGORY_WORDS.test(line)){let s2=/^\s*[−–—\-~]/.test(next)||/(₽|Р|P|руб)/i.test(next);if(s2){candidate(line,'',nm[1],line+' '+next,date,/^\s*[−–—\-~]/.test(next));used.add(i);used.add(i+1);i++}}
+function duplicateFor(row){const kind=row.kind||'expense';return data.transactions.some(t=>t.type===kind&&t.date===row.date&&Math.abs(Number(t.amount)-Number(row.amount))<.005&&normalizedName(t.name)===normalizedName(row.name))}
+function parseScreenshotText(text){
+ return CheRecognition.parseScreenshotText(fixOcrNumbers(text),{merchantRules:data.merchantRules,today:today(),id});
 }
-// Banks like Sber show spending without a minus and income with a plus: then plain amounts are spending.
-if(!lines.some(l=>signed.test(l))&&lines.some(l=>plus.test(l)||/сбер|sber/i.test(l)))items.forEach(t=>{if(/Знак списания/.test(t.reason)){t.selected=!t.isTransfer&&t.category!=='Другое';t.reason=t.category==='Другое'?'Проверь категорию перед добавлением':'В этом банке списания показаны без минуса'}});
-items.forEach((t,i)=>{if(items.slice(0,i).some(x=>normalizedName(x.name)===normalizedName(t.name)&&x.amount===t.amount&&x.date===t.date)){t.selected=false;t.reason='Повторяющаяся строка — проверь, отдельная ли это покупка'}});
-return {items,source,date:when,hasSummary:lines.some(x=>totalPattern.test(x)),lineCount:lines.length};}
-const RU_MONTHS={'январ':1,'феврал':2,'март':3,'апрел':4,'ма':5,'июн':6,'июл':7,'август':8,'сентябр':9,'октябр':10,'ноябр':11,'декабр':12};
-function headerDate(line,fallback){const l=line.toLowerCase().replace(/ё/g,'е').trim();const t=new Date();const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
- if(/^сегодня(?![а-я])/.test(l))return iso(t);if(/^вчера(?![а-я])/.test(l)){t.setDate(t.getDate()-1);return iso(t)}if(/^позавчера(?![а-я])/.test(l)){t.setDate(t.getDate()-2);return iso(t)}
- let m=l.match(/^(\d{1,2})\s+(январ|феврал|март|апрел|ма[йя]|июн|июл|август|сентябр|октябр|ноябр|декабр)[а-я]*\.?(?:\s+(20\d{2}))?(?:\s*[,·•]?.{0,24})?$/);
- if(m){let mm=RU_MONTHS[m[2].startsWith('ма')?'ма':m[2]],yy=Number(m[3])||t.getFullYear();let d=new Date(yy,mm-1,Number(m[1]));if(!m[3]&&d>new Date(Date.now()+864e5))d.setFullYear(yy-1);return iso(d)}
- m=l.match(/^(\d{1,2})[./](\d{1,2})(?:[./](20\d{2}|\d{2}))?\s*$/);if(m){let yy=m[3]?Number(m[3].length===2?'20'+m[3]:m[3]):t.getFullYear();let d=new Date(yy,Number(m[2])-1,Number(m[1]));if(d.getMonth()===Number(m[2])-1)return iso(d)}
- return fallback}
-const BANK_CATEGORY_WORDS=/^(супермаркеты?|продукты|рестораны?|кафе|фастфуд|транспорт|такси|топливо|азс|аптеки?|здоровье|медицина|одежда|обувь|маркетплейсы?|интернет[- ]магазины?|развлечения|кино|связь|мобильная связь|интернет|коммунальные услуги|жкх|дом|ремонт|образование|красота|спорт|фитнес|животные|подписки|цифровые товары|переводы?|переводы людям|другое|прочее|разное|все покупки|покупки|услуги|сервис|оплата услуг|отели|путешествия|авиабилеты|ж\/д билеты|каршеринг|доставка|супермаркет|фастфуд и рестораны)$/i;
 function importView(){setPage('import')}
-function drawReview(){let rows=$('#reviewRows');rows.innerHTML=scannedRows.length?scannedRows.map((r,i)=>{let dup=duplicateFor(r);let note=dup?'Похоже, уже записано — проверь повтор':r.reason;let colors={dup:'is-duplicate',isTransfer:'is-transfer'};return `<div class="review-row ${dup?'possible-duplicate':''}"><label class="review-check"><input type="checkbox" data-review-choice="${i}" ${r.selected?'checked':''}/><span></span></label><div class="review-fields"><input class="review-name" data-review-name="${i}" aria-label="Название операции" value="${esc(r.name)}" maxlength="100"/><div class="review-row-bottom"><select aria-label="Категория операции" data-review-cat="${i}">${CATS.map(([c])=>`<option value="${esc(c)}" ${r.category===c?'selected':''}>${esc(c)}</option>`).join('')}</select><input aria-label="Сумма операции" class="review-value" data-review-amount="${i}" type="number" min="0.01" step="0.01" value="${r.amount}"/><span class="unit">₽</span></div><div class="review-hint ${dup?'warning':''}">${dup?'⚠ ':r.isTransfer?'⊘ ':r.category==='Другое'?'◇ ':'✓ '}${esc(note)}</div></div></div>`}).join(''):'<div class="empty">Не нашлось отдельных операций с надёжно читаемыми суммами. Сделай скрин истории платежей, а не общей суммы за день.</div>';
-$('#reviewSource').textContent=scannedSource;let total=scannedRows.filter(r=>r.selected).reduce((s,r)=>s+(Number(r.amount)||0),0);$('#reviewTotal').textContent=money(total);$('#confirmImport').disabled=!scannedRows.some(r=>r.selected);}
-function showReview(parsed,text,preview){scannedText=String(text||'');scannedRows=parsed.items||[];scannedSource=parsed.source;receiptLines=(parsed.receiptLines||[]);receiptMode=Boolean(parsed.isPaperReceipt);$('#reviewImage').innerHTML=preview?`<img alt="Загруженный скрин" src="${preview}"/>`:'';$('#ocrRaw').textContent=scannedText.slice(0,12000);$('#importReview').hidden=false;$('#reviewNotice').innerHTML=!scannedRows.length&&parsed.hasSummary?'<strong>Нашёл итог за день, но нет списка операций.</strong> Не распределяю эту сумму наугад. Загрузи экран с отдельными платежами.':scannedRows.length?`Распознано операций: ${scannedRows.length}. Отмечены те, где уверен в сумме и категории. Переводы между своими счетами и неизвестные категории не отмечены автоматически. Перед записью проверь каждую строку.`:'На этих изображениях не нашёл отдельных покупок с суммой. Подойдёт скрин списка операций из банка, где у каждой строки своя сумма.';drawReview();drawReceiptLines();$('#importReview').scrollIntoView({behavior:'smooth',block:'start'})}
-async function prepareForOcr(file){
- // Bank screenshots are often white text on black. Enlarge, make grey, flip dark to light, add contrast.
- const url=URL.createObjectURL(file);try{const img=await new Promise((ok,bad)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=()=>bad(new Error('Не открылось изображение'));i.src=url});
- const scale=Math.min(2.5,Math.max(1,1800/img.naturalWidth));const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*scale);c.height=Math.round(img.naturalHeight*scale);
- if(c.width*c.height>24e6){const k=Math.sqrt(24e6/(c.width*c.height));c.width=Math.round(c.width*k);c.height=Math.round(c.height*k)}
- const g=c.getContext('2d',{willReadFrequently:true});g.imageSmoothingQuality='high';g.drawImage(img,0,0,c.width,c.height);
- const d=g.getImageData(0,0,c.width,c.height),px=d.data;let sum=0;for(let i=0;i<px.length;i+=4){const y=.299*px[i]+.587*px[i+1]+.114*px[i+2];px[i]=y;sum+=y}
- const dark=sum/(px.length/4)<118;for(let i=0;i<px.length;i+=4){let y=px[i];if(dark)y=255-y;y=Math.max(0,Math.min(255,(y-128)*1.45+138));px[i]=px[i+1]=px[i+2]=y}
- g.putImageData(d,0,0);return c}finally{URL.revokeObjectURL(url)}}
-async function analyzeUploads(files,mode){files=(files||[]).filter(Boolean);if(!files.length)return;if(files.length>10){notify('За раз до 10 фото — беру первые 10');files=files.slice(0,10)}
- const bad=files.find(f=>!f.type.startsWith('image/')&&!/\.(heic|heif)$/i.test(f.name));if(bad)return notify('Выбери только изображения');const big=files.find(f=>f.size>12*1024*1024);if(big)return notify('Одно из изображений больше 12 МБ — сделай скрин меньшего размера');
- scanMode=mode;$('#importReview').hidden=false;$('#reviewSource').textContent='Распознаю…';$('#reviewRows').innerHTML=`<div class="empty">Читаю ${files.length>1?files.length+' изображения':'изображение'}: суммы, магазины и даты…</div>`;$('#reviewNotice').textContent='Распознавание идёт на этом устройстве, фото никуда не отправляются.';$('#confirmImport').disabled=true;
- let worker;try{const Tesseract=await loadOcr();worker=await Tesseract.createWorker('rus+eng',1,ocrOptions);try{await worker.setParameters({tessedit_pageseg_mode:'4',preserve_interword_spaces:'1'})}catch{}
-  let all=[],texts=[],previews=[],sources=new Set(),receiptAll=[],summary=false;
-  for(let n=0;n<files.length;n++){const f=files[n];$('#reviewSource').textContent=files.length>1?`Распознаю ${n+1} из ${files.length}…`:'Распознаю…';
-   let preview='';try{preview=await compressPhoto(f)}catch{}previews.push(preview);
-   let input=f;try{input=await prepareForOcr(f)}catch{}
-   let text='';try{text=(await worker.recognize(input)).data.text||''}catch(e){console.warn(e)}
-   // Second pass on the original picture when the prepared one gave nothing useful.
-   let parsed=mode==='receipt'?parseReceiptForReview(text):parseScreenshotText(text);
-   if(!parsed.items.length&&input!==f){try{const t2=(await worker.recognize(f)).data.text||'';const p2=mode==='receipt'?parseReceiptForReview(t2):parseScreenshotText(t2);if(p2.items.length){text=t2;parsed=p2}}catch{}}
-   texts.push(text);if(parsed.source&&parsed.source!=='Источник не определён')sources.add(parsed.source);summary=summary||parsed.hasSummary;
-   if(mode==='receipt'&&files.length===1)receiptAll=parsed.receiptLines||[];
-   for(const r of parsed.items){if(files.length>1&&all.some(x=>normalizedName(x.name)===normalizedName(r.name)&&x.amount===r.amount&&x.date===r.date)){r.selected=false;r.reason='Есть на другом скрине — проверь, не одна ли это покупка'}all.push(r)}}
-  const merged={items:all,source:[...sources].join(', ')||(mode==='receipt'?'Бумажный чек':'Источник не определён'),hasSummary:summary,isPaperReceipt:mode==='receipt'&&files.length===1,receiptLines:receiptAll};
-  showReview(merged,texts.map((t,i)=>files.length>1?`— Изображение ${i+1} —\n${t}`:t).join('\n\n'),previews[0]||'');
-  if(previews.length>1)$('#reviewImage').innerHTML=`<div class="review-strip">${previews.filter(Boolean).map((p,i)=>`<img alt="Изображение ${i+1}" src="${p}"/>`).join('')}</div>`;
- }catch(e){console.warn(e);$('#reviewNotice').textContent='Не удалось прочитать изображения: '+(e.message||'ошибка')+'. Можно внести расход вручную.';$('#reviewRows').innerHTML='';$('#reviewSource').textContent='Ошибка распознавания'}
- finally{try{await worker?.terminate()}catch{}}}
-async function analyzeUpload(file,mode){return analyzeUploads([file],mode)}
-function parseReceiptForReview(text){let x=parseOcr(text),amount=Number(x.amount),lines=extractReceiptLines(text);return {items:amount?[{id:id(),name:x.name,date:x.date||today(),amount,category:categoryFor(x.name+' '+text.slice(0,200))==='Другое'?'Продукты':categoryFor(x.name+' '+text.slice(0,200)),selected:true,reason:'Общая сумма одного чека — без повторного учёта позиций',isTransfer:false}]:[],source:recognizeSource(text)==='Источник не определён'?'Бумажный чек':recognizeSource(text),hasSummary:/итого|к оплате/i.test(text),isPaperReceipt:true,receiptLines:lines};}
-async function confirmScreenImport(){if(pendingSave)return notify('Дождись завершения сохранения');let chosen=scannedRows.filter(t=>t.selected);if(!chosen.length)return notify('Отметь операции, которые нужно записать');let invalid=chosen.find(t=>!t.name.trim()||!Number.isFinite(Number(t.amount))||Number(t.amount)<=0||t.category==='Другое'||t.isTransfer||duplicateFor(t));if(invalid)return notify(invalid.category==='Другое'?'Сначала выбери категорию для каждой отмеченной операции':invalid.isTransfer?'Внутренний перевод не следует записывать как расход':duplicateFor(invalid)?'Есть возможный дубль. Сними отметку или исправь запись.':'Проверь название и сумму');let newTx=chosen.map(t=>({id:id(),name:t.name.slice(0,100),amount:Number(t.amount),date:t.date,category:t.category,type:'expense',importedFrom:scannedSource,...(receiptMode?{receiptItems:receiptLines.map(x=>({name:x.name,qty:Number(x.qty)||1,unit:x.unit||'шт',amount:Number(x.amount)||0,group:receiptGroup(x.name)})),receiptPartial:Math.abs(receiptLines.reduce((v,x)=>v+Number(x.amount||0),0)-Number(t.amount))>.03}:{}),}));let before=data.transactions.slice();data.transactions.push(...newTx);if(!await persist()){data.transactions=before;return}scannedRows=[];receiptLines=[];receiptMode=false;$('#importReview').hidden=true;setPage('transactions');notify(`${newTx.length===1?"Записан 1 расход":"Записано "+newTx.length+" расходов"} на ${money(newTx.reduce((a,t)=>a+t.amount,0))}`)}
-$('#uploadFromHome').addEventListener('click',importView);$('#quickScan').onclick=importView;$('#fab').onclick=()=>setPage('assistant');
-$('#pickScreenshot').onclick=()=>$('#screenshotFile').click();$('#pickReceipt').onclick=()=>$('#cameraFile').click();$('#screenshotFile').addEventListener('change',async e=>{await analyzeUploads([...e.target.files],'screenshot');e.target.value=''});$('#cameraFile').addEventListener('change',async e=>{await analyzeUploads([...e.target.files],'receipt');e.target.value=''});
-$('#sampleImport').onclick=()=>{let sample=`СБЕРБАНК\n${new Date().toLocaleDateString('ru-RU')}\nЗа день потрачено 4 830 ₽\nПерекрёсток −2 830 ₽\nФитнес-клуб −1 200 ₽\nРепетитор английский −800 ₽\nПеревод между своими счетами −4 000 ₽`;showReview(parseScreenshotText(sample),sample,'')};
-$('#reviewRows').addEventListener('change',e=>{let el=e.target,i=Number(el.dataset.reviewChoice??el.dataset.reviewCat??el.dataset.reviewAmount);if(!Number.isInteger(i)||!scannedRows[i])return;let r=scannedRows[i];if(el.dataset.reviewChoice!==undefined){r.selected=el.checked}else if(el.dataset.reviewCat!==undefined){r.category=el.value;r.isTransfer=false;r.reason='Категория выбрана вручную'}else if(el.dataset.reviewAmount!==undefined){r.amount=Number(el.value)}drawReview()});
-$('#reviewRows').addEventListener('input',e=>{let el=e.target;if(el.dataset.reviewName!==undefined){let r=scannedRows[Number(el.dataset.reviewName)];if(r)r.name=el.value}else if(el.dataset.reviewAmount!==undefined){let r=scannedRows[Number(el.dataset.reviewAmount)];if(r){r.amount=Number(el.value);$('#reviewTotal').textContent=money(scannedRows.filter(x=>x.selected).reduce((s,x)=>s+(Number(x.amount)||0),0))}}});
+function updateReviewTotals(){
+ const selected=scannedRows.filter(r=>r.selected);
+ const expenses=selected.filter(r=>r.kind==='expense');
+ const transfers=scannedRows.filter(r=>r.kind==='internal');
+ const counts=[['РАСХОДЫ',expenses.length,'к записи'],['ПЕРЕВОДЫ СЕБЕ',transfers.length,'вне бюджета'],
+  ['ПРОВЕРИТЬ',scannedRows.length-selected.length,'без отметки'],['К ЗАПИСИ',selected.length,'операций']];
+ $('#reviewQuality').innerHTML=counts.map(([label,count,detail])=>`<div class="review-quality-item"><small>${label}</small><b>${count}</b><span>${detail}</span></div>`).join('');
+ $('#reviewTotal').textContent=money(expenses.reduce((sum,r)=>sum+(Number(r.amount)||0),0));
+ $('#reviewTotal').previousElementSibling.textContent='Расходы к записи';
+ $('#confirmImport').textContent='Сохранить выбранное';
+ $('#confirmImport').disabled=!selected.length||importBusy;
+}
+function drawReview(){
+ $('#reviewRows').innerHTML=scannedRows.map((r,i)=>{
+  const duplicate=duplicateFor(r);
+  const fixed=r.kind==='internal'||r.kind==='konstantin';
+  const hint=duplicate?'Похожая операция уже записана':r.reason;
+  const label=r.paymentMethod==='qr'?'QR-платёж':OPERATION_LABELS[r.kind];
+  return `<div class="review-row ${duplicate?'possible-duplicate':''} ${r.kind==='internal'?'review-internal':''}">
+   <label class="review-check"><input type="checkbox" aria-label="Сохранить операцию ${i+1}" data-review-choice="${i}" ${r.selected?'checked':''}/><span></span></label>
+   <div class="review-fields">
+    <div class="review-type">${esc(label)}</div>
+    <label>Название операции<input class="review-name" data-review-name="${i}" value="${esc(r.name)}" maxlength="100" placeholder="Магазин, получатель или назначение"/></label>
+    <div class="review-edit-grid">
+     <label>Тип операции<select data-review-kind="${i}">${Object.entries(OPERATION_LABELS).map(([value,title])=>`<option value="${value}" ${r.kind===value?'selected':''}>${title}</option>`).join('')}</select></label>
+     <label>Сумма, ₽<input class="review-value" data-review-amount="${i}" type="number" min="0.01" step="0.01" inputmode="decimal" value="${esc(r.amount??'')}"/></label>
+     <label>Дата<input data-review-date="${i}" type="date" value="${esc(r.date)}"/></label>
+     <label>Категория<select data-review-cat="${i}" ${fixed?'disabled':''}>${fixed?`<option>${operationCategory(r.kind,r.category)}</option>`:categoryOptions(r.category)}</select></label>
+    </div>
+    <label>Описание операции<textarea data-review-description="${i}" rows="2" maxlength="500" placeholder="Например, счёт ЕИРЦ за ноябрь">${esc(r.description||'')}</textarea></label>
+    ${hint?`<div class="review-hint ${duplicate?'warning':''}">${esc(hint)}</div>`:''}
+   </div></div>`;
+ }).join('');
+ updateReviewTotals();
+}
+let importBusy=false;
+function manualReviewRow(photo=null){
+ return {id:id(),name:'',amount:null,date:today(),category:'Другое',kind:'expense',
+  selected:true,photo,reason:'Заполни название и сумму. В описании можно уточнить назначение платежа.'};
+}
+function showReview(parsed,text,preview){
+ scannedRows=(parsed.items||[]).map(row=>({...row,kind:row.isInternal?'internal':row.kind||'expense'}));
+ if(!scannedRows.length)scannedRows=[manualReviewRow(preview||null)];
+ scannedSource=parsed.source||'Источник не определён';
+ $('#reviewSource').textContent=scannedSource;
+ receiptLines=parsed.receiptLines||[];
+ receiptMode=Boolean(parsed.isPaperReceipt);
+ $('#reviewImage').innerHTML=preview?`<img alt="Загруженное изображение" src="${preview}"/>`:'';
+ $('#ocrRaw').textContent=String(text||'').slice(0,12000);
+ $('#importReview').hidden=false;
+ $('#reviewNotice').textContent=parsed.notice||(parsed.items?.length
+  ?'Проверь название, сумму, дату и тип. Переводы себе сохраняются в списке операций вне бюджета.'
+  :'Не удалось прочитать отдельную операцию. Заполни поля ниже.');
+ drawReview();drawReceiptLines();
+ $('#importReview').scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function uploadCanvas(file,maxSide,maxScale){
+ const url=URL.createObjectURL(file);
+ try{
+  const img=await new Promise((resolve,reject)=>{
+   const image=new Image();
+   image.onload=()=>resolve(image);
+   image.onerror=()=>reject(Error('Изображение не открылось'));
+   image.src=url;
+  });
+  const scale=Math.min(maxScale,maxSide/Math.max(img.naturalWidth,img.naturalHeight));
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));
+  canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));
+  const context=canvas.getContext('2d',{willReadFrequently:true});
+  context.fillStyle='#fff';
+  context.fillRect(0,0,canvas.width,canvas.height);
+  context.drawImage(img,0,0,canvas.width,canvas.height);
+  return canvas;
+ }finally{URL.revokeObjectURL(url)}
+}
+function prepareContrast(canvas){
+ const ctx=canvas.getContext('2d',{willReadFrequently:true});
+ const image=ctx.getImageData(0,0,canvas.width,canvas.height),px=image.data;
+ let sum=0;
+ for(let i=0;i<px.length;i+=4){
+  px[i]=.299*px[i]+.587*px[i+1]+.114*px[i+2];
+  sum+=px[i];
+ }
+ const dark=sum/(px.length/4)<118;
+ for(let i=0;i<px.length;i+=4){
+  const grey=dark?255-px[i]:px[i];
+  px[i]=px[i+1]=px[i+2]=(grey-128)*1.45+138;
+ }
+ ctx.putImageData(image,0,0);
+}
+function decodeUploadQr(canvas){
+ const ctx=canvas.getContext('2d',{willReadFrequently:true});
+ const {data:pixels,width,height}=ctx.getImageData(0,0,canvas.width,canvas.height);
+ return CheRecognition.parseQrPayload(window.jsQR?.(pixels,width,height)?.data);
+}
+function withDeadline(promise,millis){
+ let timer;
+ return Promise.race([promise,new Promise((_,reject)=>{
+  timer=setTimeout(()=>reject(Error('Распознавание заняло слишком много времени')),millis);
+ })]).finally(()=>clearTimeout(timer));
+}
+async function recognizeText(image){
+ const Tesseract=await loadOcr();
+ const starting=Tesseract.createWorker('rus+eng',1,ocrOptions);
+ let worker;
+ try{
+  worker=await withDeadline(starting,35000);
+  await withDeadline(worker.setParameters({tessedit_pageseg_mode:'4',preserve_interword_spaces:'1'}),5000);
+  return (await withDeadline(worker.recognize(image),25000)).data.text||'';
+ }finally{
+  if(worker)void worker.terminate().catch(()=>{});
+  else void starting.then(late=>late.terminate()).catch(()=>{});
+ }
+}
+function validateUploads(files){
+ if(files.some(f=>!f.type.startsWith('image/')&&!/\.(heic|heif)$/i.test(f.name))){
+  notify('Выбери файл изображения');
+  return false;
+ }
+ if(files.some(f=>f.size>12*1024*1024)){
+  notify('Одно из изображений больше 12 МБ. Выбери изображение меньшего размера.');
+  return false;
+ }
+ return true;
+}
+function parseUploadedOperation(text,mode,qr){
+ const screen=parseScreenshotText(text);
+ const receipt=parseReceiptForReview(text,qr);
+ if(qr?.type==='fiscal')return receipt;
+ if(!qr&&mode==='screenshot'&&screen.items.length)return screen;
+ if(!qr&&mode==='receipt'){
+  const bankRow=screen.items.find(row=>row.isInternal||row.isTransfer||row.paymentMethod==='qr')||screen.items[0];
+  if(bankRow&&(!receipt.items.length||!parseOcr(text).amount)){
+   return {...screen,items:[bankRow]};
+  }
+ }
+ if(receipt.items.length&&(mode==='receipt'||qr||parseOcr(text).amount))return receipt;
+ return screen.items.length?screen:receipt;
+}
+async function recognizeUpload(file,mode){
+ let canvas,qr=null,text='';
+ try{
+  canvas=await uploadCanvas(file,2200,2);
+  try{qr=decodeUploadQr(canvas)}catch(error){console.warn(error)}
+  prepareContrast(canvas);
+  text=await recognizeText(canvas);
+ }catch(error){console.warn(error)}
+ let parsed=parseUploadedOperation(text,mode,qr);
+ if(canvas&&!qr&&text&&!parsed.items.some(row=>row.amount&&row.name)){
+  try{
+   const original=await uploadCanvas(file,2200,2);
+   const alternate=await recognizeText(original);
+   const result=parseUploadedOperation(alternate,mode,null);
+   if(result.items.some(row=>row.amount&&row.name)){text=alternate;parsed=result}
+  }catch(error){console.warn(error)}
+ }
+ return {...parsed,text};
+}
+async function analyzeUploads(files,mode){
+ if(!files.length||importBusy||pendingSave)return;
+ if(files.length>10){notify('Беру первые 10 изображений');files=files.slice(0,10)}
+ if(!validateUploads(files))return;
+ importBusy=true;
+ $('#pickScreenshot').disabled=$('#pickReceipt').disabled=$('#sampleImport').disabled=true;
+ $('#importReview').hidden=false;
+ $('#reviewRows').replaceChildren();$('#reviewQuality').replaceChildren();
+ $('#reviewImage').replaceChildren();$('#ocrRaw').textContent='';$('#receiptLineReview').hidden=true;
+ $('#addReviewRow').disabled=$('#confirmImport').disabled=true;
+ $('#reviewNotice').textContent='Читаю изображение на этом устройстве.';
+ $('#importReview').scrollIntoView({behavior:'smooth',block:'start'});
+ const items=[],texts=[],previews=[],sources=new Set();
+ let isPaperReceipt=false,receiptLines=[];
+ try{
+  for(const [index,file] of files.entries()){
+   $('#reviewSource').textContent=`Изображение ${index+1} из ${files.length}`;
+   const photo=await compressPhoto(file).catch(()=>null);
+   if(photo)previews.push(photo);
+   const parsed=await recognizeUpload(file,mode).catch(()=>({items:[],text:'',source:'Источник не определён'}));
+   texts.push(parsed.text);
+   if(parsed.source!=='Источник не определён')sources.add(parsed.source);
+   if(files.length===1){isPaperReceipt=parsed.isPaperReceipt;receiptLines=parsed.receiptLines||[]}
+   for(const row of parsed.items.length?parsed.items:[manualReviewRow()]){
+    if(row.name&&row.amount&&items.some(x=>x.date===row.date&&x.amount===row.amount&&normalizedName(x.name)===normalizedName(row.name))){
+     row.selected=false;row.reason='Такая же строка есть на другом изображении. Проверь перед записью.';
+    }
+    items.push({...row,photo,source:parsed.source});
+   }
+  }
+ }finally{
+  importBusy=false;
+  $('#pickScreenshot').disabled=$('#pickReceipt').disabled=$('#sampleImport').disabled=$('#addReviewRow').disabled=false;
+  showReview({items,source:[...sources].join(', ')||'Источник не определён',isPaperReceipt,receiptLines},texts.join('\n\n'),previews[0]);
+  if(previews.length>1)$('#reviewImage').innerHTML=`<div class="review-strip">${previews.map((photo,i)=>`<img alt="Изображение ${i+1}" src="${photo}"/>`).join('')}</div>`;
+ }
+}
+function parseReceiptForReview(text,qr=null){
+ const x=parseOcr(text);
+ const method=qr?.type==='sbp'||CheRecognition.isQrPayment(text)?'qr':'';
+ const kind=qr?.kind||'expense';
+ const amount=qr?.amount??x.amount;
+ const name=x.hasMerchant&&(!qr||/[а-яёa-z]{3}/i.test(x.name))?x.name:'';
+ const date=qr?.date||x.date;
+ const category=categoryFor(name);
+ const lines=qr?.type==='sbp'?[]:extractReceiptLines(text);
+ const reason=qr?.type==='sbp'
+  ?'QR СБП прочитан. Сверь сумму с банковской операцией и сохраняй только проведённый платёж.'
+  :qr?.type==='fiscal'?'Сумма и дата из QR чека. Проверь название и категорию.'
+  :!amount?'Сумма не прочиталась. Введи её вручную.':'Проверь сумму и категорию.';
+ const known=CheRecognition.sourceOf(text);
+ return {items:amount||qr||method?[{id:id(),name,amount,date:date||today(),dateDetected:Boolean(date),category,kind,paymentMethod:method,
+  selected:!qr&&Boolean(amount&&name&&category!=='Другое'),reason}]:[],
+  source:qr?.type==='sbp'?'QR СБП':qr?.type==='fiscal'?'Кассовый QR':known==='Источник не определён'?'Бумажный чек':known,
+  isPaperReceipt:qr?.type!=='sbp'&&kind==='expense'&&Boolean(lines.length||amount&&!method),receiptLines:lines};
+}
+async function confirmScreenImport(){
+ if(pendingSave||importBusy||importSaving)return;
+ const chosen=scannedRows.filter(t=>t.selected);
+ if(!chosen.length)return;
+ if(chosen.some(t=>!t.name.trim()||!validOperationDate(t.date)||!Number.isFinite(t.amount)||t.amount<=0||Math.abs(t.amount*100-Math.round(t.amount*100))>1e-6)){
+  return notify('Проверь название, сумму и дату каждой отмеченной операции');
+ }
+ if(chosen.some(duplicateFor))return notify('Похожая операция уже сохранена. Проверь и сними отметку с повтора.');
+ const receiptRow=scannedRows[0];
+ const newTx=chosen.map(t=>({
+  id:id(),name:t.name.trim(),description:(t.description||'').trim(),amount:t.amount,date:t.date,
+  category:operationCategory(t.kind,t.category),type:t.kind,paymentMethod:t.paymentMethod||'',
+  importedFrom:t.source||scannedSource,photo:t.photo||null,
+  ...(receiptMode&&t===receiptRow&&t.kind==='expense'?{
+   receiptItems:receiptLines.map(x=>({name:x.name,qty:Number(x.qty),unit:x.unit,amount:Number(x.amount),group:receiptGroup(x.name)})),
+   receiptPartial:Math.abs(receiptLines.reduce((sum,x)=>sum+Number(x.amount),0)-t.amount)>.03
+  }:{})
+ }));
+ const before=data.transactions.slice();
+ importSaving=true;$('#confirmImport').disabled=true;
+ data.transactions.push(...newTx);
+ const saved=await persist();
+ importSaving=false;
+ if(!saved){data.transactions=before;updateReviewTotals();return}
+ scannedRows=[];receiptLines=[];receiptMode=false;$('#importReview').hidden=true;
+ month=chosen[0].date.slice(0,7);$('#monthPicker').value=month;
+ $('#txSearch').value='';$('[data-tx-type="all"]').click();setPage('transactions');
+ notify(`Сохранено операций: ${newTx.length}`);
+}
+let importSaving=false;
+$('#uploadFromHome').addEventListener('click',importView);$('#quickScan').onclick=importView;$('#fab').onclick=()=>openTx('expense',{focusAmount:true});
+$('#pickScreenshot').onclick=()=>$('#screenshotFile').click();$('#pickReceipt').onclick=()=>$('#cameraFile').click();for(const [selector,mode] of [['#screenshotFile','screenshot'],['#cameraFile','receipt']]){
+ $(selector).addEventListener('change',e=>{
+  const files=[...e.target.files];e.target.value='';void analyzeUploads(files,mode);
+ });
+}
+$('#sampleImport').onclick=()=>{let sample=`СБЕРБАНК\n${new Date().toLocaleDateString('ru-RU')}\nИстория операций · Расходы\nКвартплата ЖКХ −6 450 ₽\nРостелеком интернет −790 ₽\nПетроэлектросбыт −1 360 ₽\nПерекрёсток −2 830 ₽\nЯндекс Такси −540 ₽\nПеревод на Яндекс Банк −18 000 ₽\nПеревод между своими счетами −4 000 ₽`;showReview(parseScreenshotText(sample),sample,'')};
+$('#addReviewRow').onclick=()=>{
+ scannedRows.push(manualReviewRow());
+ drawReview();
+ $(`[data-review-name="${scannedRows.length-1}"]`).focus();
+};
+$('#reviewRows').addEventListener('change',e=>{
+ const el=e.target;
+ const row=scannedRows[el.dataset.reviewChoice??el.dataset.reviewKind??el.dataset.reviewCat];
+ if(!row)return;
+ if(el.dataset.reviewKind!==undefined){
+  row.kind=el.value;
+  row.reason=el.value==='internal'?'Перевод появится в операциях вне бюджета.':'Тип выбран вручную.';
+  drawReview();
+ }else if(el.dataset.reviewChoice!==undefined){
+  row.selected=el.checked;updateReviewTotals();
+ }else row.category=el.value;
+});
+$('#reviewRows').addEventListener('input',e=>{
+ const el=e.target,fields={reviewName:'name',reviewAmount:'amount',reviewDate:'date',reviewDescription:'description'};
+ for(const [key,field] of Object.entries(fields)){
+  const row=scannedRows[el.dataset[key]];
+  if(!row)continue;
+  row[field]=field==='amount'?(el.value===''?null:Number(el.value)):el.value;
+  if(field==='amount'){
+   updateReviewTotals();
+   if(receiptMode&&row===scannedRows[0])drawReceiptLines();
+  }
+  break;
+ }
+});
 $('#confirmImport').onclick=confirmScreenImport;
 function showRules(){let a=Array.isArray(data.merchantRules)?data.merchantRules:[];$('#ruleTraining').value=a.find(r=>r.category==='Тренировки')?.name||'';$('#ruleTutors').value=a.find(r=>r.category==='Репетиторы')?.name||''}
 $('#saveMerchantRules').onclick=async()=>{data.merchantRules=[{name:$('#ruleTraining').value.trim(),category:'Тренировки'},{name:$('#ruleTutors').value.trim(),category:'Репетиторы'}].filter(r=>r.name.length>=2);if(!await persist())return;notify('Правила распознавания сохранены')};showRules();
@@ -408,7 +765,7 @@ let button=box.querySelector('#addReceiptLine');button.onclick=()=>{receiptLines
 $('#receiptLineReview').addEventListener('change',e=>{const t=e.target;if(t.id==='receiptAck')return;let index=Number(t.dataset.receiptName??t.dataset.receiptQty??t.dataset.receiptSum??t.dataset.receiptUnit);if(!Number.isInteger(index)||!receiptLines[index])return;let item=receiptLines[index];if(t.dataset.receiptName!==undefined)item.name=t.value.slice(0,80);if(t.dataset.receiptQty!==undefined)item.qty=Number(t.value);if(t.dataset.receiptSum!==undefined)item.amount=Number(t.value);if(t.dataset.receiptUnit!==undefined)item.unit=t.value;drawReceiptLines()});
 $('#receiptLineReview').addEventListener('click',e=>{let t=e.target.closest('[data-receipt-delete]');if(!t)return;receiptLines.splice(Number(t.dataset.receiptDelete),1);drawReceiptLines()});
 const origConfirmImport=confirmScreenImport;
-$('#confirmImport').onclick=()=>{if(receiptMode){let hasBad=receiptLines.some(x=>!x.name.trim()||!Number.isFinite(Number(x.qty))||Number(x.qty)<=0||!Number.isFinite(Number(x.amount))||Number(x.amount)<=0);if(hasBad)return notify('Проверь все позиции — название, количество и сумму');if(!$('#receiptAck')?.checked)return notify('Сначала подтверди проверку чека и расхождений сумм');}origConfirmImport()};
+$('#confirmImport').onclick=()=>{if(receiptMode&&scannedRows[0]?.selected&&scannedRows[0].kind==='expense'&&receiptLines.length){let hasBad=receiptLines.some(x=>!x.name.trim()||!Number.isFinite(Number(x.qty))||Number(x.qty)<=0||!Number.isFinite(Number(x.amount))||Number(x.amount)<=0);if(hasBad)return notify('Проверь все позиции — название, количество и сумму');if(!$('#receiptAck')?.checked)return notify('Сначала подтверди проверку чека и расхождений сумм');}origConfirmImport()};
 function getProductStats(){let txs=txList().filter(x=>x.type==='expense'&&Array.isArray(x.receiptItems)&&x.receiptItems.length),groups={};for(let t of txs){for(let line of t.receiptItems){if(!line||!Number.isFinite(Number(line.amount))||Number(line.amount)<=0)continue;let name=receiptGroup(line.name),key=name.toLocaleLowerCase('ru-RU');let acc=groups[key]||(groups[key]={name,total:0,count:0,qty:0,units:{},merchants:new Set()});acc.total+=Number(line.amount);acc.count++;acc.qty+=Number(line.qty)||1;let unit=line.unit||'шт';acc.units[unit]=(acc.units[unit]||0)+(Number(line.qty)||1);acc.merchants.add(t.name)}}return {txs,groups:Object.values(groups).sort((a,b)=>b.total-a.total),itemTotal:Object.values(groups).reduce((s,g)=>s+g.total,0),receiptTotal:txs.reduce((s,t)=>s+Number(t.amount),0)}}
 function renderProducts(){let s=getProductStats();$('#productTotal').textContent=money(s.itemTotal);$('#productKinds').textContent=s.groups.length;$('#productReceipts').textContent=s.txs.length;$('#productCoverage').textContent=s.receiptTotal?Math.round(100*s.itemTotal/s.receiptTotal)+'%':'—';$('#productMonthText').textContent=new Date(month+'-01').toLocaleDateString('ru-RU',{month:'long',year:'numeric'}).toUpperCase();$('#productHint').textContent=s.txs.length?'Расходы на распознанные товарные позиции. Сумма чеков может отличаться из-за скидок или нечитаемых строк.':'Начни с фотографии бумажного чека. Здесь будут отдельные продукты.';
 let max=s.groups[0]?.total||1;$('#productGroups').innerHTML=s.groups.length?s.groups.map((g,i)=>`<div class="product-row"><div class="product-rank">${String(i+1).padStart(2,'0')}</div><div class="product-details"><div class="product-title-row"><strong>${esc(g.name)}</strong><b>${money(g.total)}</b></div><div class="product-meter"><span style="width:${g.total/max*100}%"></span></div><small>${g.count} ${g.count===1?'позиция':'позиции'} · ${Object.entries(g.units).map(([k,v])=>`${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:3}).format(v)} ${esc(k)}`).join(' / ')} · ${[...g.merchants].map(esc).join(', ')}</small></div></div>`).join(''):'<div class="empty">Товаров пока нет. Загрузить бумажный чек можно в разделе «Импорт скрина». Для знакомства открой демонстрацию.</div>'}

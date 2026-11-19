@@ -1,13 +1,12 @@
 const BASE=new URL('./',self.location).pathname;
-const VERSION='10.6';
-const CACHE='che-interface-approved-theme-20261113-v109';
+const VERSION='10.8.2';
+const CACHE='che-interface-1082';
 const OCR_CACHE='che-ocr-v7';
 const OCR_PATH=BASE+'vendor/ocr/';
 const SHELL=new Set([
-  BASE+'',BASE+'index.html',BASE+'design-v5.css',BASE+'design-v6.css',BASE+'design-v7.css',BASE+'design-v8.css',
-  BASE+'reference-design.css',BASE+'che-theme.css',BASE+'update-check.js',BASE+'app-version.json',
+  BASE+'',BASE+'index.html',BASE+'che-tokens.css',BASE+'che-ui.css',BASE+'che-recognition.js',BASE+'update-check.js',BASE+'app-version.json',
   BASE+'refresh.html',BASE+'refresh.js',BASE+'auth.js',BASE+'secure-vault.js',BASE+'che-motion.js',BASE+'assets/finance-ribbons.svg',
-  BASE+'assets/icon-192.png',BASE+'assets/icon-512.png',BASE+'manifest.webmanifest'
+  BASE+'vendor/qr/jsQR.js',BASE+'assets/icon-192.png',BASE+'assets/icon-512.png',BASE+'manifest.webmanifest'
 ]);
 
 self.addEventListener('install',event=>event.waitUntil((async()=>{
